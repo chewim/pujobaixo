@@ -1115,7 +1115,7 @@ class Component extends DCLogic {
       const originValue = postForm.origin.trim();
       const destinationValue = postForm.destination.trim();
       const preset = ROUTES.find((r) => r.origin === originValue && r.destination === destinationValue);
-      const directionValue = preset ? preset.value : `${originValue} → ${destinationValue}`;
+      const directionValue = preset ? preset.value : 'CUSTOM';
       const payload = {
         direction: directionValue,
         origin: originValue,
@@ -1254,7 +1254,7 @@ class Component extends DCLogic {
       const departDate = t.depart_at ? new Date(t.depart_at) : null;
       return {
         ...t,
-        directionLabel: ROUTE_LABEL_BY_VALUE[t.direction] || t.direction,
+        directionLabel: ROUTE_LABEL_BY_VALUE[t.direction] || `${t.origin} → ${t.destination}`,
         departLabel: this._fmtDate(t.depart_at),
         dateLabel: departDate ? departDate.toLocaleDateString('ca-ES', { day: 'numeric', month: 'short' }) : '',
         timeLabel: departDate ? departDate.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) : '',
@@ -1295,7 +1295,7 @@ class Component extends DCLogic {
       const departDate = t.depart_at ? new Date(t.depart_at) : null;
       return {
         ...t,
-        directionLabel: ROUTE_LABEL_BY_VALUE[t.direction] || t.direction,
+        directionLabel: ROUTE_LABEL_BY_VALUE[t.direction] || `${t.origin} → ${t.destination}`,
         departLabel: this._fmtDate(t.depart_at),
         dateLabel: departDate ? departDate.toLocaleDateString('ca-ES', { day: 'numeric', month: 'short' }) : '',
         timeLabel: departDate ? departDate.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) : '',
@@ -1325,7 +1325,7 @@ class Component extends DCLogic {
         ...b,
         origin: b.trips ? b.trips.origin : '',
         destination: b.trips ? b.trips.destination : '',
-        directionLabel: b.trips ? (ROUTE_LABEL_BY_VALUE[b.trips.direction] || b.trips.direction) : '',
+        directionLabel: b.trips ? (ROUTE_LABEL_BY_VALUE[b.trips.direction] || `${b.trips.origin} → ${b.trips.destination}`) : '',
         departLabel: departAt ? this._fmtDate(departAt) : '',
         dateLabel: departDate ? departDate.toLocaleDateString('ca-ES', { day: 'numeric', month: 'short' }) : '',
         timeLabel: departDate ? departDate.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) : '',
