@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#5B4CFB"/><g transform="translate(22,22) scale(2.3)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/><circle cx="18" cy="5" r="2.5"/></g></svg></template>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="/supabase.umd.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #F3F4F8; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .pj-spin { animation: spin 0.8s linear infinite; }
+    input::placeholder, textarea::placeholder { color: #A6A9B4; }
+
+    @keyframes pjDotA {
+      0%   { transform: translate(-9px, 9px) scale(0.6); opacity: 0; }
+      45%  { transform: translate(0, 0) scale(1); opacity: 1; }
+      100% { transform: translate(0, 0) scale(1); opacity: 1; }
+    }
+    @keyframes pjDotB {
+      0%   { transform: translate(9px, -9px) scale(0.6); opacity: 0; }
+      45%  { transform: translate(0, 0) scale(1); opacity: 1; }
+      100% { transform: translate(0, 0) scale(1); opacity: 1; }
+    }
+    @keyframes pjPathDraw {
+      0%   { stroke-dashoffset: 100; opacity: 0; }
+      44%  { stroke-dashoffset: 100; opacity: 0; }
+      50%  { opacity: 1; }
+      78%  { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 1; }
+    }
+    @keyframes pjMarkBounce {
+      0%, 76% { transform: scale(1); }
+      86%     { transform: scale(1.09); }
+      100%    { transform: scale(1); }
+    }
+    @keyframes pjOverlayFade {
+      0%   { opacity: 1; }
+      72%  { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @keyframes pjContentFade {
+      0%   { opacity: 0; }
+      60%  { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    .pj-intro-overlay { animation: pjOverlayFade 1250ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .pj-intro-dot-a { animation: pjDotA 1250ms cubic-bezier(0.22, 1, 0.36, 1) forwards; transform-origin: 6px 19px; }
+    .pj-intro-dot-b { animation: pjDotB 1250ms cubic-bezier(0.22, 1, 0.36, 1) forwards; transform-origin: 18px 5px; }
+    .pj-intro-path { animation: pjPathDraw 1250ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .pj-intro-mark { animation: pjMarkBounce 1250ms cubic-bezier(0.22, 1, 0.36, 1) forwards; transform-origin: 12px 12px; }
+    .pj-app-fade { animation: pjContentFade 1250ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    @media (prefers-reduced-motion: reduce) {
+      .pj-intro-overlay, .pj-intro-dot-a, .pj-intro-dot-b, .pj-intro-path, .pj-intro-mark, .pj-app-fade {
+        animation: none !important;
+        opacity: 1 !important;
+      }
+    }
+    @media (min-width: 900px) {
+      .pj-topnav-hide-desktop { display: none !important; }
+      .pj-sidebar { display: flex !important; }
+      .pj-main-shifted { margin-left: 248px !important; }
+      .pj-bottomnav { display: none !important; }
+    }
+  </style>
+</helmet>
+
+<sc-if value="{{ showIntro }}" hint-placeholder-val="{{ false }}">
+  <div class="pj-intro-overlay" style="position:fixed; inset:0; z-index:200; background:#F3F4F8; display:flex; align-items:center; justify-content:center;">
+    <svg width="96" height="96" viewBox="0 0 24 24" fill="none" style="overflow:visible;">
+      <g class="pj-intro-mark">
+        <circle class="pj-intro-dot-a" cx="6" cy="19" r="2.5" fill="none" stroke="#5B4CFB" stroke-width="2.2"/>
+        <circle class="pj-intro-dot-b" cx="18" cy="5" r="2.5" fill="none" stroke="#5B4CFB" stroke-width="2.2"/>
+        <path class="pj-intro-path" d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>
+      </g>
+    </svg>
+  </div>
+</sc-if>
+
+<div class="{{ appFadeClass }}" style="min-height:100vh; background:#F3F4F8; font-family:'Plus Jakarta Sans',sans-serif; color:#14151A;" data-screen-label="app">
+
+  <nav class="pj-topnav {{ topnavDesktopClass }}" style="position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:16px 24px; background:#FFFFFF; border-bottom:1px solid #ECEDF2;">
+    <div style="display:flex; align-items:center; gap:8px; cursor:pointer;" onClick="{{ handleLogoClick }}">
+      <div style="width:28px; height:28px; display:flex; align-items:center; justify-content:center;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#14151A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="6" cy="19" r="2.5"/>
+          <path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/>
+          <circle cx="18" cy="5" r="2.5"/>
+        </svg>
+      </div>
+      <span style="font-size:19px; font-weight:800; letter-spacing:-0.02em;">Pujobaixo</span>
+    </div>
+  </nav>
+
+  <sc-if value="{{ showBottomNav }}" hint-placeholder-val="{{ false }}">
+    <nav class="pj-bottomnav" aria-label="Navegació principal" style="position:fixed; bottom:0; left:0; right:0; z-index:20; display:flex; min-height:68px; background:#FFFFFF; border-top:1px solid #ECEDF2; padding:6px 4px calc(6px + env(safe-area-inset-bottom));">
+      <button aria-label="Viatges" aria-current="{{ tripsAriaCurrent }}" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; min-height:44px; border:none; background:{{ tripsTabBg }}; border-radius:16px; margin:0 3px; cursor:pointer; padding:6px 2px; color:{{ tripsNavIconColor }}; font-family:inherit; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToTrips }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ tripsIconWeight }}" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"></circle><path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"></path><circle cx="18" cy="5" r="2.5"></circle></svg>
+        <span style="font-size:11px; font-weight:{{ tripsFontWeight }};">Viatges</span>
+      </button>
+      <button aria-label="Els meus viatges" aria-current="{{ myTripsAriaCurrent }}" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; min-height:44px; border:none; background:{{ myTripsTabBg }}; border-radius:16px; margin:0 3px; cursor:pointer; padding:6px 2px; color:{{ myTripsNavIconColor }}; font-family:inherit; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToMyTrips }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ myTripsIconWeight }}" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12a1 1 0 0 1 1 1v15l-7-4-7 4V5a1 1 0 0 1 1-1z"></path></svg>
+        <span style="font-size:11px; font-weight:{{ myTripsFontWeight }};">Els meus</span>
+      </button>
+      <button aria-label="Perfil" aria-current="{{ profileAriaCurrent }}" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; min-height:44px; border:none; background:{{ profileTabBg }}; border-radius:16px; margin:0 3px; cursor:pointer; padding:6px 2px; color:{{ profileNavIconColor }}; font-family:inherit; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToProfile }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ profileIconWeight }}" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>
+        <span style="font-size:11px; font-weight:{{ profileFontWeight }};">Perfil</span>
+      </button>
+    </nav>
+  </sc-if>
+
+  <sc-if value="{{ isLoggedIn }}" hint-placeholder-val="{{ false }}">
+    <div class="pj-sidebar" style="display:none; position:fixed; top:0; left:0; bottom:0; width:248px; flex-direction:column; background:#FFFFFF; border-right:1px solid #ECEDF2; padding:24px 16px; z-index:20;">
+      <div style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:0 8px; margin-bottom:32px;" onClick="{{ handleLogoClick }}">
+        <div style="width:30px; height:30px; display:flex; align-items:center; justify-content:center;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#14151A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="6" cy="19" r="2.5"/>
+            <path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/>
+            <circle cx="18" cy="5" r="2.5"/>
+          </svg>
+        </div>
+        <span style="font-size:19px; font-weight:800; letter-spacing:-0.02em;">Pujobaixo</span>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:4px;" aria-label="Navegació principal">
+        <button aria-current="{{ tripsAriaCurrent }}" style="border:none; text-align:left; background:{{ tripsNavBg }}; color:{{ tripsNavColor }}; font-weight:{{ tripsFontWeight }}; font-size:14.5px; padding:12px 16px; border-radius:14px; cursor:pointer; font-family:inherit; min-height:44px; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToTrips }}">Viatges</button>
+        <button aria-current="{{ myTripsAriaCurrent }}" style="border:none; text-align:left; background:{{ myTripsNavBg }}; color:{{ myTripsNavColor }}; font-weight:{{ myTripsFontWeight }}; font-size:14.5px; padding:12px 16px; border-radius:14px; cursor:pointer; font-family:inherit; min-height:44px; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToMyTrips }}">Els meus</button>
+        <button aria-current="{{ profileAriaCurrent }}" style="border:none; text-align:left; background:{{ profileNavBg }}; color:{{ profileNavColor }}; font-weight:{{ profileFontWeight }}; font-size:14.5px; padding:12px 16px; border-radius:14px; cursor:pointer; font-family:inherit; min-height:44px; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToProfile }}">Perfil</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <div class="{{ mainShiftClass }}">
+  <div class="pj-main" style="max-width:920px; margin:0 auto; padding:32px 20px 100px;">
+
+    <sc-if value="{{ isAuthShellView }}" hint-placeholder-val="{{ true }}">
+      <div style="position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;">
+        <img src="/assets/auth-signup-bg.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center 35%;"/>
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(243,244,248,0.25) 0%, rgba(243,244,248,0.85) 60%, #F3F4F8 88%);"></div>
+      </div>
+      <div style="max-width:420px; margin:40px auto 0; background:#fff; border-radius:28px; padding:36px 32px; box-shadow:0 20px 60px -30px rgba(20,21,26,0.25); position:relative; z-index:1;">
+        <h1 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 4px; text-align:center;">
+          <sc-if value="{{ isLoginMode }}">Bon dia!</sc-if>
+          <sc-if value="{{ isSignupMode }}">Crea el teu compte</sc-if>
+          <sc-if value="{{ isForgotMode }}">Recuperar contrasenya</sc-if>
+          <sc-if value="{{ isResetView }}">Nova contrasenya</sc-if>
+        </h1>
+        <p style="font-size:14px; color:#6B6F7B; text-align:center; margin:0 0 28px;">Barcelona ⇄ Berguedà</p>
+
+        <sc-if value="{{ isAuthView }}">
+          <sc-if value="{{ authError }}"><div style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding:10px 14px; border-radius:14px; margin-bottom:16px;">{{ authError }}</div></sc-if>
+          <sc-if value="{{ authInfo }}"><div style="background:#EAF7EF; color:#1E8A4C; font-size:13px; font-weight:600; padding:10px 14px; border-radius:14px; margin-bottom:16px;">{{ authInfo }}</div></sc-if>
+          <sc-if value="{{ canResend }}">
+            <div style="text-align:center; margin:-8px 0 16px;">
+              <button onClick="{{ handleResendConfirmation }}" disabled="{{ resendBusy }}" style="border:none; background:none; color:#5B4CFB; font-weight:700; font-size:13px; cursor:pointer; padding:0;">
+                <sc-if value="{{ resendBusy }}">Reenviant…</sc-if>
+                <sc-if value="{{ !resendBusy }}">No l'has rebut? Reenviar correu</sc-if>
+              </button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isSignupMode }}">
+            <div style="display:flex; gap:10px; margin-bottom:12px;">
+              <input placeholder="Nom" value="{{ authForm.firstName }}" onChange="{{ setAuthFirstName }}" style="flex:1; min-width:0; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit;"/>
+              <input placeholder="Cognoms" value="{{ authForm.lastName }}" onChange="{{ setAuthLastName }}" style="flex:1; min-width:0; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit;"/>
+            </div>
+            <input placeholder="Telèfon" value="{{ authForm.phone }}" onChange="{{ setAuthPhone }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit; margin-bottom:12px;"/>
+          </sc-if>
+
+          <input type="email" placeholder="Correu electrònic" value="{{ authForm.email }}" onChange="{{ setAuthEmail }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit; margin-bottom:12px;"/>
+
+          <sc-if value="{{ isNotForgotMode }}">
+            <input type="password" placeholder="Contrasenya" value="{{ authForm.password }}" onChange="{{ setAuthPassword }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit; margin-bottom:8px;"/>
+          </sc-if>
+
+          <sc-if value="{{ isLoginMode }}">
+            <div style="text-align:right; margin-bottom:16px;">
+              <button onClick="{{ switchToForgot }}" style="border:none; background:none; color:#5B4CFB; font-weight:700; font-size:13px; cursor:pointer; padding:0;">Has oblidat la contrasenya?</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isSignupOrForgot }}"><div style="height:16px;"></div></sc-if>
+
+          <button onClick="{{ handleAuthSubmit }}" disabled="{{ authBusy }}" style="width:100%; height:50px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
+            <sc-if value="{{ authBusy }}">Un moment…</sc-if>
+            <sc-if value="{{ isLoginModeReady }}">Iniciar sessió</sc-if>
+            <sc-if value="{{ isSignupModeReady }}">Crear compte</sc-if>
+            <sc-if value="{{ isForgotModeReady }}">Enviar enllaç</sc-if>
+          </button>
+
+          <div style="text-align:center; margin-top:20px; font-size:13.5px; color:#6B6F7B;">
+            <sc-if value="{{ isLoginMode }}">
+              No tens compte? <button onClick="{{ switchToSignup }}" style="border:none;background:none;color:#5B4CFB;font-weight:700;cursor:pointer;padding:0;font-size:13.5px;">Registra't</button>
+            </sc-if>
+            <sc-if value="{{ isSignupMode }}">
+              Ja tens compte? <button onClick="{{ switchToLogin }}" style="border:none;background:none;color:#5B4CFB;font-weight:700;cursor:pointer;padding:0;font-size:13.5px;">Inicia sessió</button>
+            </sc-if>
+            <sc-if value="{{ isForgotMode }}">
+              <button onClick="{{ switchToLogin }}" style="border:none;background:none;color:#5B4CFB;font-weight:700;cursor:pointer;padding:0;font-size:13.5px;">Tornar a l'inici de sessió</button>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isResetView }}">
+          <sc-if value="{{ resetError }}"><div style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding:10px 14px; border-radius:14px; margin-bottom:16px;">{{ resetError }}</div></sc-if>
+          <sc-if value="{{ !resetReady }}">
+            <div style="text-align:center; color:#6B6F7B; font-size:14px; padding:20px 0;">
+              <div class="pj-spin" style="width:32px;height:32px;border-radius:50%;border:3px solid #ECEDF2;border-top-color:#5B4CFB;margin:0 auto 16px;"></div>
+              Comprovant l'enllaç…
+            </div>
+          </sc-if>
+          <sc-if value="{{ resetReady }}">
+            <input type="password" placeholder="Nova contrasenya" value="{{ resetForm.password }}" onChange="{{ setResetPassword }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit; margin-bottom:12px;"/>
+            <input type="password" placeholder="Confirma la contrasenya" value="{{ resetForm.confirmPassword }}" onChange="{{ setResetConfirm }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit; margin-bottom:20px;"/>
+            <button onClick="{{ handleResetSubmit }}" disabled="{{ resetBusy }}" style="width:100%; height:50px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
+              <sc-if value="{{ resetBusy }}">Actualitzant…</sc-if>
+              <sc-if value="{{ !resetBusy }}">Actualitzar contrasenya</sc-if>
+            </button>
+          </sc-if>
+          <sc-if value="{{ resetError }}">
+            <div style="text-align:center; margin-top:20px; font-size:13.5px; color:#6B6F7B;">
+              <button onClick="{{ switchToLogin }}" style="border:none;background:none;color:#5B4CFB;font-weight:700;cursor:pointer;padding:0;font-size:13.5px;">Tornar a l'inici de sessió</button>
+            </div>
+          </sc-if>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isAuthCallbackView }}">
+      <div style="max-width:420px; margin:60px auto 0; background:#fff; border-radius:28px; padding:40px 32px; box-shadow:0 20px 60px -30px rgba(20,21,26,0.25); text-align:center;">
+        <div class="pj-spin" style="width:32px;height:32px;border-radius:50%;border:3px solid #ECEDF2;border-top-color:#5B4CFB;margin:0 auto 16px;"></div>
+        <p style="color:#6B6F7B; font-size:14px; margin:0;">Comprovant l'enllaç…</p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isVerifiedView }}">
+      <div style="max-width:420px; margin:60px auto 0; background:#fff; border-radius:28px; padding:40px 32px; box-shadow:0 20px 60px -30px rgba(20,21,26,0.25); text-align:center;">
+        <div style="width:64px; height:64px; border-radius:50%; background:#EAF7EF; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:30px;">✓</div>
+        <h1 style="font-size:22px; font-weight:800; margin:0 0 10px;">Compte verificat!</h1>
+        <p style="color:#6B6F7B; font-size:14px; margin:0 0 24px;">El teu correu s'ha confirmat correctament.</p>
+        <button onClick="{{ goToTrips }}" style="width:100%; height:50px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">Anar als viatges</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isTripsView }}">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+        <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0;">Propers viatges</h1>
+        <button onClick="{{ goToPost }}" style="border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding:11px 20px; border-radius:999px; cursor:pointer;">+ Publicar</button>
+      </div>
+
+      <div role="tablist" aria-label="Tipus de publicació" style="display:flex; gap:8px; margin-bottom:20px;">
+        <button role="tab" aria-selected="{{ isOfferTab }}" onClick="{{ setViatgesTabOffer }}" style="flex:1; min-height:44px; border:none; background:{{ offerTabBg }}; color:{{ offerTabColor }}; font-weight:{{ offerTabWeight }}; font-size:14px; padding:12px 14px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; transition:background 120ms ease-out, color 120ms ease-out; display:flex; align-items:center; justify-content:center; gap:7px;">
+          Ofereixo viatge
+          <span style="font-weight:600; font-size:13px; opacity:0.65;">({{ offerCount }})</span>
+        </button>
+        <button role="tab" aria-selected="{{ isRequestTab }}" onClick="{{ setViatgesTabRequest }}" style="flex:1; min-height:44px; border:none; background:{{ requestTabBg }}; color:{{ requestTabColor }}; font-weight:{{ requestTabWeight }}; font-size:14px; padding:12px 14px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; transition:background 120ms ease-out, color 120ms ease-out; display:flex; align-items:center; justify-content:center; gap:7px;">
+          Necessito viatge
+          <span style="font-weight:600; font-size:13px; opacity:0.65;">({{ requestCount }})</span>
+        </button>
+      </div>
+
+      <sc-if value="{{ tripsLoading }}"><div style="color:#6B6F7B; font-size:14px; padding:40px 0; text-align:center;">Carregant…</div></sc-if>
+      <sc-if value="{{ tripsEmpty }}"><div style="background:#fff; border-radius:24px; padding:40px 24px; text-align:center; color:#6B6F7B; font-size:14px;">{{ tripsEmptyMsg }}</div></sc-if>
+
+      <sc-for list="{{ visibleTrips }}" as="trip" hint-placeholder-count="3">
+        <div style="background:#fff; border-radius:24px; padding:20px 22px; margin-bottom:14px; display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
+            <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+              <span style="position:relative; width:46px; height:46px; flex-shrink:0; display:inline-block;">
+                <div style="width:46px; height:46px; border-radius:50%; background:{{ trip.posterAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:17px;">{{ trip.posterInitial }}</div>
+                <img alt="" ref="{{ trip.avatarImgRef }}" style="width:46px; height:46px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ trip.posterAvatarDisplay }};"/>
+              </span>
+              <div style="min-width:0;">
+                <div style="font-size:16px; font-weight:800; color:#14151A; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ trip.driverName }}</div>
+                <div style="font-size:13px; color:#8A8D97; font-weight:600;">{{ trip.roleLabel }}</div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; color:#8A8D97; font-size:14px; font-weight:600; flex-shrink:0; white-space:nowrap; padding-top:4px;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              {{ trip.seatsLabel }}
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
+            <span style="font-size:19px; font-weight:800; color:#14151A;">{{ trip.origin }}</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            <span style="font-size:19px; font-weight:800; color:#14151A;">{{ trip.destination }}</span>
+          </div>
+
+          <div style="display:flex; align-items:center; justify-content:center; gap:18px; font-size:14.5px; font-weight:700; color:#14151A;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>
+              {{ trip.dateLabel }}
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>
+              {{ trip.timeLabel }}
+            </div>
+          </div>
+
+          <sc-if value="{{ trip.pickupNotes }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#F3F4F8; border-radius:14px; padding:12px 14px; display:flex; align-items:flex-start; gap:10px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="8" y1="3" x2="8" y2="21"></line><line x1="12" y1="8" x2="17" y2="8"></line><line x1="12" y1="12" x2="17" y2="12"></line><line x1="12" y1="16" x2="15" y2="16"></line></svg>
+              <span style="font-size:13.5px; color:#4B4E58; line-height:1.4; overflow-wrap:anywhere;">{{ trip.pickupNotes }}</span>
+            </div>
+          </sc-if>
+
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+            <sc-if value="{{ trip.priceLabel }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:18px; font-weight:800; color:#1E8A4C;">{{ trip.pricePerSeatLabel }}</div>
+            </sc-if>
+            <sc-if value="{{ !trip.priceLabel }}">
+              <div></div>
+            </sc-if>
+
+            <sc-if value="{{ !trip.isOwn }}">
+              <div onClick="{{ trip.stopProp }}">
+                <sc-if value="{{ trip.showLoginCta }}">
+                  <button onClick="{{ trip.contactHandler }}" aria-label="{{ trip.ctaAriaLabel }}" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; width:auto; min-height:44px; border:none; border-radius:14px; background:#25D366; color:#fff; font-weight:700; font-size:14px; padding:0 20px; cursor:pointer; font-family:inherit;" style-hover="background:#20BD5A;" style-focus="outline:2px solid #128C7E; outline-offset:2px;" style-active="background:#1DA851;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.19 1.24-1.95 1.4-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1.01-2.41.24-.27.62-.39.98-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.58.8 2 .87 2.14.07.15.11.32.02.51-.08.19-.13.3-.26.46-.13.16-.28.36-.4.48-.13.13-.27.28-.11.55.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.13 1.3.28.13.44.11.6-.07.16-.18.68-.79.87-1.06.18-.27.36-.22.61-.13.24.09 1.55.73 1.82.86.27.13.44.2.51.31.07.12.07.66-.17 1.34z"/></svg>
+                    {{ trip.ctaLabel }}
+                  </button>
+                </sc-if>
+                <sc-if value="{{ trip.waHref }}">
+                  <a href="{{ trip.waHref }}" target="_blank" rel="noopener noreferrer" aria-label="{{ trip.ctaAriaLabel }}" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; width:auto; min-height:44px; border-radius:14px; background:#25D366; color:#fff; font-weight:700; font-size:14px; padding:0 20px; text-decoration:none; font-family:inherit;" style-hover="background:#20BD5A;" style-focus="outline:2px solid #128C7E; outline-offset:2px;" style-active="background:#1DA851;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.19 1.24-1.95 1.4-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1.01-2.41.24-.27.62-.39.98-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.58.8 2 .87 2.14.07.15.11.32.02.51-.08.19-.13.3-.26.46-.13.16-.28.36-.4.48-.13.13-.27.28-.11.55.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.13 1.3.28.13.44.11.6-.07.16-.18.68-.79.87-1.06.18-.27.36-.22.61-.13.24.09 1.55.73 1.82.86.27.13.44.2.51.31.07.12.07.66-.17 1.34z"/></svg>
+                    {{ trip.ctaLabel }}
+                  </a>
+                </sc-if>
+                <sc-if value="{{ trip.waDisabled }}">
+                  <button disabled="true" aria-label="{{ trip.waDisabledMsg }}" style="width:auto; min-height:44px; border:none; border-radius:14px; background:#ECEDF2; color:#8A8D97; font-weight:700; font-size:14px; padding:0 20px; cursor:not-allowed; font-family:inherit;">{{ trip.waDisabledMsg }}</button>
+                </sc-if>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </sc-if>
+
+    <sc-if value="{{ isPostView }}">
+      <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0 0 20px;">
+        <sc-if value="{{ isPostOffer }}">Publicar un viatge</sc-if>
+        <sc-if value="{{ isPostRequest }}">Publicar una sol·licitud</sc-if>
+      </h1>
+      <div style="background:#fff; border-radius:24px; padding:28px;">
+        <sc-if value="{{ postError }}"><div style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding:10px 14px; border-radius:14px; margin-bottom:16px;">{{ postError }}</div></sc-if>
+
+        <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom:8px;">Tipus de publicació</label>
+        <div style="display:flex; gap:8px; margin-bottom:18px;">
+          <button onClick="{{ setPostTypeOffer }}" style="flex:1; min-height:44px; border:1.5px solid {{ postTypeOfferBorder }}; background:{{ postTypeOfferBg }}; color:{{ postTypeOfferColor }}; font-weight:700; font-size:13.5px; padding:12px; border-radius:14px; cursor:pointer; font-family:inherit;">Ofereixo viatge</button>
+          <button onClick="{{ setPostTypeRequest }}" style="flex:1; min-height:44px; border:1.5px solid {{ postTypeRequestBorder }}; background:{{ postTypeRequestBg }}; color:{{ postTypeRequestColor }}; font-weight:700; font-size:13.5px; padding:12px; border-radius:14px; cursor:pointer; font-family:inherit;">Necessito viatge</button>
+        </div>
+
+        <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom:8px;">Ruta</label>
+        <div style="display:flex; gap:10px; margin-bottom:14px;">
+          <input value="{{ postForm.origin }}" onChange="{{ setPostOrigin }}" placeholder="Origen" style="flex:1; min-width:0; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit;"/>
+          <input value="{{ postForm.destination }}" onChange="{{ setPostDestination }}" placeholder="Destinació" style="flex:1; min-width:0; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit;"/>
+        </div>
+
+        <label style="font-size:12.5px; font-weight:700; color:#8A8D97; display:block; margin-bottom:8px;">Rutes predefinides</label>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px;">
+          <sc-for list="{{ routeOptions }}" as="route" hint-placeholder-count="4">
+            <button onClick="{{ route.selectHandler }}" style="height:52px; border-radius:14px; border:1.5px solid {{ route.border }}; background:{{ route.bg }}; color:{{ route.color }}; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; padding:0 10px;">{{ route.label }}</button>
+          </sc-for>
+        </div>
+
+        <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom:8px;">
+          <sc-if value="{{ isPostOffer }}">Data i hora de sortida</sc-if>
+          <sc-if value="{{ isPostRequest }}">Data i hora aproximada</sc-if>
+        </label>
+        <div style="display:flex; gap:10px; margin-bottom:14px;">
+          <div style="flex:1.3; position:relative;">
+            <span style="position:absolute; left:14px; top:50%; transform:translateY(-50%); display:flex; pointer-events:none; color:#5B4CFB;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>
+            </span>
+            <input type="date" value="{{ departDateVal }}" onChange="{{ setPostDepartDate }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px 0 40px; font-size:15px; font-family:inherit;"/>
+          </div>
+          <div style="flex:1; position:relative;">
+            <span style="position:absolute; left:14px; top:50%; transform:translateY(-50%); display:flex; pointer-events:none; color:#5B4CFB;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>
+            </span>
+            <input type="time" value="{{ departTimeVal }}" onChange="{{ setPostDepartTime }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px 0 40px; font-size:15px; font-family:inherit;"/>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; margin-bottom:14px;">
+          <div style="flex:1;">
+            <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom:8px;">
+              <sc-if value="{{ isPostOffer }}">Places disponibles</sc-if>
+              <sc-if value="{{ isPostRequest }}">Nombre de persones</sc-if>
+            </label>
+            <input type="number" min="1" max="8" value="{{ postForm.availableSeats }}" onChange="{{ setPostSeats }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit;"/>
+          </div>
+          <sc-if value="{{ isPostOffer }}">
+            <div style="flex:1;">
+              <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom:8px;">Preu per plaça (€)</label>
+              <input type="number" min="0" step="0.5" value="{{ postForm.pricePerSeat }}" onChange="{{ setPostPrice }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit;"/>
+            </div>
+          </sc-if>
+        </div>
+
+        <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom:8px;">
+          <sc-if value="{{ isPostOffer }}">Notes de recollida (opcional)</sc-if>
+          <sc-if value="{{ isPostRequest }}">Flexibilitat horària / observacions (opcional)</sc-if>
+        </label>
+        <textarea value="{{ postForm.pickupNotes }}" onChange="{{ setPostNotes }}" placeholder="Ex: Sortida des de l'estació de bus" style="width:100%; min-height:80px; border-radius:14px; border:1.5px solid #ECEDF2; padding:14px 16px; font-size:15px; font-family:inherit; margin-bottom:22px; resize:vertical;"></textarea>
+
+        <button onClick="{{ handlePostTrip }}" disabled="{{ postBusy }}" style="width:100%; height:50px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
+          <sc-if value="{{ postBusy }}">Publicant…</sc-if>
+          <sc-if value="{{ !postBusy }}">Publicar</sc-if>
+        </button>
+      </div>
+    </sc-if>
+
+
+    <sc-if value="{{ isMyTripsView }}">
+      <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0 0 20px;">Els meus viatges</h1>
+      <div role="tablist" aria-label="Tipus de viatge" style="display:flex; gap:8px; margin-bottom:20px;">
+        <button role="tab" aria-selected="{{ isMyTabDriver }}" onClick="{{ setMyTabDriver }}" style="flex:1; min-height:44px; border:none; background:{{ myTabDriverBg }}; color:{{ myTabDriverColor }}; font-weight:{{ myTabDriverWeight }}; font-size:14px; padding:12px 14px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; transition:background 120ms ease-out, color 120ms ease-out; display:flex; align-items:center; justify-content:center; gap:7px;">
+          Com a conductor
+          <span style="font-weight:600; font-size:13px; opacity:0.65;">({{ myDriverCount }})</span>
+        </button>
+        <button role="tab" aria-selected="{{ isMyTabPassenger }}" onClick="{{ setMyTabPassenger }}" style="flex:1; min-height:44px; border:none; background:{{ myTabPassengerBg }}; color:{{ myTabPassengerColor }}; font-weight:{{ myTabPassengerWeight }}; font-size:14px; padding:12px 14px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; transition:background 120ms ease-out, color 120ms ease-out; display:flex; align-items:center; justify-content:center; gap:7px;">
+          Com a passatger
+          <span style="font-weight:600; font-size:13px; opacity:0.65;">({{ myBookingCount }})</span>
+        </button>
+      </div>
+
+      <sc-if value="{{ myTripsLoading }}"><div style="color:#6B6F7B; font-size:14px; padding:40px 0; text-align:center;">Carregant…</div></sc-if>
+
+      <sc-if value="{{ showDriverTrips }}">
+        <sc-if value="{{ driverTripsEmpty }}"><div style="background:#fff; border-radius:24px; padding:40px 24px; text-align:center; color:#6B6F7B; font-size:14px;">Encara no has publicat cap viatge.</div></sc-if>
+        <sc-for list="{{ myDriverTrips }}" as="trip" hint-placeholder-count="2">
+          <div style="background:#fff; border-radius:24px; padding:20px 22px; margin-bottom:14px; display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
+              <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+                <span style="position:relative; width:46px; height:46px; flex-shrink:0; display:inline-block;">
+                  <div style="width:46px; height:46px; border-radius:50%; background:{{ trip.posterAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:17px;">{{ trip.posterInitial }}</div>
+                  <img alt="" ref="{{ trip.avatarImgRef }}" style="width:46px; height:46px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ trip.posterAvatarDisplay }};"/>
+                </span>
+                <div style="min-width:0;">
+                  <div style="font-size:16px; font-weight:800; color:#14151A; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ trip.driverName }}</div>
+                  <div style="font-size:13px; color:#8A8D97; font-weight:600;">{{ trip.roleLabel }} · {{ trip.statusLabel }}</div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap:6px; color:#8A8D97; font-size:14px; font-weight:600; flex-shrink:0; white-space:nowrap; padding-top:4px;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                {{ trip.seatsLabel }}
+              </div>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
+              <span style="font-size:19px; font-weight:800; color:#14151A;">{{ trip.origin }}</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              <span style="font-size:19px; font-weight:800; color:#14151A;">{{ trip.destination }}</span>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:center; gap:18px; font-size:14.5px; font-weight:700; color:#14151A;">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>
+                {{ trip.dateLabel }}
+              </div>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>
+                {{ trip.timeLabel }}
+              </div>
+            </div>
+
+            <sc-if value="{{ trip.pickupNotes }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#F3F4F8; border-radius:14px; padding:12px 14px; display:flex; align-items:flex-start; gap:10px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="8" y1="3" x2="8" y2="21"></line><line x1="12" y1="8" x2="17" y2="8"></line><line x1="12" y1="12" x2="17" y2="12"></line><line x1="12" y1="16" x2="15" y2="16"></line></svg>
+                <span style="font-size:13.5px; color:#4B4E58; line-height:1.4; overflow-wrap:anywhere;">{{ trip.pickupNotes }}</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ !trip.isConfirmingDelete }}">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+                <sc-if value="{{ trip.priceLabel }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:18px; font-weight:800; color:#1E8A4C;">{{ trip.pricePerSeatLabel }}</div>
+                </sc-if>
+                <sc-if value="{{ !trip.priceLabel }}">
+                  <div></div>
+                </sc-if>
+                <div style="display:flex; gap:10px;">
+                  <button onClick="{{ trip.editHandler }}" style="min-height:44px; border:1.5px solid #ECEDF2; background:#fff; color:#14151A; font-weight:700; font-size:14px; border-radius:14px; cursor:pointer; font-family:inherit; padding:0 18px;">Editar</button>
+                  <button onClick="{{ trip.askDeleteHandler }}" style="min-height:44px; border:1.5px solid #FBD8D6; background:#FDEBEA; color:#C22A24; font-weight:700; font-size:14px; border-radius:14px; cursor:pointer; font-family:inherit; padding:0 18px;">Eliminar</button>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ trip.isConfirmingDelete }}">
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="font-size:13px; color:#C22A24; font-weight:600; text-align:center;">Segur que vols eliminar aquesta publicació?</div>
+                <div style="display:flex; gap:10px;">
+                  <button onClick="{{ trip.cancelDeleteHandler }}" style="flex:1; min-height:44px; border:1.5px solid #ECEDF2; background:#fff; color:#14151A; font-weight:700; font-size:14px; border-radius:14px; cursor:pointer; font-family:inherit;">Cancel·lar</button>
+                  <button onClick="{{ trip.confirmDeleteHandler }}" style="flex:1; min-height:44px; border:none; background:#C22A24; color:#fff; font-weight:700; font-size:14px; border-radius:14px; cursor:pointer; font-family:inherit;">Sí, eliminar</button>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </sc-if>
+
+      <sc-if value="{{ showPassengerBookings }}">
+        <sc-if value="{{ bookingsEmpty }}"><div style="background:#fff; border-radius:24px; padding:40px 24px; text-align:center; color:#6B6F7B; font-size:14px;">Encara no has reservat cap viatge.</div></sc-if>
+        <sc-for list="{{ myBookings }}" as="booking" hint-placeholder-count="2">
+          <div style="background:#fff; border-radius:24px; padding:22px 24px; margin-bottom:14px; display:flex; flex-direction:column; gap:10px;">
+            <div style="text-align:center;">
+              <div style="display:inline-block; background:#EEEBFF; color:#5B4CFB; font-weight:800; font-size:15px; padding:8px 18px; border-radius:999px;">{{ booking.directionLabel }}</div>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+              <div>
+                <div style="display:flex; align-items:center; gap:6px; font-size:14.5px; font-weight:800; color:#14151A;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>
+                  {{ booking.dateLabel }}
+                  <span style="color:#D8DAE3;">·</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>
+                  {{ booking.timeLabel }}
+                </div>
+                <div style="font-size:12.5px; color:#8A8D97; margin-top:6px;">{{ booking.statusLabel }}</div>
+              </div>
+              <div style="text-align:right; flex-shrink:0;">
+                <div style="font-size:19px; font-weight:800;">{{ booking.totalLabel }}</div>
+                <div style="font-size:12px; color:#6B6F7B;">{{ booking.seatsLabel }}</div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </sc-if>
+    </sc-if>
+
+    <sc-if value="{{ isProfileView }}">
+      <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0 0 20px;">El meu perfil</h1>
+      <div style="background:#fff; border-radius:24px; padding:28px; margin-bottom:16px; display:flex; align-items:center; gap:16px;">
+        <label style="position:relative; width:64px; height:64px; flex-shrink:0; cursor:pointer;" aria-label="Canviar foto de perfil">
+          <div style="width:64px; height:64px; border-radius:50%; background:{{ profileAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:22px;">{{ profileInitial }}</div>
+          <img alt="Foto de perfil" ref="{{ avatarImgRef }}" style="width:64px; height:64px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ profileAvatarDisplay }};"/>
+          <div style="position:absolute; bottom:-2px; right:-2px; width:26px; height:26px; border-radius:50%; background:#14151A; border:2px solid #fff; display:flex; align-items:center; justify-content:center;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3l2-3h6l2 3h3a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>
+          </div>
+          <input type="file" accept="image/*" onChange="{{ handleAvatarChange }}" style="position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%;" aria-label="Pujar foto de perfil"/>
+        </label>
+        <div>
+          <div style="font-size:17px; font-weight:800;">{{ profileFullName }}</div>
+          <div style="font-size:13px; color:#6B6F7B;">{{ profileStatsLabel }}</div>
+          <sc-if value="{{ avatarUploading }}"><div style="font-size:12.5px; color:#5B4CFB; font-weight:600; margin-top:4px;">Pujant foto…</div></sc-if>
+        </div>
+      </div>
+      <div style="background:#fff; border-radius:24px; padding:28px;">
+        <div style="display:flex; gap:12px; margin-bottom:14px;">
+          <div style="flex:1;">
+            <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom:8px;">Nom</label>
+            <input value="{{ profileForm.firstName }}" onChange="{{ setProfileFirstName }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit;"/>
+          </div>
+          <div style="flex:1;">
+            <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom:8px;">Cognoms</label>
+            <input value="{{ profileForm.lastName }}" onChange="{{ setProfileLastName }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit;"/>
+          </div>
+        </div>
+        <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom:8px;">Telèfon</label>
+        <input value="{{ profileForm.phone }}" onChange="{{ setProfilePhone }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding:0 16px; font-size:15px; font-family:inherit; margin-bottom:22px;"/>
+        <button onClick="{{ handleProfileSave }}" disabled="{{ profileBusy }}" style="width:100%; height:50px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
+          <sc-if value="{{ profileBusy }}">Desant…</sc-if>
+          <sc-if value="{{ !profileBusy }}">Desar canvis</sc-if>
+        </button>
+      </div>
+      <button onClick="{{ handleLogout }}" style="width:100%; min-height:44px; border:none; background:none; color:#C22A24; font-weight:700; font-size:14.5px; padding:12px 16px; cursor:pointer; font-family:inherit; margin-top:16px;">Tancar sessió</button>
+    </sc-if>
+
+  </div>
+  </div>
+
+  <sc-if value="{{ toast.show }}">
+    <div style="position:fixed; bottom:88px; left:50%; transform:translateX(-50%); background:{{ toastBg }}; color:#fff; font-weight:700; font-size:14px; padding:14px 22px; border-radius:999px; box-shadow:0 12px 30px -10px rgba(20,21,26,0.4); z-index:50;">{{ toast.message }}</div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SUPABASE_URL = 'https://xphkngupwosexcnmdkwd.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_5XFPEjkCx0fpLohPSrCL8w_mtg49dim';
+
+const ROUTES = [
+  { value: 'KNV→BCN', label: 'Konvent → Barcelona', origin: 'Konvent', destination: 'Barcelona' },
+  { value: 'BCN→KNV', label: 'Barcelona → Konvent', origin: 'Barcelona', destination: 'Konvent' },
+  { value: 'BCN→GNL', label: 'Barcelona → Gironella', origin: 'Barcelona', destination: 'Gironella' },
+  { value: 'GNL→BCN', label: 'Gironella → Barcelona', origin: 'Gironella', destination: 'Barcelona' },
+];
+const ROUTE_LABEL_BY_VALUE = ROUTES.reduce((acc, r) => { acc[r.value] = r.label; return acc; }, {});
+const BLANK_AVATAR = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+
+class Component extends DCLogic {
+  state = {
+    booting: true,
+    view: 'auth',
+    authMode: 'login',
+    user: null,
+    authForm: { email: '', password: '', firstName: '', lastName: '', phone: '' },
+    authError: '',
+    authInfo: '',
+    authBusy: false,
+    lastSignupEmail: '',
+    resendBusy: false,
+    resetForm: { password: '', confirmPassword: '' },
+    resetError: '',
+    resetReady: false,
+    resetBusy: false,
+    profile: null,
+    trips: [],
+    tripsLoading: false,
+    viatgesTab: 'offer',
+    returnAfterAuth: null,
+    editingTripId: null,
+    postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '' },
+    postBusy: false,
+    postError: '',
+    myTripsTab: 'driver',
+    myDriverTrips: [],
+    myBookings: [],
+    myTripsLoading: false,
+    profileForm: { firstName: '', lastName: '', phone: '' },
+    profileBusy: false,
+    avatarUploading: false,
+    avatarPreview: null,
+    brokenAvatarUrls: {},
+    confirmDeleteId: null,
+    toast: { show: false, message: '', kind: 'info' },
+    showIntro: false,
+    appFade: false,
+  };
+
+  componentDidMount() {
+    this._waitForSupabase();
+    this._initIntro();
+    this._scrollPositions = {};
+    this._onScroll = () => {
+      const v = this.state.view;
+      this._scrollPositions[v] = window.scrollY;
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+  }
+
+  _initIntro() {
+    let reduced = false;
+    try { reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    let seen = false;
+    try { seen = sessionStorage.getItem('pj_intro_seen') === '1'; } catch (e) {}
+    if (seen || reduced) return;
+    try { sessionStorage.setItem('pj_intro_seen', '1'); } catch (e) {}
+    this.setState({ showIntro: true, appFade: true });
+    setTimeout(() => this.setState({ showIntro: false }), 1300);
+  }
+
+  _waitForSupabase() {
+    if (window.supabase && window.supabase.createClient) {
+      this._initClient();
+      return;
+    }
+    setTimeout(() => this._waitForSupabase(), 100);
+  }
+
+  async _initClient() {
+    this.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedView = params.get('view');
+
+    this.sb.auth.onAuthStateChange((event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        this.setState({ resetReady: true, view: 'reset' });
+        return;
+      }
+      const user = session ? session.user : null;
+      this.setState({ user });
+      if (user) {
+        this._loadProfile(user.id);
+      } else {
+        this.setState({ profile: null });
+      }
+    });
+
+    // Fixed callback route for both signup confirmation and password-recovery emails.
+    if (window.location.pathname === '/auth/callback') {
+      await this._handleAuthCallback();
+      return;
+    }
+
+    const { data: { session } } = await this.sb.auth.getSession();
+    const user = session ? session.user : null;
+
+    let initialView = 'trips';
+    if (requestedView === 'verified') initialView = 'verified';
+    else if (requestedView === 'reset') {
+      initialView = 'reset';
+      // recovery session may still be getting parsed from the URL hash
+      setTimeout(() => {
+        if (!this.state.resetReady) {
+          this.sb.auth.getSession().then(({ data }) => {
+            if (data.session) this.setState({ resetReady: true });
+            else this.setState({ resetError: "Aquest enllaç ha caducat o no és vàlid. Torna a sol·licitar-lo." });
+          });
+        }
+      }, 1800);
+    } else if (!user) {
+      initialView = 'auth';
+    }
+
+    this.setState({ user, booting: false, view: initialView });
+    if (user) this._loadProfile(user.id);
+    if (initialView === 'trips') this._loadTrips();
+  }
+
+  // Handles the fixed /auth/callback redirect used by both signup-confirmation and
+  // password-recovery emails. Never invents a session: only shows success/recovery UI
+  // once Supabase actually confirms one exists.
+  async _handleAuthCallback() {
+    this.setState({ view: 'authCallback', booting: false });
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    const rawErrorDesc = searchParams.get('error_description') || hashParams.get('error_description');
+    const rawError = searchParams.get('error') || hashParams.get('error');
+
+    if (rawErrorDesc || rawError) {
+      let msg = rawErrorDesc ? decodeURIComponent(rawErrorDesc.replace(/\+/g, ' ')) : rawError;
+      if (/expired/i.test(msg)) msg = 'Aquest enllaç ha caducat. Torna a sol·licitar-lo.';
+      else if (/invalid/i.test(msg)) msg = 'Aquest enllaç no és vàlid. Torna a sol·licitar-lo.';
+      this.setState({ view: 'auth', authMode: 'login', authError: msg });
+      return;
+    }
+
+    // Supabase's client may still be parsing the token from the URL hash.
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    const { data: { session } } = await this.sb.auth.getSession();
+    if (!session) {
+      this.setState({
+        view: 'auth',
+        authMode: 'login',
+        authError: 'Aquest enllaç ha caducat o no és vàlid. Torna a sol·licitar-lo.',
+      });
+      return;
+    }
+
+    // Give onAuthStateChange a beat to flag PASSWORD_RECOVERY and switch the view itself.
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    if (this.state.view === 'reset') { this.setState({ resetReady: true }); return; }
+
+    const user = session.user;
+    this.setState({ user, view: 'verified' });
+    this._loadProfile(user.id);
+    this._loadTrips();
+  }
+
+  _showToast(message, kind) {
+    this.setState({ toast: { show: true, message, kind: kind || 'info' } });
+    clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(() => this.setState({ toast: { show: false, message: '', kind: 'info' } }), 3200);
+  }
+
+  async _loadProfile(userId) {
+    try {
+      const { data, error } = await this.sb
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .maybeSingle();
+
+      if (error) throw error;
+
+      if (!data) {
+        console.warn('No profile found for user', userId);
+        this.setState({
+          profile: null,
+          profileForm: { firstName: '', lastName: '', phone: '' },
+        });
+        return;
+      }
+
+      this.setState({
+        profile: data,
+        profileForm: {
+          firstName: data.first_name || '',
+          lastName: data.last_name || '',
+          phone: data.phone || '',
+        },
+      });
+    } catch (e) {
+      console.error('load profile error', e);
+      this._showToast('No s\u2019ha pogut carregar el perfil', 'error');
+    }
+  }
+
+  _markAvatarBroken(url) {
+    if (!url) return;
+    if (this.state.brokenAvatarUrls[url]) return;
+    this.setState((s) => ({ brokenAvatarUrls: { ...s.brokenAvatarUrls, [url]: true } }));
+  }
+
+  // Returns a ref callback for an <img> avatar. `url` is the real remote URL (or null/undefined).
+  // Broken-ness is tracked centrally in state keyed by the URL string itself, so it survives
+  // DOM remounts/re-renders (unlike per-element attempt flags), and avoids re-fetching a URL
+  // already known to be dead.
+  _avatarRef(url) {
+    return (el) => {
+      if (!el) return;
+      const isKnownBroken = url && this.state.brokenAvatarUrls[url];
+      const effectiveSrc = (url && !isKnownBroken) ? url : BLANK_AVATAR;
+      if (el.getAttribute('data-avatar-src') === effectiveSrc) return;
+      el.setAttribute('data-avatar-src', effectiveSrc);
+      el.onerror = (url && !isKnownBroken) ? (() => this._markAvatarBroken(url)) : null;
+      el.src = effectiveSrc;
+    };
+  }
+
+  _fmtDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    return d.toLocaleDateString('ca-ES', { day: 'numeric', month: 'short' }) + ' · ' + d.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  _fmtDateShort(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('ca-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  _avatarColor(name) {
+    const palette = ['oklch(0.55 0.19 275)', 'oklch(0.55 0.17 205)', 'oklch(0.58 0.17 25)', 'oklch(0.55 0.15 145)', 'oklch(0.58 0.16 335)'];
+    const str = String(name || '?');
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) hash = (hash * 31 + str.charCodeAt(i)) % 997;
+    return palette[hash % palette.length];
+  }
+
+  _stripPhone(phone) {
+    return String(phone || '').replace(/\D/g, '');
+  }
+
+  _isValidPhone(phone) {
+    const d = this._stripPhone(phone);
+    return d.length >= 8 && d.length <= 15;
+  }
+
+  _waMessage(trip) {
+    const dateStr = this._fmtDateShort(trip.depart_at);
+    return `Hola, he vist el teu viatge de ${trip.origin} a ${trip.destination} del dia ${dateStr}. Encara està disponible?`;
+  }
+
+  _waLink(trip) {
+    const phone = trip.profiles && trip.profiles.phone;
+    if (!this._isValidPhone(phone)) return null;
+    const digits = this._stripPhone(phone);
+    const text = encodeURIComponent(this._waMessage(trip));
+    return `https://wa.me/${digits}?text=${text}`;
+  }
+
+  requestContact(trip) {
+    if (!this.state.user) {
+      this.setState({ returnAfterAuth: { tripId: trip.id }, view: 'auth', authMode: 'login' });
+    }
+  }
+
+  goToEditTrip(trip) {
+    this.setState({
+      editingTripId: trip.id,
+      postForm: {
+        tripType: trip.trip_type || 'offer',
+        origin: trip.origin || '',
+        destination: trip.destination || '',
+        departAt: trip.depart_at ? new Date(trip.depart_at).toISOString().slice(0, 16) : '',
+        availableSeats: trip.available_seats,
+        pricePerSeat: trip.price_per_seat || 0,
+        pickupNotes: trip.pickup_notes || '',
+      },
+      view: 'post',
+    });
+  }
+
+  // Single entry point for removing a trip. Soft-delete only (status: 'cancelled') —
+  // never a real delete() — so bookings/history referencing the trip stay intact.
+  async handleDeleteTrip(trip) {
+    const { data: { user }, error: userError } = await this.sb.auth.getUser();
+
+    if (userError || !user) {
+      console.error('delete trip: no active session', userError);
+      this._showToast('Has d\u2019iniciar sessió per eliminar aquesta publicació', 'error');
+      return;
+    }
+
+    try {
+      const { data, error } = await this.sb
+        .from('trips')
+        .update({ status: 'cancelled' })
+        .eq('id', trip.id)
+        .eq('driver_id', user.id)
+        .select('id')
+        .maybeSingle();
+
+      if (error) {
+        if (error.code === '42501') {
+          console.error('delete trip: blocked by RLS policy on trips (check UPDATE policy\'s WITH CHECK clause allows status change for auth.uid() = driver_id)', error);
+        } else {
+          console.error('delete trip: supabase error', error);
+        }
+        throw error;
+      }
+
+      if (!data) {
+        console.error('delete trip: no row matched id + driver_id — not owner, or trip already cancelled/missing', { tripId: trip.id, userId: user.id });
+        throw new Error('No tens permisos per eliminar aquesta publicació.');
+      }
+
+      this.setState((st) => ({
+        confirmDeleteId: null,
+        trips: (st.trips || []).filter((t) => t.id !== trip.id),
+        myDriverTrips: (st.myDriverTrips || []).filter((t) => t.id !== trip.id),
+      }));
+
+      this._showToast('Publicació eliminada');
+    } catch (e) {
+      this._showToast(e.message || 'No s\'ha pogut eliminar', 'error');
+    }
+  }
+
+  goTo(view) {
+    const rootViews = ['trips', 'myTrips', 'profile'];
+    const currentIsSameRoot = rootViews.includes(view) && this.state.view === view;
+    if (currentIsSameRoot) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (this._scrollPositions) this._scrollPositions[this.state.view] = window.scrollY;
+    this.setState({ view });
+    if (view === 'trips') this._loadTrips();
+    if (view === 'myTrips') this._loadMyTrips();
+    requestAnimationFrame(() => {
+      const y = (this._scrollPositions && this._scrollPositions[view]) || 0;
+      window.scrollTo({ top: y });
+    });
+  }
+
+  handleLogout = async () => {
+    await this.sb.auth.signOut();
+    this._showToast('Sessió tancada');
+    this.setState({ view: 'auth', authMode: 'login' });
+  };
+
+  switchAuthMode(mode) {
+    this.setState({ authMode: mode, authError: '', authInfo: '', lastSignupEmail: '' });
+  }
+
+  async handleAuthSubmit() {
+    const { authMode, authForm } = this.state;
+    const email = (authForm.email || '').trim().toLowerCase();
+    if (!email) { this.setState({ authError: 'Introdueix un correu electrònic' }); return; }
+    if (authMode === 'signup' && (authForm.password || '').length < 6) {
+      this.setState({ authError: 'La contrasenya ha de tenir almenys 6 caràcters' });
+      return;
+    }
+    this.setState({ authBusy: true, authError: '', authInfo: '' });
+    try {
+      if (authMode === 'login') {
+        const { error } = await this.sb.auth.signInWithPassword({ email, password: authForm.password });
+        if (error) throw error;
+        const pending = this.state.returnAfterAuth;
+        this.setState({ returnAfterAuth: null, view: 'trips' });
+        this._loadTrips();
+        if (pending && pending.tripId) this._showToast('Ja pots contactar per WhatsApp des de la targeta del viatge');
+      } else if (authMode === 'signup') {
+        const redirectUrl = `${window.location.origin}/auth/callback`;
+        const { data, error } = await this.sb.auth.signUp({
+          email,
+          password: authForm.password,
+          options: {
+            emailRedirectTo: redirectUrl,
+            data: { first_name: authForm.firstName, last_name: authForm.lastName, phone: authForm.phone },
+          },
+        });
+        if (error) throw error;
+        const identities = data && data.user && data.user.identities;
+        if (identities && identities.length === 0) {
+          this.setState({ authError: 'Aquest correu ja té un compte confirmat. Inicia sessió o recupera la contrasenya.' });
+        } else {
+          this.setState({ authInfo: 'Compte creat! Comprova el teu correu (i la carpeta de spam) per confirmar-lo.', lastSignupEmail: email, resendCooldown: 0 });
+        }
+      } else if (authMode === 'forgot') {
+        const redirectUrl = `${window.location.origin}/auth/callback`;
+        const { error } = await this.sb.auth.resetPasswordForEmail(email, { redirectTo: redirectUrl });
+        if (error) throw error;
+        this.setState({ authInfo: "T'hem enviat un correu amb l'enllaç per restablir la contrasenya." });
+      }
+    } catch (e) {
+      this.setState({ authError: this._authErrorMessage(e) });
+    } finally {
+      this.setState({ authBusy: false });
+    }
+  }
+
+  async handleResendConfirmation() {
+    const email = (this.state.lastSignupEmail || this.state.authForm.email || '').trim().toLowerCase();
+    if (!email) return;
+
+    this.setState({ resendBusy: true });
+
+    try {
+      const redirectUrl = `${window.location.origin}/auth/callback`;
+
+      const { error } = await this.sb.auth.resend({
+        type: 'signup',
+        email,
+        options: {
+          emailRedirectTo: redirectUrl,
+        },
+      });
+
+      if (error) throw error;
+
+      this._showToast('Correu de confirmació reenviat');
+    } catch (e) {
+      console.error('resend confirmation error', e);
+      this._showToast(this._authErrorMessage(e), 'error');
+    } finally {
+      this.setState({ resendBusy: false });
+    }
+  }
+
+  _authErrorMessage(e) {
+    const m = (e && e.message) || '';
+    if (m.includes('Invalid login credentials')) return "L'email o la contrasenya són incorrectes.";
+    if (m.includes('Email not confirmed')) return 'Confirma el teu correu abans d\'iniciar sessió.';
+    if (m.includes('User already registered')) return 'Aquest correu ja té un compte. Inicia sessió.';
+    if (/rate limit|429/i.test(m)) return 'Massa intents. Espera uns minuts i torna-ho a provar.';
+    if (/email address .* (not authorized|invalid)/i.test(m) || /invalid email/i.test(m)) return 'Aquesta adreça de correu no és vàlida.';
+    if (/password.*(short|least|characters)/i.test(m)) return 'La contrasenya ha de tenir almenys 6 caràcters.';
+    if (/smtp|email sending|error sending/i.test(m)) return 'No s\'ha pogut enviar el correu. Torna-ho a provar més tard.';
+    if (/expired/i.test(m)) return 'Aquest enllaç ha caducat. Torna a sol·licitar-lo.';
+    if (/invalid token|token is invalid|invalid.*link/i.test(m)) return 'Aquest enllaç no és vàlid. Torna a sol·licitar-lo.';
+    return m || 'Alguna cosa ha fallat.';
+  }
+
+  async handleResetSubmit() {
+    const { resetForm } = this.state;
+    if (resetForm.password.length < 6) { this.setState({ resetError: 'La contrasenya ha de tenir almenys 6 caràcters' }); return; }
+    if (resetForm.password !== resetForm.confirmPassword) { this.setState({ resetError: 'Les contrasenyes no coincideixen' }); return; }
+    this.setState({ resetBusy: true, resetError: '' });
+    try {
+      const { error } = await this.sb.auth.updateUser({ password: resetForm.password });
+      if (error) throw error;
+      this._showToast('Contrasenya actualitzada!');
+      this.setState({ view: 'trips' });
+      this._loadTrips();
+    } catch (e) {
+      this.setState({ resetError: this._authErrorMessage(e) });
+    } finally {
+      this.setState({ resetBusy: false });
+    }
+  }
+
+  async _loadTrips() {
+    this.setState({ tripsLoading: true });
+    try {
+      const { data, error } = await this.sb
+        .from('trips')
+        .select('*, profiles!trips_driver_id_fkey(first_name,last_name,rating,phone,avatar_url)')
+        .eq('status', 'active')
+        .gt('available_seats', 0)
+        .gte('depart_at', new Date().toISOString())
+        .order('depart_at', { ascending: true })
+        .limit(50);
+      if (error) throw error;
+      this.setState({ trips: data || [] });
+    } catch (e) {
+      console.error('load trips', e);
+      this._showToast('No s\'han pogut carregar els viatges', 'error');
+    } finally {
+      this.setState({ tripsLoading: false });
+    }
+  }
+
+
+
+  async handlePostTrip() {
+    const { postForm, user, editingTripId } = this.state;
+    if (!postForm.origin.trim() || !postForm.destination.trim()) {
+      this.setState({ postError: 'Indica l\'origen i la destinació' });
+      return;
+    }
+    if (!postForm.departAt) {
+      this.setState({ postError: 'Indica la data i hora de sortida' });
+      return;
+    }
+    this.setState({ postBusy: true, postError: '' });
+    try {
+      const isRequest = postForm.tripType === 'request';
+      const originValue = postForm.origin.trim();
+      const destinationValue = postForm.destination.trim();
+      const preset = ROUTES.find((r) => r.origin === originValue && r.destination === destinationValue);
+      const directionValue = preset ? preset.value : `${originValue} → ${destinationValue}`;
+      const payload = {
+        direction: directionValue,
+        origin: originValue,
+        destination: destinationValue,
+        depart_at: new Date(postForm.departAt).toISOString(),
+        available_seats: Number(postForm.availableSeats),
+        price_per_seat: isRequest ? null : Number(postForm.pricePerSeat),
+        pickup_notes: postForm.pickupNotes || null,
+        trip_type: postForm.tripType,
+      };
+      let error;
+      if (editingTripId) {
+        ({ error } = await this.sb.from('trips').update(payload).eq('id', editingTripId));
+      } else {
+        ({ error } = await this.sb.from('trips').insert({ ...payload, driver_id: user.id, status: 'active' }));
+      }
+      if (error) throw error;
+      this._showToast(editingTripId ? 'Publicació actualitzada!' : (isRequest ? 'Sol·licitud publicada!' : 'Viatge publicat!'));
+      this.setState({
+        view: 'trips',
+        editingTripId: null,
+        postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '' },
+      });
+      this._loadTrips();
+    } catch (e) {
+      console.error('post trip error', e);
+      this.setState({ postError: e.message || 'No s\'ha pogut publicar el viatge' });
+    } finally {
+      this.setState({ postBusy: false });
+    }
+  }
+
+  async _loadMyTrips() {
+    const { user } = this.state;
+    if (!user) return;
+
+    this.setState({ myTripsLoading: true });
+
+    try {
+      const [driverRes, bookingsRes] = await Promise.all([
+        this.sb
+          .from('trips')
+          .select('*')
+          .eq('driver_id', user.id)
+          .eq('status', 'active')
+          .order('depart_at', { ascending: false }),
+
+        this.sb
+          .from('bookings')
+          .select('*, trips(*)')
+          .eq('passenger_id', user.id)
+          .order('created_at', { ascending: false }),
+      ]);
+
+      if (driverRes.error) throw driverRes.error;
+      if (bookingsRes.error) throw bookingsRes.error;
+
+      this.setState({
+        myDriverTrips: driverRes.data || [],
+        myBookings: bookingsRes.data || [],
+      });
+    } catch (e) {
+      console.error('load my trips', e);
+      this._showToast('No s\u2019han pogut carregar els teus viatges', 'error');
+    } finally {
+      this.setState({ myTripsLoading: false });
+    }
+  }
+
+  async handleProfileSave() {
+    const { profileForm, user } = this.state;
+    this.setState({ profileBusy: true });
+    try {
+      const { error } = await this.sb.from('profiles').update({
+        first_name: profileForm.firstName,
+        last_name: profileForm.lastName,
+        phone: profileForm.phone,
+      }).eq('id', user.id);
+      if (error) throw error;
+      this._showToast('Perfil actualitzat');
+      this._loadProfile(user.id);
+    } catch (e) {
+      this._showToast(e.message || 'No s\'ha pogut desar', 'error');
+    } finally {
+      this.setState({ profileBusy: false });
+    }
+  }
+
+  async handleAvatarChange(e) {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      this._showToast('Tria un fitxer d\'imatge vàlid', 'error');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      this._showToast('La imatge no pot superar 5 MB', 'error');
+      return;
+    }
+    const { user } = this.state;
+    const localUrl = URL.createObjectURL(file);
+    this.setState({ avatarPreview: localUrl, avatarUploading: true });
+    try {
+      const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+      const path = `${user.id}/avatar-${Date.now()}.${ext}`;
+      const { error: uploadError } = await this.sb.storage.from('avatars').upload(path, file, { upsert: true, cacheControl: '3600' });
+      if (uploadError) throw uploadError;
+      const { data: pub } = this.sb.storage.from('avatars').getPublicUrl(path);
+      const publicUrl = pub && pub.publicUrl;
+      const { error: updateError } = await this.sb.from('profiles').update({ avatar_url: publicUrl }).eq('id', user.id);
+      if (updateError) throw updateError;
+      this._showToast('Foto de perfil actualitzada');
+      this._loadProfile(user.id);
+    } catch (e) {
+      console.error('avatar upload error', e);
+      this._showToast('No s\'ha pogut pujar la foto. Comprova que el bucket "avatars" existeixi.', 'error');
+    } finally {
+      this.setState({ avatarUploading: false });
+    }
+  }
+
+  renderVals() {
+    const s = this.state;
+    const isLoggedIn = !!s.user && s.view !== 'reset';
+    const view = s.view;
+
+    const trips = (s.trips || []).map((t) => {
+      const isRequest = t.trip_type === 'request';
+      const posterFullName = t.profiles ? `${t.profiles.first_name || ''} ${t.profiles.last_name || ''}`.trim() : '';
+      const posterName = posterFullName
+        ? `${t.profiles.first_name || ''} ${(t.profiles.last_name || '')[0] ? (t.profiles.last_name[0] + '.') : ''}`.trim()
+        : (isRequest ? 'Passatger' : 'Conductor');
+      const isOwn = isLoggedIn && t.driver_id === s.user.id;
+      const waHref = this._waLink(t);
+      const departDate = t.depart_at ? new Date(t.depart_at) : null;
+      return {
+        ...t,
+        directionLabel: ROUTE_LABEL_BY_VALUE[t.direction] || t.direction,
+        departLabel: this._fmtDate(t.depart_at),
+        dateLabel: departDate ? departDate.toLocaleDateString('ca-ES', { day: 'numeric', month: 'short' }) : '',
+        timeLabel: departDate ? departDate.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) : '',
+        driverName: posterFullName || (isRequest ? 'Passatger' : 'Conductor'),
+        posterName,
+        posterInitial: (posterName[0] || '?').toUpperCase(),
+        posterAvatarColor: this._avatarColor(t.driver_id || posterName),
+        posterAvatarDisplay: (t.profiles && t.profiles.avatar_url && !s.brokenAvatarUrls[t.profiles.avatar_url]) ? 'block' : 'none',
+        avatarImgRef: this._avatarRef(t.profiles ? t.profiles.avatar_url : null),
+        pickupNotes: t.pickup_notes || '',
+        isRequest,
+        roleLabel: isRequest ? 'Necessito' : 'Ofereixo',
+        priceLabel: isRequest ? '' : `${Number(t.price_per_seat).toFixed(2)} €`,
+        pricePerSeatLabel: isRequest ? '' : `${Number(t.price_per_seat).toFixed(2)} € per plaça`,
+        seatsLabel: isRequest ? `${t.available_seats} persones` : `${t.available_seats} places`,
+        isOwn,
+        ctaLabel: 'WhatsApp',
+        ctaAriaLabel: `Contactar per WhatsApp amb ${posterName}`,
+        waHref,
+        showLoginCta: !isOwn && !isLoggedIn,
+        waDisabled: !isOwn && isLoggedIn && !waHref,
+        waDisabledMsg: 'Aquest usuari no ha afegit un número de contacte.',
+        contactHandler: () => this.requestContact(t),
+        editHandler: (e) => { e.stopPropagation(); this.goToEditTrip(t); },
+        deleteHandler: (e) => { e.stopPropagation(); this.handleDeleteTrip(t); },
+        stopProp: (e) => e.stopPropagation(),
+      };
+    });
+    const offerTrips = trips.filter((t) => !t.isRequest);
+    const requestTrips = trips.filter((t) => t.isRequest);
+    const viatgesTab = s.viatgesTab || 'offer';
+    const visibleTrips = viatgesTab === 'offer' ? offerTrips : requestTrips;
+    const visibleTripsEmptyMsg = viatgesTab === 'offer' ? 'Encara no hi ha viatges oferts.' : 'Encara no hi ha sol·licituds de viatge.';
+
+    const ownName = s.profile ? `${s.profile.first_name || ''} ${s.profile.last_name || ''}`.trim() : '';
+    const ownAvatarUrl = s.profile ? s.profile.avatar_url : null;
+    const myDriverTrips = (s.myDriverTrips || []).map((t) => {
+      const isRequest = t.trip_type === 'request';
+      const departDate = t.depart_at ? new Date(t.depart_at) : null;
+      return {
+        ...t,
+        directionLabel: ROUTE_LABEL_BY_VALUE[t.direction] || t.direction,
+        departLabel: this._fmtDate(t.depart_at),
+        dateLabel: departDate ? departDate.toLocaleDateString('ca-ES', { day: 'numeric', month: 'short' }) : '',
+        timeLabel: departDate ? departDate.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) : '',
+        driverName: ownName || 'Tu',
+        posterInitial: (ownName[0] || '?').toUpperCase(),
+        posterAvatarColor: this._avatarColor((s.profile && s.profile.id) || ownName),
+        posterAvatarDisplay: (ownAvatarUrl && !s.brokenAvatarUrls[ownAvatarUrl]) ? 'block' : 'none',
+        avatarImgRef: this._avatarRef(ownAvatarUrl),
+        isRequest,
+        roleLabel: isRequest ? 'Necessito' : 'Ofereixo',
+        priceLabel: isRequest ? '' : `${Number(t.price_per_seat).toFixed(2)} €`,
+        pricePerSeatLabel: isRequest ? '' : `${Number(t.price_per_seat).toFixed(2)} € per plaça`,
+        seatsLabel: isRequest ? `${t.available_seats} persones` : `${t.available_seats} places`,
+        pickupNotes: t.pickup_notes || '',
+        statusLabel: t.status === 'active' ? 'Activa' : (t.status === 'cancelled' ? 'Cancel·lada' : t.status),
+        editHandler: () => this.goToEditTrip(t),
+        isConfirmingDelete: s.confirmDeleteId === t.id,
+        askDeleteHandler: () => this.setState({ confirmDeleteId: t.id }),
+        cancelDeleteHandler: () => this.setState({ confirmDeleteId: null }),
+        confirmDeleteHandler: () => this.handleDeleteTrip(t),
+      };
+    });
+
+    const myBookings = (s.myBookings || []).map((b) => {
+      const departAt = b.trips ? b.trips.depart_at : null;
+      const departDate = departAt ? new Date(departAt) : null;
+      return {
+        ...b,
+        origin: b.trips ? b.trips.origin : '',
+        destination: b.trips ? b.trips.destination : '',
+        directionLabel: b.trips ? (ROUTE_LABEL_BY_VALUE[b.trips.direction] || b.trips.direction) : '',
+        departLabel: departAt ? this._fmtDate(departAt) : '',
+        dateLabel: departDate ? departDate.toLocaleDateString('ca-ES', { day: 'numeric', month: 'short' }) : '',
+        timeLabel: departDate ? departDate.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) : '',
+        seatsLabel: `${b.seats_reserved} places`,
+        totalLabel: `${Number(b.total_price).toFixed(2)} €`,
+        statusLabel: b.status === 'confirmed' ? 'Confirmada' : b.status,
+      };
+    });
+
+    const profile = s.profile;
+    const profileAvatarUrl = s.avatarPreview || (profile ? profile.avatar_url : null);
+    const profileAvatarDisplay = (profileAvatarUrl && !s.brokenAvatarUrls[profileAvatarUrl]) ? 'block' : 'none';
+    const profileFullName = profile ? `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || 'El teu perfil' : '';
+    const profileInitial = profileFullName ? profileFullName[0].toUpperCase() : '?';
+    const profileAvatarColor = this._avatarColor((profile && profile.id) || profileFullName);
+    const profileStatsLabel = profile ? `${profile.trips_count || 0} viatges · ★ ${profile.rating ? Number(profile.rating).toFixed(1) : '—'}` : '';
+
+    const activeTab = (view === 'trips' || view === 'post') ? 'trips'
+      : (view === 'myTrips') ? 'myTrips'
+      : (view === 'profile') ? 'profile'
+      : null;
+    const navBtn = (name) => activeTab === name
+      ? { bg: '#5B4CFB', color: '#fff', weight: 800, iconWeight: 2.4, ariaCurrent: 'page' }
+      : { bg: '#F3F4F8', color: '#14151A', weight: 600, iconWeight: 2, ariaCurrent: undefined };
+    const tripsNav = navBtn('trips');
+    const myTripsNav = navBtn('myTrips');
+    const profileNav = navBtn('profile');
+    const iconColor = (name) => activeTab === name ? '#5B4CFB' : '#8A8D97';
+
+    const toastColors = { info: '#14151A', error: '#C22A24', success: '#1E8A4C' };
+
+    return {
+      isLoggedIn,
+      isAuthShellView: view === 'auth' || view === 'reset',
+      isAuthView: view === 'auth',
+      isResetView: view === 'reset',
+      isAuthCallbackView: view === 'authCallback',
+      isVerifiedView: view === 'verified',
+      isTripsView: view === 'trips',
+      isPostView: view === 'post',
+      isMyTripsView: view === 'myTrips',
+      isProfileView: view === 'profile',
+
+      isLoginMode: s.authMode === 'login',
+      isSignupMode: s.authMode === 'signup',
+      isForgotMode: s.authMode === 'forgot',
+      isNotForgotMode: s.authMode !== 'forgot',
+      isSignupOrForgot: s.authMode !== 'login',
+      isLoginModeReady: s.authMode === 'login' && !s.authBusy,
+      isSignupModeReady: s.authMode === 'signup' && !s.authBusy,
+      isForgotModeReady: s.authMode === 'forgot' && !s.authBusy,
+
+      authForm: s.authForm,
+      authError: s.authError,
+      authInfo: s.authInfo,
+      authBusy: s.authBusy,
+      canResend: s.authMode === 'signup' && !!s.authInfo && !!s.lastSignupEmail,
+      resendBusy: s.resendBusy,
+      handleResendConfirmation: () => this.handleResendConfirmation(),
+      setAuthEmail: (e) => this.setState((st) => ({ authForm: { ...st.authForm, email: e.target.value } })),
+      setAuthPassword: (e) => this.setState((st) => ({ authForm: { ...st.authForm, password: e.target.value } })),
+      setAuthFirstName: (e) => this.setState((st) => ({ authForm: { ...st.authForm, firstName: e.target.value } })),
+      setAuthLastName: (e) => this.setState((st) => ({ authForm: { ...st.authForm, lastName: e.target.value } })),
+      setAuthPhone: (e) => this.setState((st) => ({ authForm: { ...st.authForm, phone: e.target.value } })),
+      switchToLogin: () => this.switchAuthMode('login'),
+      switchToSignup: () => this.switchAuthMode('signup'),
+      switchToForgot: () => this.switchAuthMode('forgot'),
+      handleAuthSubmit: () => this.handleAuthSubmit(),
+
+      resetForm: s.resetForm,
+      resetError: s.resetError,
+      resetReady: s.resetReady,
+      resetBusy: s.resetBusy,
+      setResetPassword: (e) => this.setState((st) => ({ resetForm: { ...st.resetForm, password: e.target.value } })),
+      setResetConfirm: (e) => this.setState((st) => ({ resetForm: { ...st.resetForm, confirmPassword: e.target.value } })),
+      handleResetSubmit: () => this.handleResetSubmit(),
+
+      trips,
+      visibleTrips,
+      viatgesTab,
+      isOfferTab: viatgesTab === 'offer',
+      isRequestTab: viatgesTab === 'request',
+      setViatgesTabOffer: () => this.setState({ viatgesTab: 'offer' }),
+      setViatgesTabRequest: () => this.setState({ viatgesTab: 'request' }),
+      offerTabBg: viatgesTab === 'offer' ? 'rgba(91,76,251,0.1)' : 'transparent',
+      offerTabColor: viatgesTab === 'offer' ? '#5B4CFB' : '#8A8D97',
+      requestTabBg: viatgesTab === 'request' ? 'rgba(91,76,251,0.1)' : 'transparent',
+      requestTabColor: viatgesTab === 'request' ? '#5B4CFB' : '#8A8D97',
+      offerTabWeight: viatgesTab === 'offer' ? 700 : 600,
+      requestTabWeight: viatgesTab === 'request' ? 700 : 600,
+      offerCount: offerTrips.length,
+      requestCount: requestTrips.length,
+      offerCountBg: viatgesTab === 'offer' ? '#5B4CFB' : '#ECEDF2',
+      offerCountColor: viatgesTab === 'offer' ? '#fff' : '#6B6F7B',
+      requestCountBg: viatgesTab === 'request' ? '#5B4CFB' : '#ECEDF2',
+      requestCountColor: viatgesTab === 'request' ? '#fff' : '#6B6F7B',
+      tripsLoading: s.tripsLoading,
+      tripsEmpty: !s.tripsLoading && visibleTrips.length === 0,
+      tripsEmptyMsg: visibleTripsEmptyMsg,
+
+      postForm: s.postForm,
+      postBusy: s.postBusy,
+      postError: s.postError,
+      isPostOffer: s.postForm.tripType !== 'request',
+      isPostRequest: s.postForm.tripType === 'request',
+      setPostTypeOffer: () => this.setState((st) => ({ postForm: { ...st.postForm, tripType: 'offer' } })),
+      setPostTypeRequest: () => this.setState((st) => ({ postForm: { ...st.postForm, tripType: 'request' } })),
+      postTypeOfferBg: s.postForm.tripType !== 'request' ? '#EEEBFF' : '#fff',
+      postTypeOfferColor: s.postForm.tripType !== 'request' ? '#5B4CFB' : '#6B6F7B',
+      postTypeOfferBorder: s.postForm.tripType !== 'request' ? '#5B4CFB' : '#ECEDF2',
+      postTypeRequestBg: s.postForm.tripType === 'request' ? '#EEEBFF' : '#fff',
+      postTypeRequestColor: s.postForm.tripType === 'request' ? '#5B4CFB' : '#6B6F7B',
+      postTypeRequestBorder: s.postForm.tripType === 'request' ? '#5B4CFB' : '#ECEDF2',
+      setPostDepartAt: (e) => this.setState((st) => ({ postForm: { ...st.postForm, departAt: e.target.value } })),
+      departDateVal: (s.postForm.departAt || '').split('T')[0] || '',
+      departTimeVal: (s.postForm.departAt || '').split('T')[1] || '',
+      setPostDepartDate: (e) => this.setState((st) => {
+        const time = (st.postForm.departAt || '').split('T')[1] || '08:00';
+        return { postForm: { ...st.postForm, departAt: `${e.target.value}T${time}` } };
+      }),
+      setPostDepartTime: (e) => this.setState((st) => {
+        const date = (st.postForm.departAt || '').split('T')[0] || new Date().toISOString().slice(0, 10);
+        return { postForm: { ...st.postForm, departAt: `${date}T${e.target.value}` } };
+      }),
+      setPostSeats: (e) => this.setState((st) => ({ postForm: { ...st.postForm, availableSeats: e.target.value } })),
+      setPostPrice: (e) => this.setState((st) => ({ postForm: { ...st.postForm, pricePerSeat: e.target.value } })),
+      setPostNotes: (e) => this.setState((st) => ({ postForm: { ...st.postForm, pickupNotes: e.target.value } })),
+      setPostOrigin: (e) => this.setState((st) => ({ postForm: { ...st.postForm, origin: e.target.value } })),
+      setPostDestination: (e) => this.setState((st) => ({ postForm: { ...st.postForm, destination: e.target.value } })),
+      routeOptions: ROUTES.map((r) => ({
+        value: r.value,
+        label: r.label,
+        selectHandler: () => this.setState((st) => ({ postForm: { ...st.postForm, origin: r.origin, destination: r.destination } })),
+        bg: (s.postForm.origin === r.origin && s.postForm.destination === r.destination) ? '#EEEBFF' : '#fff',
+        color: (s.postForm.origin === r.origin && s.postForm.destination === r.destination) ? '#5B4CFB' : '#6B6F7B',
+        border: (s.postForm.origin === r.origin && s.postForm.destination === r.destination) ? '#5B4CFB' : '#ECEDF2',
+      })),
+      handlePostTrip: () => this.handlePostTrip(),
+
+      myTripsTab: s.myTripsTab,
+      myTripsLoading: s.myTripsLoading,
+      myDriverTrips,
+      myBookings,
+      showDriverTrips: s.myTripsTab === 'driver',
+      showPassengerBookings: s.myTripsTab === 'passenger',
+      driverTripsEmpty: !s.myTripsLoading && myDriverTrips.length === 0,
+      bookingsEmpty: !s.myTripsLoading && myBookings.length === 0,
+      setMyTabDriver: () => this.setState({ myTripsTab: 'driver' }),
+      setMyTabPassenger: () => this.setState({ myTripsTab: 'passenger' }),
+      isMyTabDriver: s.myTripsTab === 'driver',
+      isMyTabPassenger: s.myTripsTab === 'passenger',
+      myTabDriverBg: s.myTripsTab === 'driver' ? 'rgba(91,76,251,0.1)' : 'transparent',
+      myTabDriverColor: s.myTripsTab === 'driver' ? '#5B4CFB' : '#8A8D97',
+      myTabDriverWeight: s.myTripsTab === 'driver' ? 700 : 600,
+      myTabPassengerBg: s.myTripsTab === 'passenger' ? 'rgba(91,76,251,0.1)' : 'transparent',
+      myTabPassengerColor: s.myTripsTab === 'passenger' ? '#5B4CFB' : '#8A8D97',
+      myTabPassengerWeight: s.myTripsTab === 'passenger' ? 700 : 600,
+      myDriverCount: myDriverTrips.length,
+      myBookingCount: myBookings.length,
+
+      profileForm: s.profileForm,
+      profileBusy: s.profileBusy,
+      profileFullName,
+      profileInitial,
+      profileStatsLabel,
+      profileAvatarUrl,
+      profileAvatarDisplay,
+      profileAvatarColor,
+      avatarUploading: s.avatarUploading,
+      handleAvatarChange: (e) => this.handleAvatarChange(e),
+      avatarImgRef: this._avatarRef(profileAvatarUrl),
+      setProfileFirstName: (e) => this.setState((st) => ({ profileForm: { ...st.profileForm, firstName: e.target.value } })),
+      setProfileLastName: (e) => this.setState((st) => ({ profileForm: { ...st.profileForm, lastName: e.target.value } })),
+      setProfilePhone: (e) => this.setState((st) => ({ profileForm: { ...st.profileForm, phone: e.target.value } })),
+      handleProfileSave: () => this.handleProfileSave(),
+
+      goToTrips: () => this.goTo('trips'),
+      goToMyTrips: () => this.goTo('myTrips'),
+      goToProfile: () => this.goTo('profile'),
+      goToPost: () => { this.setState((st) => ({ postForm: { ...st.postForm, tripType: st.viatgesTab }, editingTripId: null })); this.goTo('post'); },
+      handleLogoClick: () => isLoggedIn && this.goTo('trips'),
+      handleLogout: this.handleLogout,
+
+      showBottomNav: isLoggedIn && view !== 'post',
+
+      tripsNavBg: tripsNav.bg, tripsNavColor: tripsNav.color, tripsFontWeight: tripsNav.weight,
+      myTripsNavBg: myTripsNav.bg, myTripsNavColor: myTripsNav.color, myTripsFontWeight: myTripsNav.weight,
+      profileNavBg: profileNav.bg, profileNavColor: profileNav.color, profileFontWeight: profileNav.weight,
+      tripsNavIconColor: iconColor('trips'), tripsIconWeight: tripsNav.iconWeight, tripsTabBg: activeTab === 'trips' ? '#EEEBFF' : 'transparent', tripsAriaCurrent: tripsNav.ariaCurrent,
+      myTripsNavIconColor: iconColor('myTrips'), myTripsIconWeight: myTripsNav.iconWeight, myTripsTabBg: activeTab === 'myTrips' ? '#EEEBFF' : 'transparent', myTripsAriaCurrent: myTripsNav.ariaCurrent,
+      profileNavIconColor: iconColor('profile'), profileIconWeight: profileNav.iconWeight, profileTabBg: activeTab === 'profile' ? '#EEEBFF' : 'transparent', profileAriaCurrent: profileNav.ariaCurrent,
+
+      toast: s.toast,
+      toastBg: toastColors[s.toast.kind] || '#14151A',
+
+      showIntro: s.showIntro,
+      appFadeClass: s.appFade ? 'pj-app-fade' : '',
+      topnavDesktopClass: isLoggedIn ? 'pj-topnav-hide-desktop' : '',
+      mainShiftClass: isLoggedIn ? 'pj-main-shifted' : '',
+    };
+  }
+}
+
+</script>
+</body>
+</html>

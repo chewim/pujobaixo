@@ -1,0 +1,47 @@
+PUJOBAIXO — Cómo desplegar esta carpeta
+========================================
+
+Qué contiene:
+- index.html         -> app (fix de "Nova contrasenya" + rutas absolutas)
+- support.js         -> runtime de la app (sin cambios de lógica)
+- supabase.umd.js    -> librería de Supabase, ahora alojada localmente
+                        (antes se cargaba desde cdn.jsdelivr.net)
+- _redirects         -> redirección SPA para Netlify (sin cambios)
+- assets/            -> imágenes (sin cambios)
+
+CAMBIOS EN ESTA VERSIÓN
+1. La pantalla de "Nova contrasenya" (al recuperar contraseña) ahora
+   reutiliza el mismo fondo con foto + tarjeta que login/registro, en
+   vez de una caja blanca aparte.
+2. FIX IMPORTANTE: index.html cargaba support.js, supabase.umd.js y la
+   imagen de fondo con rutas relativas ("./support.js" etc.). Eso se
+   rompía específicamente al abrir la app desde una ruta anidada como
+   /auth/callback (que es adonde apunta el enlace del correo de
+   recuperación de contraseña): el navegador resolvía mal la ruta
+   relativa, Netlify devolvía el propio index.html en vez del script,
+   y la app se quedaba mostrando el HTML crudo sin ejecutar nada
+   (las llaves "{{ }}" sin procesar que viste en el navegador).
+   Ahora todas las rutas son absolutas (/support.js, etc.) y esto no
+   depende de en qué URL se abra la app.
+3. La librería de Supabase ya no depende del CDN externo
+   cdn.jsdelivr.net — se sirve desde este mismo dominio.
+
+OPCIÓN A — Drag & drop (la más simple)
+1. Entra a https://app.netlify.com y abre tu sitio.
+2. Ve a la pestaña "Deploys".
+3. Arrastra esta carpeta completa (netlify-deploy) al recuadro que dice
+   "Drag and drop your site output folder here".
+4. Cuando termine (10-20s), prueba el flujo real: Perfil -> Tancar
+   sessió -> "Has oblidat la contrasenya?" -> revisa el correo -> pulsa
+   el enlace -> debería verse ya la pantalla "Nova contrasenya" bien,
+   con foto de fondo, sin errores de plantilla.
+
+OPCIÓN B — Netlify CLI
+1. Si no la tienes instalada: npm install -g netlify-cli
+2. Dentro de esta carpeta:
+     netlify login
+     netlify deploy --prod
+
+No hace falta tocar nada en Supabase ni en el DNS de IONOS: esos ajustes
+(política RLS de "trips", registros DKIM/SPF/DMARC de Resend) son temas
+aparte y no dependen de este deploy.
