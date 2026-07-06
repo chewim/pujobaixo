@@ -255,11 +255,11 @@
       </div>
 
       <div role="tablist" aria-label="Tipus de publicació" style="display:flex; gap:8px; margin-bottom:20px;">
-        <button role="tab" aria-selected="{{ isOfferTab }}" onClick="{{ setViatgesTabOffer }}" style="flex:1; min-height:44px; border:none; background:{{ offerTabBg }}; color:{{ offerTabColor }}; font-weight:{{ offerTabWeight }}; font-size:14px; padding:12px 14px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; transition:background 120ms ease-out, color 120ms ease-out; display:flex; align-items:center; justify-content:center; gap:7px;">
+        <button role="tab" aria-selected="{{ isOfferTab }}" onClick="{{ setViatgesTabOffer }}" style="flex:1; min-height:44px; border:none; background:{{ offerTabBg }}; color:{{ offerTabColor }}; font-weight:{{ offerTabWeight }}; font-size:14px; padding:12px 14px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; box-shadow:{{ offerTabShadow }}; transition:background 120ms ease-out, color 120ms ease-out, box-shadow 120ms ease-out; display:flex; align-items:center; justify-content:center; gap:7px;">
           Ofereixo viatge
           <span style="font-weight:600; font-size:13px; opacity:0.65;">({{ offerCount }})</span>
         </button>
-        <button role="tab" aria-selected="{{ isRequestTab }}" onClick="{{ setViatgesTabRequest }}" style="flex:1; min-height:44px; border:none; background:{{ requestTabBg }}; color:{{ requestTabColor }}; font-weight:{{ requestTabWeight }}; font-size:14px; padding:12px 14px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; transition:background 120ms ease-out, color 120ms ease-out; display:flex; align-items:center; justify-content:center; gap:7px;">
+        <button role="tab" aria-selected="{{ isRequestTab }}" onClick="{{ setViatgesTabRequest }}" style="flex:1; min-height:44px; border:none; background:{{ requestTabBg }}; color:{{ requestTabColor }}; font-weight:{{ requestTabWeight }}; font-size:14px; padding:12px 14px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; box-shadow:{{ requestTabShadow }}; transition:background 120ms ease-out, color 120ms ease-out, box-shadow 120ms ease-out; display:flex; align-items:center; justify-content:center; gap:7px;">
           Necessito viatge
           <span style="font-weight:600; font-size:13px; opacity:0.65;">({{ requestCount }})</span>
         </button>
@@ -269,12 +269,12 @@
       <sc-if value="{{ tripsEmpty }}"><div style="background:#fff; border-radius:24px; padding:40px 24px; text-align:center; color:#6B6F7B; font-size:14px;">{{ tripsEmptyMsg }}</div></sc-if>
 
       <sc-for list="{{ visibleTrips }}" as="trip" hint-placeholder-count="3">
-        <div style="background:#fff; border-radius:24px; padding:20px 22px; margin-bottom:14px; display:flex; flex-direction:column; gap:16px;">
+        <div style="background:#fff; border-radius:24px; padding:16px; margin-bottom:14px; display:flex; flex-direction:column; gap:16px;">
           <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
             <div style="display:flex; align-items:center; gap:12px; min-width:0;">
-              <span style="position:relative; width:46px; height:46px; flex-shrink:0; display:inline-block;">
-                <div style="width:46px; height:46px; border-radius:50%; background:{{ trip.posterAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:17px;">{{ trip.posterInitial }}</div>
-                <img alt="" ref="{{ trip.avatarImgRef }}" style="width:46px; height:46px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ trip.posterAvatarDisplay }};"/>
+              <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
+                <div style="width:32px; height:32px; border-radius:50%; background:{{ trip.posterAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">{{ trip.posterInitial }}</div>
+                <img alt="" ref="{{ trip.avatarImgRef }}" style="width:32px; height:32px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ trip.posterAvatarDisplay }};"/>
               </span>
               <div style="min-width:0;">
                 <div style="font-size:15px; font-weight:700; color:#14151A; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ trip.driverName }}</div>
@@ -424,11 +424,11 @@
     <sc-if value="{{ isMyTripsView }}">
       <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0 0 20px;">Els meus viatges</h1>
       <div role="tablist" aria-label="Tipus de viatge" style="display:flex; gap:8px; margin-bottom:20px;">
-        <button role="tab" aria-selected="{{ isMyTabDriver }}" onClick="{{ setMyTabDriver }}" style="flex:1; min-height:44px; border:none; background:{{ myTabDriverBg }}; color:{{ myTabDriverColor }}; font-weight:{{ myTabDriverWeight }}; font-size:14px; padding:12px 14px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; transition:background 120ms ease-out, color 120ms ease-out; display:flex; align-items:center; justify-content:center; gap:7px;">
+        <button role="tab" aria-selected="{{ isMyTabDriver }}" onClick="{{ setMyTabDriver }}" style="flex:1; min-height:44px; border:none; background:{{ myTabDriverBg }}; color:{{ myTabDriverColor }}; font-weight:{{ myTabDriverWeight }}; font-size:14px; padding:12px 14px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; box-shadow:{{ myTabDriverShadow }}; transition:background 120ms ease-out, color 120ms ease-out, box-shadow 120ms ease-out; display:flex; align-items:center; justify-content:center; gap:7px;">
           Com a conductor
           <span style="font-weight:600; font-size:13px; opacity:0.65;">({{ myDriverCount }})</span>
         </button>
-        <button role="tab" aria-selected="{{ isMyTabPassenger }}" onClick="{{ setMyTabPassenger }}" style="flex:1; min-height:44px; border:none; background:{{ myTabPassengerBg }}; color:{{ myTabPassengerColor }}; font-weight:{{ myTabPassengerWeight }}; font-size:14px; padding:12px 14px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; transition:background 120ms ease-out, color 120ms ease-out; display:flex; align-items:center; justify-content:center; gap:7px;">
+        <button role="tab" aria-selected="{{ isMyTabPassenger }}" onClick="{{ setMyTabPassenger }}" style="flex:1; min-height:44px; border:none; background:{{ myTabPassengerBg }}; color:{{ myTabPassengerColor }}; font-weight:{{ myTabPassengerWeight }}; font-size:14px; padding:12px 14px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; box-shadow:{{ myTabPassengerShadow }}; transition:background 120ms ease-out, color 120ms ease-out, box-shadow 120ms ease-out; display:flex; align-items:center; justify-content:center; gap:7px;">
           Com a passatger
           <span style="font-weight:600; font-size:13px; opacity:0.65;">({{ myBookingCount }})</span>
         </button>
@@ -444,12 +444,12 @@
           </div>
         </sc-if>
         <sc-for list="{{ myDriverTrips }}" as="trip" hint-placeholder-count="2">
-          <div style="background:#fff; border-radius:24px; padding:20px 22px; margin-bottom:14px; display:flex; flex-direction:column; gap:16px;">
+          <div style="background:#fff; border-radius:24px; padding:16px; margin-bottom:14px; display:flex; flex-direction:column; gap:16px;">
             <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
               <div style="display:flex; align-items:center; gap:12px; min-width:0;">
-                <span style="position:relative; width:46px; height:46px; flex-shrink:0; display:inline-block;">
-                  <div style="width:46px; height:46px; border-radius:50%; background:{{ trip.posterAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:17px;">{{ trip.posterInitial }}</div>
-                  <img alt="" ref="{{ trip.avatarImgRef }}" style="width:46px; height:46px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ trip.posterAvatarDisplay }};"/>
+                <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
+                  <div style="width:32px; height:32px; border-radius:50%; background:{{ trip.posterAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">{{ trip.posterInitial }}</div>
+                  <img alt="" ref="{{ trip.avatarImgRef }}" style="width:32px; height:32px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ trip.posterAvatarDisplay }};"/>
                 </span>
                 <div style="min-width:0;">
                   <div style="font-size:15px; font-weight:700; color:#14151A; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ trip.driverName }}</div>
@@ -1413,8 +1413,10 @@ class Component extends DCLogic {
       setViatgesTabRequest: () => this.setState({ viatgesTab: 'request' }),
       offerTabBg: viatgesTab === 'offer' ? 'rgba(91,76,251,0.1)' : 'transparent',
       offerTabColor: viatgesTab === 'offer' ? '#5B4CFB' : '#8A8D97',
+      offerTabShadow: viatgesTab === 'offer' ? '0 8px 20px -10px rgba(91,76,251,0.45)' : 'none',
       requestTabBg: viatgesTab === 'request' ? 'rgba(91,76,251,0.1)' : 'transparent',
       requestTabColor: viatgesTab === 'request' ? '#5B4CFB' : '#8A8D97',
+      requestTabShadow: viatgesTab === 'request' ? '0 8px 20px -10px rgba(91,76,251,0.45)' : 'none',
       offerTabWeight: viatgesTab === 'offer' ? 700 : 600,
       requestTabWeight: viatgesTab === 'request' ? 700 : 600,
       offerCount: offerTrips.length,
@@ -1480,9 +1482,11 @@ class Component extends DCLogic {
       isMyTabPassenger: s.myTripsTab === 'passenger',
       myTabDriverBg: s.myTripsTab === 'driver' ? 'rgba(91,76,251,0.1)' : 'transparent',
       myTabDriverColor: s.myTripsTab === 'driver' ? '#5B4CFB' : '#8A8D97',
+      myTabDriverShadow: s.myTripsTab === 'driver' ? '0 8px 20px -10px rgba(91,76,251,0.45)' : 'none',
       myTabDriverWeight: s.myTripsTab === 'driver' ? 700 : 600,
       myTabPassengerBg: s.myTripsTab === 'passenger' ? 'rgba(91,76,251,0.1)' : 'transparent',
       myTabPassengerColor: s.myTripsTab === 'passenger' ? '#5B4CFB' : '#8A8D97',
+      myTabPassengerShadow: s.myTripsTab === 'passenger' ? '0 8px 20px -10px rgba(91,76,251,0.45)' : 'none',
       myTabPassengerWeight: s.myTripsTab === 'passenger' ? 700 : 600,
       myDriverCount: myDriverTrips.length,
       myBookingCount: myBookings.length,
