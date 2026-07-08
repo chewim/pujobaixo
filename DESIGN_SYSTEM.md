@@ -13,7 +13,7 @@ Extraída directamente del código (`index.html`) auditando todos los valores de
 | Morado marca | `#5B4CFB` | Acción primaria: botones, links, iconos activos, estado seleccionado |
 | Negro texto | `#14151A` | Texto principal, títulos, precios en negrita (color base del body) |
 | Gris texto secundario | `#6B6F7B` | Labels de formulario, subtítulos, texto secundario |
-| Gris icono/meta | `#8A8D97` | Iconos inactivos, metadatos (plazas, fecha/hora en cards) |
+| Gris icono/meta | `#727681` | Iconos inactivos, metadatos (plazas, fecha/hora en cards) |
 | Borde por defecto | `#ECEDF2` | Bordes de inputs, cards, separadores |
 | Fondo de la app | `#F3F4F8` | Fondo general de página (fuera de las cards) |
 | Blanco superficie | `#fff` / `#FFFFFF` | Fondo de cards, inputs, navs |
@@ -26,10 +26,10 @@ Extraída directamente del código (`index.html`) auditando todos los valores de
 | Rojo error | `#C22A24` | Texto de error, botón "Eliminar" |
 | Fondo error | `#FDEBEA` | Fondo de banner/botón de error |
 | Borde error | `#FBD8D6` | Borde del botón "Eliminar" |
-| Verde éxito | `#1E8A4C` | Precio, texto de éxito |
+| Verde éxito | `#1D874A` | Precio, texto de éxito |
 | Fondo éxito | `#EAF7EF` | Fondo de banner de éxito |
-| Verde WhatsApp | `#25D366` (hover `#20BD5A`, active `#1DA851`, focus outline `#128C7E`) | CTA de contacto por WhatsApp |
-| Gris placeholder | `#A6A9B4` | Placeholder de inputs |
+| Verde WhatsApp | `#075E54` (hover `#06534A`, active `#05463F`, focus outline `#128C7E`) | CTA de contacto por WhatsApp |
+| Gris placeholder | `#8F93A1` | Placeholder de inputs |
 
 ### Fondos, bordes, sombras y estados
 
@@ -47,7 +47,7 @@ Extraída directamente del código (`index.html`) auditando todos los valores de
 De más a menos peso visual, en cualquier pantalla:
 1. **Dato principal** (ruta origen→destino, título de pantalla) — texto grande, negro, extra-bold.
 2. **Dato secundario relevante** (precio, nombre) — un escalón por debajo en tamaño/peso, color de marca o negro.
-3. **Metadatos** (fecha, hora, plazas, notas) — gris (`#6B6F7B`/`#8A8D97`), nunca negro ni bold.
+3. **Metadatos** (fecha, hora, plazas, notas) — gris (`#6B6F7B`/`#727681`), nunca negro ni bold.
 4. **Labels de formulario** — gris, 15px, 700, siempre encima del campo (nunca al lado ni como placeholder-only).
 
 ---
@@ -77,7 +77,7 @@ De más a menos peso visual, en cualquier pantalla:
 - **Título (h1)**: 24px/800, `margin:0 0 24px`.
 - **Subtítulo**: no existe un h2 tipográfico separado — se resuelve con el mismo tamaño que el label (15px/700) o con el color mudado a `#6B6F7B`.
 - **Body**: 15px/600, es el tamaño de los inputs y del texto de conductor/nombre.
-- **Caption**: 12.5–13.5px, color `#6B6F7B` u `#8A8D97`.
+- **Caption**: 12.5–13.5px, color `#6B6F7B` u `#727681`.
 - **Label**: 15px/700, color `#6B6F7B`, `display:block; margin-bottom:8px` — patrón fijo, siempre igual.
 - **Botón**: 14–15px/700–800, nunca 600.
 
@@ -134,9 +134,9 @@ De más a menos peso visual, en cualquier pantalla:
 | Secundario/outline | `#fff` | `#14151A` / 700 | `1.5px solid #ECEDF2` | `14px` | `44px` | Acción neutra ("Editar", "Cancel·lar") |
 | Peligro | `#FDEBEA` | `#C22A24` / 700 | `1.5px solid #FBD8D6` | `14px` | `44px` | Acción destructiva ("Eliminar", "Sí, eliminar") |
 | Texto/link | transparente | `#5B4CFB` / 700 | ninguno | — | auto | Enlace de acción secundaria ("Registra't", "Has oblidat la contrasenya?") |
-| WhatsApp CTA | `#25D366` | `#fff` / 700 | ninguno | `14px` | `44px` | Único botón con estados hover/active/focus explícitos |
-| Tab/segmento | tinte morado si activo / transparente si no | `#5B4CFB` si activo / `#8A8D97` si no | ninguno | `14px` | `44px` | Selectores tipo "Ofereixo/Necessito" |
-| Nav (bottom nav) | tinte morado si activo / transparente si no | `#5B4CFB` si activo / `#8A8D97` si no | ninguno | `14px` | `44px` | Viatges / Els meus / Perfil |
+| WhatsApp CTA | `#075E54` | `#fff` / 700 | ninguno | `14px` | `44px` | Único botón con estados hover/active/focus explícitos |
+| Tab/segmento | tinte morado si activo / transparente si no | `#5B4CFB` si activo / `#727681` si no | ninguno | `14px` | `44px` | Selectores tipo "Ofereixo/Necessito" |
+| Nav (bottom nav) | tinte morado si activo / transparente si no | `#5B4CFB` si activo / `#727681` si no | ninguno | `14px` | `44px` | Viatges / Els meus / Perfil |
 | Icono circular | `#fff` | `#14151A` | ninguno | `14px` | `40px` | Cerrar (X) en Publicar |
 
 **Todos los botones usan el mismo radio (`14px`), sin excepción** — es la regla de consistencia más importante de este sistema: ningún botón es "píldora" (999px), independientemente de su tamaño o importancia. Solo elementos no interactivos (badges, toast) pueden usar `999px`.
@@ -196,7 +196,8 @@ Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padd
   - **Toast** (`_showToast`): para confirmaciones puntuales de una acción (guardar, eliminar, publicar) — no bloquea la pantalla.
   - **Banner inline** (fondo `#FDEBEA`, arriba del formulario): para errores de validación/envío de un formulario concreto.
 - **Errores y validaciones**: todo el texto de error que ve el usuario debe ser lenguaje llano, nunca el mensaje técnico crudo de Supabase/Postgres (hay un helper `_friendlyDbError` pensado exactamente para esto — reutilízalo en cualquier función nueva que hable con la base de datos).
-- **Accesibilidad básica ya aplicada**: `min-height:44px` en todo elemento pulsable, `role="tab"`/`aria-selected` en segmentos, `aria-current="page"` en nav, `aria-label` en botones/enlaces solo-icono, `alt=""` en imágenes decorativas.
+- **Accesibilidad básica ya aplicada**: `min-height:44px` en todo elemento pulsable, `role="tab"`/`aria-selected` en segmentos, `aria-current="page"` en nav, `aria-label` en botones/enlaces solo-icono, `alt=""` en imágenes decorativas, `for`/`id` en todos los pares label-input de un solo campo, `role="group"` + `aria-labelledby` en grupos de varios campos (Ruta, Data i hora, Tipus de publicació).
+- **Contraste de color (WCAG AA) auditado y corregido**: todos los colores de texto/icono de la paleta cumplen ≥4.5:1 sobre su fondo habitual (texto normal) o ≥3:1 (texto grande). Verificado con la fórmula de luminancia relativa de WCAG. Si añades un color de texto nuevo, comprueba el contraste antes de darlo por bueno — no asumas que "se ve bien" es suficiente.
 
 ---
 
@@ -238,17 +239,17 @@ Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padd
 | `color-brand-tint` | `rgba(91,76,251,0.1)` / `#EEEBFF` |
 | `color-text-primary` | `#14151A` |
 | `color-text-secondary` | `#6B6F7B` |
-| `color-text-muted` | `#8A8D97` |
+| `color-text-muted` | `#727681` |
 | `color-border` | `#ECEDF2` |
 | `color-bg-page` | `#F3F4F8` |
 | `color-bg-surface` | `#fff` |
 | `color-danger` | `#C22A24` |
 | `color-danger-bg` | `#FDEBEA` |
 | `color-danger-border` | `#FBD8D6` |
-| `color-success` | `#1E8A4C` |
+| `color-success` | `#1D874A` |
 | `color-success-bg` | `#EAF7EF` |
-| `color-whatsapp` | `#25D366` (hover `#20BD5A`, active `#1DA851`, focus `#128C7E`) |
-| `color-placeholder` | `#A6A9B4` |
+| `color-whatsapp` | `#075E54` (hover `#06534A`, active `#05463F`, focus `#128C7E`) |
+| `color-placeholder` | `#8F93A1` |
 
 ### Tipografía
 | Token | Valor |
