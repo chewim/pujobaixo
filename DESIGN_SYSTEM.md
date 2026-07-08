@@ -130,7 +130,7 @@ De más a menos peso visual, en cualquier pantalla:
 | Variante | Fondo | Texto | Borde | Radio | Altura | Uso |
 |---|---|---|---|---|---|---|
 | Primario (pill) | `#5B4CFB` | `#fff` / 800 | ninguno | `999px` | `50px` | Acción principal de un formulario (Iniciar sessió, Publicar, Desar...) |
-| Primario compacto | `#5B4CFB` | `#fff` / 700 | ninguno | `999px` | auto (`padding:8px 24px`) | CTA secundario en contexto ("+ Publicar") |
+| Primario compacto | `#5B4CFB` | `#fff` / 700 | ninguno | `999px` | `min-height:44px` (`padding:0 24px`) | CTA secundario en contexto ("+ Publicar", CTAs de estado vacío) |
 | Secundario/outline | `#fff` | `#14151A` / 700 | `1.5px solid #ECEDF2` | `14px` | `44px` | Acción neutra ("Editar", "Cancel·lar") |
 | Peligro | `#FDEBEA` | `#C22A24` / 700 | `1.5px solid #FBD8D6` | `14px` | `44px` | Acción destructiva ("Eliminar", "Sí, eliminar") |
 | Texto/link | transparente | `#5B4CFB` / 700 | ninguno | — | auto | Enlace de acción secundaria ("Registra't", "Has oblidat la contrasenya?") |

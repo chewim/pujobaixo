@@ -280,7 +280,7 @@
     <sc-if value="{{ isTripsView }}">
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 24px; flex-wrap:wrap; gap: 16px;">
         <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin: 0;">Propers viatges</h1>
-        <button onClick="{{ goToPost }}" style="border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 8px 24px; border-radius:999px; cursor:pointer;">+ Publicar</button>
+        <button onClick="{{ goToPost }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:999px; cursor:pointer;">+ Publicar</button>
       </div>
 
       <div role="tablist" aria-label="Tipus de publicació" style="display:flex; gap: 8px; margin-bottom: 24px;">
@@ -475,7 +475,7 @@
         <sc-if value="{{ driverTripsEmpty }}">
           <div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center;">
             <div style="color:#6B6F7B; font-size:14px; margin-bottom: 24px;">Encara no has publicat cap viatge. Anima't a publicar-ne un!</div>
-            <button onClick="{{ goToPost }}" style="border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 8px 24px; border-radius:999px; cursor:pointer; font-family:inherit;">+ Publicar el meu primer viatge</button>
+            <button onClick="{{ goToPostAsOffer }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:999px; cursor:pointer; font-family:inherit;">+ Publicar el meu primer viatge</button>
           </div>
         </sc-if>
         <sc-for list="{{ myDriverTrips }}" as="trip" hint-placeholder-count="2">
@@ -551,7 +551,12 @@
       </sc-if>
 
       <sc-if value="{{ showPassengerBookings }}">
-        <sc-if value="{{ bookingsEmpty }}"><div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center; color:#6B6F7B; font-size:14px;">Encara no has reservat cap viatge.</div></sc-if>
+        <sc-if value="{{ bookingsEmpty }}">
+          <div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center;">
+            <div style="color:#6B6F7B; font-size:14px; margin-bottom: 24px;">Encara no has reservat cap viatge. Publica una sol·licitud i que et trobin!</div>
+            <button onClick="{{ goToPostAsRequest }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:999px; cursor:pointer; font-family:inherit;">+ Publicar la meva sol·licitud</button>
+          </div>
+        </sc-if>
         <sc-for list="{{ myBookings }}" as="booking" hint-placeholder-count="2">
           <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 24px 24px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 8px;">
             <div style="text-align:center;">
@@ -1572,6 +1577,8 @@ class Component extends DCLogic {
       goToMyTrips: () => this.goTo('myTrips'),
       goToProfile: () => this.goTo('profile'),
       goToPost: () => { this.setState((st) => ({ postForm: { ...st.postForm, tripType: st.viatgesTab }, editingTripId: null })); this.goTo('post'); },
+      goToPostAsOffer: () => { this.setState((st) => ({ postForm: { ...st.postForm, tripType: 'offer' }, editingTripId: null })); this.goTo('post'); },
+      goToPostAsRequest: () => { this.setState((st) => ({ postForm: { ...st.postForm, tripType: 'request' }, editingTripId: null })); this.goTo('post'); },
       handleLogoClick: () => isLoggedIn && this.goTo('trips'),
       handleLogout: this.handleLogout,
 
