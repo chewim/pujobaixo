@@ -92,7 +92,9 @@
     }
     .pj-main { padding: 24px 16px 104px; }
     .pj-post-card { background: transparent; padding: 0; }
+    .pj-post-section { margin-bottom: 16px; }
     @media (min-width: 900px) {
+      .pj-post-section { margin-bottom: 32px; }
       .pj-topnav-hide-desktop { display: none !important; }
       .pj-sidebar { display: flex !important; }
       .pj-main-shifted { margin-left: 248px !important; }
@@ -388,7 +390,7 @@
         <sc-if value="{{ postError }}"><div style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 16px;">{{ postError }}</div></sc-if>
 
         <div id="post-type-label" style="font-size:15px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">Tipus de publicació</div>
-        <div role="group" aria-labelledby="post-type-label" style="display:flex; gap: 8px; margin-bottom: 16px;">
+        <div role="group" aria-labelledby="post-type-label" class="pj-post-section" style="display:flex; gap: 8px;">
           <button onClick="{{ setPostTypeOffer }}" aria-pressed="{{ isPostOffer }}" style="flex:1; min-height:44px; border:1.5px solid {{ postTypeOfferBorder }}; background:{{ postTypeOfferBg }}; color:{{ postTypeOfferColor }}; font-weight:700; font-size:13.5px; padding: 16px; border-radius:14px; cursor:pointer; font-family:inherit;">Ofereixo viatge</button>
           <button onClick="{{ setPostTypeRequest }}" aria-pressed="{{ isPostRequest }}" style="flex:1; min-height:44px; border:1.5px solid {{ postTypeRequestBorder }}; background:{{ postTypeRequestBg }}; color:{{ postTypeRequestColor }}; font-weight:700; font-size:13.5px; padding: 16px; border-radius:14px; cursor:pointer; font-family:inherit;">Necessito viatge</button>
         </div>
@@ -399,12 +401,12 @@
           <input value="{{ postForm.destination }}" onChange="{{ setPostDestination }}" placeholder="Destinació" aria-label="Destinació" style="flex:1; min-width:0; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
         </div>
 
-        <button onClick="{{ togglePostRoutePresets }}" aria-expanded="{{ postShowRoutePresets }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; height:44px; border-radius:14px; border:1.5px solid #ECEDF2; background:#fff; color:#6B6F7B; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; padding: 0 16px; margin-bottom: 16px;">
+        <button onClick="{{ togglePostRoutePresets }}" aria-expanded="{{ postShowRoutePresets }}" class="pj-post-section" style="width:100%; display:flex; align-items:center; justify-content:space-between; height:44px; border-radius:14px; border:1.5px solid #ECEDF2; background:#fff; color:#6B6F7B; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; padding: 0 16px;">
           Rutes predefinides
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="transform:{{ routePresetsChevron }}; transition:transform 120ms ease-out;"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </button>
         <sc-if value="{{ postShowRoutePresets }}">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap: 8px; margin-bottom: 16px;">
+          <div class="pj-post-section" style="display:grid; grid-template-columns:1fr 1fr; gap: 8px;">
             <sc-for list="{{ routeOptions }}" as="route" hint-placeholder-count="4">
               <button class="pj-appear" onClick="{{ route.selectHandler }}" style="height:52px; border-radius:14px; border:1.5px solid {{ route.border }}; background:{{ route.bg }}; color:{{ route.color }}; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; padding: 0 8px;">{{ route.label }}</button>
             </sc-for>
@@ -415,7 +417,7 @@
           <sc-if value="{{ isPostOffer }}">Data i hora de sortida</sc-if>
           <sc-if value="{{ isPostRequest }}">Data i hora aproximada</sc-if>
         </div>
-        <div role="group" aria-labelledby="post-datetime-label" style="display:flex; gap: 8px; margin-bottom: 16px;">
+        <div role="group" aria-labelledby="post-datetime-label" class="pj-post-section" style="display:flex; gap: 8px;">
           <div style="position:relative; flex:1; min-width:0;">
             <input type="date" value="{{ departDateVal }}" onChange="{{ setPostDepartDate }}" aria-label="Data" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 40px 0 16px; font-size:15px; font-family:inherit; color:#14151A;"/>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6F7B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); pointer-events:none;"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>
@@ -426,7 +428,7 @@
           </div>
         </div>
 
-        <div style="display:flex; gap: 16px; margin-bottom: 16px;">
+        <div class="pj-post-section" style="display:flex; gap: 16px;">
           <div style="flex:1;">
             <label for="post-seats" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
               <sc-if value="{{ isPostOffer }}">Places disponibles</sc-if>
@@ -446,7 +448,7 @@
           <sc-if value="{{ isPostOffer }}">Notes de recollida (opcional)</sc-if>
           <sc-if value="{{ isPostRequest }}">Flexibilitat horària / observacions (opcional)</sc-if>
         </label>
-        <textarea id="post-notes" value="{{ postForm.pickupNotes }}" onChange="{{ setPostNotes }}" placeholder="Ex: Sortida des de l'estació de bus" style="width:100%; min-height:80px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 16px 16px; font-size:15px; font-family:inherit; margin-bottom: 24px; resize:vertical;"></textarea>
+        <textarea id="post-notes" value="{{ postForm.pickupNotes }}" onChange="{{ setPostNotes }}" placeholder="Ex: Sortida des de l'estació de bus" class="pj-post-section" style="width:100%; min-height:80px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 16px 16px; font-size:15px; font-family:inherit; resize:vertical;"></textarea>
 
         <button onClick="{{ handlePostTrip }}" disabled="{{ postBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
           <sc-if value="{{ postBusy }}">Publicant…</sc-if>

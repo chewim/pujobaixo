@@ -103,6 +103,8 @@ De más a menos peso visual, en cualquier pantalla:
 
 **Margin entre elementos de una lista**: `margin-bottom:16px` (constante en toda card repetida — trips, bookings, etc.)
 
+**Espacio dentro de un apartado vs. entre apartados distintos** (formularios largos, ej. Publicar): dentro de un mismo apartado (label→input, campos de una misma fila) se mantiene 8-16px; entre el final de un apartado y el inicio del siguiente se usa la clase `.pj-post-section` (`margin-bottom:16px` en móvil, `32px` en desktop ≥900px) — así los bloques del formulario se perciben como secciones distintas en vez de un único bloque continuo, sobre todo en pantallas anchas donde 16px se queda corto.
+
 ### Grid / estructura responsive
 
 - **Un único breakpoint**: `@media (min-width: 900px)`. No hay tablet intermedio — por debajo de 900px todo es "móvil" (con bottom nav), por encima es "desktop" (con sidebar).
