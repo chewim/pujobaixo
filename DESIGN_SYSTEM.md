@@ -28,7 +28,7 @@ Extraída directamente del código (`index.html`) auditando todos los valores de
 | Borde error | `#FBD8D6` | Borde del botón "Eliminar" |
 | Verde éxito | `#1D874A` | Precio, texto de éxito |
 | Fondo éxito | `#EAF7EF` | Fondo de banner de éxito |
-| Verde WhatsApp | `#075E54` (hover `#06534A`, active `#05463F`, focus outline `#128C7E`) | CTA de contacto por WhatsApp |
+| Verde WhatsApp | `#25D366` (hover `#20BD5A`, active `#1DA851`, focus outline `#128C7E`) — texto/icono en `#14151A`, no blanco | CTA de contacto por WhatsApp |
 | Gris placeholder | `#8F93A1` | Placeholder de inputs |
 
 ### Fondos, bordes, sombras y estados
@@ -136,7 +136,7 @@ De más a menos peso visual, en cualquier pantalla:
 | Secundario/outline | `#fff` | `#14151A` / 700 | `1.5px solid #ECEDF2` | `14px` | `44px` | Acción neutra ("Editar", "Cancel·lar") |
 | Peligro | `#FDEBEA` | `#C22A24` / 700 | `1.5px solid #FBD8D6` | `14px` | `44px` | Acción destructiva ("Eliminar", "Sí, eliminar") |
 | Texto/link | transparente | `#5B4CFB` / 700 | ninguno | — | auto | Enlace de acción secundaria ("Registra't", "Has oblidat la contrasenya?") |
-| WhatsApp CTA | `#075E54` | `#fff` / 700 | ninguno | `14px` | `44px` | Único botón con estados hover/active/focus explícitos |
+| WhatsApp CTA | `#25D366` | `#14151A` / 700 | ninguno | `14px` | `44px` | Único botón con estados hover/active/focus explícitos; texto negro (no blanco) sobre el verde original |
 | Tab/segmento | tinte morado si activo / transparente si no | `#5B4CFB` si activo / `#727681` si no | ninguno | `14px` | `44px` | Selectores tipo "Ofereixo/Necessito" |
 | Nav (bottom nav) | tinte morado si activo / transparente si no | `#5B4CFB` si activo / `#727681` si no | ninguno | `14px` | `44px` | Viatges / Els meus / Perfil |
 | Icono circular | `#fff` | `#14151A` | ninguno | `14px` | `40px` | Cerrar (X) en Publicar |
@@ -250,7 +250,7 @@ Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padd
 | `color-danger-border` | `#FBD8D6` |
 | `color-success` | `#1D874A` |
 | `color-success-bg` | `#EAF7EF` |
-| `color-whatsapp` | `#075E54` (hover `#06534A`, active `#05463F`, focus `#128C7E`) |
+| `color-whatsapp` | `#25D366` (hover `#20BD5A`, active `#1DA851`, focus `#128C7E`), texto `#14151A` |
 | `color-placeholder` | `#8F93A1` |
 
 ### Tipografía
