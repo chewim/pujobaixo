@@ -129,13 +129,17 @@ De más a menos peso visual, en cualquier pantalla:
 
 | Variante | Fondo | Texto | Borde | Radio | Altura | Uso |
 |---|---|---|---|---|---|---|
-| Primario (pill) | `#5B4CFB` | `#fff` / 800 | ninguno | `999px` | `50px` | Acción principal de un formulario (Iniciar sessió, Publicar, Desar...) |
-| Primario compacto | `#5B4CFB` | `#fff` / 700 | ninguno | `999px` | `min-height:44px` (`padding:0 24px`) | CTA secundario en contexto ("+ Publicar", CTAs de estado vacío) |
+| Primario | `#5B4CFB` | `#fff` / 800 | ninguno | `14px` | `50px` | Acción principal de un formulario (Iniciar sessió, Publicar, Desar...) |
+| Primario compacto | `#5B4CFB` | `#fff` / 700 | ninguno | `14px` | `min-height:44px` (`padding:0 24px`) | CTA secundario en contexto ("+ Publicar", CTAs de estado vacío) |
 | Secundario/outline | `#fff` | `#14151A` / 700 | `1.5px solid #ECEDF2` | `14px` | `44px` | Acción neutra ("Editar", "Cancel·lar") |
 | Peligro | `#FDEBEA` | `#C22A24` / 700 | `1.5px solid #FBD8D6` | `14px` | `44px` | Acción destructiva ("Eliminar", "Sí, eliminar") |
 | Texto/link | transparente | `#5B4CFB` / 700 | ninguno | — | auto | Enlace de acción secundaria ("Registra't", "Has oblidat la contrasenya?") |
 | WhatsApp CTA | `#25D366` | `#fff` / 700 | ninguno | `14px` | `44px` | Único botón con estados hover/active/focus explícitos |
 | Tab/segmento | tinte morado si activo / transparente si no | `#5B4CFB` si activo / `#8A8D97` si no | ninguno | `14px` | `44px` | Selectores tipo "Ofereixo/Necessito" |
+| Nav (bottom nav) | tinte morado si activo / transparente si no | `#5B4CFB` si activo / `#8A8D97` si no | ninguno | `14px` | `44px` | Viatges / Els meus / Perfil |
+| Icono circular | `#fff` | `#14151A` | ninguno | `14px` | `40px` | Cerrar (X) en Publicar |
+
+**Todos los botones usan el mismo radio (`14px`), sin excepción** — es la regla de consistencia más importante de este sistema: ningún botón es "píldora" (999px), independientemente de su tamaño o importancia. Solo elementos no interactivos (badges, toast) pueden usar `999px`.
 
 Todos los botones: `min-height:44px` (objetivo táctil accesible), `cursor:pointer`, `font-family:inherit`.
 
@@ -200,7 +204,7 @@ Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padd
 
 **Mantener siempre:**
 - Una única familia tipográfica (Plus Jakarta Sans) y solo 3 pesos (600/700/800).
-- Radios: `14px` (inputs/botones/cards pequeñas), `24px` (cards de contenido), `28px` (cards hero), `999px` (pills/botones grandes), `50%` (avatares/círculos). No inventar un radio nuevo.
+- Radios: `14px` (inputs/**todos los botones, sin excepción**/cards pequeñas), `24px` (cards de contenido), `28px` (cards hero), `999px` (solo badges/toast, nunca botones), `50%` (avatares/círculos). No inventar un radio nuevo.
 - Los 3 colores de sombra documentados — no crear sombras grises genéricas nuevas.
 - El patrón label-encima-del-input (15px/700/gris, `margin-bottom:8px`) en cualquier formulario nuevo.
 - `min-height:44px` en todo elemento interactivo (accesibilidad táctil).
@@ -266,11 +270,10 @@ Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padd
 ### Radios
 | Token | Valor |
 |---|---|
-| `radius-sm` (inputs/botones/tabs) | 14px |
-| `radius-nav-pill` | 16px |
+| `radius-sm` (inputs/**todos los botones**/tabs) | 14px |
 | `radius-card` | 24px |
 | `radius-card-hero` | 28px |
-| `radius-pill` | 999px |
+| `radius-pill` (solo badges/toast, no botones) | 999px |
 | `radius-circle` | 50% |
 
 ### Sombras
@@ -296,7 +299,7 @@ Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padd
 ### Componentes reutilizables
 | Componente | Receta base |
 |---|---|
-| Botón primario | `#5B4CFB` bg, `#fff` texto 800, `999px` radio, `50px` alto |
+| Botón primario | `#5B4CFB` bg, `#fff` texto 800, `14px` radio, `50px` alto |
 | Botón secundario | `#fff` bg, borde `#ECEDF2`, `14px` radio, `44px` alto |
 | Botón peligro | `#FDEBEA` bg, texto `#C22A24`, borde `#FBD8D6` |
 | Input estándar | `48px` alto, `14px` radio, borde `#ECEDF2`, `padding:0 16px` |

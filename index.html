@@ -132,15 +132,15 @@
 
   <sc-if value="{{ showBottomNav }}" hint-placeholder-val="{{ false }}">
     <nav class="pj-bottomnav" aria-label="Navegació principal" style="position:fixed; bottom:0; left:0; right:0; z-index:20; display:flex; min-height:68px; background:#FFFFFF; border-top:1px solid #ECEDF2; padding: 8px 4px calc(8px + env(safe-area-inset-bottom));">
-      <button aria-label="Viatges" aria-current="{{ tripsAriaCurrent }}" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap: 4px; min-height:44px; border:none; background:{{ tripsTabBg }}; border-radius:16px; margin: 0 4px; cursor:pointer; padding: 8px 4px; color:{{ tripsNavIconColor }}; font-family:inherit; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToTrips }}">
+      <button aria-label="Viatges" aria-current="{{ tripsAriaCurrent }}" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap: 4px; min-height:44px; border:none; background:{{ tripsTabBg }}; border-radius:14px; margin: 0 4px; cursor:pointer; padding: 8px 4px; color:{{ tripsNavIconColor }}; font-family:inherit; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToTrips }}">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ tripsIconWeight }}" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"></circle><path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"></path><circle cx="18" cy="5" r="2.5"></circle></svg>
         <span style="font-size:11px; font-weight:{{ tripsFontWeight }};">Viatges</span>
       </button>
-      <button aria-label="Els meus viatges" aria-current="{{ myTripsAriaCurrent }}" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap: 4px; min-height:44px; border:none; background:{{ myTripsTabBg }}; border-radius:16px; margin: 0 4px; cursor:pointer; padding: 8px 4px; color:{{ myTripsNavIconColor }}; font-family:inherit; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToMyTrips }}">
+      <button aria-label="Els meus viatges" aria-current="{{ myTripsAriaCurrent }}" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap: 4px; min-height:44px; border:none; background:{{ myTripsTabBg }}; border-radius:14px; margin: 0 4px; cursor:pointer; padding: 8px 4px; color:{{ myTripsNavIconColor }}; font-family:inherit; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToMyTrips }}">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ myTripsIconWeight }}" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12a1 1 0 0 1 1 1v15l-7-4-7 4V5a1 1 0 0 1 1-1z"></path></svg>
         <span style="font-size:11px; font-weight:{{ myTripsFontWeight }};">Els meus</span>
       </button>
-      <button aria-label="Perfil" aria-current="{{ profileAriaCurrent }}" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap: 4px; min-height:44px; border:none; background:{{ profileTabBg }}; border-radius:16px; margin: 0 4px; cursor:pointer; padding: 8px 4px; color:{{ profileNavIconColor }}; font-family:inherit; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToProfile }}">
+      <button aria-label="Perfil" aria-current="{{ profileAriaCurrent }}" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap: 4px; min-height:44px; border:none; background:{{ profileTabBg }}; border-radius:14px; margin: 0 4px; cursor:pointer; padding: 8px 4px; color:{{ profileNavIconColor }}; font-family:inherit; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToProfile }}">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ profileIconWeight }}" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>
         <span style="font-size:11px; font-weight:{{ profileFontWeight }};">Perfil</span>
       </button>
@@ -216,7 +216,7 @@
           </sc-if>
           <sc-if value="{{ isSignupOrForgot }}"><div style="height:16px;"></div></sc-if>
 
-          <button onClick="{{ handleAuthSubmit }}" disabled="{{ authBusy }}" style="width:100%; height:50px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
+          <button onClick="{{ handleAuthSubmit }}" disabled="{{ authBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
             <sc-if value="{{ authBusy }}">Un moment…</sc-if>
             <sc-if value="{{ isLoginModeReady }}">Iniciar sessió</sc-if>
             <sc-if value="{{ isSignupModeReady }}">Crear compte</sc-if>
@@ -247,7 +247,7 @@
           <sc-if value="{{ resetReady }}">
             <input type="password" placeholder="Nova contrasenya" value="{{ resetForm.password }}" onChange="{{ setResetPassword }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 16px;"/>
             <input type="password" placeholder="Confirma la contrasenya" value="{{ resetForm.confirmPassword }}" onChange="{{ setResetConfirm }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 24px;"/>
-            <button onClick="{{ handleResetSubmit }}" disabled="{{ resetBusy }}" style="width:100%; height:50px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
+            <button onClick="{{ handleResetSubmit }}" disabled="{{ resetBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
               <sc-if value="{{ resetBusy }}">Actualitzant…</sc-if>
               <sc-if value="{{ !resetBusy }}">Actualitzar contrasenya</sc-if>
             </button>
@@ -273,14 +273,14 @@
         <div style="width:64px; height:64px; border-radius:50%; background:#EAF7EF; display:flex; align-items:center; justify-content:center; margin: 0 auto 24px; font-size:30px;">✓</div>
         <h1 style="font-size:22px; font-weight:800; margin: 0 0 8px;">Compte verificat!</h1>
         <p style="color:#6B6F7B; font-size:14px; margin: 0 0 24px;">El teu correu s'ha confirmat correctament.</p>
-        <button onClick="{{ goToTrips }}" style="width:100%; height:50px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">Anar als viatges</button>
+        <button onClick="{{ goToTrips }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">Anar als viatges</button>
       </div>
     </sc-if>
 
     <sc-if value="{{ isTripsView }}">
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 24px; flex-wrap:wrap; gap: 16px;">
         <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin: 0;">Propers viatges</h1>
-        <button onClick="{{ goToPost }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:999px; cursor:pointer;">+ Publicar</button>
+        <button onClick="{{ goToPost }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:14px; cursor:pointer;">+ Publicar</button>
       </div>
 
       <div role="tablist" aria-label="Tipus de publicació" style="display:flex; gap: 8px; margin-bottom: 24px;">
@@ -380,7 +380,7 @@
           <sc-if value="{{ isPostOffer }}">Publicar un viatge</sc-if>
           <sc-if value="{{ isPostRequest }}">Publicar una sol·licitud</sc-if>
         </h1>
-        <button onClick="{{ goToTrips }}" aria-label="Tancar" style="width:40px; height:40px; flex-shrink:0; display:flex; align-items:center; justify-content:center; border:none; background:#fff; border-radius:999px; cursor:pointer;">
+        <button onClick="{{ goToTrips }}" aria-label="Tancar" style="width:40px; height:40px; flex-shrink:0; display:flex; align-items:center; justify-content:center; border:none; background:#fff; border-radius:14px; cursor:pointer;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14151A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
       </div>
@@ -448,7 +448,7 @@
         </label>
         <textarea value="{{ postForm.pickupNotes }}" onChange="{{ setPostNotes }}" placeholder="Ex: Sortida des de l'estació de bus" style="width:100%; min-height:80px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 16px 16px; font-size:15px; font-family:inherit; margin-bottom: 24px; resize:vertical;"></textarea>
 
-        <button onClick="{{ handlePostTrip }}" disabled="{{ postBusy }}" style="width:100%; height:50px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
+        <button onClick="{{ handlePostTrip }}" disabled="{{ postBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
           <sc-if value="{{ postBusy }}">Publicant…</sc-if>
           <sc-if value="{{ !postBusy }}">Publicar</sc-if>
         </button>
@@ -475,7 +475,7 @@
         <sc-if value="{{ driverTripsEmpty }}">
           <div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center;">
             <div style="color:#6B6F7B; font-size:14px; margin-bottom: 24px;">Encara no has publicat cap viatge. Anima't a publicar-ne un!</div>
-            <button onClick="{{ goToPostAsOffer }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:999px; cursor:pointer; font-family:inherit;">+ Publicar el meu primer viatge</button>
+            <button onClick="{{ goToPostAsOffer }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:14px; cursor:pointer; font-family:inherit;">+ Publicar el meu primer viatge</button>
           </div>
         </sc-if>
         <sc-for list="{{ myDriverTrips }}" as="trip" hint-placeholder-count="2">
@@ -554,7 +554,7 @@
         <sc-if value="{{ bookingsEmpty }}">
           <div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center;">
             <div style="color:#6B6F7B; font-size:14px; margin-bottom: 24px;">Encara no has reservat cap viatge. Publica una sol·licitud i que et trobin!</div>
-            <button onClick="{{ goToPostAsRequest }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:999px; cursor:pointer; font-family:inherit;">+ Publicar la meva sol·licitud</button>
+            <button onClick="{{ goToPostAsRequest }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:14px; cursor:pointer; font-family:inherit;">+ Publicar la meva sol·licitud</button>
           </div>
         </sc-if>
         <sc-for list="{{ myBookings }}" as="booking" hint-placeholder-count="2">
@@ -613,7 +613,7 @@
         </div>
         <label style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Telèfon</label>
         <input value="{{ profileForm.phone }}" onChange="{{ setProfilePhone }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 24px;"/>
-        <button onClick="{{ handleProfileSave }}" disabled="{{ profileBusy }}" style="width:100%; height:50px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
+        <button onClick="{{ handleProfileSave }}" disabled="{{ profileBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
           <sc-if value="{{ profileBusy }}">Desant…</sc-if>
           <sc-if value="{{ !profileBusy }}">Desar canvis</sc-if>
         </button>
