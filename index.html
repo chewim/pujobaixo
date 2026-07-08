@@ -367,13 +367,13 @@
       <div class="pj-post-card">
         <sc-if value="{{ postError }}"><div style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 16px;">{{ postError }}</div></sc-if>
 
-        <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Tipus de publicació</label>
+        <label style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Tipus de publicació</label>
         <div style="display:flex; gap: 8px; margin-bottom: 16px;">
           <button onClick="{{ setPostTypeOffer }}" style="flex:1; min-height:44px; border:1.5px solid {{ postTypeOfferBorder }}; background:{{ postTypeOfferBg }}; color:{{ postTypeOfferColor }}; font-weight:700; font-size:13.5px; padding: 16px; border-radius:14px; cursor:pointer; font-family:inherit;">Ofereixo viatge</button>
           <button onClick="{{ setPostTypeRequest }}" style="flex:1; min-height:44px; border:1.5px solid {{ postTypeRequestBorder }}; background:{{ postTypeRequestBg }}; color:{{ postTypeRequestColor }}; font-weight:700; font-size:13.5px; padding: 16px; border-radius:14px; cursor:pointer; font-family:inherit;">Necessito viatge</button>
         </div>
 
-        <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Ruta</label>
+        <label style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Ruta</label>
         <div style="display:flex; gap: 8px; margin-bottom: 16px;">
           <input value="{{ postForm.origin }}" onChange="{{ setPostOrigin }}" placeholder="Origen" style="flex:1; min-width:0; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
           <input value="{{ postForm.destination }}" onChange="{{ setPostDestination }}" placeholder="Destinació" style="flex:1; min-width:0; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
@@ -391,7 +391,7 @@
           </div>
         </sc-if>
 
-        <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
+        <label style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
           <sc-if value="{{ isPostOffer }}">Data i hora de sortida</sc-if>
           <sc-if value="{{ isPostRequest }}">Data i hora aproximada</sc-if>
         </label>
@@ -408,7 +408,7 @@
 
         <div style="display:flex; gap: 16px; margin-bottom: 16px;">
           <div style="flex:1;">
-            <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
+            <label style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
               <sc-if value="{{ isPostOffer }}">Places disponibles</sc-if>
               <sc-if value="{{ isPostRequest }}">Nombre de persones</sc-if>
             </label>
@@ -416,13 +416,13 @@
           </div>
           <sc-if value="{{ isPostOffer }}">
             <div style="flex:1;">
-              <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Preu per plaça (€)</label>
+              <label style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Preu per plaça (€)</label>
               <input type="number" min="0" step="0.5" value="{{ postForm.pricePerSeat }}" onChange="{{ setPostPrice }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
             </div>
           </sc-if>
         </div>
 
-        <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
+        <label style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
           <sc-if value="{{ isPostOffer }}">Notes de recollida (opcional)</sc-if>
           <sc-if value="{{ isPostRequest }}">Flexibilitat horària / observacions (opcional)</sc-if>
         </label>
@@ -578,15 +578,15 @@
       <div style="background:#fff; border-radius:24px; padding: 32px;">
         <div style="display:flex; gap: 16px; margin-bottom: 16px;">
           <div style="flex:1;">
-            <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Nom</label>
+            <label style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Nom</label>
             <input value="{{ profileForm.firstName }}" onChange="{{ setProfileFirstName }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
           </div>
           <div style="flex:1;">
-            <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Cognoms</label>
+            <label style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Cognoms</label>
             <input value="{{ profileForm.lastName }}" onChange="{{ setProfileLastName }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
           </div>
         </div>
-        <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Telèfon</label>
+        <label style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Telèfon</label>
         <input value="{{ profileForm.phone }}" onChange="{{ setProfilePhone }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 24px;"/>
         <button onClick="{{ handleProfileSave }}" disabled="{{ profileBusy }}" style="width:100%; height:50px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
           <sc-if value="{{ profileBusy }}">Desant…</sc-if>

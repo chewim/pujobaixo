@@ -48,7 +48,7 @@ De más a menos peso visual, en cualquier pantalla:
 1. **Dato principal** (ruta origen→destino, título de pantalla) — texto grande, negro, extra-bold.
 2. **Dato secundario relevante** (precio, nombre) — un escalón por debajo en tamaño/peso, color de marca o negro.
 3. **Metadatos** (fecha, hora, plazas, notas) — gris (`#6B6F7B`/`#8A8D97`), nunca negro ni bold.
-4. **Labels de formulario** — gris, 13px, 700, siempre encima del campo (nunca al lado ni como placeholder-only).
+4. **Labels de formulario** — gris, 15px, 700, siempre encima del campo (nunca al lado ni como placeholder-only).
 
 ---
 
@@ -67,17 +67,18 @@ De más a menos peso visual, en cualquier pantalla:
 | 22px / 800 | Título de confirmación ("Compte verificat!") |
 | 19px / 800 | Ruta origen→destino en las cards (el dato más importante de una card) |
 | 17px / 800 | Precio en las cards |
+| 15px / 700 | Labels de formulario (Ruta, Tipus de publicació...) |
 | 15px / 600–700 | Texto de input, nombre de conductor |
 | 14–14.5px / 600–700 | Botones secundarios, tabs |
-| 13–13.5px / 600–700 | Labels de formulario, metadatos, texto secundario |
+| 13–13.5px / 600–700 | Metadatos, texto secundario |
 | 11–12.5px / 600 | Labels de icono en nav (bottom nav), contadores pequeños |
 
 **Jerarquía título/subtítulo/body/caption/label/botón**, en la práctica del código:
 - **Título (h1)**: 24px/800, `margin:0 0 24px`.
-- **Subtítulo**: no existe un h2 tipográfico separado — se resuelve con el mismo tamaño que el label (13px/700) o con el color mudado a `#6B6F7B`.
+- **Subtítulo**: no existe un h2 tipográfico separado — se resuelve con el mismo tamaño que el label (15px/700) o con el color mudado a `#6B6F7B`.
 - **Body**: 15px/600, es el tamaño de los inputs y del texto de conductor/nombre.
 - **Caption**: 12.5–13.5px, color `#6B6F7B` u `#8A8D97`.
-- **Label**: 13px/700, color `#6B6F7B`, `display:block; margin-bottom:8px` — patrón fijo, siempre igual.
+- **Label**: 15px/700, color `#6B6F7B`, `display:block; margin-bottom:8px` — patrón fijo, siempre igual.
 - **Botón**: 14–15px/700–800, nunca 600.
 
 ---
@@ -201,7 +202,7 @@ Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padd
 - Una única familia tipográfica (Plus Jakarta Sans) y solo 3 pesos (600/700/800).
 - Radios: `14px` (inputs/botones/cards pequeñas), `24px` (cards de contenido), `28px` (cards hero), `999px` (pills/botones grandes), `50%` (avatares/círculos). No inventar un radio nuevo.
 - Los 3 colores de sombra documentados — no crear sombras grises genéricas nuevas.
-- El patrón label-encima-del-input (13px/700/gris, `margin-bottom:8px`) en cualquier formulario nuevo.
+- El patrón label-encima-del-input (15px/700/gris, `margin-bottom:8px`) en cualquier formulario nuevo.
 - `min-height:44px` en todo elemento interactivo (accesibilidad táctil).
 - Mensajes de error siempre en lenguaje llano vía `_friendlyDbError`/`_authErrorMessage`, nunca el error crudo de la base de datos.
 - 16px de margen lateral en móvil, 20-28px en desktop — no mezclar anchos de página distintos entre pantallas.
@@ -217,7 +218,7 @@ Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padd
 1. Envuélvela en `<sc-if value="{{ isXView }}">` dentro de `.pj-main`, igual que el resto.
 2. Título de pantalla: `<h1>` 24px/800 con `margin:0 0 24px`.
 3. Contenido en una o varias cards blancas (`border-radius:24px`), separadas por `margin-bottom:16px` si son una lista.
-4. Cualquier formulario: inputs con la receta única de la sección 4, labels 13px/700 gris encima de cada campo.
+4. Cualquier formulario: inputs con la receta única de la sección 4, labels 15px/700 gris encima de cada campo.
 5. Acción principal: botón pill morado 50px de alto, ancho completo si es la única acción del formulario.
 6. Estados de carga/error: reutiliza `_showToast`, el banner inline de error, y `_friendlyDbError`/`_authErrorMessage` — no inventes un mensaje nuevo desde cero.
 7. Compruébala en dos anchos: <900px (bottom nav, 16px de margen) y ≥900px (sidebar, card con más padding).
@@ -258,7 +259,7 @@ Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padd
 | `size-price` | 17px |
 | `size-body` | 15px |
 | `size-button` | 14–15px |
-| `size-label` | 13px |
+| `size-label` | 15px |
 | `size-caption` | 11–12.5px |
 | `letter-spacing-heading` | -0.02em |
 
