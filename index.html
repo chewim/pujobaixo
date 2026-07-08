@@ -69,10 +69,25 @@
     .pj-intro-path { animation: pjPathDraw 1250ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
     .pj-intro-mark { animation: pjMarkBounce 1250ms cubic-bezier(0.22, 1, 0.36, 1) forwards; transform-origin: 12px 12px; }
     .pj-app-fade { animation: pjContentFade 1250ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    @keyframes pjAppear {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .pj-appear { animation: pjAppear 320ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .pj-appear:nth-child(1) { animation-delay: 0ms; }
+    .pj-appear:nth-child(2) { animation-delay: 40ms; }
+    .pj-appear:nth-child(3) { animation-delay: 80ms; }
+    .pj-appear:nth-child(4) { animation-delay: 120ms; }
+    .pj-appear:nth-child(5) { animation-delay: 160ms; }
+    .pj-appear:nth-child(6) { animation-delay: 200ms; }
+    .pj-appear:nth-child(7) { animation-delay: 240ms; }
+    .pj-appear:nth-child(8) { animation-delay: 280ms; }
+    .pj-appear:nth-child(n+9) { animation-delay: 320ms; }
     @media (prefers-reduced-motion: reduce) {
-      .pj-intro-overlay, .pj-intro-dot-a, .pj-intro-dot-b, .pj-intro-path, .pj-intro-mark, .pj-app-fade {
+      .pj-intro-overlay, .pj-intro-dot-a, .pj-intro-dot-b, .pj-intro-path, .pj-intro-mark, .pj-app-fade, .pj-appear {
         animation: none !important;
         opacity: 1 !important;
+        transform: none !important;
       }
     }
     .pj-main { padding: 24px 16px 104px; }
@@ -283,7 +298,7 @@
       <sc-if value="{{ tripsEmpty }}"><div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center; color:#6B6F7B; font-size:14px;">{{ tripsEmptyMsg }}</div></sc-if>
 
       <sc-for list="{{ visibleTrips }}" as="trip" hint-placeholder-count="3">
-        <div style="background:#fff; border-radius:24px; padding: 16px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 16px;">
+        <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 16px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 16px;">
           <div style="display:flex; align-items:flex-start; justify-content:space-between; gap: 16px;">
             <div style="display:flex; align-items:center; gap: 16px; min-width:0;">
               <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
@@ -360,11 +375,16 @@
     </sc-if>
 
     <sc-if value="{{ isPostView }}">
-      <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin: 0 0 24px;">
-        <sc-if value="{{ isPostOffer }}">Publicar un viatge</sc-if>
-        <sc-if value="{{ isPostRequest }}">Publicar una sol·licitud</sc-if>
-      </h1>
-      <div class="pj-post-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 24px;">
+        <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0;">
+          <sc-if value="{{ isPostOffer }}">Publicar un viatge</sc-if>
+          <sc-if value="{{ isPostRequest }}">Publicar una sol·licitud</sc-if>
+        </h1>
+        <button onClick="{{ goToTrips }}" aria-label="Tancar" style="width:40px; height:40px; flex-shrink:0; display:flex; align-items:center; justify-content:center; border:none; background:#fff; border-radius:999px; cursor:pointer;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14151A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="pj-post-card pj-appear">
         <sc-if value="{{ postError }}"><div style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 16px;">{{ postError }}</div></sc-if>
 
         <label style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Tipus de publicació</label>
@@ -386,7 +406,7 @@
         <sc-if value="{{ postShowRoutePresets }}">
           <div style="display:grid; grid-template-columns:1fr 1fr; gap: 8px; margin-bottom: 16px;">
             <sc-for list="{{ routeOptions }}" as="route" hint-placeholder-count="4">
-              <button onClick="{{ route.selectHandler }}" style="height:52px; border-radius:14px; border:1.5px solid {{ route.border }}; background:{{ route.bg }}; color:{{ route.color }}; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; padding: 0 8px;">{{ route.label }}</button>
+              <button class="pj-appear" onClick="{{ route.selectHandler }}" style="height:52px; border-radius:14px; border:1.5px solid {{ route.border }}; background:{{ route.bg }}; color:{{ route.color }}; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; padding: 0 8px;">{{ route.label }}</button>
             </sc-for>
           </div>
         </sc-if>
@@ -459,7 +479,7 @@
           </div>
         </sc-if>
         <sc-for list="{{ myDriverTrips }}" as="trip" hint-placeholder-count="2">
-          <div style="background:#fff; border-radius:24px; padding: 16px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 16px;">
+          <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 16px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 16px;">
             <div style="display:flex; align-items:flex-start; justify-content:space-between; gap: 16px;">
               <div style="display:flex; align-items:center; gap: 16px; min-width:0;">
                 <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
@@ -533,7 +553,7 @@
       <sc-if value="{{ showPassengerBookings }}">
         <sc-if value="{{ bookingsEmpty }}"><div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center; color:#6B6F7B; font-size:14px;">Encara no has reservat cap viatge.</div></sc-if>
         <sc-for list="{{ myBookings }}" as="booking" hint-placeholder-count="2">
-          <div style="background:#fff; border-radius:24px; padding: 24px 24px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 8px;">
+          <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 24px 24px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 8px;">
             <div style="text-align:center;">
               <div style="display:inline-block; background:#EEEBFF; color:#5B4CFB; font-weight:800; font-size:15px; padding: 8px 16px; border-radius:999px;">{{ booking.directionLabel }}</div>
             </div>
@@ -560,7 +580,7 @@
 
     <sc-if value="{{ isProfileView }}">
       <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin: 0 0 24px;">El meu perfil</h1>
-      <div style="background:#fff; border-radius:24px; padding: 32px; margin-bottom: 16px; display:flex; align-items:center; gap: 16px;">
+      <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 32px; margin-bottom: 16px; display:flex; align-items:center; gap: 16px;">
         <label style="position:relative; width:64px; height:64px; flex-shrink:0; cursor:pointer;" aria-label="Canviar foto de perfil">
           <div style="width:64px; height:64px; border-radius:50%; background:{{ profileAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:22px;">{{ profileInitial }}</div>
           <img alt="Foto de perfil" ref="{{ avatarImgRef }}" style="width:64px; height:64px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ profileAvatarDisplay }};"/>
@@ -575,7 +595,7 @@
           <sc-if value="{{ avatarUploading }}"><div style="font-size:12.5px; color:#5B4CFB; font-weight:600; margin-top: 4px;">Pujant foto…</div></sc-if>
         </div>
       </div>
-      <div style="background:#fff; border-radius:24px; padding: 32px;">
+      <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 32px;">
         <div style="display:flex; gap: 16px; margin-bottom: 16px;">
           <div style="flex:1;">
             <label style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Nom</label>
