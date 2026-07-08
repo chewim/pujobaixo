@@ -73,7 +73,7 @@ De más a menos peso visual, en cualquier pantalla:
 | 11–12.5px / 600 | Labels de icono en nav (bottom nav), contadores pequeños |
 
 **Jerarquía título/subtítulo/body/caption/label/botón**, en la práctica del código:
-- **Título (h1)**: 24px/800, `margin:0 0 20px`.
+- **Título (h1)**: 24px/800, `margin:0 0 24px`.
 - **Subtítulo**: no existe un h2 tipográfico separado — se resuelve con el mismo tamaño que el label (13px/700) o con el color mudado a `#6B6F7B`.
 - **Body**: 15px/600, es el tamaño de los inputs y del texto de conductor/nombre.
 - **Caption**: 12.5–13.5px, color `#6B6F7B` u `#8A8D97`.
@@ -84,27 +84,31 @@ De más a menos peso visual, en cualquier pantalla:
 
 ## 3. Espaciado y layout
 
-No sigue un grid estricto de 8pt — es un sistema más orgánico con incrementos pequeños (2–4px) alrededor de una base de 4px. Los valores que se repiten una y otra vez son:
+**Regla del 8**: todo el espaciado (padding, margin, gap) sigue una escala de múltiplos de 8, con 4 como único medio-paso para los huecos más pequeños (icono+texto, por ejemplo). Nunca introduzcas un valor que no esté en esta escala:
 
-**Gaps habituales**: `6, 7, 8, 10, 12, 16, 18px` (10 y 16 son los más comunes, úsalos por defecto).
+`4, 8, 16, 24, 32, 40, 48, 56, 64...`
+
+(No existen 6, 10, 12, 14, 18, 20, 22, 28, 36, etc. — si necesitas "más que 8 pero menos que 16", la respuesta es 8 o 16, nunca un valor intermedio.)
+
+**Gaps habituales**: `4, 8, 16px` (8 es el más común, úsalo por defecto).
 
 **Paddings habituales**:
-- Card grande (hero/auth): `36px 32px`
-- Card de contenido: `28px` (desktop) / `16px` (móvil, ver más abajo)
+- Card grande (hero/auth): `40px 32px`
+- Card de contenido: `32px` (desktop) / `16px` (móvil, ver más abajo)
 - Card de item de lista (trip card): `16px`
 - Botón pill grande: `0` con `height:50px`
-- Banner de error/info: `10px 14px`
+- Banner de error/info: `8px 16px`
 - Input: `0 16px` con `height:48px`
 
-**Margin entre elementos de una lista**: `margin-bottom:14px` (constante en toda card repetida — trips, bookings, etc.)
+**Margin entre elementos de una lista**: `margin-bottom:16px` (constante en toda card repetida — trips, bookings, etc.)
 
 ### Grid / estructura responsive
 
 - **Un único breakpoint**: `@media (min-width: 900px)`. No hay tablet intermedio — por debajo de 900px todo es "móvil" (con bottom nav), por encima es "desktop" (con sidebar).
 - **Contenedor principal** (`.pj-main`): `max-width:920px; margin:0 auto`, con padding responsive:
-  - Móvil (por defecto): `24px 16px 100px` — **16px es el margen lateral estándar en móvil**, más un padding-bottom de 100px para dejar sitio a la bottom nav fija.
-  - Desktop (≥900px): `32px 20px 100px`.
-- **Sidebar** (`.pj-sidebar`, 248px de ancho fijo): oculta por defecto, `display:flex` solo ≥900px. Cuando está visible, `.pj-main-shifted` añade `margin-left:248px` al contenido.
+  - Móvil (por defecto): `24px 16px 104px` — **16px es el margen lateral estándar en móvil**, más un padding-bottom de 104px para dejar sitio a la bottom nav fija.
+  - Desktop (≥900px): `32px 24px 104px`.
+- **Sidebar** (`.pj-sidebar`, 248px de ancho fijo — ya es múltiplo de 8, no cambia): oculta por defecto, `display:flex` solo ≥900px. Cuando está visible, `.pj-main-shifted` añade `margin-left:248px` al contenido.
 - **Bottom nav** (`.pj-bottomnav`): visible por defecto, `display:none` ≥900px.
 
 ### Diferencias mobile / desktop
@@ -113,8 +117,8 @@ No sigue un grid estricto de 8pt — es un sistema más orgánico con incremento
 |---|---|---|
 | Navegación | Bottom nav fija (iconos + label) | Sidebar fija izquierda (248px) |
 | Barra superior | Visible (con logo), fondo blanco excepto en auth | Oculta (`.pj-topnav-hide-desktop`) cuando hay sidebar |
-| Padding lateral página | 16px | 20px |
-| Card de "Publicar"/formularios | Sin fondo propio, se apoya solo en el padding de página (16px) | Fondo blanco + `padding:28px` + `border-radius:24px` |
+| Padding lateral página | 16px | 24px |
+| Card de "Publicar"/formularios | Sin fondo propio, se apoya solo en el padding de página (16px) | Fondo blanco + `padding:32px` + `border-radius:24px` |
 
 ---
 
@@ -125,7 +129,7 @@ No sigue un grid estricto de 8pt — es un sistema más orgánico con incremento
 | Variante | Fondo | Texto | Borde | Radio | Altura | Uso |
 |---|---|---|---|---|---|---|
 | Primario (pill) | `#5B4CFB` | `#fff` / 800 | ninguno | `999px` | `50px` | Acción principal de un formulario (Iniciar sessió, Publicar, Desar...) |
-| Primario compacto | `#5B4CFB` | `#fff` / 700 | ninguno | `999px` | auto (`padding:11px 20px`) | CTA secundario en contexto ("+ Publicar") |
+| Primario compacto | `#5B4CFB` | `#fff` / 700 | ninguno | `999px` | auto (`padding:8px 24px`) | CTA secundario en contexto ("+ Publicar") |
 | Secundario/outline | `#fff` | `#14151A` / 700 | `1.5px solid #ECEDF2` | `14px` | `44px` | Acción neutra ("Editar", "Cancel·lar") |
 | Peligro | `#FDEBEA` | `#C22A24` / 700 | `1.5px solid #FBD8D6` | `14px` | `44px` | Acción destructiva ("Eliminar", "Sí, eliminar") |
 | Texto/link | transparente | `#5B4CFB` / 700 | ninguno | — | auto | Enlace de acción secundaria ("Registra't", "Has oblidat la contrasenya?") |
@@ -136,9 +140,9 @@ Todos los botones: `min-height:44px` (objetivo táctil accesible), `cursor:point
 
 ### Cards
 
-- **Card de contenido en lista** (trip, booking): `background:#fff; border-radius:24px; padding:16px; margin-bottom:14px`.
-- **Card hero/auth**: `border-radius:28px; padding:36px 32px`, con la sombra grande.
-- **Card de formulario**: `border-radius:24px; padding:28px` (desktop) / sin fondo propio en móvil.
+- **Card de contenido en lista** (trip, booking): `background:#fff; border-radius:24px; padding:16px; margin-bottom:16px`.
+- **Card hero/auth**: `border-radius:28px; padding:40px 32px`, con la sombra grande.
+- **Card de formulario**: `border-radius:24px; padding:32px` (desktop) / sin fondo propio en móvil.
 - **Card de estado vacío**: `border-radius:24px; padding:40px 24px; text-align:center`, texto gris, opcionalmente con un botón CTA debajo.
 
 ### Inputs
@@ -166,7 +170,7 @@ Fija a la izquierda, ancho `248px`, fondo blanco, `border-right:1px solid #ECEDF
 
 ### Badges/tags
 
-Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padding:8px 18px`. Usado para la etiqueta de ruta en "Els meus reserves".
+Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padding:8px 16px`. Usado para la etiqueta de ruta en "Els meus reserves".
 
 ### Modales / estados vacíos
 
@@ -211,8 +215,8 @@ Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padd
 
 **Cómo construir una pantalla nueva siguiendo este sistema:**
 1. Envuélvela en `<sc-if value="{{ isXView }}">` dentro de `.pj-main`, igual que el resto.
-2. Título de pantalla: `<h1>` 24px/800 con `margin:0 0 20px`.
-3. Contenido en una o varias cards blancas (`border-radius:24px`), separadas por `margin-bottom:14-16px` si son una lista.
+2. Título de pantalla: `<h1>` 24px/800 con `margin:0 0 24px`.
+3. Contenido en una o varias cards blancas (`border-radius:24px`), separadas por `margin-bottom:16px` si son una lista.
 4. Cualquier formulario: inputs con la receta única de la sección 4, labels 13px/700 gris encima de cada campo.
 5. Acción principal: botón pill morado 50px de alto, ancho completo si es la única acción del formulario.
 6. Estados de carga/error: reutiliza `_showToast`, el banner inline de error, y `_friendlyDbError`/`_authErrorMessage` — no inventes un mensaje nuevo desde cero.
@@ -278,14 +282,14 @@ Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padd
 ### Spacing
 | Token | Valor |
 |---|---|
-| `gap-xs` | 6–8px |
-| `gap-sm` | 10px |
-| `gap-md` | 12–16px |
-| `gap-lg` | 18px |
+| `gap-xs` | 4–8px |
+| `gap-sm` | 8px |
+| `gap-md` | 16px |
+| `gap-lg` | 24px |
 | `padding-page-mobile` | 16px |
-| `padding-page-desktop` | 20px |
-| `padding-card` | 28px (desktop) / 16px (móvil) |
-| `margin-list-item` | 14px |
+| `padding-page-desktop` | 24px |
+| `padding-card` | 32px (desktop) / 16px (móvil) |
+| `margin-list-item` | 16px |
 | `touch-target-min` | 44px |
 
 ### Componentes reutilizables
