@@ -368,12 +368,17 @@
           <input value="{{ postForm.destination }}" onChange="{{ setPostDestination }}" placeholder="Destinació" style="flex:1; min-width:0; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
         </div>
 
-        <label style="font-size:12.5px; font-weight:700; color:#8A8D97; display:block; margin-bottom: 8px;">Rutes predefinides</label>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap: 8px; margin-bottom: 16px;">
-          <sc-for list="{{ routeOptions }}" as="route" hint-placeholder-count="4">
-            <button onClick="{{ route.selectHandler }}" style="height:52px; border-radius:14px; border:1.5px solid {{ route.border }}; background:{{ route.bg }}; color:{{ route.color }}; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; padding: 0 8px;">{{ route.label }}</button>
-          </sc-for>
-        </div>
+        <button onClick="{{ togglePostRoutePresets }}" aria-expanded="{{ postShowRoutePresets }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; height:44px; border-radius:14px; border:1.5px solid #ECEDF2; background:#fff; color:#6B6F7B; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; padding: 0 16px; margin-bottom: 16px;">
+          Rutes predefinides
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="transform:{{ routePresetsChevron }}; transition:transform 120ms ease-out;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <sc-if value="{{ postShowRoutePresets }}">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap: 8px; margin-bottom: 16px;">
+            <sc-for list="{{ routeOptions }}" as="route" hint-placeholder-count="4">
+              <button onClick="{{ route.selectHandler }}" style="height:52px; border-radius:14px; border:1.5px solid {{ route.border }}; background:{{ route.bg }}; color:{{ route.color }}; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; padding: 0 8px;">{{ route.label }}</button>
+            </sc-for>
+          </div>
+        </sc-if>
 
         <label style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
           <sc-if value="{{ isPostOffer }}">Data i hora de sortida</sc-if>
@@ -624,6 +629,7 @@ class Component extends DCLogic {
     postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '' },
     postBusy: false,
     postError: '',
+    postShowRoutePresets: false,
     myTripsTab: 'driver',
     myDriverTrips: [],
     myBookings: [],
@@ -1473,10 +1479,13 @@ class Component extends DCLogic {
       setPostNotes: (e) => this.setState((st) => ({ postForm: { ...st.postForm, pickupNotes: e.target.value } })),
       setPostOrigin: (e) => this.setState((st) => ({ postForm: { ...st.postForm, origin: e.target.value } })),
       setPostDestination: (e) => this.setState((st) => ({ postForm: { ...st.postForm, destination: e.target.value } })),
+      postShowRoutePresets: s.postShowRoutePresets,
+      togglePostRoutePresets: () => this.setState((st) => ({ postShowRoutePresets: !st.postShowRoutePresets })),
+      routePresetsChevron: s.postShowRoutePresets ? 'rotate(180deg)' : 'rotate(0deg)',
       routeOptions: ROUTES.map((r) => ({
         value: r.value,
         label: r.label,
-        selectHandler: () => this.setState((st) => ({ postForm: { ...st.postForm, origin: r.origin, destination: r.destination } })),
+        selectHandler: () => this.setState((st) => ({ postForm: { ...st.postForm, origin: r.origin, destination: r.destination }, postShowRoutePresets: false })),
         bg: (s.postForm.origin === r.origin && s.postForm.destination === r.destination) ? '#EEEBFF' : '#fff',
         color: (s.postForm.origin === r.origin && s.postForm.destination === r.destination) ? '#5B4CFB' : '#6B6F7B',
         border: (s.postForm.origin === r.origin && s.postForm.destination === r.destination) ? '#5B4CFB' : '#ECEDF2',
