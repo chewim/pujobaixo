@@ -1049,6 +1049,7 @@ class Component extends DCLogic {
     if (m.includes('Invalid login credentials')) return "L'email o la contrasenya són incorrectes.";
     if (m.includes('Email not confirmed')) return 'Confirma el teu correu abans d\'iniciar sessió.';
     if (m.includes('User already registered')) return 'Aquest correu ja té un compte. Inicia sessió.';
+    if (m.includes('profiles_phone_unique')) return 'Aquest número de telèfon ja té un compte. Inicia sessió o utilitza un altre número.';
     if (/rate limit|429/i.test(m)) return 'Massa intents. Espera uns minuts i torna-ho a provar.';
     if (/email address .* (not authorized|invalid)/i.test(m) || /invalid email/i.test(m)) return 'Aquesta adreça de correu no és vàlida.';
     if (/password.*(short|least|characters)/i.test(m)) return 'La contrasenya ha de tenir almenys 6 caràcters.';
