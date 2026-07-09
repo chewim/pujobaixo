@@ -560,6 +560,78 @@
             <button onClick="{{ goToPostAsRequest }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:14px; cursor:pointer; font-family:inherit;">+ Publicar la meva sol·licitud</button>
           </div>
         </sc-if>
+
+        <sc-for list="{{ myRequestTrips }}" as="trip" hint-placeholder-count="1">
+          <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 16px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 16px;">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap: 16px;">
+              <div style="display:flex; align-items:center; gap: 16px; min-width:0;">
+                <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
+                  <div style="width:32px; height:32px; border-radius:50%; background:{{ trip.posterAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">{{ trip.posterInitial }}</div>
+                  <img alt="" ref="{{ trip.avatarImgRef }}" style="width:32px; height:32px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ trip.posterAvatarDisplay }};"/>
+                </span>
+                <div style="min-width:0;">
+                  <div style="font-size:15px; font-weight:700; color:#14151A; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ trip.driverName }}</div>
+                  <div style="font-size:13px; color:#727681; font-weight:600;">{{ trip.roleLabel }} · {{ trip.statusLabel }}</div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap: 8px; color:#727681; font-size:13px; font-weight:600; flex-shrink:0; white-space:nowrap; padding-top: 4px;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                {{ trip.seatsLabel }}
+              </div>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:center; gap: 8px;">
+              <span style="font-size:19px; font-weight:800; color:#14151A;">{{ trip.origin }}</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              <span style="font-size:19px; font-weight:800; color:#14151A;">{{ trip.destination }}</span>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:center; gap: 16px; font-size:13.5px; font-weight:600; color:#6B6F7B;">
+              <div style="display:flex; align-items:center; gap: 8px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>
+                {{ trip.dateLabel }}
+              </div>
+              <div style="display:flex; align-items:center; gap: 8px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>
+                {{ trip.timeLabel }}
+              </div>
+            </div>
+
+            <sc-if value="{{ trip.pickupNotes }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#F3F4F8; border-radius:14px; padding: 16px 16px; display:flex; align-items:flex-start; gap: 8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top: 4px;"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="8" y1="3" x2="8" y2="21"></line><line x1="12" y1="8" x2="17" y2="8"></line><line x1="12" y1="12" x2="17" y2="12"></line><line x1="12" y1="16" x2="15" y2="16"></line></svg>
+                <span style="font-size:13.5px; color:#4B4E58; line-height:1.4; overflow-wrap:anywhere;">{{ trip.pickupNotes }}</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ !trip.isConfirmingDelete }}">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap: 16px;">
+                <sc-if value="{{ trip.priceLabel }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; align-items:center; gap: 4px; font-size:17px; font-weight:800; color:#1D874A;">
+                {{ trip.priceLabel }}<span style="opacity:0.6; font-weight:600;">/</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="per plaça"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg>
+              </div>
+                </sc-if>
+                <sc-if value="{{ !trip.priceLabel }}">
+                  <div></div>
+                </sc-if>
+                <div style="display:flex; gap: 8px;">
+                  <button onClick="{{ trip.editHandler }}" style="min-height:44px; border:1.5px solid #ECEDF2; background:#fff; color:#14151A; font-weight:700; font-size:14px; border-radius:14px; cursor:pointer; font-family:inherit; padding: 0 16px;">Editar</button>
+                  <button onClick="{{ trip.askDeleteHandler }}" style="min-height:44px; border:1.5px solid #FBD8D6; background:#FDEBEA; color:#C22A24; font-weight:700; font-size:14px; border-radius:14px; cursor:pointer; font-family:inherit; padding: 0 16px;">Eliminar</button>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ trip.isConfirmingDelete }}">
+              <div style="display:flex; flex-direction:column; gap: 8px;">
+                <div style="font-size:13px; color:#C22A24; font-weight:600; text-align:center;">Segur que vols eliminar aquesta publicació?</div>
+                <div style="display:flex; gap: 8px;">
+                  <button onClick="{{ trip.cancelDeleteHandler }}" style="flex:1; min-height:44px; border:1.5px solid #ECEDF2; background:#fff; color:#14151A; font-weight:700; font-size:14px; border-radius:14px; cursor:pointer; font-family:inherit;">Cancel·lar</button>
+                  <button onClick="{{ trip.confirmDeleteHandler }}" style="flex:1; min-height:44px; border:none; background:#C22A24; color:#fff; font-weight:700; font-size:14px; border-radius:14px; cursor:pointer; font-family:inherit;">Sí, eliminar</button>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+
         <sc-for list="{{ myBookings }}" as="booking" hint-placeholder-count="2">
           <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 24px 24px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 8px;">
             <div style="text-align:center;">
@@ -677,6 +749,7 @@ class Component extends DCLogic {
     postShowRoutePresets: false,
     myTripsTab: 'driver',
     myDriverTrips: [],
+    myRequestTrips: [],
     myBookings: [],
     myTripsLoading: false,
     profileForm: { firstName: '', lastName: '', phone: '' },
@@ -955,7 +1028,7 @@ class Component extends DCLogic {
         destination: trip.destination || '',
         departAt: trip.depart_at ? new Date(trip.depart_at).toISOString().slice(0, 16) : '',
         availableSeats: trip.available_seats,
-        pricePerSeat: trip.price_per_seat || 0,
+        pricePerSeat: trip.price_per_seat != null ? trip.price_per_seat : (trip.trip_type === 'request' ? '' : 0),
         pickupNotes: trip.pickup_notes || '',
       },
       view: 'post',
@@ -1000,6 +1073,7 @@ class Component extends DCLogic {
         confirmDeleteId: null,
         trips: (st.trips || []).filter((t) => t.id !== trip.id),
         myDriverTrips: (st.myDriverTrips || []).filter((t) => t.id !== trip.id),
+        myRequestTrips: (st.myRequestTrips || []).filter((t) => t.id !== trip.id),
       }));
 
       this._showToast('Publicació eliminada');
@@ -1223,11 +1297,20 @@ class Component extends DCLogic {
     this.setState({ myTripsLoading: true });
 
     try {
-      const [driverRes, bookingsRes] = await Promise.all([
+      const [driverRes, requestRes, bookingsRes] = await Promise.all([
         this.sb
           .from('trips')
           .select('*')
           .eq('driver_id', user.id)
+          .eq('trip_type', 'offer')
+          .eq('status', 'active')
+          .order('depart_at', { ascending: false }),
+
+        this.sb
+          .from('trips')
+          .select('*')
+          .eq('driver_id', user.id)
+          .eq('trip_type', 'request')
           .eq('status', 'active')
           .order('depart_at', { ascending: false }),
 
@@ -1239,10 +1322,12 @@ class Component extends DCLogic {
       ]);
 
       if (driverRes.error) throw driverRes.error;
+      if (requestRes.error) throw requestRes.error;
       if (bookingsRes.error) throw bookingsRes.error;
 
       this.setState({
         myDriverTrips: driverRes.data || [],
+        myRequestTrips: requestRes.data || [],
         myBookings: bookingsRes.data || [],
       });
     } catch (e) {
@@ -1358,6 +1443,34 @@ class Component extends DCLogic {
     const ownName = s.profile ? `${s.profile.first_name || ''} ${s.profile.last_name || ''}`.trim() : '';
     const ownAvatarUrl = s.profile ? s.profile.avatar_url : null;
     const myDriverTrips = (s.myDriverTrips || []).map((t) => {
+      const isRequest = t.trip_type === 'request';
+      const departDate = t.depart_at ? new Date(t.depart_at) : null;
+      return {
+        ...t,
+        directionLabel: ROUTE_LABEL_BY_VALUE[t.direction] || `${t.origin} → ${t.destination}`,
+        departLabel: this._fmtDate(t.depart_at),
+        dateLabel: departDate ? departDate.toLocaleDateString('ca-ES', { day: 'numeric', month: 'short' }) : '',
+        timeLabel: departDate ? departDate.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) : '',
+        driverName: ownName || 'Tu',
+        posterInitial: (ownName[0] || '?').toUpperCase(),
+        posterAvatarColor: this._avatarColor((s.profile && s.profile.id) || ownName),
+        posterAvatarDisplay: (ownAvatarUrl && !s.brokenAvatarUrls[ownAvatarUrl]) ? 'block' : 'none',
+        avatarImgRef: this._avatarRef(ownAvatarUrl),
+        isRequest,
+        roleLabel: isRequest ? 'Necessito' : 'Ofereixo',
+        priceLabel: (t.price_per_seat != null) ? `${Number(t.price_per_seat).toFixed(2)}€` : '',
+        seatsLabel: isRequest ? `${t.available_seats} persones` : `${t.available_seats} places`,
+        pickupNotes: t.pickup_notes || '',
+        statusLabel: t.status === 'active' ? 'Activa' : (t.status === 'cancelled' ? 'Cancel·lada' : t.status),
+        editHandler: () => this.goToEditTrip(t),
+        isConfirmingDelete: s.confirmDeleteId === t.id,
+        askDeleteHandler: () => this.setState({ confirmDeleteId: t.id }),
+        cancelDeleteHandler: () => this.setState({ confirmDeleteId: null }),
+        confirmDeleteHandler: () => this.handleDeleteTrip(t),
+      };
+    });
+
+    const myRequestTrips = (s.myRequestTrips || []).map((t) => {
       const isRequest = t.trip_type === 'request';
       const departDate = t.depart_at ? new Date(t.depart_at) : null;
       return {
@@ -1545,11 +1658,13 @@ class Component extends DCLogic {
       myTripsTab: s.myTripsTab,
       myTripsLoading: s.myTripsLoading,
       myDriverTrips,
+      myRequestTrips,
       myBookings,
       showDriverTrips: s.myTripsTab === 'driver',
       showPassengerBookings: s.myTripsTab === 'passenger',
       driverTripsEmpty: !s.myTripsLoading && myDriverTrips.length === 0,
-      bookingsEmpty: !s.myTripsLoading && myBookings.length === 0,
+      requestTripsEmpty: !s.myTripsLoading && myRequestTrips.length === 0,
+      bookingsEmpty: !s.myTripsLoading && myRequestTrips.length === 0 && myBookings.length === 0,
       setMyTabDriver: () => this.setState({ myTripsTab: 'driver' }),
       setMyTabPassenger: () => this.setState({ myTripsTab: 'passenger' }),
       isMyTabDriver: s.myTripsTab === 'driver',
@@ -1563,7 +1678,7 @@ class Component extends DCLogic {
       myTabPassengerShadow: s.myTripsTab === 'passenger' ? '0 8px 20px -10px rgba(91,76,251,0.45)' : 'none',
       myTabPassengerWeight: s.myTripsTab === 'passenger' ? 700 : 600,
       myDriverCount: myDriverTrips.length,
-      myBookingCount: myBookings.length,
+      myBookingCount: myRequestTrips.length + myBookings.length,
 
       profileForm: s.profileForm,
       profileBusy: s.profileBusy,
