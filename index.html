@@ -299,6 +299,12 @@
                 </div>
               </div>
             </div>
+
+            <div style="text-align:center; max-width:420px; margin:64px auto 0; padding-top:48px; border-top:1px solid #E4E5EC;">
+              <h2 style="font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Cada setmana hi ha algú fent el teu trajecte</h2>
+              <p style="font-size:14.5px; color:#6B6F7B; margin:0 0 24px; line-height:1.5;">No esperis al proper viatge sol. Puja o baixa amb algú del Berguedà avui mateix.</p>
+              <button onClick="{{ scrollToLoginCard }}" style="width:100%; max-width:280px; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">Inicia sessió</button>
+            </div>
           </div>
         </div>
       </sc-if>
@@ -1617,6 +1623,7 @@ class Component extends DCLogic {
       setAuthLastName: (e) => this.setState((st) => ({ authForm: { ...st.authForm, lastName: e.target.value } })),
       setAuthPhone: (e) => this.setState((st) => ({ authForm: { ...st.authForm, phone: e.target.value } })),
       switchToLogin: () => this.switchAuthMode('login'),
+      scrollToLoginCard: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
       switchToSignup: () => this.switchAuthMode('signup'),
       switchToForgot: () => this.switchAuthMode('forgot'),
       handleAuthSubmit: () => this.handleAuthSubmit(),
