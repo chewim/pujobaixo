@@ -15,7 +15,7 @@
   <script src="/supabase.umd.js"></script>
   <style>
     * { box-sizing: border-box; }
-    html, body { margin: 0; background: #F3F4F8; }
+    html, body { margin: 0; background: #F3F4F8; overflow-x: hidden; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .pj-spin { animation: spin 0.8s linear infinite; }
     input::placeholder, textarea::placeholder { color: #8F93A1; }
@@ -181,11 +181,8 @@
 
     <sc-if value="{{ isAuthShellView }}" hint-placeholder-val="{{ true }}">
       <div style="position:relative;">
-        <div style="{{ heroContainerStyle }}">
+        <div style="position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;">
           <img src="/assets/auth-signup-bg.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:15% 35%;"/>
-          <sc-if value="{{ isLoginMode }}">
-            <div style="position:absolute; left:0; right:0; bottom:0; height:240px; background:linear-gradient(180deg, rgba(243,244,248,0) 0%, #F3F4F8 85%);"></div>
-          </sc-if>
         </div>
       <div style="max-width:420px; margin: 40px auto 0; background:#fff; border-radius:28px; padding: 40px 32px; box-shadow:0 20px 60px -30px rgba(20,21,26,0.25); position:relative; z-index:1;">
         <h1 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin: 0 0 4px; text-align:center;">
@@ -274,26 +271,28 @@
       </div>
 
       <sc-if value="{{ isLoginMode }}">
-        <div style="max-width:840px; margin:0 auto; padding: 40px 16px 40px; position:relative; z-index:1;">
-          <div style="text-align:center; max-width:520px; margin:0 auto 64px;">
-            <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Aprofitar els viatges és estalviar</h2>
-            <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Barcelona ⇄ Berguedà, el trajecte que ja fas cada setmana — ara compartit.</p>
-          </div>
-
-          <div style="display:flex; flex-direction:column; gap:56px;">
-            <div class="pj-value-block">
-              <img src="/assets/auth-savings.png" alt=""/>
-              <div class="pj-value-block-copy">
-                <h2>Comparteix les despeses, minimitza el teu gasto</h2>
-                <p>Vagis com a conductor o com a passatger, el trajecte surt més a compte compartit.</p>
-              </div>
+        <div style="background:#F3F4F8; position:relative; z-index:1; width:100vw; margin: 40px calc(50% - 50vw) 0;">
+          <div style="max-width:840px; margin:0 auto; padding: 40px 16px 40px;">
+            <div style="text-align:center; max-width:520px; margin:0 auto 64px;">
+              <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Aprofitar els viatges és estalviar</h2>
+              <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Barcelona ⇄ Berguedà, el trajecte que ja fas cada setmana — ara compartit.</p>
             </div>
 
-            <div class="pj-value-block pj-value-block-reverse">
-              <img src="/assets/auth-community.png" alt=""/>
-              <div class="pj-value-block-copy">
-                <h2>No són desconeguts, són veïns</h2>
-                <p>Pujobaixo és de gent del Berguedà per a gent del Berguedà. Coneix qui fa el mateix camí que tu, viatge a viatge.</p>
+            <div style="display:flex; flex-direction:column; gap:56px;">
+              <div class="pj-value-block">
+                <img src="/assets/auth-savings.png" alt=""/>
+                <div class="pj-value-block-copy">
+                  <h2>Comparteix les despeses, minimitza el teu gasto</h2>
+                  <p>Vagis com a conductor o com a passatger, el trajecte surt més a compte compartit.</p>
+                </div>
+              </div>
+
+              <div class="pj-value-block pj-value-block-reverse">
+                <img src="/assets/auth-community.png" alt=""/>
+                <div class="pj-value-block-copy">
+                  <h2>No són desconeguts, són veïns</h2>
+                  <p>Pujobaixo és de gent del Berguedà per a gent del Berguedà. Coneix qui fa el mateix camí que tu, viatge a viatge.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -1577,16 +1576,12 @@ class Component extends DCLogic {
     const toastColors = { info: '#14151A', error: '#C22A24', success: '#1D874A' };
 
     const isAuthShellView = view === 'auth' || view === 'reset';
-    const isLoginModeNow = view === 'auth' && s.authMode === 'login';
 
     return {
       isLoggedIn,
       isAuthShellView,
       topnavBg: isAuthShellView ? 'transparent' : '#FFFFFF',
       topnavBorder: isAuthShellView ? 'none' : '1px solid #ECEDF2',
-      heroContainerStyle: isLoginModeNow
-        ? 'position:absolute; top:0; left:0; right:0; height:760px; z-index:0; overflow:hidden; pointer-events:none;'
-        : 'position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;',
       isAuthView: view === 'auth',
       isResetView: view === 'reset',
       isAuthCallbackView: view === 'authCallback',
