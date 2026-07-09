@@ -96,7 +96,19 @@
     .pj-value-block { display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; }
     .pj-value-block img { width:100%; max-width:240px; border-radius:24px; display:block; }
     .pj-value-block-copy h2 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
-    .pj-value-block-copy p { font-size:15px; color:#6B6F7B; margin:0; line-height:1.5; }
+    .pj-value-block-copy p { font-size:15px; color:#4B4E58; margin:0; line-height:1.5; }
+    .pj-glass {
+      background: rgba(255,255,255,0.82);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 20px 60px -30px rgba(20,21,26,0.25);
+    }
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .pj-glass { background: rgba(255,255,255,0.94); }
+    }
     @media (min-width: 900px) {
       .pj-post-section { margin-bottom: 32px; }
       .pj-value-block { flex-direction:row; text-align:left; gap:48px; }
@@ -271,15 +283,15 @@
 
       <sc-if value="{{ isLoginMode }}">
         <div style="max-width:840px; margin:0 auto; padding:80px 16px 40px; position:relative; z-index:1;">
-          <div style="text-align:center; max-width:520px; margin:0 auto 64px;">
+          <div class="pj-glass" style="text-align:center; max-width:520px; margin:0 auto 64px;">
             <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Aprofitar els viatges és estalviar</h2>
-            <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Barcelona ⇄ Berguedà, el trajecte que ja fas cada setmana — ara compartit.</p>
+            <p style="font-size:15px; color:#4B4E58; margin:0; line-height:1.5;">Barcelona ⇄ Berguedà, el trajecte que ja fas cada setmana — ara compartit.</p>
           </div>
 
           <div style="display:flex; flex-direction:column; gap:56px;">
             <div class="pj-value-block">
               <img src="/assets/auth-savings.png" alt=""/>
-              <div class="pj-value-block-copy">
+              <div class="pj-value-block-copy pj-glass">
                 <h2>Comparteix les despeses, minimitza el teu gasto</h2>
                 <p>Vagis com a conductor o com a passatger, el trajecte surt més a compte compartit.</p>
               </div>
@@ -287,7 +299,7 @@
 
             <div class="pj-value-block pj-value-block-reverse">
               <img src="/assets/auth-community.png" alt=""/>
-              <div class="pj-value-block-copy">
+              <div class="pj-value-block-copy pj-glass">
                 <h2>No són desconeguts, són veïns</h2>
                 <p>Pujobaixo és de gent del Berguedà per a gent del Berguedà. Coneix qui fa el mateix camí que tu, viatge a viatge.</p>
               </div>
