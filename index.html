@@ -925,6 +925,9 @@ class Component extends DCLogic {
 
   _waMessage(trip) {
     const dateStr = this._fmtDateShort(trip.depart_at);
+    if (trip.trip_type === 'request') {
+      return `Hola! He vist que necessites un viatge de ${trip.origin} a ${trip.destination} del dia ${dateStr}. Et puc portar!`;
+    }
     return `Hola, he vist el teu viatge de ${trip.origin} a ${trip.destination} del dia ${dateStr}. Encara està disponible?`;
   }
 
