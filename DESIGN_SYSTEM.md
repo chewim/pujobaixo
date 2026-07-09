@@ -179,6 +179,10 @@ Fija a la izquierda, ancho `248px`, fondo blanco, `border-right:1px solid #ECEDF
 
 Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padding:8px 16px`. Usado para la etiqueta de ruta en "Els meus reserves".
 
+### Bloque de valor (mini-landing en el login)
+
+Solo en `isLoginMode`, debajo de la tarjeta de acceso (nunca en signup/forgot/reset, para no distraer esos flujos): un titular corto (h2, 26px/800) + subtítulo, seguido de bloques `.pj-value-block` — imagen (esquinas 24px) + h2 (22px/800) + párrafo (15px/#6B6F7B). Apilado y centrado en móvil; en desktop (≥900px) pasa a fila con imagen+texto alternados (`.pj-value-block-reverse` invierte el orden) y texto alineado a la izquierda. Referencia de estilo: Cabify/Uber/Revolut — frases cortas y concretas, mucho espacio en blanco, una sola imagen por bloque, nada de iconos decorativos extra.
+
 ### Modales / estados vacíos
 
 - **No existe un modal real (overlay + backdrop)** en todo el producto. Las confirmaciones (ej. "¿Seguro que quieres eliminar?") se resuelven **inline dentro de la misma card**, sustituyendo su contenido por un mensaje + dos botones. Si en el futuro necesitas un modal de verdad, sería un patrón nuevo — decide conscientemente si quieres introducirlo o mantener la consistencia con este enfoque inline.
