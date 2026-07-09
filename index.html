@@ -96,19 +96,7 @@
     .pj-value-block { display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; }
     .pj-value-block img { width:100%; max-width:240px; border-radius:24px; display:block; }
     .pj-value-block-copy h2 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
-    .pj-value-block-copy p { font-size:15px; color:#4B4E58; margin:0; line-height:1.5; }
-    .pj-glass {
-      background: rgba(255,255,255,0.82);
-      -webkit-backdrop-filter: blur(20px) saturate(160%);
-      backdrop-filter: blur(20px) saturate(160%);
-      border: 1px solid rgba(255,255,255,0.6);
-      border-radius: 24px;
-      padding: 32px;
-      box-shadow: 0 20px 60px -30px rgba(20,21,26,0.25);
-    }
-    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-      .pj-glass { background: rgba(255,255,255,0.94); }
-    }
+    .pj-value-block-copy p { font-size:15px; color:#6B6F7B; margin:0; line-height:1.5; }
     @media (min-width: 900px) {
       .pj-post-section { margin-bottom: 32px; }
       .pj-value-block { flex-direction:row; text-align:left; gap:48px; }
@@ -192,9 +180,13 @@
   <div class="pj-main" style="max-width:920px; margin: 0 auto;">
 
     <sc-if value="{{ isAuthShellView }}" hint-placeholder-val="{{ true }}">
-      <div style="position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;">
-        <img src="/assets/auth-signup-bg.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center 35%;"/>
-      </div>
+      <div style="position:relative;">
+        <div style="{{ heroContainerStyle }}">
+          <img src="/assets/auth-signup-bg.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:15% 35%;"/>
+          <sc-if value="{{ isLoginMode }}">
+            <div style="position:absolute; left:0; right:0; bottom:0; height:240px; background:linear-gradient(180deg, rgba(243,244,248,0) 0%, #F3F4F8 85%);"></div>
+          </sc-if>
+        </div>
       <div style="max-width:420px; margin: 40px auto 0; background:#fff; border-radius:28px; padding: 40px 32px; box-shadow:0 20px 60px -30px rgba(20,21,26,0.25); position:relative; z-index:1;">
         <h1 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin: 0 0 4px; text-align:center;">
           <sc-if value="{{ isLoginMode }}">Puges o baixes?</sc-if>
@@ -282,16 +274,16 @@
       </div>
 
       <sc-if value="{{ isLoginMode }}">
-        <div style="max-width:840px; margin:0 auto; padding:80px 16px 40px; position:relative; z-index:1;">
-          <div class="pj-glass" style="text-align:center; max-width:520px; margin:0 auto 64px;">
+        <div style="max-width:840px; margin:0 auto; padding: 40px 16px 40px; position:relative; z-index:1;">
+          <div style="text-align:center; max-width:520px; margin:0 auto 64px;">
             <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Aprofitar els viatges és estalviar</h2>
-            <p style="font-size:15px; color:#4B4E58; margin:0; line-height:1.5;">Barcelona ⇄ Berguedà, el trajecte que ja fas cada setmana — ara compartit.</p>
+            <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Barcelona ⇄ Berguedà, el trajecte que ja fas cada setmana — ara compartit.</p>
           </div>
 
           <div style="display:flex; flex-direction:column; gap:56px;">
             <div class="pj-value-block">
               <img src="/assets/auth-savings.png" alt=""/>
-              <div class="pj-value-block-copy pj-glass">
+              <div class="pj-value-block-copy">
                 <h2>Comparteix les despeses, minimitza el teu gasto</h2>
                 <p>Vagis com a conductor o com a passatger, el trajecte surt més a compte compartit.</p>
               </div>
@@ -299,7 +291,7 @@
 
             <div class="pj-value-block pj-value-block-reverse">
               <img src="/assets/auth-community.png" alt=""/>
-              <div class="pj-value-block-copy pj-glass">
+              <div class="pj-value-block-copy">
                 <h2>No són desconeguts, són veïns</h2>
                 <p>Pujobaixo és de gent del Berguedà per a gent del Berguedà. Coneix qui fa el mateix camí que tu, viatge a viatge.</p>
               </div>
@@ -307,6 +299,7 @@
           </div>
         </div>
       </sc-if>
+      </div>
     </sc-if>
 
     <sc-if value="{{ isAuthCallbackView }}">
@@ -1584,12 +1577,16 @@ class Component extends DCLogic {
     const toastColors = { info: '#14151A', error: '#C22A24', success: '#1D874A' };
 
     const isAuthShellView = view === 'auth' || view === 'reset';
+    const isLoginModeNow = view === 'auth' && s.authMode === 'login';
 
     return {
       isLoggedIn,
       isAuthShellView,
       topnavBg: isAuthShellView ? 'transparent' : '#FFFFFF',
       topnavBorder: isAuthShellView ? 'none' : '1px solid #ECEDF2',
+      heroContainerStyle: isLoginModeNow
+        ? 'position:absolute; top:0; left:0; right:0; height:760px; z-index:0; overflow:hidden; pointer-events:none;'
+        : 'position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;',
       isAuthView: view === 'auth',
       isResetView: view === 'reset',
       isAuthCallbackView: view === 'authCallback',
