@@ -185,7 +185,7 @@
   </sc-if>
 
   <div class="{{ mainShiftClass }}">
-  <div class="pj-main" style="max-width:920px; margin: 0 auto;">
+  <div class="pj-main" style="{{ mainStyle }}">
 
     <sc-if value="{{ isAuthShellView }}" hint-placeholder-val="{{ true }}">
       <div style="{{ authShellWrapStyle }}">
@@ -1606,6 +1606,9 @@ class Component extends DCLogic {
       authShellWrapStyle: isLoginModeNow
         ? 'position:relative; display:flex; flex-direction:column; min-height:100vh;'
         : 'position:relative;',
+      mainStyle: isAuthShellView
+        ? 'max-width:920px; margin: 0 auto; padding-bottom:0;'
+        : 'max-width:920px; margin: 0 auto;',
       isAuthView: view === 'auth',
       isResetView: view === 'reset',
       isAuthCallbackView: view === 'authCallback',
