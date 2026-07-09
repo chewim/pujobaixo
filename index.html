@@ -97,11 +97,17 @@
     .pj-value-block img { width:100%; max-width:240px; border-radius:24px; display:block; }
     .pj-value-block-copy h2 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
     .pj-value-block-copy p { font-size:15px; color:#6B6F7B; margin:0; line-height:1.5; }
+    .pj-footer-cta { display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; max-width:420px; margin:0 auto; padding:64px 16px; }
+    .pj-footer-cta-copy h2 { font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; color:#fff; }
+    .pj-footer-cta-copy p { font-size:14.5px; color:rgba(255,255,255,0.92); margin:0; line-height:1.5; }
+    .pj-footer-cta-btn { width:100%; max-width:280px; height:50px; border:none; border-radius:14px; background:#fff; color:#5B4CFB; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; flex-shrink:0; }
     @media (min-width: 900px) {
       .pj-post-section { margin-bottom: 32px; }
       .pj-value-block { flex-direction:row; text-align:left; gap:48px; }
       .pj-value-block-reverse { flex-direction:row-reverse; }
       .pj-value-block img { max-width:320px; flex-shrink:0; }
+      .pj-footer-cta { flex-direction:row; justify-content:space-between; text-align:left; max-width:840px; gap:32px; }
+      .pj-footer-cta-btn { width:auto; min-width:220px; }
       .pj-topnav-hide-desktop { display: none !important; }
       .pj-sidebar { display: flex !important; }
       .pj-main-shifted { margin-left: 248px !important; }
@@ -303,10 +309,12 @@
         </div>
 
         <div style="background:#5B4CFB; position:relative; z-index:1; width:100vw; margin: 0 calc(50% - 50vw);">
-          <div style="text-align:center; max-width:420px; margin:0 auto; padding: 64px 16px;">
-            <h2 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; color:#fff;">Cada setmana hi ha algú fent el teu trajecte</h2>
-            <p style="font-size:14.5px; color:rgba(255,255,255,0.92); margin:0 0 24px; line-height:1.5;">No esperis al proper viatge sol. Puja o baixa amb algú del Berguedà avui mateix.</p>
-            <button onClick="{{ scrollToLoginCard }}" style="width:100%; max-width:280px; height:50px; border:none; border-radius:14px; background:#fff; color:#5B4CFB; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">Inicia sessió</button>
+          <div class="pj-footer-cta">
+            <div class="pj-footer-cta-copy">
+              <h2>Cada setmana hi ha algú fent el teu trajecte</h2>
+              <p>No esperis al proper viatge sol. Puja o baixa amb algú del Berguedà avui mateix.</p>
+            </div>
+            <button onClick="{{ scrollToLoginCard }}" class="pj-footer-cta-btn">Inicia sessió</button>
           </div>
         </div>
       </sc-if>
