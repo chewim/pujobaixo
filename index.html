@@ -436,12 +436,13 @@
             </label>
             <input id="post-seats" type="number" min="1" max="8" value="{{ postForm.availableSeats }}" onChange="{{ setPostSeats }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
           </div>
-          <sc-if value="{{ isPostOffer }}">
-            <div style="flex:1;">
-              <label for="post-price" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Preu per plaça (€)</label>
-              <input id="post-price" type="number" min="0" step="0.5" value="{{ postForm.pricePerSeat }}" onChange="{{ setPostPrice }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
-            </div>
-          </sc-if>
+          <div style="flex:1;">
+            <label for="post-price" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
+              <sc-if value="{{ isPostOffer }}">Preu per plaça (€)</sc-if>
+              <sc-if value="{{ isPostRequest }}">Pressupost orientatiu (€) (opcional)</sc-if>
+            </label>
+            <input id="post-price" type="number" min="0" step="0.5" value="{{ postForm.pricePerSeat }}" onChange="{{ setPostPrice }}" placeholder="{{ postPricePlaceholder }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
+          </div>
         </div>
 
         <label for="post-notes" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
@@ -1183,13 +1184,14 @@ class Component extends DCLogic {
       const destinationValue = postForm.destination.trim();
       const preset = ROUTES.find((r) => r.origin === originValue && r.destination === destinationValue);
       const directionValue = preset ? preset.value : 'CUSTOM';
+      const hasPrice = postForm.pricePerSeat !== '' && postForm.pricePerSeat != null;
       const payload = {
         direction: directionValue,
         origin: originValue,
         destination: destinationValue,
         depart_at: new Date(postForm.departAt).toISOString(),
         available_seats: Number(postForm.availableSeats),
-        price_per_seat: isRequest ? null : Number(postForm.pricePerSeat),
+        price_per_seat: (isRequest && !hasPrice) ? null : Number(postForm.pricePerSeat),
         pickup_notes: postForm.pickupNotes || null,
         trip_type: postForm.tripType,
       };
@@ -1332,7 +1334,7 @@ class Component extends DCLogic {
         pickupNotes: t.pickup_notes || '',
         isRequest,
         roleLabel: isRequest ? 'Necessito' : 'Ofereixo',
-        priceLabel: isRequest ? '' : `${Number(t.price_per_seat).toFixed(2)}€`,
+        priceLabel: (t.price_per_seat != null) ? `${Number(t.price_per_seat).toFixed(2)}€` : '',
         seatsLabel: isRequest ? `${t.available_seats} persones` : `${t.available_seats} places`,
         isOwn,
         ctaLabel: 'WhatsApp',
@@ -1371,7 +1373,7 @@ class Component extends DCLogic {
         avatarImgRef: this._avatarRef(ownAvatarUrl),
         isRequest,
         roleLabel: isRequest ? 'Necessito' : 'Ofereixo',
-        priceLabel: isRequest ? '' : `${Number(t.price_per_seat).toFixed(2)}€`,
+        priceLabel: (t.price_per_seat != null) ? `${Number(t.price_per_seat).toFixed(2)}€` : '',
         seatsLabel: isRequest ? `${t.available_seats} persones` : `${t.available_seats} places`,
         pickupNotes: t.pickup_notes || '',
         statusLabel: t.status === 'active' ? 'Activa' : (t.status === 'cancelled' ? 'Cancel·lada' : t.status),
@@ -1502,8 +1504,8 @@ class Component extends DCLogic {
       postError: s.postError,
       isPostOffer: s.postForm.tripType !== 'request',
       isPostRequest: s.postForm.tripType === 'request',
-      setPostTypeOffer: () => this.setState((st) => ({ postForm: { ...st.postForm, tripType: 'offer' } })),
-      setPostTypeRequest: () => this.setState((st) => ({ postForm: { ...st.postForm, tripType: 'request' } })),
+      setPostTypeOffer: () => this.setState((st) => ({ postForm: { ...st.postForm, tripType: 'offer', pricePerSeat: st.postForm.pricePerSeat === '' ? 5 : st.postForm.pricePerSeat } })),
+      setPostTypeRequest: () => this.setState((st) => ({ postForm: { ...st.postForm, tripType: 'request', pricePerSeat: '' } })),
       postTypeOfferBg: s.postForm.tripType !== 'request' ? '#EEEBFF' : '#fff',
       postTypeOfferColor: s.postForm.tripType !== 'request' ? '#5B4CFB' : '#6B6F7B',
       postTypeOfferBorder: s.postForm.tripType !== 'request' ? '#5B4CFB' : '#ECEDF2',
@@ -1529,6 +1531,7 @@ class Component extends DCLogic {
       postShowRoutePresets: s.postShowRoutePresets,
       togglePostRoutePresets: () => this.setState((st) => ({ postShowRoutePresets: !st.postShowRoutePresets })),
       routePresetsChevron: s.postShowRoutePresets ? 'rotate(180deg)' : 'rotate(0deg)',
+      postPricePlaceholder: s.postForm.tripType === 'request' ? 'Ex: 5' : '',
       routeOptions: ROUTES.map((r) => ({
         value: r.value,
         label: r.label,
