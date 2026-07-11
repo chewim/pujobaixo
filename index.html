@@ -95,21 +95,38 @@
     .pj-main { padding: 24px 16px 104px; }
     .pj-post-card { background: transparent; padding: 0; }
     .pj-post-section { margin-bottom: 16px; }
-    .pj-value-block { display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; }
-    .pj-value-block img { width:100%; max-width:240px; border-radius:24px; display:block; }
-    .pj-value-mockup { width:100%; max-width:200px; display:block; }
-    .pj-value-block-copy h2 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
-    .pj-value-block-copy p { font-size:15px; color:#6B6F7B; margin:0; line-height:1.5; }
+    .pj-databento { display:flex; flex-direction:column; gap:16px; }
+    .pj-databento-eq { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; display:flex; flex-direction:column; justify-content:center; gap:16px; }
+    .pj-databento-label { display:flex; align-items:center; gap:8px; font-size:12px; font-weight:800; letter-spacing:0.08em; color:#5B4CFB; text-transform:uppercase; }
+    .pj-databento-statement { font-size:20px; font-weight:800; letter-spacing:-0.01em; }
+    .pj-databento-eco { background:#5B4CFB; color:#fff; border-radius:20px; padding:24px; display:flex; flex-direction:column; gap:16px; }
+    .pj-databento-eco h3 { font-size:18px; font-weight:800; margin:0 0 4px; }
+    .pj-databento-eco p { font-size:14px; color:rgba(255,255,255,0.92); margin:0; line-height:1.5; }
+    .pj-calc { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; margin-top:32px; display:flex; flex-direction:column; gap:32px; align-items:center; }
+    .pj-calc-copy h2 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
+    .pj-calc-copy p { font-size:14px; color:#6B6F7B; margin:0 0 20px; line-height:1.5; }
+    .pj-calc-buttons { display:flex; flex-wrap:wrap; gap:8px; }
+    .pj-calc-circle { width:184px; height:184px; border-radius:50%; border:12px solid #ECEDF2; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; }
+    .pj-calc-circle-label { font-size:12px; font-weight:700; color:#6B6F7B; margin-bottom:4px; }
+    .pj-calc-circle-price { font-size:44px; font-weight:800; color:#5B4CFB; letter-spacing:-0.02em; }
+    .pj-calc-circle-price small { font-size:20px; font-weight:700; margin-left:2px; }
+    .pj-bento4 { display:grid; grid-template-columns:1fr; gap:16px; }
+    .pj-bento4-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; }
+    .pj-bento4-icon { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; background:#EEEBFF; margin-bottom:16px; }
+    .pj-bento4-card h3 { font-size:17px; font-weight:800; margin:0 0 6px; }
+    .pj-bento4-card p { font-size:14px; color:#6B6F7B; margin:0; line-height:1.5; }
     .pj-footer-cta { display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; max-width:420px; margin:0 auto; padding:64px 16px; }
     .pj-footer-cta-copy h2 { font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; color:#fff; }
     .pj-footer-cta-copy p { font-size:14.5px; color:rgba(255,255,255,0.92); margin:0; line-height:1.5; }
     .pj-footer-cta-btn { width:100%; max-width:280px; height:50px; border:none; border-radius:14px; background:#fff; color:#5B4CFB; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; flex-shrink:0; }
     @media (min-width: 900px) {
       .pj-post-section { margin-bottom: 32px; }
-      .pj-value-block { flex-direction:row; text-align:left; gap:48px; }
-      .pj-value-block-reverse { flex-direction:row-reverse; }
-      .pj-value-block img { max-width:320px; flex-shrink:0; }
-      .pj-value-mockup { max-width:260px; flex-shrink:0; }
+      .pj-databento { flex-direction:row; }
+      .pj-databento-eq { flex:2; }
+      .pj-databento-eco { flex:1; }
+      .pj-calc { flex-direction:row; text-align:left; justify-content:space-between; padding:40px; }
+      .pj-calc-copy { text-align:left; }
+      .pj-bento4 { grid-template-columns:1fr 1fr; }
       .pj-footer-cta { flex-direction:row; justify-content:space-between; text-align:left; max-width:840px; gap:32px; }
       .pj-footer-cta-btn { width:auto; min-width:220px; }
       .pj-topnav-hide-desktop { display: none !important; }
@@ -285,81 +302,84 @@
       </div>
 
       <sc-if value="{{ isLoginMode }}">
-        <div style="background:#F3F4F8; position:relative; z-index:1; width:100vw; margin: 40px calc(50% - 50vw) 0;">
-          <div style="max-width:840px; margin:0 auto; padding: 40px 16px 40px;">
-            <div style="text-align:center; max-width:520px; margin:0 auto 64px;">
-              <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Aprofitar els viatges és estalviar</h2>
-              <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Barcelona ⇄ Berguedà, el trajecte que ja fas cada setmana — ara compartit.</p>
+        <div style="background:#F3F4F8; position:relative; z-index:1; width:100vw; margin: 40px calc(50% - 50vw) 0; padding-bottom:64px;">
+          <div style="max-width:840px; margin:0 auto; padding: 40px 16px 0;">
+
+            <div style="max-width:560px; margin:0 0 24px;">
+              <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Moltes places viatgen buides cada dia.</h2>
+              <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">No cal fer més quilòmetres. Cal aprofitar millor els que ja fem.</p>
             </div>
 
-            <div style="display:flex; flex-direction:column; gap:56px;">
-              <div class="pj-value-block">
-                <img src="/assets/auth-savings.png" alt=""/>
-                <div class="pj-value-block-copy">
-                  <h2>Comparteix les despeses, minimitza el teu gasto</h2>
-                  <p>Vagis com a conductor o com a passatger, el trajecte surt més a compte compartit.</p>
+            <div class="pj-databento">
+              <div class="pj-databento-eq">
+                <div class="pj-databento-label">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/><circle cx="18" cy="5" r="2.5"/></svg>
+                  L'EQUACIÓ
                 </div>
+                <div class="pj-databento-statement">1 trajecte + persones = − despeses</div>
               </div>
-
-              <div class="pj-value-block pj-value-block-reverse">
-                <img src="/assets/auth-community.png" alt=""/>
-                <div class="pj-value-block-copy">
-                  <h2>No són desconeguts, són veïns</h2>
-                  <p>Pujobaixo és de gent del Berguedà per a gent del Berguedà. Coneix qui fa el mateix camí que tu, viatge a viatge.</p>
-                </div>
-              </div>
-
-              <div class="pj-value-block">
-                <svg class="pj-value-mockup" viewBox="0 0 280 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Captura de l'aplicació mostrant dos viatges disponibles">
-                  <rect x="8" y="8" width="264" height="544" rx="40" fill="#14151A"/>
-                  <rect x="20" y="26" width="240" height="508" rx="26" fill="#F3F4F8"/>
-                  <rect x="120" y="18" width="40" height="6" rx="3" fill="#000000" opacity="0.35"/>
-                  <text x="40" y="62" font-family="'Plus Jakarta Sans',sans-serif" font-size="15" font-weight="800" fill="#14151A">Pujobaixo</text>
-
-                  <rect x="32" y="86" width="216" height="132" rx="18" fill="#FFFFFF"/>
-                  <rect x="48" y="100" width="112" height="22" rx="11" fill="#EEEBFF"/>
-                  <text x="104" y="115" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" font-weight="700" fill="#5B4CFB">Berga → BCN</text>
-                  <circle cx="60" cy="150" r="14" fill="#ECEDF2"/>
-                  <text x="60" y="154" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" font-weight="700" fill="#6B6F7B">M</text>
-                  <text x="82" y="147" font-family="'Plus Jakarta Sans',sans-serif" font-size="13" font-weight="700" fill="#14151A">Marc P.</text>
-                  <text x="82" y="163" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" fill="#6B6F7B">Dv 12 jul · 8:00</text>
-                  <rect x="150" y="178" width="82" height="30" rx="15" fill="#25D366"/>
-                  <text x="191" y="197" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" font-weight="800" fill="#14151A">Contactar</text>
-
-                  <rect x="32" y="234" width="216" height="132" rx="18" fill="#FFFFFF"/>
-                  <rect x="48" y="248" width="120" height="22" rx="11" fill="#EEEBFF"/>
-                  <text x="108" y="263" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" font-weight="700" fill="#5B4CFB">BCN → Gironella</text>
-                  <circle cx="60" cy="298" r="14" fill="#ECEDF2"/>
-                  <text x="60" y="302" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" font-weight="700" fill="#6B6F7B">A</text>
-                  <text x="82" y="295" font-family="'Plus Jakarta Sans',sans-serif" font-size="13" font-weight="700" fill="#14151A">Anna R.</text>
-                  <text x="82" y="311" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" fill="#6B6F7B">Ds 13 jul · 17:30</text>
-                  <rect x="150" y="326" width="60" height="28" rx="14" fill="#5B4CFB"/>
-                  <text x="180" y="345" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="12" font-weight="800" fill="#FFFFFF">8€</text>
-
-                  <rect x="20" y="480" width="240" height="54" fill="#FFFFFF"/>
-                  <rect x="43" y="488" width="54" height="26" rx="13" fill="#EEEBFF"/>
-                  <text x="70" y="505" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="10" font-weight="800" fill="#5B4CFB">Viatges</text>
-                  <text x="140" y="505" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="10" fill="#6B6F7B">Els meus</text>
-                  <text x="210" y="505" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="10" fill="#6B6F7B">Perfil</text>
-                </svg>
-                <div class="pj-value-block-copy">
-                  <h2>Coneix qui condueix abans de pujar</h2>
-                  <p>Nom, telèfon i ruta clars des del primer moment. Parles per WhatsApp i decideixes tu, sense sorpreses.</p>
+              <div class="pj-databento-eco">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20c-4.5 0-8-3.5-8-8 0-3 1.5-5.5 4-7 .5 2.5 2 4.5 4 6-1-2.5-1-5.5.5-8 3 2 5.5 5 5.5 9 0 4.5-2 8-6 8z"/></svg>
+                <div>
+                  <h3>Menys emissions</h3>
+                  <p>Un cotxe ple contamina menys que quatre de buits.</p>
                 </div>
               </div>
             </div>
 
-            <p style="text-align:center; font-size:14px; font-weight:700; color:#5B4CFB; margin:56px 0 0;">De Berga, Gironella i tot el Berguedà, cap a Barcelona — i tornada</p>
+            <div class="pj-calc">
+              <div class="pj-calc-copy">
+                <h2>Calcula el teu estalvi</h2>
+                <p>Trajecte de referència: Barcelona ↔ Berga. Cost estimat total del viatge: 24€.</p>
+                <div class="pj-calc-buttons" role="group" aria-label="Nombre de persones">
+                  <button onClick="{{ setCalcPeople1 }}" aria-pressed="{{ calc1Selected }}" style="{{ calc1Style }}">1 Persona</button>
+                  <button onClick="{{ setCalcPeople2 }}" aria-pressed="{{ calc2Selected }}" style="{{ calc2Style }}">2 Persones</button>
+                  <button onClick="{{ setCalcPeople4 }}" aria-pressed="{{ calc4Selected }}" style="{{ calc4Style }}">4 Persones</button>
+                </div>
+              </div>
+              <div class="pj-calc-circle">
+                <span class="pj-calc-circle-label">Cost per persona</span>
+                <span class="pj-calc-circle-price">{{ calcPriceLabel }}<small>€</small></span>
+              </div>
+            </div>
+
+            <div style="text-align:center; max-width:560px; margin:64px auto 32px;">
+              <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">No compartim només cotxe. Compartim territori.</h2>
+              <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">La plataforma dissenyada per les necessitats de mobilitat reals entre el Berguedà i Barcelona.</p>
+            </div>
+
+            <div class="pj-bento4">
+              <div class="pj-bento4-card">
+                <span class="pj-bento4-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="15" r="6"/><circle cx="15" cy="9" r="6"/></svg></span>
+                <h3>Estalvia</h3>
+                <p>Divideix costos de peatges i benzina de forma justa i transparent.</p>
+              </div>
+              <div class="pj-bento4-card">
+                <span class="pj-bento4-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.3"/><circle cx="12" cy="4" r="2"/><circle cx="19" cy="17" r="2"/><circle cx="5" cy="17" r="2"/><path d="M12 6.3v3.4M13.6 13.6l3.7 1.9M10.4 13.6l-3.7 1.9"/></svg></span>
+                <h3>Connecta</h3>
+                <p>Crea xarxa amb gent de la comarca que té les teves mateixes rutines.</p>
+              </div>
+              <div class="pj-bento4-card">
+                <span class="pj-bento4-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>
+                <h3>Aprofita</h3>
+                <p>Menys cotxes al túnel del Cadí o a la C-16, viatges més ràpids i eficients.</p>
+              </div>
+              <div class="pj-bento4-card">
+                <span class="pj-bento4-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><path d="M9 11l2 2 4-4"/></svg></span>
+                <h3>Facilita</h3>
+                <p>Reserva i acorda punts de trobada directament des de la plataforma.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <div style="background:#5B4CFB; position:relative; z-index:1; width:100vw; margin: 0 calc(50% - 50vw);">
           <div class="pj-footer-cta">
             <div class="pj-footer-cta-copy">
-              <h2>Cada setmana hi ha algú fent el teu trajecte</h2>
-              <p>No esperis al proper viatge sol. Puja o baixa amb algú del Berguedà avui mateix.</p>
+              <h2>El Berguedà i Barcelona ja estan connectats.</h2>
+              <p>Fem que els trajectes també ho estiguin.</p>
             </div>
-            <button onClick="{{ scrollToLoginCard }}" class="pj-footer-cta-btn">Inicia sessió</button>
+            <button onClick="{{ scrollToLoginCard }}" class="pj-footer-cta-btn">Començar a compartir</button>
           </div>
         </div>
       </sc-if>
@@ -829,6 +849,7 @@ class Component extends DCLogic {
     booting: true,
     view: 'auth',
     authMode: 'login',
+    calcPeople: '1',
     user: null,
     authForm: { email: '', password: '', firstName: '', lastName: '', phone: '' },
     authError: '',
@@ -1642,8 +1663,25 @@ class Component extends DCLogic {
 
     const isAuthShellView = view === 'auth' || view === 'reset';
 
+    const calcPrices = { '1': 24, '2': 12, '4': 6 };
+    const calcPeople = s.calcPeople || '1';
+    const calcBase = 'flex:1; min-width:112px; height:52px; border-radius:14px; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; transition:background 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out;';
+    const calcActive = ' border:2px solid #5B4CFB; background:#EEEBFF; color:#5B4CFB;';
+    const calcInactive = ' border:1.5px solid #ECEDF2; background:#fff; color:#14151A;';
+    const calcStyle = (n) => calcBase + (calcPeople === n ? calcActive : calcInactive);
+
     return {
       isLoggedIn,
+      calcPriceLabel: String(calcPrices[calcPeople]),
+      calc1Style: calcStyle('1'),
+      calc2Style: calcStyle('2'),
+      calc4Style: calcStyle('4'),
+      calc1Selected: calcPeople === '1',
+      calc2Selected: calcPeople === '2',
+      calc4Selected: calcPeople === '4',
+      setCalcPeople1: () => this.setState({ calcPeople: '1' }),
+      setCalcPeople2: () => this.setState({ calcPeople: '2' }),
+      setCalcPeople4: () => this.setState({ calcPeople: '4' }),
       isAuthShellView,
       topnavBg: isAuthShellView ? 'transparent' : '#FFFFFF',
       topnavBorder: isAuthShellView ? 'none' : '1px solid #ECEDF2',
