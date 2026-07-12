@@ -111,7 +111,7 @@
     .pj-hero-eyebrow { animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 900ms both; }
     .pj-hero-copy h1 { animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1050ms both; }
     .pj-hero-copy > p { animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1200ms both; }
-    .pj-hero-actions { animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1350ms both; }
+    .pj-hero-actions { animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1420ms both; }
     .pj-hero-visual { animation:pjFadeUp 750ms cubic-bezier(0.22,1,0.36,1) 1450ms both; }
     @keyframes pjChipPop { from { opacity:0; transform:translateY(6px) scale(0.6); } to { opacity:1; transform:none; } }
     .pj-band { position:relative; z-index:1; width:100vw; margin:0 calc(50% - 50vw); padding:0 16px; }
@@ -171,7 +171,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .pj-topnav, .pj-topnav-inner > div:first-of-type, .pj-topnav-link, .pj-topnav-cta,
-      .pj-hero-eyebrow, .pj-hero-copy h1, .pj-hero-copy > p, .pj-hero-actions, .pj-hero-micro, .pj-hero-visual,
+      .pj-hero-eyebrow, .pj-hero-copy h1, .pj-hero-copy > p, .pj-hero-actions, .pj-hero-feats, .pj-hero-badge, .pj-hero-visual,
       .pj-loss-banner, .pj-gain-panel, .pj-loss-chip, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big,
       .pj-proof-card, .pj-proof-top, .pj-proof-formula, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card,
       .pj-footer-brand, .pj-footer-nav, .pj-footer-meta { animation:none !important; }
@@ -217,7 +217,9 @@
     .pj-topnav-link:hover { color:#5B4CFB; }
     .pj-topnav-inner { display:flex; align-items:center; justify-content:space-between; max-width:840px; margin:0 auto; }
     .pj-hero-copy h1, .pj-section-head h2, .pj-loss-copy h2, .pj-footer-cta-copy h2, .pj-calc-copy h2 { text-wrap:balance; }
-    .pj-hero-micro { font-size:12.5px; color:#8F93A1; font-weight:600; margin:12px 0 0; animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1550ms both; }
+    .pj-hero-feats { display:flex; flex-direction:column; gap:8px; margin:0 0 28px; animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1300ms both; }
+    .pj-hero-feat { display:flex; align-items:center; gap:10px; font-size:14.5px; font-weight:700; color:#14151A; }
+    .pj-hero-badge { display:inline-flex; align-items:center; gap:8px; margin:16px 0 0; padding:8px 14px; background:#fff; border:1px solid #ECEDF2; border-radius:999px; font-size:12.5px; font-weight:700; color:#6B6F7B; animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1550ms both; }
     .pj-calc-big-label { font-size:12.5px; font-weight:700; color:#6B6F7B; }
     .pj-calc-recovered { font-size:15px; font-weight:800; margin-top:6px; transition:color 300ms ease; }
     .pj-calc-disclaimer { font-size:11.5px; color:#8F93A1; margin:0; max-width:480px; line-height:1.45; }
@@ -378,7 +380,11 @@
             <div class="pj-hero-copy">
               <div class="pj-hero-eyebrow">Berguedà ⇄ Barcelona</div>
               <h1 style="font-size:32px; font-weight:800; letter-spacing:-0.02em; margin:0 0 16px; line-height:1.15;">Tens places buides quan <span style="color:#5B4CFB;">baixes a Barcelona</span>?</h1>
-              <p style="font-size:16px; color:#6B6F7B; margin:0 0 24px; line-height:1.5; max-width:440px;">Recupera part del que et costa el trajecte compartint les places que et sobren amb persones que fan el mateix camí.<br/><span style="color:#14151A; font-weight:700;">Sense comissions. Contacte directe per WhatsApp.</span></p>
+              <p style="font-size:16px; color:#6B6F7B; margin:0 0 20px; line-height:1.5; max-width:440px;">Recupera part del que et costa el trajecte compartint les places que et sobren amb persones que fan el mateix camí.</p>
+              <div class="pj-hero-feats">
+                <div class="pj-hero-feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D874A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Sense comissions</div>
+                <div class="pj-hero-feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.19 1.24-1.95 1.4-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1.01-2.41.24-.27.62-.39.98-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.58.8 2 .87 2.14.07.15.11.32.02.51-.08.19-.13.3-.26.46-.13.16-.28.36-.4.48-.13.13-.27.28-.11.55.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.13 1.3.28.13.44.11.6-.07.16-.18.68-.79.87-1.06.18-.27.36-.22.61-.13.24.09 1.55.73 1.82.86.27.13.44.2.51.31.07.12.07.66-.17 1.34z"/></svg>Contacte directe per WhatsApp</div>
+              </div>
               <div class="pj-hero-actions" style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
                 <button data-scroll-target="pj-auth-card" data-scroll-center data-auth-signup style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.97);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">
                   Publicar les meves places
@@ -386,7 +392,7 @@
                 </button>
                 <button data-scroll-target="pj-auth-card" data-scroll-center style="height:52px; padding:0 24px; border:1.5px solid #5B4CFB; border-radius:999px; background:#fff; color:#5B4CFB; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; transition:background 150ms ease;" style-hover="background:#EEEBFF;" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">Busco viatge</button>
               </div>
-              <p class="pj-hero-micro">Publicar un trajecte és gratis i no et compromet a acceptar cap passatger.</p>
+              <div class="pj-hero-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Publicar un trajecte és gratis i no et compromet a acceptar cap passatger.</div>
             </div>
             <div class="pj-hero-visual">
               <div class="pj-hero-stack" aria-hidden="true">
