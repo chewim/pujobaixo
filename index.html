@@ -155,12 +155,11 @@
     .pj-calc-circle { width:184px; height:184px; border-radius:50%; border:12px solid #ECEDF2; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; transition:border-color 450ms ease; }
     .pj-calc-circle-price { transition:color 450ms ease; }
     .pj-calc-seg { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
-    .pj-calc-grid { display:grid; grid-template-columns:1fr; gap:16px; align-items:center; justify-items:center; width:100%; max-width:600px; }
-    .pj-calc-tiles { display:grid; gap:16px; width:100%; }
-    .pj-calc-tile { background:#F3F4F8; border-radius:16px; padding:20px 24px; display:flex; flex-direction:column; gap:2px; text-align:left; }
-    .pj-calc-tile-num { font-size:26px; font-weight:800; letter-spacing:-0.01em; color:#14151A; }
-    .pj-calc-tile-green .pj-calc-tile-num { color:#1D874A; }
-    .pj-calc-tile-cap { font-size:12.5px; font-weight:600; color:#6B6F7B; }
+    .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
+    .pj-proof-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; text-align:left; }
+    .pj-proof-num { display:block; font-size:30px; font-weight:800; letter-spacing:-0.02em; color:#14151A; margin-bottom:6px; }
+    .pj-proof-num-green { color:#1D874A; }
+    .pj-proof-card p { font-size:14px; color:#6B6F7B; margin:0; line-height:1.5; }
     .pj-calc-circle-label { font-size:12px; font-weight:700; color:#6B6F7B; margin-bottom:4px; }
     .pj-calc-circle-price { font-size:44px; font-weight:800; color:#5B4CFB; letter-spacing:-0.02em; }
     .pj-calc-circle-price small { font-size:20px; font-weight:700; margin-left:2px; }
@@ -191,7 +190,7 @@
       .pj-databento-eq { flex:2; }
       .pj-databento-eco { flex:1; }
       .pj-calc { padding:48px 40px; }
-      .pj-calc-grid { grid-template-columns:auto 1fr; justify-items:stretch; gap:24px; }
+      .pj-proof { grid-template-columns:1fr 1fr; }
       .pj-bento4 { grid-template-columns:1fr 1fr; }
       .pj-footer-cta { flex-direction:row; justify-content:space-between; align-items:center; text-align:left; gap:48px; padding:80px 0; }
       .pj-footer-cta-copy { flex:1; }
@@ -426,7 +425,7 @@
 
             <div class="pj-calc">
               <div class="pj-calc-copy">
-                <h2>Omple els seients i mira què passa</h2>
+                <h2>{{ calcTitle }}</h2>
                 <p>Anada i tornada Barcelona ↔ Berga: 42€ entre benzina i peatges. Cada plaça compartida a 5€ per trajecte te'n retorna 10.</p>
               </div>
               <div class="pj-calc-seg" role="group" aria-label="Places compartides">
@@ -435,21 +434,20 @@
                 <button onClick="{{ setCalcSeats2 }}" aria-pressed="{{ calcSeg2Pressed }}" style="{{ calcSeg2Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>2 places</button>
                 <button onClick="{{ setCalcSeats3 }}" aria-pressed="{{ calcSeg3Pressed }}" style="{{ calcSeg3Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>3 places</button>
               </div>
-              <div class="pj-calc-grid">
-                <div class="pj-calc-circle" style="border-color:{{ calcCircleBorder }};">
-                  <span class="pj-calc-circle-label">El viatge et costa</span>
-                  <span class="pj-calc-circle-price" style="color:{{ calcPriceColor }};">{{ calcPriceLabel }}<small>€</small></span>
-                </div>
-                <div class="pj-calc-tiles">
-                  <div class="pj-calc-tile pj-calc-tile-green">
-                    <span class="pj-calc-tile-num">{{ calcSavedShort }}</span>
-                    <span class="pj-calc-tile-cap">recuperats per viatge</span>
-                  </div>
-                  <div class="pj-calc-tile">
-                    <span class="pj-calc-tile-num">{{ calcYearShort }}</span>
-                    <span class="pj-calc-tile-cap">l'any amb un viatge per setmana</span>
-                  </div>
-                </div>
+              <div class="pj-calc-circle" style="border-color:{{ calcCircleBorder }};">
+                <span class="pj-calc-circle-label">El viatge et costa</span>
+                <span class="pj-calc-circle-price" style="color:{{ calcPriceColor }};">{{ calcPriceLabel }}<small>€</small></span>
+              </div>
+            </div>
+
+            <div class="pj-proof">
+              <div class="pj-proof-card">
+                <span class="pj-proof-num pj-proof-num-green">{{ calcSavedShort }}</span>
+                <p>{{ calcSavedCaption }}</p>
+              </div>
+              <div class="pj-proof-card">
+                <span class="pj-proof-num">{{ calcYearShort }}</span>
+                <p>{{ calcYearCaption }}</p>
               </div>
             </div>
           </div>
@@ -1906,8 +1904,15 @@ class Component extends DCLogic {
     return {
       isLoggedIn,
       calcPriceLabel: String(s.calcDisplay == null ? 42 : s.calcDisplay),
+      calcTitle: ({ '0': 'Viatjant sol', '1': 'Compartint 1 plaça', '2': 'Compartint 2 places', '3': 'Amb el cotxe ple' })[calcSeats],
       calcSavedShort: `+${42 - (s.calcDisplay == null ? 42 : s.calcDisplay)} €`,
-      calcYearShort: calcSeats === '0' ? '0 €' : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} €`,
+      calcSavedCaption: calcSeats === '0'
+        ? 'recuperats. Sol, assumeixes tota la despesa: cada plaça compartida a 5 € per trajecte en retorna 10.'
+        : `recuperats en cada anada i tornada gràcies ${calcSeats === '1' ? 'a la plaça compartida' : 'a les ' + calcSeats + ' places compartides'}, a 5 € per trajecte.`,
+      calcYearShort: calcSeats === '0' ? '0 €' : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} €`,
+      calcYearCaption: calcSeats === '0'
+        ? "d'estalvi anual. Compartir un sol viatge per setmana ja canvia el número."
+        : "d'estalvi en un any si comparteixes un viatge per setmana. Sense canviar de cotxe ni de rutina.",
       calcPriceColor: calcColors[calcSeats],
       calcCircleBorder: calcSeats === '3' ? '#D2EDDC' : '#ECEDF2',
       calcSeg0Style: calcSegStyle('0'),
