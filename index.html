@@ -97,7 +97,8 @@
     .pj-main { padding: 24px 16px 104px; }
     .pj-post-card { background: transparent; padding: 0; }
     .pj-post-section { margin-bottom: 16px; }
-    .pj-hero { display:flex; flex-direction:column; gap:40px; padding:48px 0 56px; max-width:840px; margin:0 auto; }
+    .pj-hero { display:flex; flex-direction:column; gap:40px; padding:48px 0 40px; max-width:840px; margin:0 auto; }
+    #pj-estalvi { padding-top:24px; }
     @keyframes pjFadeDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
     @keyframes pjFadeLeft { from { opacity:0; transform:translateX(-28px); } to { opacity:1; transform:none; } }
     @keyframes pjFadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
@@ -184,13 +185,14 @@
     .pj-loss-copy h2 { font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
     .pj-loss-copy p { font-size:15px; color:rgba(255,255,255,0.85); margin:0; line-height:1.5; }
     .pj-loss-seats { position:absolute; top:32px; left:32px; display:flex; gap:10px; }
-    .pj-loss-seat { width:40px; height:40px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.65); background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; }
+    .pj-loss-seat { width:40px; height:40px; border-radius:50%; border:1.5px solid rgba(127,224,167,0.8); background:rgba(29,135,74,0.28); color:#7FE0A7; display:flex; align-items:center; justify-content:center; }
     .pj-loss-chip { position:absolute; z-index:2; background:#fff; color:#C22A24; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 8px 24px -8px rgba(20,21,26,0.4); animation:pjChipFloat 4s ease-in-out infinite; }
     .pj-loss-chip--gain { color:#1D874A; }
-    .pj-banner-card { display:none; position:absolute; right:40px; bottom:40px; width:300px; z-index:2; }
+    .pj-banner-card { display:none; position:absolute; right:40px; top:50%; transform:translateY(-50%); width:300px; z-index:2; }
     .pj-banner-card .pj-hero-trip { width:100%; max-width:none; }
-    .pj-loss-chip-1 { top:24%; right:10%; }
-    .pj-loss-chip-2 { top:52%; right:22%; animation-delay:1.6s; }
+    .pj-loss-chip-1 { top:26%; left:10%; }
+    .pj-loss-chip-2 { top:44%; left:26%; animation-delay:1.3s; }
+    .pj-loss-chip-3 { top:62%; left:12%; animation-delay:2.6s; }
     .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
     .pj-proof-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; text-align:left; }
     .pj-proof-top { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
@@ -224,7 +226,8 @@
     .pj-footer-cta-btn { width:100%; max-width:280px; height:50px; border:none; border-radius:14px; background:#fff; color:#5B4CFB; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; flex-shrink:0; }
     @media (min-width: 900px) {
       .pj-post-section { margin-bottom: 32px; }
-      .pj-hero { flex-direction:row; align-items:center; padding:40px 0 80px; gap:64px; }
+      .pj-hero { flex-direction:row; align-items:center; padding:40px 0 48px; gap:64px; }
+      #pj-estalvi { padding-top:32px; }
       .pj-band { padding:0 24px; }
       .pj-loss-banner { margin-top:80px; }
       .pj-banner-card { display:block; }
@@ -254,7 +257,8 @@
     }
     @media (min-width: 1440px) {
       .pj-topnav-inner, .pj-hero, .pj-section, .pj-footer-cta, .pj-footer-inner { max-width:1040px; }
-      .pj-hero { min-height:calc(100vh - 260px); padding:24px 0 64px; gap:80px; }
+      .pj-hero { min-height:calc(100vh - 260px); padding:24px 0 40px; gap:80px; }
+      #pj-estalvi { padding-top:40px; }
       .pj-hero h1 { font-size:40px !important; }
       .pj-hero-copy > p { font-size:17px !important; max-width:500px !important; }
       .pj-hero-eyebrow, .pj-footer-eyebrow { font-size:12.5px; }
@@ -435,7 +439,8 @@
                 <p>Anar i tornar sol de Barcelona són 42&nbsp;€ entre benzina i peatges. No cal fer més quilòmetres: només omplir els que ja fas.</p>
               </div>
               <span class="pj-loss-chip pj-loss-chip--gain pj-loss-chip-1">+5&nbsp;€</span>
-              <span class="pj-loss-chip pj-loss-chip--gain pj-loss-chip-2">+10&nbsp;€</span>
+              <span class="pj-loss-chip pj-loss-chip--gain pj-loss-chip-2">+5&nbsp;€</span>
+              <span class="pj-loss-chip pj-loss-chip--gain pj-loss-chip-3">+5&nbsp;€</span>
               <div class="pj-banner-card" aria-hidden="true">
               <div class="pj-hero-trip pj-hero-trip--b">
                 <div class="pj-hero-trip-head">
