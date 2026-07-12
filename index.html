@@ -187,6 +187,8 @@
     .pj-loss-seat { width:40px; height:40px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.65); background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; }
     .pj-loss-chip { position:absolute; z-index:2; background:#fff; color:#C22A24; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 8px 24px -8px rgba(20,21,26,0.4); animation:pjChipFloat 4s ease-in-out infinite; }
     .pj-loss-chip--gain { color:#1D874A; }
+    .pj-banner-card { display:none; position:absolute; right:40px; bottom:40px; width:300px; z-index:2; }
+    .pj-banner-card .pj-hero-trip { width:100%; max-width:none; }
     .pj-loss-chip-1 { top:24%; right:10%; }
     .pj-loss-chip-2 { top:52%; right:22%; animation-delay:1.6s; }
     .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
@@ -217,6 +219,8 @@
       .pj-hero { flex-direction:row; align-items:center; padding:40px 0 80px; gap:64px; }
       .pj-band { padding:0 24px; }
       .pj-loss-banner { margin-top:80px; }
+      .pj-banner-card { display:block; }
+      .pj-loss-copy { max-width:440px; }
       .pj-band-gray { padding-bottom:80px; }
       .pj-section { padding:80px 0 0; }
       .pj-hero-copy { flex:1; }
@@ -351,7 +355,7 @@
             <div class="pj-hero-copy">
               <div class="pj-hero-eyebrow">Puges o baixes?</div>
               <h1 style="font-size:32px; font-weight:800; letter-spacing:-0.02em; margin:0 0 16px; line-height:1.15;">Minimitza les despeses dels teus viatges en cotxe <span style="color:#5B4CFB; white-space:nowrap;">Berguedà&nbsp;⇄&nbsp;BCN</span>.</h1>
-              <p style="font-size:16px; color:#6B6F7B; margin:0 0 24px; line-height:1.5; max-width:440px;">Troba persones que fan el mateix camí, comparteix les despeses i aprofita millor cada viatge entre el Berguedà i Barcelona.</p>
+              <p style="font-size:16px; color:#6B6F7B; margin:0 0 24px; line-height:1.5; max-width:440px;">Cada seient buit del teu cotxe són 10&nbsp;€ perduts per anada i tornada. Troba qui fa el teu mateix camí entre el Berguedà i Barcelona i recupera'ls.</p>
               <div class="pj-hero-actions" style="display:flex;">
                 <button onClick="{{ scrollToSignup }}" style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
                   Minimitzar despeses
@@ -364,33 +368,6 @@
                 <span class="pj-hero-chip pj-hero-chip--loss pj-hero-chip-1">−5&nbsp;€</span>
                 <span class="pj-hero-chip pj-hero-chip--loss pj-hero-chip-2">−10&nbsp;€</span>
                 <span class="pj-hero-chip pj-hero-chip--loss pj-hero-chip-3">−10&nbsp;€</span>
-              <div class="pj-hero-trip pj-hero-trip--b">
-                <div class="pj-hero-trip-head">
-                  <div class="pj-hero-trip-user">
-                    <div class="pj-hero-trip-avatar" style="background:oklch(0.55 0.19 275);">M</div>
-                    <div style="min-width:0;">
-                      <div class="pj-hero-trip-name">Marc</div>
-                      <div class="pj-hero-trip-role">Ofereixo</div>
-                    </div>
-                  </div>
-                  <div class="pj-hero-trip-seats">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    2 places
-                  </div>
-                </div>
-                <div class="pj-hero-trip-route">
-                  <span>Barcelona</span>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  <span>Gironella</span>
-                </div>
-                <div class="pj-hero-trip-meta">
-                  <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>Demà</span>
-                  <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>18:30</span>
-                </div>
-                <div class="pj-hero-trip-foot">
-                  <div class="pj-hero-trip-price">6€<span style="opacity:0.6; font-weight:600;">/</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg></div><span class="pj-hero-trip-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.19 1.24-1.95 1.4-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1.01-2.41.24-.27.62-.39.98-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.58.8 2 .87 2.14.07.15.11.32.02.51-.08.19-.13.3-.26.46-.13.16-.28.36-.4.48-.13.13-.27.28-.11.55.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.13 1.3.28.13.44.11.6-.07.16-.18.68-.79.87-1.06.18-.27.36-.22.61-.13.24.09 1.55.73 1.82.86.27.13.44.2.51.31.07.12.07.66-.17 1.34z"/></svg></span>
-                </div>
-              </div>
               </div>
             </div>
           </div>
@@ -449,6 +426,35 @@
               </div>
               <span class="pj-loss-chip pj-loss-chip--gain pj-loss-chip-1">+5&nbsp;€</span>
               <span class="pj-loss-chip pj-loss-chip--gain pj-loss-chip-2">+10&nbsp;€</span>
+              <div class="pj-banner-card" aria-hidden="true">
+              <div class="pj-hero-trip pj-hero-trip--b">
+                <div class="pj-hero-trip-head">
+                  <div class="pj-hero-trip-user">
+                    <div class="pj-hero-trip-avatar" style="background:oklch(0.55 0.19 275);">M</div>
+                    <div style="min-width:0;">
+                      <div class="pj-hero-trip-name">Marc</div>
+                      <div class="pj-hero-trip-role">Ofereixo</div>
+                    </div>
+                  </div>
+                  <div class="pj-hero-trip-seats">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    2 places
+                  </div>
+                </div>
+                <div class="pj-hero-trip-route">
+                  <span>Barcelona</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  <span>Gironella</span>
+                </div>
+                <div class="pj-hero-trip-meta">
+                  <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>Demà</span>
+                  <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>18:30</span>
+                </div>
+                <div class="pj-hero-trip-foot">
+                  <div class="pj-hero-trip-price">6€<span style="opacity:0.6; font-weight:600;">/</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg></div><span class="pj-hero-trip-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.19 1.24-1.95 1.4-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1.01-2.41.24-.27.62-.39.98-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.58.8 2 .87 2.14.07.15.11.32.02.51-.08.19-.13.3-.26.46-.13.16-.28.36-.4.48-.13.13-.27.28-.11.55.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.13 1.3.28.13.44.11.6-.07.16-.18.68-.79.87-1.06.18-.27.36-.22.61-.13.24.09 1.55.73 1.82.86.27.13.44.2.51.31.07.12.07.66-.17 1.34z"/></svg></span>
+                </div>
+              </div>
+              </div>
             </div>
           </div>
 
