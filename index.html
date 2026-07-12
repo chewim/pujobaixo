@@ -155,15 +155,19 @@
     .pj-step-kicker { font-size:11.5px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#5B4CFB; margin-bottom:4px; }
     .pj-step-card h3 { font-size:17px; font-weight:800; margin:0 0 6px; }
     .pj-step-card p { font-size:14px; color:#6B6F7B; margin:0; line-height:1.5; }
+    @keyframes pjInOnly { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
     @keyframes pjInOut {
       0% { opacity:0; transform:translateY(28px); }
       15%, 85% { opacity:1; transform:none; }
       100% { opacity:0; transform:translateY(-20px); }
     }
     @supports (animation-timeline: view()) {
-      .pj-loss-banner, .pj-gain-panel, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-proof-top, .pj-proof-formula, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card, .pj-footer-brand, .pj-footer-nav, .pj-footer-meta { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
-      .pj-section-head p, .pj-calc-big, .pj-proof-card:nth-child(2), .pj-proof-top, .pj-step-card:nth-child(2), .pj-footer-cta-copy h2, #pj-auth-card, .pj-gain-panel, .pj-footer-nav { animation-range:entry 10% exit 100%; }
-      .pj-calc-seg, .pj-proof-formula, .pj-step-card:nth-child(3), .pj-footer-cta-copy p, .pj-footer-meta { animation-range:entry 20% exit 100%; }
+      .pj-loss-banner, .pj-gain-panel, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-proof-top, .pj-proof-formula, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
+      .pj-section-head p, .pj-calc-big, .pj-proof-card:nth-child(2), .pj-proof-top, .pj-step-card:nth-child(2), .pj-footer-cta-copy h2, #pj-auth-card, .pj-gain-panel { animation-range:entry 10% exit 100%; }
+      .pj-calc-seg, .pj-proof-formula, .pj-step-card:nth-child(3), .pj-footer-cta-copy p { animation-range:entry 20% exit 100%; }
+      .pj-footer-brand, .pj-footer-nav, .pj-footer-meta { animation:pjInOnly 1ms linear both; animation-timeline:view(); animation-range:entry 0% entry 55%; }
+      .pj-footer-nav { animation-range:entry 8% entry 63%; }
+      .pj-footer-meta { animation-range:entry 16% entry 71%; }
     }
     @media (prefers-reduced-motion: reduce) {
       .pj-topnav, .pj-topnav-inner > div:first-of-type, .pj-topnav-link, .pj-topnav-cta,
@@ -316,7 +320,7 @@
       <div style="display:flex; align-items:center; gap:4px;">
         <button class="pj-topnav-link" onClick="{{ scrollToEstalvi }}">Estalvi</button>
         <button class="pj-topnav-link" onClick="{{ scrollToComFunciona }}">Com funciona</button>
-        <button class="pj-topnav-cta" onClick="{{ scrollToLoginCard }}" style="height:40px; padding:0 20px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; margin-left:8px;">Minimitzar despeses</button>
+        <button class="pj-topnav-cta" onClick="{{ scrollToLoginCard }}" style="height:40px; padding:0 20px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; margin-left:8px; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.96);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">Minimitzar despeses</button>
       </div>
     </sc-if>
     </div>
@@ -372,7 +376,7 @@
               <h1 style="font-size:32px; font-weight:800; letter-spacing:-0.02em; margin:0 0 16px; line-height:1.15;">Deixar de perdre diners als teus viatges en cotxe <span style="color:#5B4CFB; white-space:nowrap;">Berguedà&nbsp;⇄&nbsp;BCN</span>.</h1>
               <p style="font-size:16px; color:#6B6F7B; margin:0 0 24px; line-height:1.5; max-width:440px;">Cada seient buit del teu cotxe són 10&nbsp;€ perduts per anada i tornada. Troba qui fa el teu mateix camí entre el Berguedà i Barcelona i recupera'ls.</p>
               <div class="pj-hero-actions" style="display:flex;">
-                <button onClick="{{ scrollToLoginCard }}" style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
+                <button onClick="{{ scrollToLoginCard }}" style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.97);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">
                   Minimitzar despeses
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </button>
@@ -559,7 +563,7 @@
           </sc-if>
           <sc-if value="{{ isSignupOrForgot }}"><div style="height:16px;"></div></sc-if>
 
-          <button onClick="{{ handleAuthSubmit }}" disabled="{{ authBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
+          <button onClick="{{ handleAuthSubmit }}" disabled="{{ authBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.99);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">
             <sc-if value="{{ authBusy }}">Un moment…</sc-if>
             <sc-if value="{{ isLoginModeReady }}">Començar a estalviar</sc-if>
             <sc-if value="{{ isSignupModeReady }}">Crear compte</sc-if>
