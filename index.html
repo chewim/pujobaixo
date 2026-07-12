@@ -123,6 +123,10 @@
     .pj-databento-eq { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; display:flex; flex-direction:column; justify-content:center; gap:16px; }
     .pj-databento-label { display:flex; align-items:center; gap:8px; font-size:12px; font-weight:800; letter-spacing:0.08em; color:#5B4CFB; text-transform:uppercase; }
     .pj-databento-statement { font-size:20px; font-weight:800; letter-spacing:-0.01em; }
+    .pj-steps { display:flex; flex-direction:column; gap:16px; }
+    .pj-step { display:flex; gap:10px; align-items:flex-start; flex:1; font-size:13.5px; color:#6B6F7B; line-height:1.45; }
+    .pj-step strong { display:block; color:#14151A; font-size:14px; margin-bottom:2px; }
+    .pj-step-num { width:22px; height:22px; border-radius:50%; background:#EEEBFF; color:#5B4CFB; font-weight:800; font-size:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
     .pj-databento-eco { background:#5B4CFB; color:#fff; border-radius:20px; padding:24px; display:flex; flex-direction:column; gap:16px; }
     .pj-databento-eco h3 { font-size:18px; font-weight:800; margin:0 0 4px; }
     .pj-databento-eco p { font-size:14px; color:rgba(255,255,255,0.92); margin:0; line-height:1.5; }
@@ -150,6 +154,7 @@
       .pj-hero-copy { flex:1; }
       .pj-hero-visual { flex:1; padding:48px; }
       .pj-databento { flex-direction:row; }
+      .pj-steps { flex-direction:row; gap:24px; }
       .pj-databento-eq { flex:2; }
       .pj-databento-eco { flex:1; }
       .pj-calc { flex-direction:row; text-align:left; justify-content:space-between; padding:40px; }
@@ -444,9 +449,22 @@
               <div class="pj-databento-eq">
                 <div class="pj-databento-label">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/><circle cx="18" cy="5" r="2.5"/></svg>
-                  L'EQUACIÓ
+                  COM FUNCIONA
                 </div>
-                <div class="pj-databento-statement">1 trajecte + persones = − despeses</div>
+                <div class="pj-steps">
+                  <div class="pj-step">
+                    <span class="pj-step-num">1</span>
+                    <div><strong>Troba o publica un viatge</strong>Barcelona ⇄ Berguedà, sense comissions.</div>
+                  </div>
+                  <div class="pj-step">
+                    <span class="pj-step-num">2</span>
+                    <div><strong>Contacteu per WhatsApp</strong>Acordeu el punt de trobada.</div>
+                  </div>
+                  <div class="pj-step">
+                    <span class="pj-step-num">3</span>
+                    <div><strong>Compartiu les despeses</strong>Des de 5 € per plaça i trajecte.</div>
+                  </div>
+                </div>
               </div>
               <div class="pj-databento-eco">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20c-4.5 0-8-3.5-8-8 0-3 1.5-5.5 4-7 .5 2.5 2 4.5 4 6-1-2.5-1-5.5.5-8 3 2 5.5 5 5.5 9 0 4.5-2 8-6 8z"/></svg>
