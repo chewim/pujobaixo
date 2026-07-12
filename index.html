@@ -316,7 +316,7 @@
       <div style="display:flex; align-items:center; gap:4px;">
         <button class="pj-topnav-link" onClick="{{ scrollToEstalvi }}">Estalvi</button>
         <button class="pj-topnav-link" onClick="{{ scrollToComFunciona }}">Com funciona</button>
-        <button class="pj-topnav-cta" onClick="{{ scrollToSignup }}" style="height:40px; padding:0 20px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; margin-left:8px;">Minimitzar despeses</button>
+        <button class="pj-topnav-cta" onClick="{{ scrollToLoginCard }}" style="height:40px; padding:0 20px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; margin-left:8px;">Minimitzar despeses</button>
       </div>
     </sc-if>
     </div>
@@ -372,7 +372,7 @@
               <h1 style="font-size:32px; font-weight:800; letter-spacing:-0.02em; margin:0 0 16px; line-height:1.15;">Deixar de perdre diners als teus viatges en cotxe <span style="color:#5B4CFB; white-space:nowrap;">Berguedà&nbsp;⇄&nbsp;BCN</span>.</h1>
               <p style="font-size:16px; color:#6B6F7B; margin:0 0 24px; line-height:1.5; max-width:440px;">Cada seient buit del teu cotxe són 10&nbsp;€ perduts per anada i tornada. Troba qui fa el teu mateix camí entre el Berguedà i Barcelona i recupera'ls.</p>
               <div class="pj-hero-actions" style="display:flex;">
-                <button onClick="{{ scrollToSignup }}" style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
+                <button onClick="{{ scrollToLoginCard }}" style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
                   Minimitzar despeses
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </button>
@@ -2072,7 +2072,7 @@ class Component extends DCLogic {
       setAuthLastName: (e) => this.setState((st) => ({ authForm: { ...st.authForm, lastName: e.target.value } })),
       setAuthPhone: (e) => this.setState((st) => ({ authForm: { ...st.authForm, phone: e.target.value } })),
       switchToLogin: () => this.switchAuthMode('login'),
-      scrollToLoginCard: () => document.getElementById('pj-auth-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+      scrollToLoginCard: () => document.getElementById('pj-auth-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' }),
       scrollToTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
       scrollToSignup: () => {
         if (this.state.authMode !== 'signup') this.setState({ authMode: 'signup', authError: '', authInfo: '' });
