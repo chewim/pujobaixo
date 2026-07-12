@@ -101,7 +101,13 @@
     .pj-section { max-width:840px; margin:0 auto; padding:56px 0 0; }
     .pj-section-head { max-width:560px; margin:0 0 32px; }
     .pj-hero-visual { display:flex; align-items:center; justify-content:center; background:#F7F6FF; border-radius:24px; padding:32px; }
-    .pj-hero-stack { display:flex; flex-direction:column; align-items:center; width:100%; max-width:300px; }
+    .pj-hero-stack { display:flex; flex-direction:column; align-items:center; width:100%; max-width:300px; position:relative; }
+    .pj-hero-chip { position:absolute; z-index:3; background:#fff; color:#1D874A; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 8px 24px -8px rgba(20,21,26,0.25); animation:pjChipFloat 4s ease-in-out infinite; }
+    .pj-hero-chip-1 { top:4%; right:-14px; }
+    .pj-hero-chip-2 { top:46%; left:-22px; animation-delay:1.3s; }
+    .pj-hero-chip-3 { bottom:8%; right:-18px; animation-delay:2.6s; }
+    @keyframes pjChipFloat { 0%, 100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
+    @media (prefers-reduced-motion: reduce) { .pj-hero-chip { animation:none !important; } }
     .pj-hero-trip { width:100%; background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:16px; display:flex; flex-direction:column; gap:10px; }
     .pj-hero-trip--a { transform: translateX(-14px) rotate(-2deg); opacity:0.75; box-shadow:0 12px 32px -24px rgba(20,21,26,0.3); }
     .pj-hero-trip--b { transform: scale(1.05); position:relative; z-index:2; margin:-6px 0; box-shadow:0 24px 56px -24px rgba(20,21,26,0.35); }
@@ -148,11 +154,13 @@
     .pj-calc-buttons { display:flex; flex-wrap:wrap; gap:8px; }
     .pj-calc-circle { width:184px; height:184px; border-radius:50%; border:12px solid #ECEDF2; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; transition:border-color 450ms ease; }
     .pj-calc-circle-price { transition:color 450ms ease; }
-    .pj-calc-seats { display:flex; gap:8px; justify-content:center; }
-    .pj-calc-seat { width:40px; height:40px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-family:inherit; padding:0; transition:background 300ms ease, color 300ms ease; }
-    .pj-calc-seats-caption { font-size:12.5px; font-weight:700; color:#6B6F7B; min-height:16px; }
-    .pj-calc-saved { background:#EAF7EF; color:#1D874A; font-weight:800; font-size:14px; padding:6px 16px; border-radius:999px; }
-    .pj-calc-year { font-size:12.5px; color:#6B6F7B; font-weight:600; min-height:16px; }
+    .pj-calc-seg { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+    .pj-calc-grid { display:grid; grid-template-columns:1fr; gap:16px; align-items:center; justify-items:center; width:100%; max-width:600px; }
+    .pj-calc-tiles { display:grid; gap:16px; width:100%; }
+    .pj-calc-tile { background:#F3F4F8; border-radius:16px; padding:20px 24px; display:flex; flex-direction:column; gap:2px; text-align:left; }
+    .pj-calc-tile-num { font-size:26px; font-weight:800; letter-spacing:-0.01em; color:#14151A; }
+    .pj-calc-tile-green .pj-calc-tile-num { color:#1D874A; }
+    .pj-calc-tile-cap { font-size:12.5px; font-weight:600; color:#6B6F7B; }
     .pj-calc-circle-label { font-size:12px; font-weight:700; color:#6B6F7B; margin-bottom:4px; }
     .pj-calc-circle-price { font-size:44px; font-weight:800; color:#5B4CFB; letter-spacing:-0.02em; }
     .pj-calc-circle-price small { font-size:20px; font-weight:700; margin-left:2px; }
@@ -183,6 +191,7 @@
       .pj-databento-eq { flex:2; }
       .pj-databento-eco { flex:1; }
       .pj-calc { padding:48px 40px; }
+      .pj-calc-grid { grid-template-columns:auto 1fr; justify-items:stretch; gap:24px; }
       .pj-bento4 { grid-template-columns:1fr 1fr; }
       .pj-footer-cta { flex-direction:row; justify-content:space-between; align-items:center; text-align:left; gap:48px; padding:80px 0; }
       .pj-footer-cta-copy { flex:1; }
@@ -315,6 +324,9 @@
             </div>
             <div class="pj-hero-visual">
               <div class="pj-hero-stack" aria-hidden="true">
+                <span class="pj-hero-chip pj-hero-chip-1">+10&nbsp;€</span>
+                <span class="pj-hero-chip pj-hero-chip-2">+20&nbsp;€</span>
+                <span class="pj-hero-chip pj-hero-chip-3">+30&nbsp;€</span>
               <div class="pj-hero-trip pj-hero-trip--a">
                 <div class="pj-hero-trip-head">
                   <div class="pj-hero-trip-user">
@@ -417,20 +429,27 @@
                 <h2>Omple els seients i mira què passa</h2>
                 <p>Anada i tornada Barcelona ↔ Berga: 42€ entre benzina i peatges. Cada plaça compartida a 5€ per trajecte te'n retorna 10.</p>
               </div>
-              <div style="display:flex; flex-direction:column; align-items:center; gap:12px; flex-shrink:0;">
-                <div class="pj-calc-seats" role="group" aria-label="Places compartides">
-                  <span class="pj-calc-seat" style="background:#14151A; color:#fff; cursor:default;" aria-label="Conductor" title="Conductor"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="2.5"></circle><path d="M12 14.5V21M9.8 10.8 3.4 8.6M14.2 10.8l6.4-2.2"></path></svg></span>
-                  <button onClick="{{ setCalcSeats1 }}" aria-label="1 plaça compartida" aria-pressed="{{ calcSeat1Pressed }}" class="pj-calc-seat" style="{{ calcSeat1Style }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg></button>
-                  <button onClick="{{ setCalcSeats2 }}" aria-label="2 places compartides" aria-pressed="{{ calcSeat2Pressed }}" class="pj-calc-seat" style="{{ calcSeat2Style }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg></button>
-                  <button onClick="{{ setCalcSeats3 }}" aria-label="3 places compartides" aria-pressed="{{ calcSeat3Pressed }}" class="pj-calc-seat" style="{{ calcSeat3Style }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg></button>
-                </div>
-                <div class="pj-calc-seats-caption">{{ calcSeatsCaption }}</div>
+              <div class="pj-calc-seg" role="group" aria-label="Places compartides">
+                <button onClick="{{ setCalcSeats0 }}" aria-pressed="{{ calcSeg0Pressed }}" style="{{ calcSeg0Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="2.5"></circle><path d="M12 14.5V21M9.8 10.8 3.4 8.6M14.2 10.8l6.4-2.2"></path></svg>Sol</button>
+                <button onClick="{{ setCalcSeats1 }}" aria-pressed="{{ calcSeg1Pressed }}" style="{{ calcSeg1Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>1 plaça</button>
+                <button onClick="{{ setCalcSeats2 }}" aria-pressed="{{ calcSeg2Pressed }}" style="{{ calcSeg2Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>2 places</button>
+                <button onClick="{{ setCalcSeats3 }}" aria-pressed="{{ calcSeg3Pressed }}" style="{{ calcSeg3Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>3 places</button>
+              </div>
+              <div class="pj-calc-grid">
                 <div class="pj-calc-circle" style="border-color:{{ calcCircleBorder }};">
                   <span class="pj-calc-circle-label">El viatge et costa</span>
                   <span class="pj-calc-circle-price" style="color:{{ calcPriceColor }};">{{ calcPriceLabel }}<small>€</small></span>
                 </div>
-                <div class="pj-calc-saved">{{ calcSavedLabel }}</div>
-                <div class="pj-calc-year">{{ calcYearLabel }}</div>
+                <div class="pj-calc-tiles">
+                  <div class="pj-calc-tile pj-calc-tile-green">
+                    <span class="pj-calc-tile-num">{{ calcSavedShort }}</span>
+                    <span class="pj-calc-tile-cap">recuperats per viatge</span>
+                  </div>
+                  <div class="pj-calc-tile">
+                    <span class="pj-calc-tile-num">{{ calcYearShort }}</span>
+                    <span class="pj-calc-tile-cap">l'any amb un viatge per setmana</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1881,29 +1900,28 @@ class Component extends DCLogic {
 
     const calcSeats = s.calcSeats || '0';
     const calcColors = { '0': '#C22A24', '1': '#14151A', '2': '#14151A', '3': '#1D874A' };
-    const calcSeatN = Number(calcSeats);
-    const calcSeatStyle = (i) => calcSeatN >= i ? 'background:#5B4CFB; color:#fff;' : 'background:#ECEDF2; color:#9AA0AC;';
-    const calcCaptions = { '0': 'Sol al cotxe', '1': '1 plaça compartida', '2': '2 places compartides', '3': 'Cotxe ple: 3 places' };
+    const calcSegBase = 'display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; transition:background 200ms ease, border-color 200ms ease, color 200ms ease;';
+    const calcSegStyle = (n) => calcSegBase + (calcSeats === n ? ' border:1.5px solid #5B4CFB; background:#5B4CFB; color:#fff;' : ' border:1.5px solid #ECEDF2; background:#fff; color:#14151A;');
 
     return {
       isLoggedIn,
       calcPriceLabel: String(s.calcDisplay == null ? 42 : s.calcDisplay),
-      calcSavedLabel: `+${42 - (s.calcDisplay == null ? 42 : s.calcDisplay)} € recuperats per viatge`,
-      calcYearLabel: calcSeats === '0'
-        ? 'Comparteix per començar a sumar.'
-        : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} € l'any amb un viatge per setmana`,
+      calcSavedShort: `+${42 - (s.calcDisplay == null ? 42 : s.calcDisplay)} €`,
+      calcYearShort: calcSeats === '0' ? '0 €' : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} €`,
       calcPriceColor: calcColors[calcSeats],
       calcCircleBorder: calcSeats === '3' ? '#D2EDDC' : '#ECEDF2',
-      calcSeat1Style: calcSeatStyle(1),
-      calcSeat2Style: calcSeatStyle(2),
-      calcSeat3Style: calcSeatStyle(3),
-      calcSeat1Pressed: calcSeatN >= 1,
-      calcSeat2Pressed: calcSeatN >= 2,
-      calcSeat3Pressed: calcSeatN >= 3,
-      calcSeatsCaption: calcCaptions[calcSeats],
-      setCalcSeats1: () => this._setCalcSeats(calcSeats === '1' ? '0' : '1'),
-      setCalcSeats2: () => this._setCalcSeats(calcSeats === '2' ? '1' : '2'),
-      setCalcSeats3: () => this._setCalcSeats(calcSeats === '3' ? '2' : '3'),
+      calcSeg0Style: calcSegStyle('0'),
+      calcSeg1Style: calcSegStyle('1'),
+      calcSeg2Style: calcSegStyle('2'),
+      calcSeg3Style: calcSegStyle('3'),
+      calcSeg0Pressed: calcSeats === '0',
+      calcSeg1Pressed: calcSeats === '1',
+      calcSeg2Pressed: calcSeats === '2',
+      calcSeg3Pressed: calcSeats === '3',
+      setCalcSeats0: () => this._setCalcSeats('0'),
+      setCalcSeats1: () => this._setCalcSeats('1'),
+      setCalcSeats2: () => this._setCalcSeats('2'),
+      setCalcSeats3: () => this._setCalcSeats('3'),
       isAuthShellView,
       topnavBg: isAuthShellView ? 'rgba(243,244,248,0.85)' : '#FFFFFF',
       topnavBorder: isAuthShellView ? 'none' : '1px solid #ECEDF2',
