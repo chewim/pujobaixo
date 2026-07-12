@@ -164,6 +164,7 @@
     .pj-footer-cta { display:flex; flex-direction:column; align-items:center; text-align:center; gap:32px; max-width:840px; margin:0 auto; padding:56px 0; }
     .pj-topnav-link { display:none; border:none; background:none; font-family:inherit; font-weight:700; font-size:14px; color:#14151A; cursor:pointer; padding:8px 12px; border-radius:10px; }
     .pj-topnav-link:hover { color:#5B4CFB; }
+    .pj-hero-eyebrow { font-size:11.5px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:#5B4CFB; margin-bottom:8px; }
     .pj-footer-eyebrow { font-size:11.5px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:8px; }
     .pj-footer-cta-copy h2 { font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; color:#fff; }
     .pj-footer-cta-copy p { font-size:14.5px; color:rgba(255,255,255,0.92); margin:0; line-height:1.5; }
@@ -277,7 +278,8 @@
         <sc-if value="{{ isLoginMode }}">
           <div class="pj-hero">
             <div class="pj-hero-copy">
-              <h1 style="font-size:32px; font-weight:800; letter-spacing:-0.02em; margin:0 0 16px; line-height:1.15;">Puges o baixes?<br/><span style="color:#5B4CFB;">Minimitza les despeses dels teus viatges en cotxe.</span></h1>
+              <div class="pj-hero-eyebrow">Puges o baixes?</div>
+              <h1 style="font-size:32px; font-weight:800; letter-spacing:-0.02em; margin:0 0 16px; line-height:1.15;">Minimitza les despeses dels teus <span style="color:#5B4CFB;">viatges en cotxe</span>.</h1>
               <p style="font-size:16px; color:#6B6F7B; margin:0 0 24px; line-height:1.5; max-width:440px;">Troba persones que fan el mateix camí, comparteix les despeses i aprofita millor cada viatge entre Barcelona i el Berguedà.</p>
               <div style="display:flex;">
                 <button onClick="{{ scrollToLoginCard }}" style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
