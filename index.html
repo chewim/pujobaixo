@@ -162,8 +162,8 @@
       100% { opacity:0; transform:translateY(-20px); }
     }
     @supports (animation-timeline: view()) {
-      .pj-loss-banner, .pj-gain-panel, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-proof-top, .pj-proof-formula, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
-      .pj-section-head p, .pj-calc-big, .pj-proof-card:nth-child(2), .pj-proof-top, .pj-step-card:nth-child(2), .pj-footer-cta-copy h2, #pj-auth-card, .pj-gain-panel { animation-range:entry 10% exit 100%; }
+      .pj-loss-banner, .pj-gain-panel, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-proof-num, .pj-proof-formula, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
+      .pj-section-head p, .pj-calc-big, .pj-proof-card:nth-child(2), .pj-proof-num, .pj-step-card:nth-child(2), .pj-footer-cta-copy h2, #pj-auth-card, .pj-gain-panel { animation-range:entry 10% exit 100%; }
       .pj-calc-seg, .pj-proof-formula, .pj-step-card:nth-child(3), .pj-footer-cta-copy p { animation-range:entry 20% exit 100%; }
       .pj-footer-brand, .pj-footer-nav, .pj-footer-meta { animation:pjInOnly 1ms linear both; animation-timeline:view(); animation-range:entry 0% entry 55%; }
       .pj-footer-nav { animation-range:entry 8% entry 63%; }
@@ -173,7 +173,7 @@
       .pj-topnav, .pj-topnav-inner > div:first-of-type, .pj-topnav-link, .pj-topnav-cta,
       .pj-hero-eyebrow, .pj-hero-copy h1, .pj-hero-copy > p, .pj-hero-actions, .pj-hero-feats, .pj-hero-badge, .pj-hero-visual,
       .pj-loss-banner, .pj-gain-panel, .pj-loss-chip, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big,
-      .pj-proof-card, .pj-proof-top, .pj-proof-formula, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card,
+      .pj-proof-card, .pj-proof-num, .pj-proof-formula, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card,
       .pj-footer-brand, .pj-footer-nav, .pj-footer-meta { animation:none !important; }
     }
     .pj-databento-eco { background:#5B4CFB; color:#fff; border-radius:20px; padding:24px; display:flex; flex-direction:column; gap:16px; }
@@ -200,10 +200,10 @@
     .pj-loss-chip-3 { bottom:10%; right:16%; animation-delay:2.6s; }
     .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:56px; }
     .pj-proof-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; text-align:left; }
-    .pj-proof-top { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-    .pj-proof-num { font-size:40px; font-weight:800; letter-spacing:-0.03em; line-height:1; color:#14151A; }
+    .pj-proof-title { font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0; color:#14151A; }
+    .pj-proof-sub { font-size:13px; font-weight:600; color:#6B6F7B; margin:2px 0 14px; }
+    .pj-proof-num { display:block; font-size:40px; font-weight:800; letter-spacing:-0.03em; line-height:1; margin-bottom:12px; color:#14151A; }
     .pj-proof-num-green { color:#1D874A; }
-    .pj-proof-label { font-size:12.5px; font-weight:700; color:#6B6F7B; line-height:1.35; }
     .pj-proof-formula { display:inline-block; background:#F3F4F8; border-radius:8px; padding:6px 12px; font-size:12.5px; font-weight:700; color:#4B4E58; margin:0; }
     .pj-calc-big-price { font-size:88px; font-weight:800; letter-spacing:-0.04em; line-height:1; transition:color 450ms ease; }
     .pj-calc-big-price small { font-size:40px; font-weight:700; margin-left:6px; }
@@ -474,17 +474,15 @@
 
             <div class="pj-proof">
               <div class="pj-proof-card">
-                <div class="pj-proof-top">
-                  <span class="pj-proof-num pj-proof-num-green">{{ calcSavedShort }}</span>
-                  <span class="pj-proof-label">recuperats<br/>per anada i tornada</span>
-                </div>
+                <h3 class="pj-proof-title">Recuperat per viatge</h3>
+                <p class="pj-proof-sub">en una anada i tornada</p>
+                <span class="pj-proof-num pj-proof-num-green">{{ calcSavedShort }}</span>
                 <p class="pj-proof-formula">{{ calcSavedFormula }}</p>
               </div>
               <div class="pj-proof-card">
-                <div class="pj-proof-top">
-                  <span class="pj-proof-num">{{ calcYearShort }}</span>
-                  <span class="pj-proof-label">d'estalvi en un any<br/>amb 1 viatge per setmana</span>
-                </div>
+                <h3 class="pj-proof-title">Estalvi anual</h3>
+                <p class="pj-proof-sub">amb un viatge per setmana</p>
+                <span class="pj-proof-num pj-proof-num-green">{{ calcYearShort }}</span>
                 <p class="pj-proof-formula">{{ calcYearFormula }}</p>
               </div>
             </div>
