@@ -160,15 +160,16 @@
       100% { opacity:0; transform:translateY(-20px); }
     }
     @supports (animation-timeline: view()) {
-      .pj-loss-banner, .pj-gain-panel, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
-      .pj-section-head p, .pj-calc-seg, .pj-proof-card:nth-child(2), .pj-step-card:nth-child(2), .pj-footer-cta-copy h2, #pj-auth-card { animation-range:entry 10% exit 100%; }
-      .pj-calc-big, .pj-step-card:nth-child(3), .pj-footer-cta-copy p { animation-range:entry 20% exit 100%; }
+      .pj-loss-banner, .pj-gain-panel, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-proof-top, .pj-proof-formula, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card, .pj-footer-brand, .pj-footer-nav, .pj-footer-meta { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
+      .pj-section-head p, .pj-calc-big, .pj-proof-card:nth-child(2), .pj-proof-top, .pj-step-card:nth-child(2), .pj-footer-cta-copy h2, #pj-auth-card, .pj-gain-panel, .pj-footer-nav { animation-range:entry 10% exit 100%; }
+      .pj-calc-seg, .pj-proof-formula, .pj-step-card:nth-child(3), .pj-footer-cta-copy p, .pj-footer-meta { animation-range:entry 20% exit 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       .pj-topnav, .pj-topnav-inner > div:first-of-type, .pj-topnav-link, .pj-topnav-cta,
       .pj-hero-eyebrow, .pj-hero-copy h1, .pj-hero-copy > p, .pj-hero-actions, .pj-hero-visual,
       .pj-loss-banner, .pj-gain-panel, .pj-loss-chip, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big,
-      .pj-proof-card, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:none !important; }
+      .pj-proof-card, .pj-proof-top, .pj-proof-formula, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card,
+      .pj-footer-brand, .pj-footer-nav, .pj-footer-meta { animation:none !important; }
     }
     .pj-databento-eco { background:#5B4CFB; color:#fff; border-radius:20px; padding:24px; display:flex; flex-direction:column; gap:16px; }
     .pj-databento-eco h3 { font-size:18px; font-weight:800; margin:0 0 4px; }
