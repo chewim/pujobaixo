@@ -184,15 +184,16 @@
     .pj-loss-copy { max-width:560px; }
     .pj-loss-copy h2 { font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
     .pj-loss-copy p { font-size:15px; color:rgba(255,255,255,0.85); margin:0; line-height:1.5; }
-    .pj-loss-seats { position:absolute; top:32px; left:32px; display:flex; gap:10px; }
-    .pj-loss-seat { width:40px; height:40px; border-radius:50%; border:1.5px solid rgba(127,224,167,0.8); background:rgba(29,135,74,0.28); color:#7FE0A7; display:flex; align-items:center; justify-content:center; }
     .pj-loss-chip { position:absolute; z-index:2; background:#fff; color:#C22A24; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 8px 24px -8px rgba(20,21,26,0.4); animation:pjChipFloat 4s ease-in-out infinite; }
     .pj-loss-chip--gain { color:#1D874A; }
-    .pj-banner-card { display:none; position:absolute; right:40px; top:50%; transform:translateY(-50%); width:300px; z-index:2; }
-    .pj-banner-card .pj-hero-trip { width:100%; max-width:none; }
-    .pj-loss-chip-1 { top:26%; left:10%; }
-    .pj-loss-chip-2 { top:44%; left:26%; animation-delay:1.3s; }
-    .pj-loss-chip-3 { top:62%; left:12%; animation-delay:2.6s; }
+    .pj-banner-stack { display:none; position:absolute; right:-150px; top:50%; transform:translateY(-50%); width:320px; z-index:2; flex-direction:column; }
+    .pj-banner-stack .pj-hero-trip { width:100%; max-width:none; box-shadow:0 20px 48px -20px rgba(20,21,26,0.55); }
+    .pj-banner-stack .pj-hero-trip:nth-child(1) { transform:rotate(-2deg); }
+    .pj-banner-stack .pj-hero-trip:nth-child(2) { transform:rotate(1.5deg) translateX(-18px); margin-top:-44px; z-index:2; }
+    .pj-banner-stack .pj-hero-trip:nth-child(3) { transform:rotate(-1deg); margin-top:-44px; }
+    .pj-loss-chip-1 { top:10%; right:20%; }
+    .pj-loss-chip-2 { top:46%; right:26%; animation-delay:1.3s; }
+    .pj-loss-chip-3 { bottom:12%; right:21%; animation-delay:2.6s; }
     .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
     .pj-proof-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; text-align:left; }
     .pj-proof-top { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
@@ -230,7 +231,7 @@
       #pj-estalvi { padding-top:32px; }
       .pj-band { padding:0 24px; }
       .pj-loss-banner { margin-top:80px; }
-      .pj-banner-card { display:block; }
+      .pj-banner-stack { display:flex; }
       .pj-loss-copy { max-width:440px; }
       .pj-band-gray { padding-bottom:80px; }
       .pj-section { padding:80px 0 0; }
@@ -407,6 +408,7 @@
                 <button onClick="{{ setCalcSeats1 }}" aria-pressed="{{ calcSeg1Pressed }}" style="{{ calcSeg1Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 1 plaça</button>
                 <button onClick="{{ setCalcSeats2 }}" aria-pressed="{{ calcSeg2Pressed }}" style="{{ calcSeg2Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 2 places</button>
                 <button onClick="{{ setCalcSeats3 }}" aria-pressed="{{ calcSeg3Pressed }}" style="{{ calcSeg3Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 3 places</button>
+                <button onClick="{{ setCalcSeats4 }}" aria-label="4 places compartides" aria-pressed="{{ calcSeg4Pressed }}" style="{{ calcSeg4Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 4 places</button>
                 </div>
               </div>
             </div>
@@ -429,11 +431,6 @@
             </div>
 
             <div class="pj-loss-banner">
-              <div class="pj-loss-seats" aria-hidden="true">
-                <span class="pj-loss-seat"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg></span>
-                <span class="pj-loss-seat"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg></span>
-                <span class="pj-loss-seat"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg></span>
-              </div>
               <div class="pj-loss-copy">
                 <h2>Cada plaça compartida te'n retorna <span style="color:#7FE0A7;">10&nbsp;€</span>.</h2>
                 <p>Anar i tornar sol de Barcelona són 42&nbsp;€ entre benzina i peatges. No cal fer més quilòmetres: només omplir els que ja fas.</p>
@@ -441,34 +438,91 @@
               <span class="pj-loss-chip pj-loss-chip--gain pj-loss-chip-1">+5&nbsp;€</span>
               <span class="pj-loss-chip pj-loss-chip--gain pj-loss-chip-2">+5&nbsp;€</span>
               <span class="pj-loss-chip pj-loss-chip--gain pj-loss-chip-3">+5&nbsp;€</span>
-              <div class="pj-banner-card" aria-hidden="true">
-              <div class="pj-hero-trip pj-hero-trip--b">
-                <div class="pj-hero-trip-head">
-                  <div class="pj-hero-trip-user">
-                    <div class="pj-hero-trip-avatar" style="background:oklch(0.55 0.19 275);">M</div>
-                    <div style="min-width:0;">
-                      <div class="pj-hero-trip-name">Marc</div>
-                      <div class="pj-hero-trip-role">Ofereixo</div>
+              <div class="pj-banner-stack" aria-hidden="true">
+                <div class="pj-hero-trip">
+                  <div class="pj-hero-trip-head">
+                    <div class="pj-hero-trip-user">
+                      <div class="pj-hero-trip-avatar" style="background:oklch(0.55 0.17 205);">L</div>
+                      <div style="min-width:0;">
+                        <div class="pj-hero-trip-name">Laia</div>
+                        <div class="pj-hero-trip-role">Ofereixo</div>
+                      </div>
+                    </div>
+                    <div class="pj-hero-trip-seats">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                      3 places
                     </div>
                   </div>
-                  <div class="pj-hero-trip-seats">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    2 places
+                  <div class="pj-hero-trip-route">
+                    <span>Berga</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    <span>Barcelona</span>
+                  </div>
+                  <div class="pj-hero-trip-meta">
+                    <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>Avui</span>
+                    <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>07:30</span>
+                  </div>
+                  <div class="pj-hero-trip-foot">
+                    <div class="pj-hero-trip-price">6€<span style="opacity:0.6; font-weight:600;">/</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg></div>
+                    
                   </div>
                 </div>
-                <div class="pj-hero-trip-route">
-                  <span>Barcelona</span>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  <span>Gironella</span>
+                <div class="pj-hero-trip">
+                  <div class="pj-hero-trip-head">
+                    <div class="pj-hero-trip-user">
+                      <div class="pj-hero-trip-avatar" style="background:oklch(0.55 0.19 275);">M</div>
+                      <div style="min-width:0;">
+                        <div class="pj-hero-trip-name">Marc</div>
+                        <div class="pj-hero-trip-role">Ofereixo</div>
+                      </div>
+                    </div>
+                    <div class="pj-hero-trip-seats">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                      2 places
+                    </div>
+                  </div>
+                  <div class="pj-hero-trip-route">
+                    <span>Barcelona</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    <span>Gironella</span>
+                  </div>
+                  <div class="pj-hero-trip-meta">
+                    <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>Demà</span>
+                    <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>18:30</span>
+                  </div>
+                  <div class="pj-hero-trip-foot">
+                    <div class="pj-hero-trip-price">6€<span style="opacity:0.6; font-weight:600;">/</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg></div>
+                    <span class="pj-hero-trip-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.19 1.24-1.95 1.4-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1.01-2.41.24-.27.62-.39.98-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.58.8 2 .87 2.14.07.15.11.32.02.51-.08.19-.13.3-.26.46-.13.16-.28.36-.4.48-.13.13-.27.28-.11.55.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.13 1.3.28.13.44.11.6-.07.16-.18.68-.79.87-1.06.18-.27.36-.22.61-.13.24.09 1.55.73 1.82.86.27.13.44.2.51.31.07.12.07.66-.17 1.34z"/></svg></span>
+                  </div>
                 </div>
-                <div class="pj-hero-trip-meta">
-                  <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>Demà</span>
-                  <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>18:30</span>
+                <div class="pj-hero-trip">
+                  <div class="pj-hero-trip-head">
+                    <div class="pj-hero-trip-user">
+                      <div class="pj-hero-trip-avatar" style="background:oklch(0.58 0.16 335);">N</div>
+                      <div style="min-width:0;">
+                        <div class="pj-hero-trip-name">Núria</div>
+                        <div class="pj-hero-trip-role">Necessito</div>
+                      </div>
+                    </div>
+                    <div class="pj-hero-trip-seats">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                      2 persones
+                    </div>
+                  </div>
+                  <div class="pj-hero-trip-route">
+                    <span>Puig-reig</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    <span>Barcelona</span>
+                  </div>
+                  <div class="pj-hero-trip-meta">
+                    <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>Dv 17</span>
+                    <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>08:00</span>
+                  </div>
+                  <div class="pj-hero-trip-foot">
+                    <div class="pj-hero-trip-price">5€<span style="opacity:0.6; font-weight:600;">/</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg></div>
+                    
+                  </div>
                 </div>
-                <div class="pj-hero-trip-foot">
-                  <div class="pj-hero-trip-price">6€<span style="opacity:0.6; font-weight:600;">/</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg></div><span class="pj-hero-trip-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.19 1.24-1.95 1.4-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1.01-2.41.24-.27.62-.39.98-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.58.8 2 .87 2.14.07.15.11.32.02.51-.08.19-.13.3-.26.46-.13.16-.28.36-.4.48-.13.13-.27.28-.11.55.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.13 1.3.28.13.44.11.6-.07.16-.18.68-.79.87-1.06.18-.27.36-.22.61-.13.24.09 1.55.73 1.82.86.27.13.44.2.51.31.07.12.07.66-.17 1.34z"/></svg></span>
-                </div>
-              </div>
               </div>
             </div>
           </div>
@@ -1150,7 +1204,7 @@ class Component extends DCLogic {
       if (this._calcAutoStopped) return;
       if (st.booting || st.view !== 'auth' || (st.authMode !== 'login' && st.authMode !== 'signup')) return;
       if (document.visibilityState !== 'visible') return;
-      const order = ['0', '1', '2', '3'];
+      const order = ['0', '1', '2', '3', '4'];
       const next = order[(order.indexOf(st.calcSeats || '0') + 1) % order.length];
       this._setCalcSeats(next, true);
     }, 2400);
@@ -1357,7 +1411,7 @@ class Component extends DCLogic {
 
   _setCalcSeats(n, fromAuto) {
     if (!fromAuto) this._calcAutoStopped = true;
-    const costs = { '0': 42, '1': 32, '2': 22, '3': 12 };
+    const costs = { '0': 42, '1': 32, '2': 22, '3': 12, '4': 2 };
     const from = this.state.calcDisplay == null ? costs[this.state.calcSeats || '0'] : this.state.calcDisplay;
     const target = costs[n];
     this.setState({ calcSeats: n });
@@ -1936,9 +1990,22 @@ class Component extends DCLogic {
     const isAuthShellView = view === 'auth' || view === 'reset';
 
     const calcSeats = s.calcSeats || '0';
-    const calcColors = { '0': '#C22A24', '1': '#DE7317', '2': '#C9A227', '3': '#1D874A' };
+    const calcColors = { '0': '#C22A24', '1': '#DE7317', '2': '#C9A227', '3': '#1D874A', '4': '#0B6B3A' };
+    const calcRamp = [[42, [194, 42, 36]], [32, [222, 115, 23]], [22, [201, 162, 39]], [12, [29, 135, 74]], [2, [11, 107, 58]]];
+    const calcColorFor = (v) => {
+      const x = Math.max(2, Math.min(42, v));
+      for (let i = 0; i < calcRamp.length - 1; i++) {
+        const [v1, c1] = calcRamp[i], [v2, c2] = calcRamp[i + 1];
+        if (x <= v1 && x >= v2) {
+          const t = (v1 - x) / (v1 - v2);
+          const mix = c1.map((c, k) => Math.round(c + (c2[k] - c) * t));
+          return `rgb(${mix[0]}, ${mix[1]}, ${mix[2]})`;
+        }
+      }
+      return '#1D874A';
+    };
     const calcSegBase = 'display:inline-flex; align-items:center; justify-content:center; gap:8px; width:190px; height:44px; border-radius:999px; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; white-space:nowrap; flex-shrink:0; transition:background 300ms ease, border-color 300ms ease, color 300ms ease;';
-    const calcTints = { '0': '#FAECEB', '1': '#FBEEE2', '2': '#F7F0DC', '3': '#E7F3EC' };
+    const calcTints = { '0': '#FAECEB', '1': '#FBEEE2', '2': '#F7F0DC', '3': '#E7F3EC', '4': '#DDEEE4' };
     const calcSegStyle = (n) => calcSegBase + (calcSeats === n
       ? ` border:1.5px solid ${calcColors[calcSeats]}; background:${calcTints[calcSeats]}; color:${calcColors[calcSeats]};`
       : ' border:1.5px solid #ECEDF2; background:#fff; color:#14151A;');
@@ -1950,20 +2017,23 @@ class Component extends DCLogic {
       calcSavedFormula: `${calcSeats} ${calcSeats === '1' ? 'plaça' : 'places'} × 5 € × 2 trajectes`,
       calcYearShort: calcSeats === '0' ? '0 €' : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} €`,
       calcYearFormula: `${Number(calcSeats) * 10} € × 52 setmanes`,
-      calcPriceColor: calcColors[calcSeats],
+      calcPriceColor: calcColorFor(s.calcDisplay == null ? 42 : s.calcDisplay),
       calcTrackShift: `translateX(${-(Number(calcSeats) * 198)}px)`,
       calcSeg0Style: calcSegStyle('0'),
       calcSeg1Style: calcSegStyle('1'),
       calcSeg2Style: calcSegStyle('2'),
       calcSeg3Style: calcSegStyle('3'),
+      calcSeg4Style: calcSegStyle('4'),
       calcSeg0Pressed: calcSeats === '0',
       calcSeg1Pressed: calcSeats === '1',
       calcSeg2Pressed: calcSeats === '2',
       calcSeg3Pressed: calcSeats === '3',
+      calcSeg4Pressed: calcSeats === '4',
       setCalcSeats0: () => this._setCalcSeats('0'),
       setCalcSeats1: () => this._setCalcSeats('1'),
       setCalcSeats2: () => this._setCalcSeats('2'),
       setCalcSeats3: () => this._setCalcSeats('3'),
+      setCalcSeats4: () => this._setCalcSeats('4'),
       isAuthShellView,
       topnavBg: isAuthShellView ? 'rgba(243,244,248,0.85)' : '#FFFFFF',
       topnavBorder: isAuthShellView ? 'none' : '1px solid #ECEDF2',
