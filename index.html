@@ -147,13 +147,15 @@
     .pj-step-kicker { font-size:11.5px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#5B4CFB; margin-bottom:4px; }
     .pj-step-card h3 { font-size:17px; font-weight:800; margin:0 0 6px; }
     .pj-step-card p { font-size:14px; color:#6B6F7B; margin:0; line-height:1.5; }
-    @keyframes pjStepIn { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+    @keyframes pjInOut {
+      0% { opacity:0; transform:translateY(28px); }
+      15%, 85% { opacity:1; transform:none; }
+      100% { opacity:0; transform:translateY(-20px); }
+    }
     @supports (animation-timeline: view()) {
-      .pj-section-head, .pj-calc, .pj-proof-card, .pj-step-card, .pj-footer-cta-copy, #pj-auth-card { animation:pjStepIn linear both; animation-timeline:view(); animation-range:entry 0% entry 45%; }
-      .pj-proof-card:nth-child(2) { animation-range:entry 12% entry 57%; }
-      .pj-step-card:nth-child(2) { animation-range:entry 12% entry 57%; }
-      .pj-step-card:nth-child(3) { animation-range:entry 24% entry 69%; }
-      #pj-auth-card { animation-range:entry 0% entry 35%; }
+      .pj-section-head, .pj-calc, .pj-proof-card, .pj-step-card, .pj-footer-cta-copy, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
+      .pj-proof-card:nth-child(2), .pj-step-card:nth-child(2) { animation-range:entry 12% exit 100%; }
+      .pj-step-card:nth-child(3) { animation-range:entry 24% exit 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       .pj-topnav, .pj-hero-eyebrow, .pj-hero-copy h1, .pj-hero-copy > p, .pj-hero-actions, .pj-hero-visual,
