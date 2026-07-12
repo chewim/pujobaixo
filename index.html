@@ -1150,18 +1150,42 @@ class Component extends DCLogic {
 
     // Scroll links via document-level delegation: immune to re-renders
     // replacing button nodes mid-tap (the attribute survives, the node may not).
+    // rAF-driven scroll: native smooth scrolling gets cancelled by the
+    // frequent re-renders (calculator tween), so we assert the position
+    // ourselves every frame until arrival.
+    this._smoothScrollTo = (target) => {
+      const sc = document.scrollingElement || document.documentElement;
+      const getY = () => Math.max(sc.scrollTop || 0, document.body.scrollTop || 0);
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        sc.scrollTop = target; document.body.scrollTop = target;
+        return;
+      }
+      const from = getY();
+      const dur = Math.min(1100, 420 + Math.abs(target - from) * 0.25);
+      const t0 = performance.now();
+      if (this._scrollRaf) cancelAnimationFrame(this._scrollRaf);
+      const step = (now) => {
+        const t = Math.min(1, (now - t0) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const y = Math.round(from + (target - from) * eased);
+        sc.scrollTop = y; document.body.scrollTop = y;
+        if (t < 1) this._scrollRaf = requestAnimationFrame(step);
+      };
+      this._scrollRaf = requestAnimationFrame(step);
+    };
     this._onDocClick = (e) => {
       const t = e.target && e.target.closest ? e.target.closest('[data-scroll-target]') : null;
       if (!t) return;
       e.preventDefault();
       const id = t.getAttribute('data-scroll-target');
-      if (id === 'top') {
-        (document.scrollingElement || document.documentElement).scrollTop !== 0 && document.body.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-      }
+      if (id === 'top') { this._smoothScrollTo(0); return; }
       const el = document.getElementById(id);
       if (!el) return;
-      el.scrollIntoView({ behavior: 'smooth', block: t.hasAttribute('data-scroll-center') ? 'center' : 'start' });
+      const sc = document.scrollingElement || document.documentElement;
+      const cur = Math.max(sc.scrollTop || 0, document.body.scrollTop || 0);
+      const r = el.getBoundingClientRect();
+      const offset = t.hasAttribute('data-scroll-center') ? Math.max(16, (window.innerHeight - r.height) / 2) : 76;
+      this._smoothScrollTo(Math.max(0, cur + r.top - offset));
     };
     document.addEventListener('click', this._onDocClick, true);
 
