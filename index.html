@@ -112,15 +112,14 @@
     .pj-hero-visual { display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 18% 18%, rgba(91,76,251,0.16), transparent 55%), radial-gradient(circle at 85% 80%, rgba(37,211,102,0.10), transparent 50%), linear-gradient(160deg, #EFEBFF 0%, #F7F6FF 60%, #EAF0FF 100%); border-radius:24px; padding:32px; }
     .pj-hero-stack { position:relative; width:100%; max-width:360px; aspect-ratio:1/1; }
     .pj-hero-chip { position:absolute; z-index:3; background:#fff; color:#1D874A; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 8px 24px -8px rgba(20,21,26,0.25); animation:pjChipFloat 4s ease-in-out infinite; }
-    .pj-hero-chip-1 { top:2%; right:2%; }
-    .pj-hero-chip-2 { top:52%; left:-10px; animation-delay:1.3s; }
-    .pj-hero-chip-3 { bottom:4%; right:10%; animation-delay:2.6s; }
+    .pj-hero-chip-1 { top:6%; right:6%; }
+    .pj-hero-chip-2 { top:34%; left:-10px; animation-delay:1.3s; }
+    .pj-hero-chip-3 { bottom:38%; right:-8px; animation-delay:2.6s; }
     @keyframes pjChipFloat { 0%, 100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
     @media (prefers-reduced-motion: reduce) { .pj-hero-chip { animation:none !important; } }
     .pj-hero-trip { position:absolute; width:82%; background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:16px; display:flex; flex-direction:column; gap:10px; }
-    .pj-hero-trip--a { top:0; left:0; transform:rotate(-2.5deg); opacity:0.85; z-index:1; box-shadow:0 2px 6px rgba(20,21,26,0.04), 0 14px 36px -22px rgba(91,76,251,0.28); }
-    .pj-hero-trip--b { top:50%; left:50%; width:88%; transform:translate(-50%,-50%); z-index:2; box-shadow:0 4px 10px rgba(20,21,26,0.05), 0 32px 72px -28px rgba(91,76,251,0.45); }
-    .pj-hero-trip--c { bottom:0; right:0; transform:rotate(2.5deg); opacity:0.85; z-index:1; box-shadow:0 2px 6px rgba(20,21,26,0.04), 0 14px 36px -22px rgba(91,76,251,0.28); }
+    .pj-hero-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:24px; }
+    .pj-hero-trip--b { bottom:5%; left:50%; width:82%; transform:translateX(-50%); z-index:2; box-shadow:0 4px 10px rgba(20,21,26,0.08), 0 32px 72px -28px rgba(20,21,26,0.5); }
     .pj-hero-trip-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
     .pj-hero-trip-user { display:flex; align-items:center; gap:10px; min-width:0; }
     .pj-hero-trip-avatar { width:28px; height:28px; border-radius:50%; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; flex-shrink:0; }
@@ -341,36 +340,10 @@
             </div>
             <div class="pj-hero-visual">
               <div class="pj-hero-stack" aria-hidden="true">
+                <img class="pj-hero-photo" src="/assets/hero-viatge.jpg" alt=""/>
                 <span class="pj-hero-chip pj-hero-chip-1">+10&nbsp;€</span>
                 <span class="pj-hero-chip pj-hero-chip-2">+20&nbsp;€</span>
                 <span class="pj-hero-chip pj-hero-chip-3">+30&nbsp;€</span>
-              <div class="pj-hero-trip pj-hero-trip--a">
-                <div class="pj-hero-trip-head">
-                  <div class="pj-hero-trip-user">
-                    <div class="pj-hero-trip-avatar" style="background:oklch(0.55 0.17 205);">L</div>
-                    <div style="min-width:0;">
-                      <div class="pj-hero-trip-name">Laia</div>
-                      <div class="pj-hero-trip-role">Ofereixo</div>
-                    </div>
-                  </div>
-                  <div class="pj-hero-trip-seats">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    3 places
-                  </div>
-                </div>
-                <div class="pj-hero-trip-route">
-                  <span>Berga</span>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  <span>Barcelona</span>
-                </div>
-                <div class="pj-hero-trip-meta">
-                  <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>Avui</span>
-                  <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>07:30</span>
-                </div>
-                <div class="pj-hero-trip-foot">
-                  <div class="pj-hero-trip-price">6€<span style="opacity:0.6; font-weight:600;">/</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg></div>
-                </div>
-              </div>
               <div class="pj-hero-trip pj-hero-trip--b">
                 <div class="pj-hero-trip-head">
                   <div class="pj-hero-trip-user">
@@ -396,33 +369,6 @@
                 </div>
                 <div class="pj-hero-trip-foot">
                   <div class="pj-hero-trip-price">6€<span style="opacity:0.6; font-weight:600;">/</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg></div><span class="pj-hero-trip-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.19 1.24-1.95 1.4-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1.01-2.41.24-.27.62-.39.98-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.58.8 2 .87 2.14.07.15.11.32.02.51-.08.19-.13.3-.26.46-.13.16-.28.36-.4.48-.13.13-.27.28-.11.55.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.13 1.3.28.13.44.11.6-.07.16-.18.68-.79.87-1.06.18-.27.36-.22.61-.13.24.09 1.55.73 1.82.86.27.13.44.2.51.31.07.12.07.66-.17 1.34z"/></svg></span>
-                </div>
-              </div>
-              <div class="pj-hero-trip pj-hero-trip--c">
-                <div class="pj-hero-trip-head">
-                  <div class="pj-hero-trip-user">
-                    <div class="pj-hero-trip-avatar" style="background:oklch(0.58 0.16 335);">N</div>
-                    <div style="min-width:0;">
-                      <div class="pj-hero-trip-name">Núria</div>
-                      <div class="pj-hero-trip-role">Necessito</div>
-                    </div>
-                  </div>
-                  <div class="pj-hero-trip-seats">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    2 persones
-                  </div>
-                </div>
-                <div class="pj-hero-trip-route">
-                  <span>Puig-reig</span>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  <span>Barcelona</span>
-                </div>
-                <div class="pj-hero-trip-meta">
-                  <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>Dv 17</span>
-                  <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>08:00</span>
-                </div>
-                <div class="pj-hero-trip-foot">
-                  <div class="pj-hero-trip-price">5€<span style="opacity:0.6; font-weight:600;">/</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg></div>
                 </div>
               </div>
               </div>
