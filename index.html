@@ -120,13 +120,16 @@
     .pj-section-head { max-width:560px; margin:0 0 32px; }
     .pj-hero-visual { display:flex; align-items:center; justify-content:center; aspect-ratio:1/1; background-image:url('/assets/seients-buits.jpg'), linear-gradient(160deg, #EFEBFF 0%, #F7F6FF 60%, #EAF0FF 100%); background-size:cover; background-position:center; border-radius:24px; padding:32px; box-shadow:0 24px 56px -28px rgba(20,21,26,0.4); }
     .pj-hero-stack { position:relative; width:100%; height:100%; display:grid; place-items:center; }
-    .pj-hero-chip { position:absolute; z-index:3; background:#fff; color:#1D874A; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 8px 24px -8px rgba(20,21,26,0.25); animation:pjChipPop 500ms cubic-bezier(0.22,1,0.36,1) both, pjChipFloat 4s ease-in-out infinite; }
-    .pj-hero-chip--loss { color:#C22A24; }
-    .pj-hero-chip-1 { top:8%; left:10%; animation-delay:1.7s, 2.2s; }
-    .pj-hero-chip-2 { top:47%; right:-10px; animation-delay:1.85s, 3.5s; }
-    .pj-hero-chip-3 { bottom:8%; left:22%; animation-delay:2s, 4.8s; }
+    .pj-hero-chip { position:absolute; z-index:3; display:inline-flex; align-items:center; background:#fff; color:#C22A24; font-weight:800; font-size:14px; padding:8px 14px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 10px 28px -8px rgba(20,21,26,0.35); white-space:nowrap; animation:pjChipPop 500ms cubic-bezier(0.22,1,0.36,1) both; }
+    .pj-hero-chip-tag { color:#4B4E58; font-weight:700; margin-right:6px; }
+    .pj-hero-chip-1 { top:7%; left:8%; animation-delay:1.7s; }
+    .pj-hero-chip-2 { top:42%; right:4%; animation-delay:1.85s; }
+    .pj-hero-chip-3 { bottom:22%; left:10%; animation-delay:2s; }
+    .pj-hero-lines { position:absolute; inset:0; width:100%; height:100%; z-index:2; animation:pjLinesIn 700ms ease 2.1s both; }
+    @keyframes pjLinesIn { from { opacity:0; } to { opacity:1; } }
+    .pj-hero-total { position:absolute; left:12px; right:12px; bottom:12px; z-index:3; padding:11px 16px; border-radius:14px; background:rgba(255,255,255,0.9); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); font-size:13.5px; font-weight:700; color:#14151A; text-align:center; animation:pjFadeUp 600ms cubic-bezier(0.22,1,0.36,1) 2.3s both; }
     @keyframes pjChipFloat { 0%, 100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
-    @media (prefers-reduced-motion: reduce) { .pj-hero-chip { animation:none !important; } }
+    @media (prefers-reduced-motion: reduce) { .pj-hero-chip, .pj-hero-lines, .pj-hero-total { animation:none !important; } }
     .pj-hero-trip { position:relative; width:84%; max-width:340px; background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:16px; display:flex; flex-direction:column; gap:10px; }
     .pj-hero-trip--b { z-index:2; box-shadow:0 4px 10px rgba(20,21,26,0.05), 0 32px 72px -28px rgba(91,76,251,0.45); }
     .pj-hero-trip-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
@@ -399,9 +402,18 @@
             </div>
             <div class="pj-hero-visual">
               <div class="pj-hero-stack" aria-hidden="true">
-                <span class="pj-hero-chip pj-hero-chip--loss pj-hero-chip-1">−10&nbsp;€</span>
-                <span class="pj-hero-chip pj-hero-chip--loss pj-hero-chip-2">−10&nbsp;€</span>
-                <span class="pj-hero-chip pj-hero-chip--loss pj-hero-chip-3">−10&nbsp;€</span>
+                <svg class="pj-hero-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <path d="M 24 16 L 32 48" stroke="rgba(255,255,255,0.85)" stroke-width="1.5" stroke-dasharray="3 5" stroke-linecap="round" vector-effect="non-scaling-stroke" fill="none"/>
+                  <circle cx="32" cy="49" r="1.3" fill="rgba(255,255,255,0.9)"/>
+                  <path d="M 84 50 L 73 57" stroke="rgba(255,255,255,0.85)" stroke-width="1.5" stroke-dasharray="3 5" stroke-linecap="round" vector-effect="non-scaling-stroke" fill="none"/>
+                  <circle cx="72" cy="57.5" r="1.3" fill="rgba(255,255,255,0.9)"/>
+                  <path d="M 30 72 L 46 62" stroke="rgba(255,255,255,0.85)" stroke-width="1.5" stroke-dasharray="3 5" stroke-linecap="round" vector-effect="non-scaling-stroke" fill="none"/>
+                  <circle cx="47" cy="61.5" r="1.3" fill="rgba(255,255,255,0.9)"/>
+                </svg>
+                <span class="pj-hero-chip pj-hero-chip-1"><span class="pj-hero-chip-tag">Seient buit</span>−10&nbsp;€</span>
+                <span class="pj-hero-chip pj-hero-chip-2"><span class="pj-hero-chip-tag">Seient buit</span>−10&nbsp;€</span>
+                <span class="pj-hero-chip pj-hero-chip-3"><span class="pj-hero-chip-tag">Seient buit</span>−10&nbsp;€</span>
+                <div class="pj-hero-total">3 seients buits = <span style="color:#C22A24;">−30&nbsp;€</span> en una anada i tornada</div>
               </div>
             </div>
           </div>
