@@ -18,6 +18,8 @@
   <style>
     * { box-sizing: border-box; }
     html, body { margin: 0; background: #F3F4F8; overflow-x: hidden; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     @keyframes spin { to { transform: rotate(360deg); } }
     .pj-spin { animation: spin 0.8s linear infinite; }
     input::placeholder, textarea::placeholder { color: #8F93A1; }
@@ -278,11 +280,11 @@
       </div>
       <span style="font-size:19px; font-weight:800; letter-spacing:-0.02em;">Pujobaixo</span>
     </div>
-    <sc-if value="{{ isLoginMode }}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{ isLandingMode }}" hint-placeholder-val="{{ false }}">
       <div style="display:flex; align-items:center; gap:4px;">
         <button class="pj-topnav-link" onClick="{{ scrollToEstalvi }}">Estalvi</button>
         <button class="pj-topnav-link" onClick="{{ scrollToComFunciona }}">Com funciona</button>
-        <button class="pj-topnav-cta" onClick="{{ scrollToLoginCard }}" style="height:40px; padding:0 20px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; margin-left:8px;">Minimitzar despeses</button>
+        <button class="pj-topnav-cta" onClick="{{ scrollToSignup }}" style="height:40px; padding:0 20px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; margin-left:8px;">Minimitzar despeses</button>
       </div>
     </sc-if>
     </div>
@@ -331,14 +333,14 @@
     <sc-if value="{{ isAuthShellView }}" hint-placeholder-val="{{ true }}">
       <div>
 
-        <sc-if value="{{ isLoginMode }}">
+        <sc-if value="{{ isLandingMode }}">
           <div class="pj-hero">
             <div class="pj-hero-copy">
               <div class="pj-hero-eyebrow">Puges o baixes?</div>
               <h1 style="font-size:32px; font-weight:800; letter-spacing:-0.02em; margin:0 0 16px; line-height:1.15;">Minimitza les despeses dels teus viatges en cotxe <span style="color:#5B4CFB; white-space:nowrap;">Berguedà&nbsp;⇄&nbsp;BCN</span>.</h1>
               <p style="font-size:16px; color:#6B6F7B; margin:0 0 24px; line-height:1.5; max-width:440px;">Troba persones que fan el mateix camí, comparteix les despeses i aprofita millor cada viatge entre el Berguedà i Barcelona.</p>
               <div class="pj-hero-actions" style="display:flex;">
-                <button onClick="{{ scrollToLoginCard }}" style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
+                <button onClick="{{ scrollToSignup }}" style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
                   Minimitzar despeses
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </button>
@@ -383,7 +385,7 @@
 
       </div>
 
-      <sc-if value="{{ isLoginMode }}">
+      <sc-if value="{{ isLandingMode }}">
         <div class="pj-band pj-band-gray">
           <div id="pj-estalvi" class="pj-section">
 
@@ -1084,7 +1086,7 @@ class Component extends DCLogic {
     this._calcAutoTimer = setInterval(() => {
       const st = this.state;
       if (this._calcAutoStopped) return;
-      if (st.booting || st.view !== 'auth' || st.authMode !== 'login') return;
+      if (st.booting || st.view !== 'auth' || (st.authMode !== 'login' && st.authMode !== 'signup')) return;
       if (document.visibilityState !== 'visible') return;
       const order = ['0', '1', '2', '3'];
       const next = order[(order.indexOf(st.calcSeats || '0') + 1) % order.length];
@@ -1926,6 +1928,7 @@ class Component extends DCLogic {
       isProfileView: view === 'profile',
 
       isLoginMode: s.authMode === 'login',
+      isLandingMode: view === 'auth' && (s.authMode === 'login' || s.authMode === 'signup'),
       isSignupMode: s.authMode === 'signup',
       isForgotMode: s.authMode === 'forgot',
       isNotForgotMode: s.authMode !== 'forgot',
@@ -1948,6 +1951,10 @@ class Component extends DCLogic {
       setAuthPhone: (e) => this.setState((st) => ({ authForm: { ...st.authForm, phone: e.target.value } })),
       switchToLogin: () => this.switchAuthMode('login'),
       scrollToLoginCard: () => document.getElementById('pj-auth-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+      scrollToSignup: () => {
+        if (this.state.authMode !== 'signup') this.setState({ authMode: 'signup', authError: '', authInfo: '' });
+        setTimeout(() => document.getElementById('pj-auth-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60);
+      },
       scrollToEstalvi: () => document.getElementById('pj-estalvi')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
       scrollToComFunciona: () => document.getElementById('pj-comfunciona')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
       switchToSignup: () => this.switchAuthMode('signup'),
