@@ -158,14 +158,14 @@
       100% { opacity:0; transform:translateY(-20px); }
     }
     @supports (animation-timeline: view()) {
-      .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-circle, .pj-proof-card, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
+      .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
       .pj-section-head p, .pj-calc-seg, .pj-proof-card:nth-child(2), .pj-step-card:nth-child(2), .pj-footer-cta-copy h2, #pj-auth-card { animation-range:entry 10% exit 100%; }
-      .pj-calc-circle, .pj-step-card:nth-child(3), .pj-footer-cta-copy p { animation-range:entry 20% exit 100%; }
+      .pj-calc-big, .pj-step-card:nth-child(3), .pj-footer-cta-copy p { animation-range:entry 20% exit 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       .pj-topnav, .pj-topnav-inner > div:first-of-type, .pj-topnav-link, .pj-topnav-cta,
       .pj-hero-eyebrow, .pj-hero-copy h1, .pj-hero-copy > p, .pj-hero-actions, .pj-hero-visual,
-      .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-circle,
+      .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big,
       .pj-proof-card, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:none !important; }
     }
     .pj-databento-eco { background:#5B4CFB; color:#fff; border-radius:20px; padding:24px; display:flex; flex-direction:column; gap:16px; }
@@ -175,8 +175,7 @@
     .pj-calc-copy h2 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
     .pj-calc-copy p { font-size:14px; color:#6B6F7B; margin:0 auto; max-width:480px; line-height:1.5; }
     .pj-calc-buttons { display:flex; flex-wrap:wrap; gap:8px; }
-    .pj-calc-circle { width:184px; height:184px; border-radius:50%; border:12px solid #EEEBFF; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; transition:border-color 450ms ease, background 450ms ease, box-shadow 450ms ease; }
-    .pj-calc-circle-price { transition:color 450ms ease; }
+    .pj-calc-big { display:flex; flex-direction:column; align-items:center; gap:4px; }
     .pj-calc-seg { position:relative; width:100%; max-width:520px; height:44px; overflow:hidden; -webkit-mask-image:linear-gradient(to right, transparent 0, #000 36px, #000 calc(100% - 36px), transparent 100%); mask-image:linear-gradient(to right, transparent 0, #000 36px, #000 calc(100% - 36px), transparent 100%); }
     .pj-calc-track { position:absolute; left:50%; top:0; margin-left:-95px; display:flex; gap:8px; transition:transform 520ms cubic-bezier(0.22,1,0.36,1); will-change:transform; }
     .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
@@ -186,9 +185,9 @@
     .pj-proof-num-green { color:#1D874A; }
     .pj-proof-label { font-size:12.5px; font-weight:700; color:#6B6F7B; line-height:1.35; }
     .pj-proof-formula { display:inline-block; background:#F3F4F8; border-radius:8px; padding:6px 12px; font-size:12.5px; font-weight:700; color:#4B4E58; margin:0; }
-    .pj-calc-circle-label { font-size:12px; font-weight:700; color:rgba(255,255,255,0.8); margin-bottom:4px; }
-    .pj-calc-circle-price { font-size:44px; font-weight:800; color:#5B4CFB; letter-spacing:-0.02em; }
-    .pj-calc-circle-price small { font-size:20px; font-weight:700; margin-left:2px; }
+    .pj-calc-big-label { font-size:12.5px; font-weight:700; color:#6B6F7B; }
+    .pj-calc-big-price { font-size:88px; font-weight:800; letter-spacing:-0.04em; line-height:1; transition:color 450ms ease; }
+    .pj-calc-big-price small { font-size:40px; font-weight:700; margin-left:6px; }
     .pj-bento4 { display:grid; grid-template-columns:1fr; gap:16px; }
     .pj-bento4-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; }
     .pj-bento4-icon { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; background:#EEEBFF; margin-bottom:16px; }
@@ -242,8 +241,7 @@
       .pj-section-head p { font-size:16px !important; }
       .pj-calc-copy h2 { font-size:26px; }
       .pj-calc-copy p { font-size:15px; max-width:540px; }
-      .pj-calc-circle { width:208px; height:208px; }
-      .pj-calc-circle-price { font-size:48px; }
+      .pj-calc-big-price { font-size:108px; }
       .pj-steps3 { gap:20px; }
       .pj-step-card { padding:28px; }
       .pj-step-card h3 { font-size:18px; }
@@ -400,9 +398,9 @@
                 <h2>Berguedà ⇄ Barcelona</h2>
                 <p>El teu cost per viatge entre benzina i peatges.</p>
               </div>
-              <div class="pj-calc-circle" style="border-color:{{ calcCircleBorder }}; background:{{ calcCircleBg }}; box-shadow:{{ calcCircleGlow }};">
-                <span class="pj-calc-circle-label">El viatge et costa</span>
-                <span class="pj-calc-circle-price" style="color:{{ calcPriceColor }};">{{ calcPriceLabel }}<small>€</small></span>
+              <div class="pj-calc-big">
+                <span class="pj-calc-big-label">El viatge et costa</span>
+                <span class="pj-calc-big-price" style="color:{{ calcPriceColor }};">{{ calcPriceLabel }}<small>€</small></span>
               </div>
               <div class="pj-calc-seg" role="group" aria-label="Places compartides">
                 <div class="pj-calc-track" style="transform:{{ calcTrackShift }};">
@@ -1877,7 +1875,7 @@ class Component extends DCLogic {
     const isAuthShellView = view === 'auth' || view === 'reset';
 
     const calcSeats = s.calcSeats || '0';
-    const calcColors = { '0': '#FFFFFF', '1': '#FFFFFF', '2': '#FFFFFF', '3': '#FFFFFF' };
+    const calcColors = { '0': '#C22A24', '1': '#DE7317', '2': '#C9A227', '3': '#1D874A' };
     const calcSegBase = 'display:inline-flex; align-items:center; justify-content:center; gap:8px; width:190px; height:44px; border-radius:999px; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; white-space:nowrap; flex-shrink:0; transition:background 300ms ease, border-color 300ms ease, color 300ms ease;';
     const calcSegStyle = (n) => calcSegBase + (calcSeats === n
       ? ' border:1.5px solid #5B4CFB; background:#EEEBFF; color:#5B4CFB;'
@@ -1891,19 +1889,6 @@ class Component extends DCLogic {
       calcYearShort: calcSeats === '0' ? '0 €' : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} €`,
       calcYearFormula: `${Number(calcSeats) * 10} € × 52 setmanes`,
       calcPriceColor: calcColors[calcSeats],
-      calcCircleBorder: ({ '0': '#FBDCDA', '1': '#FAE3CE', '2': '#F5E9C9', '3': '#B7E4C7' })[calcSeats],
-      calcCircleBg: ({
-        '0': 'linear-gradient(135deg, #D3402F 0%, #B02420 100%)',
-        '1': 'linear-gradient(135deg, #C22A24 -25%, #DE7317 100%)',
-        '2': 'linear-gradient(135deg, #DE7317 -25%, #C9A227 100%)',
-        '3': 'linear-gradient(135deg, #C9A227 -35%, #1D874A 65%)'
-      })[calcSeats],
-      calcCircleGlow: ({
-        '0': '0 28px 64px -20px rgba(194,42,36,0.6)',
-        '1': '0 28px 64px -20px rgba(222,115,23,0.55)',
-        '2': '0 28px 64px -20px rgba(201,162,39,0.55)',
-        '3': '0 28px 64px -20px rgba(29,135,74,0.6)'
-      })[calcSeats],
       calcTrackShift: `translateX(${-(Number(calcSeats) * 198)}px)`,
       calcSeg0Style: calcSegStyle('0'),
       calcSeg1Style: calcSegStyle('1'),
