@@ -123,10 +123,18 @@
     .pj-databento-eq { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; display:flex; flex-direction:column; justify-content:center; gap:16px; }
     .pj-databento-label { display:flex; align-items:center; gap:8px; font-size:12px; font-weight:800; letter-spacing:0.08em; color:#5B4CFB; text-transform:uppercase; }
     .pj-databento-statement { font-size:20px; font-weight:800; letter-spacing:-0.01em; }
-    .pj-steps { display:flex; flex-direction:column; gap:16px; }
-    .pj-step { display:flex; gap:10px; align-items:flex-start; flex:1; font-size:13.5px; color:#6B6F7B; line-height:1.45; }
-    .pj-step strong { display:block; color:#14151A; font-size:14px; margin-bottom:2px; }
-    .pj-step-num { width:22px; height:22px; border-radius:50%; background:#EEEBFF; color:#5B4CFB; font-weight:800; font-size:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+    .pj-steps3 { display:grid; grid-template-columns:1fr; gap:16px; }
+    .pj-step-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; }
+    .pj-step-kicker { font-size:11.5px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#5B4CFB; margin-bottom:4px; }
+    .pj-step-card h3 { font-size:17px; font-weight:800; margin:0 0 6px; }
+    .pj-step-card p { font-size:14px; color:#6B6F7B; margin:0; line-height:1.5; }
+    @keyframes pjStepIn { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+    @supports (animation-timeline: view()) {
+      .pj-step-card { animation:pjStepIn linear both; animation-timeline:view(); animation-range:entry 0% entry 50%; }
+      .pj-step-card:nth-child(2) { animation-range:entry 12% entry 62%; }
+      .pj-step-card:nth-child(3) { animation-range:entry 24% entry 74%; }
+    }
+    @media (prefers-reduced-motion: reduce) { .pj-step-card { animation:none !important; } }
     .pj-databento-eco { background:#5B4CFB; color:#fff; border-radius:20px; padding:24px; display:flex; flex-direction:column; gap:16px; }
     .pj-databento-eco h3 { font-size:18px; font-weight:800; margin:0 0 4px; }
     .pj-databento-eco p { font-size:14px; color:rgba(255,255,255,0.92); margin:0; line-height:1.5; }
@@ -154,7 +162,7 @@
       .pj-hero-copy { flex:1; }
       .pj-hero-visual { flex:1; padding:48px; }
       .pj-databento { flex-direction:row; }
-      .pj-steps { flex-direction:row; gap:24px; }
+      .pj-steps3 { grid-template-columns:1fr 1fr 1fr; }
       .pj-databento-eq { flex:2; }
       .pj-databento-eco { flex:1; }
       .pj-calc { flex-direction:row; text-align:left; justify-content:space-between; padding:40px; }
@@ -445,33 +453,24 @@
               <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Anar i tornar sol de Barcelona són 42&nbsp;€ entre benzina i peatges. Cada plaça que comparteixes a 5&nbsp;€ per trajecte te'n retorna 10.</p>
             </div>
 
-            <div class="pj-databento">
-              <div class="pj-databento-eq">
-                <div class="pj-databento-label">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/><circle cx="18" cy="5" r="2.5"/></svg>
-                  COM FUNCIONA
-                </div>
-                <div class="pj-steps">
-                  <div class="pj-step">
-                    <span class="pj-step-num">1</span>
-                    <div><strong>Troba o publica un viatge</strong>Barcelona ⇄ Berguedà, sense comissions.</div>
-                  </div>
-                  <div class="pj-step">
-                    <span class="pj-step-num">2</span>
-                    <div><strong>Contacteu per WhatsApp</strong>Acordeu el punt de trobada.</div>
-                  </div>
-                  <div class="pj-step">
-                    <span class="pj-step-num">3</span>
-                    <div><strong>Compartiu les despeses</strong>Des de 5 € per plaça i trajecte.</div>
-                  </div>
-                </div>
+            <div class="pj-steps3">
+              <div class="pj-step-card">
+                <span class="pj-bento4-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+                <div class="pj-step-kicker">Pas 1</div>
+                <h3>Troba o publica un viatge</h3>
+                <p>Barcelona ⇄ Berguedà, sense comissions ni intermediaris.</p>
               </div>
-              <div class="pj-databento-eco">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20c-4.5 0-8-3.5-8-8 0-3 1.5-5.5 4-7 .5 2.5 2 4.5 4 6-1-2.5-1-5.5.5-8 3 2 5.5 5 5.5 9 0 4.5-2 8-6 8z"/></svg>
-                <div>
-                  <h3>Menys emissions</h3>
-                  <p>Un cotxe ple contamina menys que quatre de buits.</p>
-                </div>
+              <div class="pj-step-card">
+                <span class="pj-bento4-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+                <div class="pj-step-kicker">Pas 2</div>
+                <h3>Contacteu per WhatsApp</h3>
+                <p>Parleu directament i acordeu el punt de trobada.</p>
+              </div>
+              <div class="pj-step-card">
+                <span class="pj-bento4-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"/><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/><path d="M6 20v1"/><path d="M18 20v1"/></svg></span>
+                <div class="pj-step-kicker">Pas 3</div>
+                <h3>Compartiu les despeses</h3>
+                <p>Des de 5 € per plaça i trajecte, pactat abans de sortir.</p>
               </div>
             </div>
 
