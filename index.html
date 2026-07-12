@@ -95,7 +95,11 @@
     .pj-main { padding: 24px 16px 104px; }
     .pj-post-card { background: transparent; padding: 0; }
     .pj-post-section { margin-bottom: 16px; }
-    .pj-hero { display:flex; flex-direction:column; gap:40px; padding:48px 0 24px; }
+    .pj-hero { display:flex; flex-direction:column; gap:40px; padding:48px 0 56px; max-width:840px; margin:0 auto; }
+    .pj-band { position:relative; z-index:1; width:100vw; margin:0 calc(50% - 50vw); padding:0 16px; }
+    .pj-band-gray { background:#F3F4F8; padding-bottom:56px; }
+    .pj-section { max-width:840px; margin:0 auto; padding:56px 0 0; }
+    .pj-section-head { max-width:560px; margin:0 0 32px; }
     .pj-hero-visual { display:flex; align-items:center; justify-content:center; background:#F7F6FF; border-radius:24px; padding:32px; }
     .pj-hero-stack { display:flex; flex-direction:column; align-items:center; width:100%; max-width:300px; }
     .pj-hero-trip { width:100%; background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:16px; display:flex; flex-direction:column; gap:10px; }
@@ -152,7 +156,7 @@
     .pj-bento4-icon { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; background:#EEEBFF; margin-bottom:16px; }
     .pj-bento4-card h3 { font-size:17px; font-weight:800; margin:0 0 6px; }
     .pj-bento4-card p { font-size:14px; color:#6B6F7B; margin:0; line-height:1.5; }
-    .pj-footer-cta { display:flex; flex-direction:column; align-items:center; text-align:center; gap:32px; max-width:460px; margin:0 auto; padding:64px 16px; }
+    .pj-footer-cta { display:flex; flex-direction:column; align-items:center; text-align:center; gap:32px; max-width:840px; margin:0 auto; padding:56px 0; }
     .pj-topnav-link { display:none; border:none; background:none; font-family:inherit; font-weight:700; font-size:14px; color:#14151A; cursor:pointer; padding:8px 12px; border-radius:10px; }
     .pj-topnav-link:hover { color:#5B4CFB; }
     .pj-footer-eyebrow { font-size:11.5px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:8px; }
@@ -161,7 +165,10 @@
     .pj-footer-cta-btn { width:100%; max-width:280px; height:50px; border:none; border-radius:14px; background:#fff; color:#5B4CFB; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; flex-shrink:0; }
     @media (min-width: 900px) {
       .pj-post-section { margin-bottom: 32px; }
-      .pj-hero { flex-direction:row; align-items:center; padding:80px 0 64px; gap:64px; }
+      .pj-hero { flex-direction:row; align-items:center; padding:80px 0; gap:64px; }
+      .pj-band { padding:0 24px; }
+      .pj-band-gray { padding-bottom:80px; }
+      .pj-section { padding:80px 0 0; }
       .pj-hero-copy { flex:1; }
       .pj-hero-visual { flex:1; padding:48px; }
       .pj-databento { flex-direction:row; }
@@ -171,7 +178,7 @@
       .pj-calc { flex-direction:row; text-align:left; justify-content:space-between; padding:40px; }
       .pj-calc-copy { text-align:left; }
       .pj-bento4 { grid-template-columns:1fr 1fr; }
-      .pj-footer-cta { flex-direction:row; justify-content:space-between; align-items:center; text-align:left; max-width:960px; gap:48px; }
+      .pj-footer-cta { flex-direction:row; justify-content:space-between; align-items:center; text-align:left; gap:48px; padding:80px 0; }
       .pj-footer-cta-copy { flex:1; }
       .pj-topnav-link { display:inline-block; }
       .pj-topnav-hide-desktop { display: none !important; }
@@ -198,7 +205,8 @@
 
 <div class="{{ appFadeClass }}" style="min-height:100vh; background:#F3F4F8; font-family:'Plus Jakarta Sans',sans-serif; color:#14151A;" data-screen-label="app">
 
-  <nav class="pj-topnav {{ topnavDesktopClass }}" style="position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding: 16px 24px; background:{{ topnavBg }}; border-bottom:{{ topnavBorder }};">
+  <nav class="pj-topnav {{ topnavDesktopClass }}" style="position:sticky; top:0; z-index:20; padding: 14px 16px; background:{{ topnavBg }}; border-bottom:{{ topnavBorder }}; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);">
+    <div style="display:flex; align-items:center; justify-content:space-between; max-width:840px; margin:0 auto;">
     <div style="display:flex; align-items:center; gap: 8px; cursor:pointer;" onClick="{{ handleLogoClick }}">
       <div style="width:28px; height:28px; display:flex; align-items:center; justify-content:center;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#14151A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -216,6 +224,7 @@
         <button onClick="{{ scrollToLoginCard }}" style="height:40px; padding:0 20px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; margin-left:8px;">Minimitzar despeses</button>
       </div>
     </sc-if>
+    </div>
   </nav>
 
   <sc-if value="{{ showBottomNav }}" hint-placeholder-val="{{ false }}">
@@ -364,10 +373,10 @@
       </div>
 
       <sc-if value="{{ isLoginMode }}">
-        <div style="background:#F3F4F8; position:relative; z-index:1; width:100vw; margin: 40px calc(50% - 50vw) 0; padding-bottom:64px;">
-          <div id="pj-estalvi" style="max-width:840px; margin:0 auto; padding: 40px 16px 0;">
+        <div class="pj-band pj-band-gray">
+          <div id="pj-estalvi" class="pj-section">
 
-            <div style="max-width:560px; margin:0 0 24px;">
+            <div class="pj-section-head">
               <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Cada seient buit et costa <span style="color:#5B4CFB;">10&nbsp;€</span>.</h2>
               <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Anar i tornar sol de Barcelona són 42&nbsp;€ entre benzina i peatges. Cada plaça que comparteixes a 5&nbsp;€ per trajecte te'n retorna 10.</p>
             </div>
@@ -390,9 +399,9 @@
             </div>
           </div>
 
-          <div id="pj-comfunciona" style="max-width:840px; margin:0 auto; padding: 64px 16px 0;">
+          <div id="pj-comfunciona" class="pj-section">
 
-            <div style="max-width:560px; margin:0 0 24px;">
+            <div class="pj-section-head">
               <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Com funciona</h2>
               <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Sense comissions ni pagaments dins l'app: us poseu d'acord directament.</p>
             </div>
@@ -422,7 +431,7 @@
 
       </sc-if>
 
-      <div style="background:#5B4CFB; position:relative; z-index:1; width:100vw; margin: 0 calc(50% - 50vw);">
+      <div class="pj-band" style="background:#5B4CFB;">
         <div class="pj-footer-cta">
           <div class="pj-footer-cta-copy">
             <div class="pj-footer-eyebrow">Començar a compartir</div>
@@ -1859,7 +1868,7 @@ class Component extends DCLogic {
       setCalcSeats2: () => this._setCalcSeats('2'),
       setCalcSeats3: () => this._setCalcSeats('3'),
       isAuthShellView,
-      topnavBg: isAuthShellView ? 'transparent' : '#FFFFFF',
+      topnavBg: isAuthShellView ? 'rgba(243,244,248,0.85)' : '#FFFFFF',
       topnavBorder: isAuthShellView ? 'none' : '1px solid #ECEDF2',
       mainStyle: isAuthShellView
         ? 'max-width:920px; margin: 0 auto; padding-bottom:0;'
