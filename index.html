@@ -192,7 +192,7 @@
     .pj-loss-chip-1 { top:12%; right:12%; }
     .pj-loss-chip-2 { top:48%; left:6%; animation-delay:1.3s; }
     .pj-loss-chip-3 { bottom:10%; right:16%; animation-delay:2.6s; }
-    .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
+    .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:56px; }
     .pj-proof-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; text-align:left; }
     .pj-proof-top { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
     .pj-proof-num { font-size:40px; font-weight:800; letter-spacing:-0.03em; line-height:1; color:#14151A; }
@@ -238,7 +238,7 @@
       .pj-databento-eq { flex:2; }
       .pj-databento-eco { flex:1; }
       .pj-calc { padding:48px 40px; }
-      .pj-proof { grid-template-columns:1fr 1fr; }
+      .pj-proof { grid-template-columns:1fr 1fr; margin-top:80px; }
       .pj-bento4 { grid-template-columns:1fr 1fr; }
       .pj-footer-cta { flex-direction:row; justify-content:space-between; align-items:center; text-align:left; gap:48px; padding:80px 0; }
       .pj-footer { padding:48px 0 16px; }
@@ -269,6 +269,7 @@
       .pj-calc-copy p { font-size:15px; max-width:540px; }
       .pj-calc-big-price { font-size:108px; }
       .pj-gain-duo { margin-top:96px; }
+      .pj-proof { margin-top:96px; }
       .pj-loss-banner, .pj-gain-panel { min-height:420px; }
       .pj-loss-copy h2 { font-size:30px; }
       .pj-loss-copy p { font-size:16px; }
@@ -410,23 +411,6 @@
               </div>
             </div>
 
-            <div class="pj-proof">
-              <div class="pj-proof-card">
-                <div class="pj-proof-top">
-                  <span class="pj-proof-num pj-proof-num-green">{{ calcSavedShort }}</span>
-                  <span class="pj-proof-label">recuperats<br/>per anada i tornada</span>
-                </div>
-                <p class="pj-proof-formula">{{ calcSavedFormula }}</p>
-              </div>
-              <div class="pj-proof-card">
-                <div class="pj-proof-top">
-                  <span class="pj-proof-num">{{ calcYearShort }}</span>
-                  <span class="pj-proof-label">d'estalvi en un any<br/>amb 1 viatge per setmana</span>
-                </div>
-                <p class="pj-proof-formula">{{ calcYearFormula }}</p>
-              </div>
-            </div>
-
             <div class="pj-gain-duo">
               <div class="pj-loss-banner">
                 <div class="pj-loss-copy">
@@ -468,6 +452,24 @@
                 <span class="pj-loss-chip pj-loss-chip--gain pj-loss-chip-3">+10&nbsp;€</span>
               </div>
             </div>
+
+            <div class="pj-proof">
+              <div class="pj-proof-card">
+                <div class="pj-proof-top">
+                  <span class="pj-proof-num pj-proof-num-green">{{ calcSavedShort }}</span>
+                  <span class="pj-proof-label">recuperats<br/>per anada i tornada</span>
+                </div>
+                <p class="pj-proof-formula">{{ calcSavedFormula }}</p>
+              </div>
+              <div class="pj-proof-card">
+                <div class="pj-proof-top">
+                  <span class="pj-proof-num">{{ calcYearShort }}</span>
+                  <span class="pj-proof-label">d'estalvi en un any<br/>amb 1 viatge per setmana</span>
+                </div>
+                <p class="pj-proof-formula">{{ calcYearFormula }}</p>
+              </div>
+            </div>
+
           </div>
 
           <div id="pj-comfunciona" class="pj-section">
