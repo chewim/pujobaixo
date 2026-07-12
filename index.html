@@ -1155,15 +1155,15 @@ class Component extends DCLogic {
       if (!t) return;
       e.preventDefault();
       const id = t.getAttribute('data-scroll-target');
-      if (id === 'top') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+      if (id === 'top') {
+        (document.scrollingElement || document.documentElement).scrollTop !== 0 && document.body.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
       const el = document.getElementById(id);
       if (!el) return;
-      const r = el.getBoundingClientRect();
-      const center = t.hasAttribute('data-scroll-center');
-      const y = window.scrollY + r.top - (center ? Math.max(16, (window.innerHeight - r.height) / 2) : 76);
-      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      el.scrollIntoView({ behavior: 'smooth', block: t.hasAttribute('data-scroll-center') ? 'center' : 'start' });
     };
-    document.addEventListener('click', this._onDocClick);
+    document.addEventListener('click', this._onDocClick, true);
 
     // Auto-advances the savings calculator on the login landing so the
     // 42 -> 12 story plays without interaction. Stops if the user clicks.
@@ -1179,7 +1179,7 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
-    if (this._onDocClick) document.removeEventListener('click', this._onDocClick);
+    if (this._onDocClick) document.removeEventListener('click', this._onDocClick, true);
     if (this._calcAutoTimer) clearInterval(this._calcAutoTimer);
     if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
     clearInterval(this._tripsPollTimer);
