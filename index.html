@@ -175,7 +175,7 @@
     .pj-calc-copy h2 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
     .pj-calc-copy p { font-size:14px; color:#6B6F7B; margin:0 auto; max-width:480px; line-height:1.5; }
     .pj-calc-buttons { display:flex; flex-wrap:wrap; gap:8px; }
-    .pj-calc-big { display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .pj-calc-big { display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:-16px; }
     .pj-calc-seg { position:relative; width:100%; max-width:520px; height:44px; overflow:hidden; -webkit-mask-image:linear-gradient(to right, transparent 0, #000 36px, #000 calc(100% - 36px), transparent 100%); mask-image:linear-gradient(to right, transparent 0, #000 36px, #000 calc(100% - 36px), transparent 100%); }
     .pj-calc-track { position:absolute; left:50%; top:0; margin-left:-95px; display:flex; gap:8px; transition:transform 520ms cubic-bezier(0.22,1,0.36,1); will-change:transform; }
     .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
@@ -1875,8 +1875,9 @@ class Component extends DCLogic {
     const calcSeats = s.calcSeats || '0';
     const calcColors = { '0': '#C22A24', '1': '#DE7317', '2': '#C9A227', '3': '#1D874A' };
     const calcSegBase = 'display:inline-flex; align-items:center; justify-content:center; gap:8px; width:190px; height:44px; border-radius:999px; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; white-space:nowrap; flex-shrink:0; transition:background 300ms ease, border-color 300ms ease, color 300ms ease;';
+    const calcTints = { '0': '#FAECEB', '1': '#FBEEE2', '2': '#F7F0DC', '3': '#E7F3EC' };
     const calcSegStyle = (n) => calcSegBase + (calcSeats === n
-      ? ' border:1.5px solid #5B4CFB; background:#EEEBFF; color:#5B4CFB;'
+      ? ` border:1.5px solid ${calcColors[calcSeats]}; background:${calcTints[calcSeats]}; color:${calcColors[calcSeats]};`
       : ' border:1.5px solid #ECEDF2; background:#fff; color:#14151A;');
 
     return {
