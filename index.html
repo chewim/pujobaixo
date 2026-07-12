@@ -117,9 +117,9 @@
     .pj-hero-visual { display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 18% 18%, rgba(91,76,251,0.16), transparent 55%), radial-gradient(circle at 85% 80%, rgba(37,211,102,0.10), transparent 50%), linear-gradient(160deg, #EFEBFF 0%, #F7F6FF 60%, #EAF0FF 100%); border-radius:24px; padding:32px; }
     .pj-hero-stack { position:relative; width:100%; max-width:360px; aspect-ratio:1/1; display:grid; place-items:center; }
     .pj-hero-chip { position:absolute; z-index:3; background:#fff; color:#1D874A; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 8px 24px -8px rgba(20,21,26,0.25); animation:pjChipPop 500ms cubic-bezier(0.22,1,0.36,1) both, pjChipFloat 4s ease-in-out infinite; }
-    .pj-hero-chip-1 { top:7%; right:6%; animation-delay:1.7s, 2.2s; }
-    .pj-hero-chip-2 { top:38%; left:-12px; animation-delay:1.85s, 3.5s; }
-    .pj-hero-chip-3 { bottom:12%; right:2%; animation-delay:2s, 4.8s; }
+    .pj-hero-chip-1 { top:8%; left:10%; animation-delay:1.7s, 2.2s; }
+    .pj-hero-chip-2 { top:47%; right:-10px; animation-delay:1.85s, 3.5s; }
+    .pj-hero-chip-3 { bottom:8%; left:22%; animation-delay:2s, 4.8s; }
     @keyframes pjChipFloat { 0%, 100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
     @media (prefers-reduced-motion: reduce) { .pj-hero-chip { animation:none !important; } }
     .pj-hero-trip { position:relative; width:84%; background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:16px; display:flex; flex-direction:column; gap:10px; }
@@ -173,7 +173,7 @@
     .pj-calc-copy h2 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
     .pj-calc-copy p { font-size:14px; color:#6B6F7B; margin:0 auto; max-width:480px; line-height:1.5; }
     .pj-calc-buttons { display:flex; flex-wrap:wrap; gap:8px; }
-    .pj-calc-circle { width:184px; height:184px; border-radius:50%; border:12px solid #EEEBFF; background:#5B4CFB; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; transition:border-color 450ms ease; box-shadow:0 24px 56px -24px rgba(91,76,251,0.55); }
+    .pj-calc-circle { width:184px; height:184px; border-radius:50%; border:12px solid #EEEBFF; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; transition:border-color 450ms ease, background 450ms ease, box-shadow 450ms ease; }
     .pj-calc-circle-price { transition:color 450ms ease; }
     .pj-calc-seg { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
     .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
@@ -403,7 +403,7 @@
                 <button onClick="{{ setCalcSeats2 }}" aria-pressed="{{ calcSeg2Pressed }}" style="{{ calcSeg2Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>2 places</button>
                 <button onClick="{{ setCalcSeats3 }}" aria-pressed="{{ calcSeg3Pressed }}" style="{{ calcSeg3Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>3 places</button>
               </div>
-              <div class="pj-calc-circle" style="border-color:{{ calcCircleBorder }};">
+              <div class="pj-calc-circle" style="border-color:{{ calcCircleBorder }}; background:{{ calcCircleBg }}; box-shadow:{{ calcCircleGlow }};">
                 <span class="pj-calc-circle-label">El viatge et costa</span>
                 <span class="pj-calc-circle-price" style="color:{{ calcPriceColor }};">{{ calcPriceLabel }}<small>€</small></span>
               </div>
@@ -1885,7 +1885,9 @@ class Component extends DCLogic {
       calcYearShort: calcSeats === '0' ? '0 €' : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} €`,
       calcYearFormula: `${Number(calcSeats) * 10} € × 52 setmanes`,
       calcPriceColor: calcColors[calcSeats],
-      calcCircleBorder: calcSeats === '3' ? '#B7E4C7' : '#EEEBFF',
+      calcCircleBorder: ({ '0': '#FBDCDA', '1': '#EEEBFF', '2': '#EEEBFF', '3': '#B7E4C7' })[calcSeats],
+      calcCircleBg: ({ '0': '#C22A24', '1': '#5B4CFB', '2': '#5B4CFB', '3': '#1D874A' })[calcSeats],
+      calcCircleGlow: ({ '0': '0 28px 64px -20px rgba(194,42,36,0.6)', '1': '0 28px 64px -20px rgba(91,76,251,0.6)', '2': '0 28px 64px -20px rgba(91,76,251,0.6)', '3': '0 28px 64px -20px rgba(29,135,74,0.6)' })[calcSeats],
       calcSeg0Style: calcSegStyle('0'),
       calcSeg1Style: calcSegStyle('1'),
       calcSeg2Style: calcSegStyle('2'),
