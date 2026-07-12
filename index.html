@@ -211,6 +211,13 @@
     .pj-topnav-inner { display:flex; align-items:center; justify-content:space-between; max-width:840px; margin:0 auto; }
     .pj-hero-copy h1, .pj-section-head h2, .pj-loss-copy h2, .pj-footer-cta-copy h2, .pj-calc-copy h2 { text-wrap:balance; }
     .pj-hero-eyebrow { font-size:11.5px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:#5B4CFB; margin-bottom:8px; }
+    .pj-footer { padding:40px 0 8px; }
+    .pj-footer-inner { max-width:840px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:16px; text-align:center; }
+    .pj-footer-brand { display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:800; font-size:16px; letter-spacing:-0.02em; }
+    .pj-footer-nav { display:flex; flex-wrap:wrap; gap:4px; justify-content:center; }
+    .pj-footer-nav button { border:none; background:none; font-family:inherit; font-weight:700; font-size:13.5px; color:#6B6F7B; cursor:pointer; padding:8px 10px; border-radius:8px; transition:color 150ms ease; }
+    .pj-footer-nav button:hover { color:#5B4CFB; }
+    .pj-footer-meta { font-size:12.5px; color:#8F93A1; font-weight:600; }
     .pj-footer-eyebrow { font-size:11.5px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:8px; }
     .pj-footer-cta-copy h2 { font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; color:#fff; }
     .pj-footer-cta-copy p { font-size:14.5px; color:rgba(255,255,255,0.92); margin:0; line-height:1.5; }
@@ -234,6 +241,8 @@
       .pj-proof { grid-template-columns:1fr 1fr; }
       .pj-bento4 { grid-template-columns:1fr 1fr; }
       .pj-footer-cta { flex-direction:row; justify-content:space-between; align-items:center; text-align:left; gap:48px; padding:80px 0; }
+      .pj-footer { padding:48px 0 16px; }
+      .pj-footer-inner { flex-direction:row; justify-content:space-between; text-align:left; }
       .pj-footer-cta-copy { flex:1; }
       .pj-topnav-link { display:inline-block; }
       .pj-topnav-hide-desktop { display: none !important; }
@@ -244,7 +253,7 @@
       .pj-post-card { background: #fff; border-radius: 24px; padding: 32px; }
     }
     @media (min-width: 1440px) {
-      .pj-topnav-inner, .pj-hero, .pj-section, .pj-footer-cta { max-width:1040px; }
+      .pj-topnav-inner, .pj-hero, .pj-section, .pj-footer-cta, .pj-footer-inner { max-width:1040px; }
       .pj-hero { min-height:calc(100vh - 260px); padding:24px 0 64px; gap:80px; }
       .pj-hero h1 { font-size:40px !important; }
       .pj-hero-copy > p { font-size:17px !important; max-width:500px !important; }
@@ -589,6 +598,24 @@
       </div>
         </div>
       </div>
+
+      <sc-if value="{{ isLandingMode }}">
+        <footer class="pj-footer">
+          <div class="pj-footer-inner">
+            <div class="pj-footer-brand" onClick="{{ scrollToTop }}">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14151A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/><circle cx="18" cy="5" r="2.5"/></svg>
+              <span>Pujobaixo</span>
+            </div>
+            <nav class="pj-footer-nav" aria-label="Navegació del peu de pàgina">
+              <button onClick="{{ scrollToTop }}">Inici</button>
+              <button onClick="{{ scrollToEstalvi }}">Estalvi</button>
+              <button onClick="{{ scrollToComFunciona }}">Com funciona</button>
+              <button onClick="{{ scrollToSignup }}">Crear compte</button>
+            </nav>
+            <div class="pj-footer-meta">© 2026 Pujobaixo · Berguedà ⇄ Barcelona</div>
+          </div>
+        </footer>
+      </sc-if>
     </sc-if>
 
     <sc-if value="{{ isAuthCallbackView }}">
@@ -1971,6 +1998,7 @@ class Component extends DCLogic {
       setAuthPhone: (e) => this.setState((st) => ({ authForm: { ...st.authForm, phone: e.target.value } })),
       switchToLogin: () => this.switchAuthMode('login'),
       scrollToLoginCard: () => document.getElementById('pj-auth-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+      scrollToTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
       scrollToSignup: () => {
         if (this.state.authMode !== 'signup') this.setState({ authMode: 'signup', authError: '', authInfo: '' });
         setTimeout(() => document.getElementById('pj-auth-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60);
