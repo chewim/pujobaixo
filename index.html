@@ -157,9 +157,11 @@
     .pj-calc-seg { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
     .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
     .pj-proof-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; text-align:left; }
-    .pj-proof-num { display:block; font-size:30px; font-weight:800; letter-spacing:-0.02em; color:#14151A; margin-bottom:6px; }
+    .pj-proof-top { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+    .pj-proof-num { font-size:30px; font-weight:800; letter-spacing:-0.02em; color:#14151A; }
     .pj-proof-num-green { color:#1D874A; }
-    .pj-proof-card p { font-size:14px; color:#6B6F7B; margin:0; line-height:1.5; }
+    .pj-proof-label { font-size:12.5px; font-weight:700; color:#6B6F7B; line-height:1.35; }
+    .pj-proof-formula { display:inline-block; background:#F3F4F8; border-radius:8px; padding:6px 12px; font-size:12.5px; font-weight:700; color:#4B4E58; margin:0; }
     .pj-calc-circle-label { font-size:12px; font-weight:700; color:#6B6F7B; margin-bottom:4px; }
     .pj-calc-circle-price { font-size:44px; font-weight:800; color:#5B4CFB; letter-spacing:-0.02em; }
     .pj-calc-circle-price small { font-size:20px; font-weight:700; margin-left:2px; }
@@ -442,12 +444,18 @@
 
             <div class="pj-proof">
               <div class="pj-proof-card">
-                <span class="pj-proof-num pj-proof-num-green">{{ calcSavedShort }}</span>
-                <p>{{ calcSavedCaption }}</p>
+                <div class="pj-proof-top">
+                  <span class="pj-proof-num pj-proof-num-green">{{ calcSavedShort }}</span>
+                  <span class="pj-proof-label">recuperats<br/>per anada i tornada</span>
+                </div>
+                <p class="pj-proof-formula">{{ calcSavedFormula }}</p>
               </div>
               <div class="pj-proof-card">
-                <span class="pj-proof-num">{{ calcYearShort }}</span>
-                <p>{{ calcYearCaption }}</p>
+                <div class="pj-proof-top">
+                  <span class="pj-proof-num">{{ calcYearShort }}</span>
+                  <span class="pj-proof-label">d'estalvi en un any<br/>amb 1 viatge per setmana</span>
+                </div>
+                <p class="pj-proof-formula">{{ calcYearFormula }}</p>
               </div>
             </div>
           </div>
@@ -1906,12 +1914,9 @@ class Component extends DCLogic {
       calcPriceLabel: String(s.calcDisplay == null ? 42 : s.calcDisplay),
       calcTitle: ({ '0': 'Viatjant sol', '1': 'Compartint 1 plaça', '2': 'Compartint 2 places', '3': 'Amb el cotxe ple' })[calcSeats],
       calcSavedShort: `+${42 - (s.calcDisplay == null ? 42 : s.calcDisplay)} €`,
-      calcSavedCaption: calcSeats === '0'
-        ? 'recuperats. Sol, assumeixes tota la despesa: cada plaça compartida a 5 € per trajecte en retorna 10.'
-        : `recuperats en cada anada i tornada gràcies ${calcSeats === '1' ? 'a la plaça compartida' : 'a les ' + calcSeats + ' places compartides'}, a 5 € per trajecte.`,
+      calcSavedFormula: `${calcSeats} ${calcSeats === '1' ? 'plaça' : 'places'} × 5 € × 2 trajectes`,
       calcYearShort: calcSeats === '0' ? '0 €' : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} €`,
-      calcYearCaption: calcSeats === '0'
-        ? "d'estalvi anual. Compartir un sol viatge per setmana ja canvia el número."
+      calcYearFormula: `${Number(calcSeats) * 10} € × 52 setmanes`,
         : "d'estalvi en un any si comparteixes un viatge per setmana. Sense canviar de cotxe ni de rutina.",
       calcPriceColor: calcColors[calcSeats],
       calcCircleBorder: calcSeats === '3' ? '#D2EDDC' : '#ECEDF2',
