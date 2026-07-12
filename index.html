@@ -130,7 +130,8 @@
     .pj-calc-copy h2 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
     .pj-calc-copy p { font-size:14px; color:#6B6F7B; margin:0 0 20px; line-height:1.5; }
     .pj-calc-buttons { display:flex; flex-wrap:wrap; gap:8px; }
-    .pj-calc-circle { width:184px; height:184px; border-radius:50%; border:12px solid #ECEDF2; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; }
+    .pj-calc-circle { width:184px; height:184px; border-radius:50%; border:12px solid #ECEDF2; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; transition:border-color 450ms ease; }
+    .pj-calc-circle-price { transition:color 450ms ease; }
     .pj-calc-circle-label { font-size:12px; font-weight:700; color:#6B6F7B; margin-bottom:4px; }
     .pj-calc-circle-price { font-size:44px; font-weight:800; color:#5B4CFB; letter-spacing:-0.02em; }
     .pj-calc-circle-price small { font-size:20px; font-weight:700; margin-left:2px; }
@@ -435,8 +436,8 @@
           <div style="max-width:840px; margin:0 auto; padding: 40px 16px 0;">
 
             <div style="max-width:560px; margin:0 0 24px;">
-              <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Anar i tornar sol de Barcelona: <span style="color:#5B4CFB;">42&nbsp;€</span>.</h2>
-              <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Per trajecte: 10,5&nbsp;€ de benzina i 10,5&nbsp;€ de peatges (C-16 + Vallvidrera). Comparteix 3 places a 5&nbsp;€ i el mateix viatge et queda en 12&nbsp;€.</p>
+              <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Cada seient buit et costa <span style="color:#5B4CFB;">10&nbsp;€</span>.</h2>
+              <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Anar i tornar sol de Barcelona són 42&nbsp;€ entre benzina i peatges. Cada plaça que comparteixes a 5&nbsp;€ per trajecte te'n retorna 10.</p>
             </div>
 
             <div class="pj-databento">
@@ -458,17 +459,18 @@
 
             <div class="pj-calc">
               <div class="pj-calc-copy">
-                <h2>Calcula el teu estalvi</h2>
-                <p>Trajecte de referència: Barcelona ↔ Berga. Cost estimat total del viatge: 24€.</p>
-                <div class="pj-calc-buttons" role="group" aria-label="Nombre de persones">
-                  <button onClick="{{ setCalcPeople1 }}" aria-pressed="{{ calc1Selected }}" style="{{ calc1Style }}">1 Persona</button>
-                  <button onClick="{{ setCalcPeople2 }}" aria-pressed="{{ calc2Selected }}" style="{{ calc2Style }}">2 Persones</button>
-                  <button onClick="{{ setCalcPeople4 }}" aria-pressed="{{ calc4Selected }}" style="{{ calc4Style }}">4 Persones</button>
+                <h2>Omple els seients i mira què passa</h2>
+                <p>Anada i tornada Barcelona ↔ Berga: 42€ entre benzina i peatges. Cada plaça compartida a 5€ per trajecte te'n retorna 10.</p>
+                <div class="pj-calc-buttons" role="group" aria-label="Places compartides">
+                  <button onClick="{{ setCalcSeats0 }}" aria-pressed="{{ calcS0Selected }}" style="{{ calcS0Style }}">Sol</button>
+                  <button onClick="{{ setCalcSeats1 }}" aria-pressed="{{ calcS1Selected }}" style="{{ calcS1Style }}">1 plaça</button>
+                  <button onClick="{{ setCalcSeats2 }}" aria-pressed="{{ calcS2Selected }}" style="{{ calcS2Style }}">2 places</button>
+                  <button onClick="{{ setCalcSeats3 }}" aria-pressed="{{ calcS3Selected }}" style="{{ calcS3Style }}">3 places</button>
                 </div>
               </div>
-              <div class="pj-calc-circle">
-                <span class="pj-calc-circle-label">Cost per persona</span>
-                <span class="pj-calc-circle-price">{{ calcPriceLabel }}<small>€</small></span>
+              <div class="pj-calc-circle" style="border-color:{{ calcCircleBorder }};">
+                <span class="pj-calc-circle-label">El viatge et costa</span>
+                <span class="pj-calc-circle-price" style="color:{{ calcPriceColor }};">{{ calcPriceLabel }}<small>€</small></span>
               </div>
             </div>
 
@@ -977,7 +979,8 @@ class Component extends DCLogic {
     booting: true,
     view: 'auth',
     authMode: 'login',
-    calcPeople: '1',
+    calcSeats: '0',
+    calcDisplay: 42,
     user: null,
     authForm: { email: '', password: '', firstName: '', lastName: '', phone: '' },
     authError: '',
@@ -1230,6 +1233,26 @@ class Component extends DCLogic {
   _fmtDateShort(iso) {
     if (!iso) return '';
     return new Date(iso).toLocaleDateString('ca-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  _setCalcSeats(n) {
+    const costs = { '0': 42, '1': 32, '2': 22, '3': 12 };
+    const from = this.state.calcDisplay == null ? costs[this.state.calcSeats || '0'] : this.state.calcDisplay;
+    const target = costs[n];
+    this.setState({ calcSeats: n });
+    if (this._calcTimer) clearInterval(this._calcTimer);
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.setState({ calcDisplay: target });
+      return;
+    }
+    const start = Date.now();
+    const dur = 550;
+    this._calcTimer = setInterval(() => {
+      const t = Math.min(1, (Date.now() - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      this.setState({ calcDisplay: Math.round(from + (target - from) * eased) });
+      if (t >= 1) clearInterval(this._calcTimer);
+    }, 30);
   }
 
   _avatarColor(name) {
@@ -1791,25 +1814,30 @@ class Component extends DCLogic {
 
     const isAuthShellView = view === 'auth' || view === 'reset';
 
-    const calcPrices = { '1': 24, '2': 12, '4': 6 };
-    const calcPeople = s.calcPeople || '1';
-    const calcBase = 'flex:1; min-width:112px; height:52px; border-radius:14px; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; transition:background 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out;';
+    const calcSeats = s.calcSeats || '0';
+    const calcColors = { '0': '#C22A24', '1': '#14151A', '2': '#14151A', '3': '#1D874A' };
+    const calcBase = 'flex:1; min-width:86px; height:52px; border-radius:14px; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; transition:background 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out;';
     const calcActive = ' border:2px solid #5B4CFB; background:#EEEBFF; color:#5B4CFB;';
     const calcInactive = ' border:1.5px solid #ECEDF2; background:#fff; color:#14151A;';
-    const calcStyle = (n) => calcBase + (calcPeople === n ? calcActive : calcInactive);
+    const calcStyle = (n) => calcBase + (calcSeats === n ? calcActive : calcInactive);
 
     return {
       isLoggedIn,
-      calcPriceLabel: String(calcPrices[calcPeople]),
-      calc1Style: calcStyle('1'),
-      calc2Style: calcStyle('2'),
-      calc4Style: calcStyle('4'),
-      calc1Selected: calcPeople === '1',
-      calc2Selected: calcPeople === '2',
-      calc4Selected: calcPeople === '4',
-      setCalcPeople1: () => this.setState({ calcPeople: '1' }),
-      setCalcPeople2: () => this.setState({ calcPeople: '2' }),
-      setCalcPeople4: () => this.setState({ calcPeople: '4' }),
+      calcPriceLabel: String(s.calcDisplay == null ? 42 : s.calcDisplay),
+      calcPriceColor: calcColors[calcSeats],
+      calcCircleBorder: calcSeats === '3' ? '#D2EDDC' : '#ECEDF2',
+      calcS0Style: calcStyle('0'),
+      calcS1Style: calcStyle('1'),
+      calcS2Style: calcStyle('2'),
+      calcS3Style: calcStyle('3'),
+      calcS0Selected: calcSeats === '0',
+      calcS1Selected: calcSeats === '1',
+      calcS2Selected: calcSeats === '2',
+      calcS3Selected: calcSeats === '3',
+      setCalcSeats0: () => this._setCalcSeats('0'),
+      setCalcSeats1: () => this._setCalcSeats('1'),
+      setCalcSeats2: () => this._setCalcSeats('2'),
+      setCalcSeats3: () => this._setCalcSeats('3'),
       isAuthShellView,
       topnavBg: isAuthShellView ? 'transparent' : '#FFFFFF',
       topnavBorder: isAuthShellView ? 'none' : '1px solid #ECEDF2',
