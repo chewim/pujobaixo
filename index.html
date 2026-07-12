@@ -318,9 +318,9 @@
     </div>
     <sc-if value="{{ isLandingMode }}" hint-placeholder-val="{{ false }}">
       <div style="display:flex; align-items:center; gap:4px;">
-        <button class="pj-topnav-link" onClick="{{ scrollToEstalvi }}">Estalvi</button>
-        <button class="pj-topnav-link" onClick="{{ scrollToComFunciona }}">Com funciona</button>
-        <button class="pj-topnav-cta" onClick="{{ scrollToLoginCard }}" style="height:40px; padding:0 20px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; margin-left:8px; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.96);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">Minimitzar despeses</button>
+        <button class="pj-topnav-link" data-scroll-target="pj-estalvi">Estalvi</button>
+        <button class="pj-topnav-link" data-scroll-target="pj-comfunciona">Com funciona</button>
+        <button class="pj-topnav-cta" data-scroll-target="pj-auth-card" data-scroll-center style="height:40px; padding:0 20px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; margin-left:8px; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.96);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">Minimitzar despeses</button>
       </div>
     </sc-if>
     </div>
@@ -376,7 +376,7 @@
               <h1 style="font-size:32px; font-weight:800; letter-spacing:-0.02em; margin:0 0 16px; line-height:1.15;">Deixar de perdre diners als teus viatges en cotxe <span style="color:#5B4CFB; white-space:nowrap;">Berguedà&nbsp;⇄&nbsp;BCN</span>.</h1>
               <p style="font-size:16px; color:#6B6F7B; margin:0 0 24px; line-height:1.5; max-width:440px;">Cada seient buit del teu cotxe són 10&nbsp;€ perduts per anada i tornada. Troba qui fa el teu mateix camí entre el Berguedà i Barcelona i recupera'ls.</p>
               <div class="pj-hero-actions" style="display:flex;">
-                <button onClick="{{ scrollToLoginCard }}" style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.97);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">
+                <button data-scroll-target="pj-auth-card" data-scroll-center style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.97);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">
                   Minimitzar despeses
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </button>
@@ -612,14 +612,14 @@
       <sc-if value="{{ isLandingMode }}">
         <footer class="pj-footer">
           <div class="pj-footer-inner">
-            <div class="pj-footer-brand" onClick="{{ scrollToTop }}">
+            <div class="pj-footer-brand" data-scroll-target="top">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14151A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/><circle cx="18" cy="5" r="2.5"/></svg>
               <span>Pujobaixo</span>
             </div>
             <nav class="pj-footer-nav" aria-label="Navegació del peu de pàgina">
-              <button onClick="{{ scrollToTop }}">Inici</button>
-              <button onClick="{{ scrollToEstalvi }}">Estalvi</button>
-              <button onClick="{{ scrollToComFunciona }}">Com funciona</button>
+              <button data-scroll-target="top">Inici</button>
+              <button data-scroll-target="pj-estalvi">Estalvi</button>
+              <button data-scroll-target="pj-comfunciona">Com funciona</button>
               <button onClick="{{ scrollToSignup }}">Crear compte</button>
             </nav>
             <div class="pj-footer-meta">© 2026 Pujobaixo · Berguedà ⇄ Barcelona</div>
@@ -1148,6 +1148,23 @@ class Component extends DCLogic {
       }
     }, 20000);
 
+    // Scroll links via document-level delegation: immune to re-renders
+    // replacing button nodes mid-tap (the attribute survives, the node may not).
+    this._onDocClick = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('[data-scroll-target]') : null;
+      if (!t) return;
+      e.preventDefault();
+      const id = t.getAttribute('data-scroll-target');
+      if (id === 'top') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+      const el = document.getElementById(id);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const center = t.hasAttribute('data-scroll-center');
+      const y = window.scrollY + r.top - (center ? Math.max(16, (window.innerHeight - r.height) / 2) : 76);
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    };
+    document.addEventListener('click', this._onDocClick);
+
     // Auto-advances the savings calculator on the login landing so the
     // 42 -> 12 story plays without interaction. Stops if the user clicks.
     this._calcAutoTimer = setInterval(() => {
@@ -1162,6 +1179,7 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    if (this._onDocClick) document.removeEventListener('click', this._onDocClick);
     if (this._calcAutoTimer) clearInterval(this._calcAutoTimer);
     if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
     clearInterval(this._tripsPollTimer);
