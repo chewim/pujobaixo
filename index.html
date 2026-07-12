@@ -396,14 +396,14 @@
 
             <div class="pj-calc">
               <div class="pj-calc-copy">
-                <h2>{{ calcTitle }}</h2>
-                <p>Anada i tornada Berga ↔ Barcelona: 42€ entre benzina i peatges. Cada plaça compartida a 5€ per trajecte te'n retorna 10.</p>
+                <h2>El teu cost per viatge</h2>
+                <p>Berga ↔ Barcelona, anada i tornada: 42€ entre benzina i peatges.</p>
               </div>
               <div class="pj-calc-seg" role="group" aria-label="Places compartides">
                 <button onClick="{{ setCalcSeats0 }}" aria-pressed="{{ calcSeg0Pressed }}" style="{{ calcSeg0Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="2.5"></circle><path d="M12 14.5V21M9.8 10.8 3.4 8.6M14.2 10.8l6.4-2.2"></path></svg>Sol</button>
-                <button onClick="{{ setCalcSeats1 }}" aria-pressed="{{ calcSeg1Pressed }}" style="{{ calcSeg1Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>1 plaça</button>
-                <button onClick="{{ setCalcSeats2 }}" aria-pressed="{{ calcSeg2Pressed }}" style="{{ calcSeg2Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>2 places</button>
-                <button onClick="{{ setCalcSeats3 }}" aria-pressed="{{ calcSeg3Pressed }}" style="{{ calcSeg3Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>3 places</button>
+                <button onClick="{{ setCalcSeats1 }}" aria-pressed="{{ calcSeg1Pressed }}" style="{{ calcSeg1Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 1 plaça</button>
+                <button onClick="{{ setCalcSeats2 }}" aria-pressed="{{ calcSeg2Pressed }}" style="{{ calcSeg2Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 2 places</button>
+                <button onClick="{{ setCalcSeats3 }}" aria-pressed="{{ calcSeg3Pressed }}" style="{{ calcSeg3Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 3 places</button>
               </div>
               <div class="pj-calc-circle" style="border-color:{{ calcCircleBorder }}; background:{{ calcCircleBg }}; box-shadow:{{ calcCircleGlow }};">
                 <span class="pj-calc-circle-label">El viatge et costa</span>
@@ -1875,13 +1875,20 @@ class Component extends DCLogic {
 
     const calcSeats = s.calcSeats || '0';
     const calcColors = { '0': '#FFFFFF', '1': '#FFFFFF', '2': '#FFFFFF', '3': '#FFFFFF' };
-    const calcSegBase = 'display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; transition:background 200ms ease, border-color 200ms ease, color 200ms ease;';
-    const calcSegStyle = (n) => calcSegBase + (calcSeats === n ? ' border:1.5px solid #5B4CFB; background:#5B4CFB; color:#fff;' : ' border:1.5px solid #ECEDF2; background:#fff; color:#14151A;');
+    const calcSegBase = 'display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; white-space:nowrap; overflow:hidden; transition:background 200ms ease, border-color 200ms ease, color 200ms ease, opacity 380ms cubic-bezier(0.22,1,0.36,1), transform 380ms cubic-bezier(0.22,1,0.36,1), max-width 380ms cubic-bezier(0.22,1,0.36,1), padding 380ms cubic-bezier(0.22,1,0.36,1);';
+    const calcSegStyle = (n) => {
+      const state = calcSeats === n
+        ? ' border:1.5px solid #5B4CFB; background:#5B4CFB; color:#fff;'
+        : ' border:1.5px solid #ECEDF2; background:#fff; color:#14151A;';
+      const vis = Number(n) <= Number(calcSeats) + 1
+        ? ' opacity:1; transform:none; max-width:280px;'
+        : ' opacity:0; transform:translateX(-12px); max-width:0; padding:0; border-width:0; margin-left:-8px;';
+      return calcSegBase + state + vis;
+    };
 
     return {
       isLoggedIn,
       calcPriceLabel: String(s.calcDisplay == null ? 42 : s.calcDisplay),
-      calcTitle: ({ '0': 'Viatjant sol', '1': 'Compartint 1 plaça', '2': 'Compartint 2 places', '3': 'Amb el cotxe ple' })[calcSeats],
       calcSavedShort: `+${42 - (s.calcDisplay == null ? 42 : s.calcDisplay)} €`,
       calcSavedFormula: `${calcSeats} ${calcSeats === '1' ? 'plaça' : 'places'} × 5 € × 2 trajectes`,
       calcYearShort: calcSeats === '0' ? '0 €' : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} €`,
