@@ -202,6 +202,7 @@
     .pj-loss-chip-3 { bottom:10%; right:16%; animation-delay:2.6s; }
     .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:56px; }
     .pj-proof-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; text-align:left; }
+    .pj-trip-int { background:#F3F4F8; border-radius:999px; padding:5px 12px; font-size:11.5px; font-weight:700; color:#4B4E58; }
     .pj-proof-title { font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0; color:#14151A; }
     .pj-proof-sub { font-size:13px; font-weight:600; color:#6B6F7B; margin:2px 0 14px; }
     .pj-proof-num { display:block; font-size:40px; font-weight:800; letter-spacing:-0.03em; line-height:1; margin-bottom:12px; color:#14151A; }
@@ -363,9 +364,9 @@
         <span style="font-size:19px; font-weight:800; letter-spacing:-0.02em;">Pujobaixo</span>
       </div>
       <div style="display:flex; flex-direction:column; gap: 4px;" aria-label="Navegació principal">
-        <button aria-current="{{ tripsAriaCurrent }}" style="border:none; text-align:left; background:{{ tripsNavBg }}; color:{{ tripsNavColor }}; font-weight:{{ tripsFontWeight }}; font-size:14.5px; padding: 16px 16px; border-radius:14px; cursor:pointer; font-family:inherit; min-height:44px; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToTrips }}">Viatges</button>
-        <button aria-current="{{ myTripsAriaCurrent }}" style="border:none; text-align:left; background:{{ myTripsNavBg }}; color:{{ myTripsNavColor }}; font-weight:{{ myTripsFontWeight }}; font-size:14.5px; padding: 16px 16px; border-radius:14px; cursor:pointer; font-family:inherit; min-height:44px; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToMyTrips }}">Els meus</button>
-        <button aria-current="{{ profileAriaCurrent }}" style="border:none; text-align:left; background:{{ profileNavBg }}; color:{{ profileNavColor }}; font-weight:{{ profileFontWeight }}; font-size:14.5px; padding: 16px 16px; border-radius:14px; cursor:pointer; font-family:inherit; min-height:44px; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToProfile }}">Perfil</button>
+        <button aria-current="{{ tripsAriaCurrent }}" style="border:none; display:flex; align-items:center; gap:10px; text-align:left; background:{{ tripsNavBg }}; color:{{ tripsNavColor }}; font-weight:{{ tripsFontWeight }}; font-size:14.5px; padding: 16px 16px; border-radius:14px; cursor:pointer; font-family:inherit; min-height:44px; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToTrips }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"></circle><path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"></path><circle cx="18" cy="5" r="2.5"></circle></svg>Viatges</button>
+        <button aria-current="{{ myTripsAriaCurrent }}" style="border:none; display:flex; align-items:center; gap:10px; text-align:left; background:{{ myTripsNavBg }}; color:{{ myTripsNavColor }}; font-weight:{{ myTripsFontWeight }}; font-size:14.5px; padding: 16px 16px; border-radius:14px; cursor:pointer; font-family:inherit; min-height:44px; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToMyTrips }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12a1 1 0 0 1 1 1v15l-7-4-7 4V5a1 1 0 0 1 1-1z"></path></svg>Els meus</button>
+        <button aria-current="{{ profileAriaCurrent }}" style="border:none; display:flex; align-items:center; gap:10px; text-align:left; background:{{ profileNavBg }}; color:{{ profileNavColor }}; font-weight:{{ profileFontWeight }}; font-size:14.5px; padding: 16px 16px; border-radius:14px; cursor:pointer; font-family:inherit; min-height:44px; transition:background 120ms ease-out, color 120ms ease-out;" onClick="{{ goToProfile }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Perfil</button>
       </div>
     </div>
   </sc-if>
@@ -739,6 +740,12 @@
             </div>
           </div>
 
+          <sc-if value="{{ trip.hasInterests }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center;">
+              <sc-for list="{{ trip.interestChips }}" as="ic" hint-placeholder-count="2"><span class="pj-trip-int">{{ ic.label }}</span></sc-for>
+            </div>
+          </sc-if>
+
           <sc-if value="{{ trip.pickupNotes }}" hint-placeholder-val="{{ false }}">
             <div style="background:#F3F4F8; border-radius:14px; padding: 16px 16px; display:flex; align-items:flex-start; gap: 8px;">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top: 4px;"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="8" y1="3" x2="8" y2="21"></line><line x1="12" y1="8" x2="17" y2="8"></line><line x1="12" y1="12" x2="17" y2="12"></line><line x1="12" y1="16" x2="15" y2="16"></line></svg>
@@ -1092,6 +1099,20 @@
         </div>
         <label for="profile-phone" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Telèfon</label>
         <input id="profile-phone" value="{{ profileForm.phone }}" onChange="{{ setProfilePhone }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 24px;"/>
+        <div style="margin-bottom: 24px;">
+          <div style="font-size:15px; font-weight:700; color:#6B6F7B; margin-bottom: 4px;">Preferències de viatge <span style="font-weight:600; color:#8F93A1;">(opcional)</span></div>
+          <p style="font-size:13px; color:#8F93A1; margin: 0 0 12px; line-height:1.45;">Es mostraran a les teves publicacions per ajudar a trobar bona companyia de viatge.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;" role="group" aria-label="Preferències de viatge">
+            <button onClick="{{ pint_conversa_toggle }}" aria-pressed="{{ pint_conversa_on }}" style="{{ pint_conversa_style }}">M'agrada la conversa</button>
+            <button onClick="{{ pint_tranquil_toggle }}" aria-pressed="{{ pint_tranquil_on }}" style="{{ pint_tranquil_style }}">Viatge tranquil</button>
+            <button onClick="{{ pint_musica_toggle }}" aria-pressed="{{ pint_musica_on }}" style="{{ pint_musica_style }}">Música al cotxe</button>
+            <button onClick="{{ pint_podcast_toggle }}" aria-pressed="{{ pint_podcast_on }}" style="{{ pint_podcast_style }}">Podcasts i ràdio</button>
+            <button onClick="{{ pint_mascotes_toggle }}" aria-pressed="{{ pint_mascotes_on }}" style="{{ pint_mascotes_style }}">Mascotes benvingudes</button>
+            <button onClick="{{ pint_nofum_toggle }}" aria-pressed="{{ pint_nofum_on }}" style="{{ pint_nofum_style }}">Sense fum</button>
+            <button onClick="{{ pint_puntual_toggle }}" aria-pressed="{{ pint_puntual_on }}" style="{{ pint_puntual_style }}">Puntualitat</button>
+            <button onClick="{{ pint_maletes_toggle }}" aria-pressed="{{ pint_maletes_on }}" style="{{ pint_maletes_style }}">Espai per equipatge</button>
+          </div>
+        </div>
         <button onClick="{{ handleProfileSave }}" disabled="{{ profileBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
           <sc-if value="{{ profileBusy }}">Desant…</sc-if>
           <sc-if value="{{ !profileBusy }}">Desar canvis</sc-if>
@@ -1123,6 +1144,17 @@ const ROUTES = [
   { value: 'GNL→BCN', label: 'Gironella → Barcelona', origin: 'Gironella', destination: 'Barcelona' },
 ];
 const ROUTE_LABEL_BY_VALUE = ROUTES.reduce((acc, r) => { acc[r.value] = r.label; return acc; }, {});
+const INTERESTS = [
+  { id: 'conversa', label: "M'agrada la conversa" },
+  { id: 'tranquil', label: 'Viatge tranquil' },
+  { id: 'musica', label: 'Música al cotxe' },
+  { id: 'podcast', label: 'Podcasts i ràdio' },
+  { id: 'mascotes', label: 'Mascotes benvingudes' },
+  { id: 'nofum', label: 'Sense fum' },
+  { id: 'puntual', label: 'Puntualitat' },
+  { id: 'maletes', label: 'Espai per equipatge' },
+];
+const INTEREST_LABELS = INTERESTS.reduce((acc, i) => { acc[i.id] = i.label; return acc; }, {});
 const BLANK_AVATAR = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
 class Component extends DCLogic {
@@ -1158,7 +1190,7 @@ class Component extends DCLogic {
     myRequestTrips: [],
     myBookings: [],
     myTripsLoading: false,
-    profileForm: { firstName: '', lastName: '', phone: '' },
+    profileForm: { firstName: '', lastName: '', phone: '', interests: [] },
     profileBusy: false,
     avatarUploading: false,
     avatarPreview: null,
@@ -1392,7 +1424,7 @@ class Component extends DCLogic {
         console.warn('No profile found for user', userId);
         this.setState({
           profile: null,
-          profileForm: { firstName: '', lastName: '', phone: '' },
+          profileForm: { firstName: '', lastName: '', phone: '', interests: [] },
         });
         return;
       }
@@ -1403,6 +1435,7 @@ class Component extends DCLogic {
           firstName: data.first_name || '',
           lastName: data.last_name || '',
           phone: data.phone || '',
+          interests: Array.isArray(data.interests) ? data.interests : [],
         },
       });
     } catch (e) {
@@ -1473,6 +1506,26 @@ class Component extends DCLogic {
       this.setState({ calcDisplay: Math.round(from + (target - from) * eased) });
       if (t >= 1) clearInterval(this._calcTimer);
     }, 30);
+  }
+
+  _interestBindings() {
+    const out = {};
+    const cur = (this.state.profileForm && this.state.profileForm.interests) || [];
+    const base = 'display:inline-flex; align-items:center; min-height:40px; padding:8px 16px; border-radius:999px; font-weight:700; font-size:13.5px; cursor:pointer; font-family:inherit; transition:background 150ms ease, border-color 150ms ease, color 150ms ease;';
+    INTERESTS.forEach((it) => {
+      const on = cur.includes(it.id);
+      out['pint_' + it.id + '_style'] = base + (on
+        ? ' border:1.5px solid #5B4CFB; background:#EEEBFF; color:#5B4CFB;'
+        : ' border:1.5px solid #ECEDF2; background:#fff; color:#14151A;');
+      out['pint_' + it.id + '_on'] = on;
+      out['pint_' + it.id + '_toggle'] = () => {
+        const f = this.state.profileForm;
+        const now = f.interests || [];
+        const next = now.includes(it.id) ? now.filter((x) => x !== it.id) : now.concat(it.id);
+        this.setState({ profileForm: { ...f, interests: next } });
+      };
+    });
+    return out;
   }
 
   _avatarColor(name) {
@@ -1716,14 +1769,18 @@ class Component extends DCLogic {
   async _loadTrips(silent) {
     if (!silent) this.setState({ tripsLoading: true });
     try {
-      const { data, error } = await this.sb
+      const tripsQuery = (cols) => this.sb
         .from('trips')
-        .select('*, profiles!trips_driver_id_fkey(first_name,last_name,rating,phone,avatar_url)')
+        .select(cols)
         .eq('status', 'active')
         .gt('available_seats', 0)
         .gte('depart_at', new Date().toISOString())
         .order('depart_at', { ascending: true })
         .limit(50);
+      let { data, error } = await tripsQuery('*, profiles!trips_driver_id_fkey(first_name,last_name,rating,phone,avatar_url,interests)');
+      if (error && /interests/i.test(error.message || '')) {
+        ({ data, error } = await tripsQuery('*, profiles!trips_driver_id_fkey(first_name,last_name,rating,phone,avatar_url)'));
+      }
       if (error) throw error;
       this.setState({ trips: data || [] });
     } catch (e) {
@@ -1837,11 +1894,20 @@ class Component extends DCLogic {
     const { profileForm, user } = this.state;
     this.setState({ profileBusy: true });
     try {
-      const { error } = await this.sb.from('profiles').update({
+      let { error } = await this.sb.from('profiles').update({
         first_name: profileForm.firstName,
         last_name: profileForm.lastName,
         phone: profileForm.phone,
+        interests: profileForm.interests || [],
       }).eq('id', user.id);
+      if (error && /interests/i.test(error.message || '')) {
+        ({ error } = await this.sb.from('profiles').update({
+          first_name: profileForm.firstName,
+          last_name: profileForm.lastName,
+          phone: profileForm.phone,
+        }).eq('id', user.id));
+        if (!error) this._showToast('Perfil desat. Les preferències encara no estan actives.', 'info');
+      }
       if (error) throw error;
       this._showToast('Perfil actualitzat');
       this._loadProfile(user.id);
@@ -1912,6 +1978,11 @@ class Component extends DCLogic {
         posterAvatarDisplay: (t.profiles && t.profiles.avatar_url && !s.brokenAvatarUrls[t.profiles.avatar_url]) ? 'block' : 'none',
         avatarImgRef: this._avatarRef(t.profiles ? t.profiles.avatar_url : null),
         pickupNotes: t.pickup_notes || '',
+        interestChips: (t.profiles && Array.isArray(t.profiles.interests) ? t.profiles.interests : [])
+          .map((id) => ({ label: INTEREST_LABELS[id] }))
+          .filter((c) => c.label)
+          .slice(0, 4),
+        hasInterests: !!(t.profiles && Array.isArray(t.profiles.interests) && t.profiles.interests.some((id) => INTEREST_LABELS[id])),
         isRequest,
         roleLabel: isRequest ? 'Necessito' : 'Ofereixo',
         priceLabel: (t.price_per_seat != null) ? `${Number(t.price_per_seat).toFixed(2)}€` : '',
@@ -2245,6 +2316,7 @@ class Component extends DCLogic {
       setProfileLastName: (e) => this.setState((st) => ({ profileForm: { ...st.profileForm, lastName: e.target.value } })),
       setProfilePhone: (e) => this.setState((st) => ({ profileForm: { ...st.profileForm, phone: e.target.value } })),
       handleProfileSave: () => this.handleProfileSave(),
+      ...this._interestBindings(),
 
       goToTrips: () => this.goTo('trips'),
       goToMyTrips: () => this.goTo('myTrips'),
