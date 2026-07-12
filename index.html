@@ -1917,7 +1917,6 @@ class Component extends DCLogic {
       calcSavedFormula: `${calcSeats} ${calcSeats === '1' ? 'plaça' : 'places'} × 5 € × 2 trajectes`,
       calcYearShort: calcSeats === '0' ? '0 €' : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} €`,
       calcYearFormula: `${Number(calcSeats) * 10} € × 52 setmanes`,
-        : "d'estalvi en un any si comparteixes un viatge per setmana. Sense canviar de cotxe ni de rutina.",
       calcPriceColor: calcColors[calcSeats],
       calcCircleBorder: calcSeats === '3' ? '#D2EDDC' : '#ECEDF2',
       calcSeg0Style: calcSegStyle('0'),
