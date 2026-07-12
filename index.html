@@ -119,7 +119,7 @@
     .pj-hero-visual { display:flex; align-items:center; justify-content:center; aspect-ratio:1/1; background-image:url('/assets/seients-buits.jpg'), linear-gradient(160deg, #EFEBFF 0%, #F7F6FF 60%, #EAF0FF 100%); background-size:cover; background-position:center; border-radius:24px; padding:32px; box-shadow:0 24px 56px -28px rgba(20,21,26,0.4); }
     .pj-hero-stack { position:relative; width:100%; height:100%; display:grid; place-items:center; }
     .pj-hero-chip { position:absolute; z-index:3; background:#fff; color:#1D874A; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 8px 24px -8px rgba(20,21,26,0.25); animation:pjChipPop 500ms cubic-bezier(0.22,1,0.36,1) both, pjChipFloat 4s ease-in-out infinite; }
-    .pj-hero-chip--loss { color:#C22A24; }
+    .pj-hero-chip--ghost { color:#1D874A; background:rgba(255,255,255,0.92); border:1.5px dashed #1D874A; }
     .pj-hero-chip-1 { top:8%; left:10%; animation-delay:1.7s, 2.2s; }
     .pj-hero-chip-2 { top:47%; right:-10px; animation-delay:1.85s, 3.5s; }
     .pj-hero-chip-3 { bottom:8%; left:22%; animation-delay:2s, 4.8s; }
@@ -365,9 +365,9 @@
             </div>
             <div class="pj-hero-visual">
               <div class="pj-hero-stack" aria-hidden="true">
-                <span class="pj-hero-chip pj-hero-chip--loss pj-hero-chip-1">−5&nbsp;€</span>
-                <span class="pj-hero-chip pj-hero-chip--loss pj-hero-chip-2">−10&nbsp;€</span>
-                <span class="pj-hero-chip pj-hero-chip--loss pj-hero-chip-3">−10&nbsp;€</span>
+                <span class="pj-hero-chip pj-hero-chip--ghost pj-hero-chip-1">+10&nbsp;€</span>
+                <span class="pj-hero-chip pj-hero-chip--ghost pj-hero-chip-2">+10&nbsp;€</span>
+                <span class="pj-hero-chip pj-hero-chip--ghost pj-hero-chip-3">+10&nbsp;€</span>
               </div>
             </div>
           </div>
