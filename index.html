@@ -158,14 +158,14 @@
       100% { opacity:0; transform:translateY(-20px); }
     }
     @supports (animation-timeline: view()) {
-      .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
+      .pj-loss-banner, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
       .pj-section-head p, .pj-calc-seg, .pj-proof-card:nth-child(2), .pj-step-card:nth-child(2), .pj-footer-cta-copy h2, #pj-auth-card { animation-range:entry 10% exit 100%; }
       .pj-calc-big, .pj-step-card:nth-child(3), .pj-footer-cta-copy p { animation-range:entry 20% exit 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       .pj-topnav, .pj-topnav-inner > div:first-of-type, .pj-topnav-link, .pj-topnav-cta,
       .pj-hero-eyebrow, .pj-hero-copy h1, .pj-hero-copy > p, .pj-hero-actions, .pj-hero-visual,
-      .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big,
+      .pj-loss-banner, .pj-loss-chip, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big,
       .pj-proof-card, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:none !important; }
     }
     .pj-databento-eco { background:#5B4CFB; color:#fff; border-radius:20px; padding:24px; display:flex; flex-direction:column; gap:16px; }
@@ -178,6 +178,15 @@
     .pj-calc-big { display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:-16px; }
     .pj-calc-seg { position:relative; width:100%; max-width:520px; height:44px; overflow:hidden; -webkit-mask-image:linear-gradient(to right, transparent 0, #000 36px, #000 calc(100% - 36px), transparent 100%); mask-image:linear-gradient(to right, transparent 0, #000 36px, #000 calc(100% - 36px), transparent 100%); }
     .pj-calc-track { position:absolute; left:50%; top:0; margin-left:-95px; display:flex; gap:8px; transition:transform 520ms cubic-bezier(0.22,1,0.36,1); will-change:transform; }
+    .pj-loss-banner { position:relative; border-radius:24px; overflow:hidden; padding:112px 32px 40px; margin-bottom:32px; color:#fff; background-image:linear-gradient(160deg, rgba(20,21,26,0.78) 0%, rgba(20,21,26,0.35) 70%), url('/assets/seients-buits.jpg'); background-size:cover; background-position:center; box-shadow:0 24px 56px -28px rgba(20,21,26,0.4); background-color:#14151A; }
+    .pj-loss-copy { max-width:560px; }
+    .pj-loss-copy h2 { font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
+    .pj-loss-copy p { font-size:15px; color:rgba(255,255,255,0.85); margin:0; line-height:1.5; }
+    .pj-loss-seats { position:absolute; top:32px; left:32px; display:flex; gap:10px; }
+    .pj-loss-seat { width:40px; height:40px; border-radius:50%; border:1.5px dashed rgba(255,255,255,0.55); color:rgba(255,255,255,0.6); display:flex; align-items:center; justify-content:center; }
+    .pj-loss-chip { position:absolute; z-index:2; background:#fff; color:#C22A24; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 8px 24px -8px rgba(20,21,26,0.4); animation:pjChipFloat 4s ease-in-out infinite; }
+    .pj-loss-chip-1 { top:24%; right:10%; }
+    .pj-loss-chip-2 { top:52%; right:22%; animation-delay:1.6s; }
     .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
     .pj-proof-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; text-align:left; }
     .pj-proof-top { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
@@ -241,6 +250,9 @@
       .pj-calc-copy h2 { font-size:26px; }
       .pj-calc-copy p { font-size:15px; max-width:540px; }
       .pj-calc-big-price { font-size:108px; }
+      .pj-loss-banner { padding:140px 48px 48px; }
+      .pj-loss-copy h2 { font-size:30px; }
+      .pj-loss-copy p { font-size:16px; }
       .pj-steps3 { gap:20px; }
       .pj-step-card { padding:28px; }
       .pj-step-card h3 { font-size:18px; }
@@ -387,9 +399,18 @@
         <div class="pj-band pj-band-gray">
           <div id="pj-estalvi" class="pj-section">
 
-            <div class="pj-section-head">
-              <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Cada seient buit et costa <span style="color:#5B4CFB;">10&nbsp;€</span>.</h2>
-              <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Anar i tornar sol de Barcelona són 42&nbsp;€ entre benzina i peatges. Cada plaça que comparteixes a 5&nbsp;€ per trajecte te'n retorna 10.</p>
+            <div class="pj-loss-banner">
+              <div class="pj-loss-seats" aria-hidden="true">
+                <span class="pj-loss-seat"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg></span>
+                <span class="pj-loss-seat"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg></span>
+                <span class="pj-loss-seat"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg></span>
+              </div>
+              <div class="pj-loss-copy">
+                <h2>Cada seient buit et costa <span style="color:#FF8A7E;">10&nbsp;€</span>.</h2>
+                <p>Anar i tornar sol de Barcelona són 42&nbsp;€ entre benzina i peatges. Cada plaça que comparteixes a 5&nbsp;€ per trajecte te'n retorna 10.</p>
+              </div>
+              <span class="pj-loss-chip pj-loss-chip-1">−5&nbsp;€</span>
+              <span class="pj-loss-chip pj-loss-chip-2">−10&nbsp;€</span>
             </div>
 
             <div class="pj-calc">
