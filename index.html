@@ -115,15 +115,15 @@
     .pj-section { max-width:840px; margin:0 auto; padding:56px 0 0; scroll-margin-top:72px; }
     .pj-section-head { max-width:560px; margin:0 0 32px; }
     .pj-hero-visual { display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 18% 18%, rgba(91,76,251,0.16), transparent 55%), radial-gradient(circle at 85% 80%, rgba(37,211,102,0.10), transparent 50%), linear-gradient(160deg, #EFEBFF 0%, #F7F6FF 60%, #EAF0FF 100%); border-radius:24px; padding:32px; }
-    .pj-hero-stack { position:relative; width:100%; max-width:360px; aspect-ratio:1/1; }
+    .pj-hero-stack { position:relative; width:100%; max-width:360px; aspect-ratio:1/1; display:grid; place-items:center; }
     .pj-hero-chip { position:absolute; z-index:3; background:#fff; color:#1D874A; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 8px 24px -8px rgba(20,21,26,0.25); animation:pjChipPop 500ms cubic-bezier(0.22,1,0.36,1) both, pjChipFloat 4s ease-in-out infinite; }
     .pj-hero-chip-1 { top:7%; right:6%; animation-delay:1.7s, 2.2s; }
     .pj-hero-chip-2 { top:38%; left:-12px; animation-delay:1.85s, 3.5s; }
     .pj-hero-chip-3 { bottom:12%; right:2%; animation-delay:2s, 4.8s; }
     @keyframes pjChipFloat { 0%, 100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
     @media (prefers-reduced-motion: reduce) { .pj-hero-chip { animation:none !important; } }
-    .pj-hero-trip { position:absolute; width:82%; background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:16px; display:flex; flex-direction:column; gap:10px; }
-    .pj-hero-trip--b { top:50%; left:50%; width:84%; transform:translate(-50%,-50%); z-index:2; box-shadow:0 4px 10px rgba(20,21,26,0.05), 0 32px 72px -28px rgba(91,76,251,0.45); }
+    .pj-hero-trip { position:relative; width:84%; background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:16px; display:flex; flex-direction:column; gap:10px; }
+    .pj-hero-trip--b { z-index:2; box-shadow:0 4px 10px rgba(20,21,26,0.05), 0 32px 72px -28px rgba(91,76,251,0.45); }
     .pj-hero-trip-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
     .pj-hero-trip-user { display:flex; align-items:center; gap:10px; min-width:0; }
     .pj-hero-trip-avatar { width:28px; height:28px; border-radius:50%; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; flex-shrink:0; }
@@ -173,7 +173,7 @@
     .pj-calc-copy h2 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
     .pj-calc-copy p { font-size:14px; color:#6B6F7B; margin:0 auto; max-width:480px; line-height:1.5; }
     .pj-calc-buttons { display:flex; flex-wrap:wrap; gap:8px; }
-    .pj-calc-circle { width:184px; height:184px; border-radius:50%; border:12px solid #ECEDF2; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; transition:border-color 450ms ease; }
+    .pj-calc-circle { width:184px; height:184px; border-radius:50%; border:12px solid #EEEBFF; background:#5B4CFB; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; transition:border-color 450ms ease; box-shadow:0 24px 56px -24px rgba(91,76,251,0.55); }
     .pj-calc-circle-price { transition:color 450ms ease; }
     .pj-calc-seg { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
     .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
@@ -183,7 +183,7 @@
     .pj-proof-num-green { color:#1D874A; }
     .pj-proof-label { font-size:12.5px; font-weight:700; color:#6B6F7B; line-height:1.35; }
     .pj-proof-formula { display:inline-block; background:#F3F4F8; border-radius:8px; padding:6px 12px; font-size:12.5px; font-weight:700; color:#4B4E58; margin:0; }
-    .pj-calc-circle-label { font-size:12px; font-weight:700; color:#6B6F7B; margin-bottom:4px; }
+    .pj-calc-circle-label { font-size:12px; font-weight:700; color:rgba(255,255,255,0.8); margin-bottom:4px; }
     .pj-calc-circle-price { font-size:44px; font-weight:800; color:#5B4CFB; letter-spacing:-0.02em; }
     .pj-calc-circle-price small { font-size:20px; font-weight:700; margin-left:2px; }
     .pj-bento4 { display:grid; grid-template-columns:1fr; gap:16px; }
@@ -1872,7 +1872,7 @@ class Component extends DCLogic {
     const isAuthShellView = view === 'auth' || view === 'reset';
 
     const calcSeats = s.calcSeats || '0';
-    const calcColors = { '0': '#C22A24', '1': '#14151A', '2': '#14151A', '3': '#1D874A' };
+    const calcColors = { '0': '#FFFFFF', '1': '#FFFFFF', '2': '#FFFFFF', '3': '#FFFFFF' };
     const calcSegBase = 'display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; transition:background 200ms ease, border-color 200ms ease, color 200ms ease;';
     const calcSegStyle = (n) => calcSegBase + (calcSeats === n ? ' border:1.5px solid #5B4CFB; background:#5B4CFB; color:#fff;' : ' border:1.5px solid #ECEDF2; background:#fff; color:#14151A;');
 
@@ -1885,7 +1885,7 @@ class Component extends DCLogic {
       calcYearShort: calcSeats === '0' ? '0 €' : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} €`,
       calcYearFormula: `${Number(calcSeats) * 10} € × 52 setmanes`,
       calcPriceColor: calcColors[calcSeats],
-      calcCircleBorder: calcSeats === '3' ? '#D2EDDC' : '#ECEDF2',
+      calcCircleBorder: calcSeats === '3' ? '#B7E4C7' : '#EEEBFF',
       calcSeg0Style: calcSegStyle('0'),
       calcSeg1Style: calcSegStyle('1'),
       calcSeg2Style: calcSegStyle('2'),
