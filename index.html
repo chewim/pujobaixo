@@ -164,6 +164,7 @@
     .pj-footer-cta { display:flex; flex-direction:column; align-items:center; text-align:center; gap:32px; max-width:840px; margin:0 auto; padding:56px 0; }
     .pj-topnav-link { display:none; border:none; background:none; font-family:inherit; font-weight:700; font-size:14px; color:#14151A; cursor:pointer; padding:8px 12px; border-radius:10px; }
     .pj-topnav-link:hover { color:#5B4CFB; }
+    .pj-topnav-inner { display:flex; align-items:center; justify-content:space-between; max-width:840px; margin:0 auto; }
     .pj-hero-eyebrow { font-size:11.5px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:#5B4CFB; margin-bottom:8px; }
     .pj-footer-eyebrow { font-size:11.5px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:8px; }
     .pj-footer-cta-copy h2 { font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; color:#fff; }
@@ -193,6 +194,30 @@
       .pj-main { padding: 32px 24px 104px; }
       .pj-post-card { background: #fff; border-radius: 24px; padding: 32px; }
     }
+    @media (min-width: 1440px) {
+      .pj-topnav-inner, .pj-hero, .pj-section, .pj-footer-cta { max-width:1040px; }
+      .pj-hero { padding:96px 0; gap:80px; }
+      .pj-hero h1 { font-size:40px !important; }
+      .pj-hero-copy > p { font-size:17px !important; max-width:500px !important; }
+      .pj-hero-eyebrow, .pj-footer-eyebrow { font-size:12.5px; }
+      .pj-hero-stack { max-width:340px; }
+      .pj-section { padding:96px 0 0; }
+      .pj-band-gray { padding-bottom:96px; }
+      .pj-section-head { max-width:640px; margin-bottom:40px; }
+      .pj-section-head h2 { font-size:30px !important; }
+      .pj-section-head p { font-size:16px !important; }
+      .pj-calc-copy h2 { font-size:26px; }
+      .pj-calc-copy p { font-size:15px; max-width:540px; }
+      .pj-calc-circle { width:208px; height:208px; }
+      .pj-calc-circle-price { font-size:48px; }
+      .pj-steps3 { gap:20px; }
+      .pj-step-card { padding:28px; }
+      .pj-step-card h3 { font-size:18px; }
+      .pj-step-card p { font-size:15px; }
+      .pj-footer-cta { padding:96px 0; gap:64px; }
+      .pj-footer-cta-copy h2 { font-size:30px; }
+      .pj-footer-cta-copy p { font-size:16px; }
+    }
   </style>
 </helmet>
 
@@ -211,7 +236,7 @@
 <div class="{{ appFadeClass }}" style="min-height:100vh; background:#F3F4F8; font-family:'Plus Jakarta Sans',sans-serif; color:#14151A;" data-screen-label="app">
 
   <nav class="pj-topnav {{ topnavDesktopClass }}" style="position:sticky; top:0; z-index:20; padding: 14px 16px; background:{{ topnavBg }}; border-bottom:{{ topnavBorder }}; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);">
-    <div style="display:flex; align-items:center; justify-content:space-between; max-width:840px; margin:0 auto;">
+    <div class="pj-topnav-inner">
     <div style="display:flex; align-items:center; gap: 8px; cursor:pointer;" onClick="{{ handleLogoClick }}">
       <div style="width:28px; height:28px; display:flex; align-items:center; justify-content:center;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#14151A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -1883,7 +1908,7 @@ class Component extends DCLogic {
       topnavBg: isAuthShellView ? 'rgba(243,244,248,0.85)' : '#FFFFFF',
       topnavBorder: isAuthShellView ? 'none' : '1px solid #ECEDF2',
       mainStyle: isAuthShellView
-        ? 'max-width:920px; margin: 0 auto; padding-bottom:0;'
+        ? 'max-width:1200px; margin: 0 auto; padding-bottom:0;'
         : 'max-width:920px; margin: 0 auto;',
       isAuthView: view === 'auth',
       isResetView: view === 'reset',
