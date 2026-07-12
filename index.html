@@ -2163,7 +2163,7 @@ class Component extends DCLogic {
       goToPost: () => { this.setState((st) => ({ postForm: { ...st.postForm, tripType: st.viatgesTab }, editingTripId: null })); this.goTo('post'); },
       goToPostAsOffer: () => { this.setState((st) => ({ postForm: { ...st.postForm, tripType: 'offer' }, editingTripId: null })); this.goTo('post'); },
       goToPostAsRequest: () => { this.setState((st) => ({ postForm: { ...st.postForm, tripType: 'request' }, editingTripId: null })); this.goTo('post'); },
-      handleLogoClick: () => isLoggedIn && this.goTo('trips'),
+      handleLogoClick: () => isLoggedIn ? this.goTo('trips') : window.scrollTo({ top: 0, behavior: 'smooth' }),
       handleLogout: this.handleLogout,
 
       showBottomNav: isLoggedIn && view !== 'post',
