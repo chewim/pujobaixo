@@ -178,6 +178,11 @@
     .pj-calc-circle { width:184px; height:184px; border-radius:50%; border:12px solid #EEEBFF; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; transition:border-color 450ms ease, background 450ms ease, box-shadow 450ms ease; }
     .pj-calc-circle-price { transition:color 450ms ease; }
     .pj-calc-seg { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+    @media (max-width: 899px) {
+      .pj-calc-seg { position:relative; display:block; width:100%; height:44px; }
+      .pj-calc-seg button { position:absolute; top:0; left:50%; margin:0 !important; opacity:0 !important; transform:translate(calc(-50% + 56px), 0) !important; max-width:none !important; padding:0 18px !important; border-width:1.5px !important; transition:transform 480ms cubic-bezier(0.22,1,0.36,1), opacity 480ms ease !important; }
+      .pj-calc-seg button[aria-pressed="true"] { opacity:1 !important; transform:translate(-50%, 0) !important; z-index:1; }
+    }
     .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
     .pj-proof-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; text-align:left; }
     .pj-proof-top { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
