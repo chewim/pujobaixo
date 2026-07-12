@@ -400,6 +400,10 @@
                 <h2>Berguedà ⇄ Barcelona</h2>
                 <p>El teu cost per viatge entre benzina i peatges.</p>
               </div>
+              <div class="pj-calc-circle" style="border-color:{{ calcCircleBorder }}; background:{{ calcCircleBg }}; box-shadow:{{ calcCircleGlow }};">
+                <span class="pj-calc-circle-label">El viatge et costa</span>
+                <span class="pj-calc-circle-price" style="color:{{ calcPriceColor }};">{{ calcPriceLabel }}<small>€</small></span>
+              </div>
               <div class="pj-calc-seg" role="group" aria-label="Places compartides">
                 <div class="pj-calc-track" style="transform:{{ calcTrackShift }};">
                 <button onClick="{{ setCalcSeats0 }}" aria-pressed="{{ calcSeg0Pressed }}" style="{{ calcSeg0Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="2.5"></circle><path d="M12 14.5V21M9.8 10.8 3.4 8.6M14.2 10.8l6.4-2.2"></path></svg>Sol</button>
@@ -407,10 +411,6 @@
                 <button onClick="{{ setCalcSeats2 }}" aria-pressed="{{ calcSeg2Pressed }}" style="{{ calcSeg2Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 2 places</button>
                 <button onClick="{{ setCalcSeats3 }}" aria-pressed="{{ calcSeg3Pressed }}" style="{{ calcSeg3Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 3 places</button>
                 </div>
-              </div>
-              <div class="pj-calc-circle" style="border-color:{{ calcCircleBorder }}; background:{{ calcCircleBg }}; box-shadow:{{ calcCircleGlow }};">
-                <span class="pj-calc-circle-label">El viatge et costa</span>
-                <span class="pj-calc-circle-price" style="color:{{ calcPriceColor }};">{{ calcPriceLabel }}<small>€</small></span>
               </div>
             </div>
 
