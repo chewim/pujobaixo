@@ -1352,6 +1352,16 @@ class Component extends DCLogic {
     return new Date(iso).toLocaleDateString('ca-ES', { day: 'numeric', month: 'short', year: 'numeric' });
   }
 
+  _scrollToId(id, center) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const top = center
+      ? r.top + window.scrollY - Math.max(16, (window.innerHeight - r.height) / 2)
+      : r.top + window.scrollY - 76;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
+
   _setCalcSeats(n, fromAuto) {
     if (!fromAuto) this._calcAutoStopped = true;
     const costs = { '0': 42, '1': 32, '2': 22, '3': 12, '4': 2 };
@@ -2015,14 +2025,14 @@ class Component extends DCLogic {
       setAuthLastName: (e) => this.setState((st) => ({ authForm: { ...st.authForm, lastName: e.target.value } })),
       setAuthPhone: (e) => this.setState((st) => ({ authForm: { ...st.authForm, phone: e.target.value } })),
       switchToLogin: () => this.switchAuthMode('login'),
-      scrollToLoginCard: () => document.getElementById('pj-auth-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' }),
+      scrollToLoginCard: () => this._scrollToId('pj-auth-card', true),
       scrollToTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
       scrollToSignup: () => {
         if (this.state.authMode !== 'signup') this.setState({ authMode: 'signup', authError: '', authInfo: '' });
-        setTimeout(() => document.getElementById('pj-auth-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60);
+        setTimeout(() => this._scrollToId('pj-auth-card', true), 80);
       },
-      scrollToEstalvi: () => document.getElementById('pj-estalvi')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
-      scrollToComFunciona: () => document.getElementById('pj-comfunciona')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+      scrollToEstalvi: () => this._scrollToId('pj-estalvi', false),
+      scrollToComFunciona: () => this._scrollToId('pj-comfunciona', false),
       switchToSignup: () => this.switchAuthMode('signup'),
       switchToForgot: () => this.switchAuthMode('forgot'),
       handleAuthSubmit: () => this.handleAuthSubmit(),
