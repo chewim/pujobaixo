@@ -160,15 +160,23 @@
     .pj-step-card h3 { font-size:17px; font-weight:800; margin:0 0 6px; }
     .pj-step-card p { font-size:14px; color:#6B6F7B; margin:0; line-height:1.5; }
     @keyframes pjInOnly { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+    @keyframes pjInOutX {
+      0% { opacity:0; transform:translateX(-32px); }
+      15%, 85% { opacity:1; transform:none; }
+      100% { opacity:0; transform:translateY(-20px); }
+    }
     @keyframes pjInOut {
       0% { opacity:0; transform:translateY(28px); }
       15%, 85% { opacity:1; transform:none; }
       100% { opacity:0; transform:translateY(-20px); }
     }
     @supports (animation-timeline: view()) {
-      .pj-loss-banner, .pj-gain-panel, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-proof-num, .pj-proof-formula, .pj-step-card, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
-      .pj-section-head p, .pj-calc-big, .pj-proof-card:nth-child(2), .pj-proof-num, .pj-step-card:nth-child(2), .pj-footer-cta-copy h2, #pj-auth-card, .pj-gain-panel { animation-range:entry 10% exit 100%; }
-      .pj-calc-seg, .pj-proof-formula, .pj-step-card:nth-child(3), .pj-footer-cta-copy p { animation-range:entry 20% exit 100%; }
+      .pj-loss-banner, .pj-gain-panel, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-proof-num, .pj-proof-formula, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
+      .pj-section-head p, .pj-calc-big, .pj-proof-card:nth-child(2), .pj-proof-num, .pj-footer-cta-copy h2, #pj-auth-card, .pj-gain-panel { animation-range:entry 10% exit 100%; }
+      .pj-calc-seg, .pj-proof-formula, .pj-footer-cta-copy p { animation-range:entry 20% exit 100%; }
+      .pj-step-card { animation:pjInOutX linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
+      .pj-step-card:nth-child(2) { animation-range:entry 6% exit 100%; }
+      .pj-step-card:nth-child(3) { animation-range:entry 12% exit 100%; }
       .pj-footer-brand, .pj-footer-nav, .pj-footer-meta { animation:pjInOnly 1ms linear both; animation-timeline:view(); animation-range:entry 0% entry 55%; }
       .pj-footer-nav { animation-range:entry 8% entry 63%; }
       .pj-footer-meta { animation-range:entry 16% entry 71%; }
