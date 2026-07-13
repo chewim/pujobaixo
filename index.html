@@ -154,6 +154,7 @@
     .pj-howworks { display:grid; grid-template-columns:1fr; gap:32px; align-items:center; margin-top:32px; }
     .pj-howworks-illus { display:flex; align-items:center; justify-content:center; padding:32px 24px; border-radius:24px; background:linear-gradient(160deg, #F4F2FF 0%, #F7F9FF 100%); }
     .pj-howworks-steps { display:flex; flex-direction:column; gap:24px; }
+    .pj-howworks-steps .pj-section-head { margin-bottom:0; max-width:none; }
     .pj-howworks-step { display:flex; gap:16px; align-items:flex-start; }
     .pj-howworks-num { flex-shrink:0; width:32px; height:32px; border-radius:999px; background:#EEEBFF; color:#5B4CFB; font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; }
     .pj-howworks-step h3 { font-size:17px; font-weight:800; letter-spacing:-0.01em; margin:0 0 4px; }
@@ -173,8 +174,8 @@
       .pj-loss-banner, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-proof-num, .pj-proof-formula, .pj-launch-illus, .pj-launch-copy, .pj-howworks-illus, .pj-howworks-step, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
       .pj-section-head p, .pj-calc-big, .pj-proof-card:nth-child(2), .pj-proof-num, .pj-launch-copy, .pj-footer-cta-copy h2, #pj-auth-card { animation-range:entry 10% exit 100%; }
       .pj-calc-seg, .pj-proof-formula, .pj-footer-cta-copy p { animation-range:entry 20% exit 100%; }
-      .pj-howworks-step:nth-child(2) { animation-range:entry 6% exit 100%; }
-      .pj-howworks-step:nth-child(3) { animation-range:entry 12% exit 100%; }
+      .pj-howworks-step:nth-child(3) { animation-range:entry 6% exit 100%; }
+      .pj-howworks-step:nth-child(4) { animation-range:entry 12% exit 100%; }
       .pj-step-card { animation:pjInOutX linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
       .pj-step-card:nth-child(2) { animation-range:entry 6% exit 100%; }
       .pj-step-card:nth-child(3) { animation-range:entry 12% exit 100%; }
@@ -506,13 +507,12 @@
 
           <div id="pj-comfunciona" class="pj-section">
 
-            <div class="pj-section-head">
-              <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Publicar un trajecte és molt fàcil</h2>
-              <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Tres passos i cap comissió.</p>
-            </div>
-
             <div class="pj-howworks">
               <div class="pj-howworks-steps">
+                <div class="pj-section-head">
+                  <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Publicar un trajecte és molt fàcil</h2>
+                  <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Tres passos i cap comissió.</p>
+                </div>
                 <div class="pj-howworks-step">
                   <span class="pj-howworks-num">1</span>
                   <div>
