@@ -134,20 +134,7 @@
     .pj-hero-total { position:absolute; left:12px; right:12px; bottom:12px; z-index:3; padding:11px 16px; border-radius:14px; background:rgba(255,255,255,0.9); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); font-size:13.5px; font-weight:700; color:#14151A; text-align:center; animation:pjFadeUp 600ms cubic-bezier(0.22,1,0.36,1) 2.3s both; }
     @keyframes pjChipFloat { 0%, 100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
     @media (prefers-reduced-motion: reduce) { .pj-hero-chip, .pj-hero-lines, .pj-hero-total { animation:none !important; } }
-    .pj-hero-trip { position:relative; width:84%; max-width:340px; background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:16px; display:flex; flex-direction:column; gap:10px; }
-    .pj-hero-trip--b { z-index:2; box-shadow:0 4px 10px rgba(20,21,26,0.05), 0 32px 72px -28px rgba(91,76,251,0.45); }
-    .pj-hero-trip-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-    .pj-hero-trip-user { display:flex; align-items:center; gap:10px; min-width:0; }
-    .pj-hero-trip-avatar { width:28px; height:28px; border-radius:50%; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; flex-shrink:0; }
-    .pj-hero-trip-name { font-size:13.5px; font-weight:700; color:#14151A; }
-    .pj-hero-trip-role { font-size:11.5px; color:#727681; font-weight:600; }
-    .pj-hero-trip-seats { display:flex; align-items:center; gap:6px; color:#727681; font-size:12px; font-weight:600; white-space:nowrap; }
-    .pj-hero-trip-route { display:flex; align-items:center; justify-content:center; gap:8px; font-size:15px; font-weight:800; color:#14151A; }
-    .pj-hero-trip-meta { display:flex; align-items:center; justify-content:center; gap:14px; font-size:12px; font-weight:600; color:#6B6F7B; }
-    .pj-hero-trip-meta span { display:flex; align-items:center; gap:6px; }
-    .pj-hero-trip-foot { display:flex; align-items:center; justify-content:space-between; border-top:1px solid #ECEDF2; padding-top:10px; }
-    .pj-hero-trip-price { display:flex; align-items:center; gap:4px; font-size:14px; font-weight:800; color:#1D874A; }
-    .pj-hero-trip-wa { width:30px; height:30px; border-radius:50%; background:#25D366; color:#14151A; display:flex; align-items:center; justify-content:center; }
+    @media (prefers-reduced-motion: reduce) { .pj-howworks-light { display:none; } }
     .pj-axis-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; box-shadow:0 20px 60px -30px rgba(20,21,26,0.25); padding:24px; width:100%; max-width:280px; display:flex; flex-direction:column; gap:12px; }
     .pj-axis-row { display:flex; align-items:center; gap:12px; font-size:14px; font-weight:700; }
     .pj-axis-line { width:2px; height:32px; background:#5B4CFB; opacity:0.35; margin-left:8px; border-radius:1px; }
@@ -183,8 +170,8 @@
       100% { opacity:0; transform:translateY(-20px); }
     }
     @supports (animation-timeline: view()) {
-      .pj-loss-banner, .pj-gain-panel, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-proof-num, .pj-proof-formula, .pj-launch-illus, .pj-launch-copy, .pj-howworks-illus, .pj-howworks-step, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
-      .pj-section-head p, .pj-calc-big, .pj-proof-card:nth-child(2), .pj-proof-num, .pj-launch-copy, .pj-footer-cta-copy h2, #pj-auth-card, .pj-gain-panel { animation-range:entry 10% exit 100%; }
+      .pj-loss-banner, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-proof-num, .pj-proof-formula, .pj-launch-illus, .pj-launch-copy, .pj-howworks-illus, .pj-howworks-step, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
+      .pj-section-head p, .pj-calc-big, .pj-proof-card:nth-child(2), .pj-proof-num, .pj-launch-copy, .pj-footer-cta-copy h2, #pj-auth-card { animation-range:entry 10% exit 100%; }
       .pj-calc-seg, .pj-proof-formula, .pj-footer-cta-copy p { animation-range:entry 20% exit 100%; }
       .pj-howworks-step:nth-child(2) { animation-range:entry 6% exit 100%; }
       .pj-howworks-step:nth-child(3) { animation-range:entry 12% exit 100%; }
@@ -198,7 +185,7 @@
     @media (prefers-reduced-motion: reduce) {
       .pj-topnav, .pj-topnav-inner > div:first-of-type, .pj-topnav-link, .pj-topnav-cta,
       .pj-hero-eyebrow, .pj-hero-copy h1, .pj-hero-copy > p, .pj-hero-actions, .pj-hero-feats, .pj-hero-badge, .pj-hero-visual,
-      .pj-loss-banner, .pj-gain-panel, .pj-loss-chip, .pj-howworks-illus, .pj-howworks-step, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big,
+      .pj-loss-banner, .pj-loss-chip, .pj-howworks-illus, .pj-howworks-step, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big,
       .pj-proof-card, .pj-proof-num, .pj-proof-formula, .pj-step-card, .pj-launch-illus, .pj-launch-copy, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card,
       .pj-footer-brand, .pj-footer-nav, .pj-footer-meta { animation:none !important; }
     }
@@ -216,17 +203,6 @@
     .pj-solo-block { margin-top:56px; }
     .pj-proof-reordered { margin-top:0 !important; }
     .pj-loss-banner { position:relative; border-radius:24px; overflow:hidden; min-height:340px; display:flex; align-items:flex-end; padding:96px 32px 32px; color:#fff; background-image:linear-gradient(160deg, rgba(20,21,26,0.72) 0%, rgba(20,21,26,0.3) 70%), url('/assets/hero-viatge.jpg'); background-size:cover; background-position:center; box-shadow:0 24px 56px -28px rgba(20,21,26,0.4); background-color:#14151A; }
-    .pj-gain-panel { position:relative; border-radius:24px; overflow:hidden; min-height:340px; display:grid; place-items:center; padding:40px 32px; background:#5B4CFB; box-shadow:0 24px 56px -28px rgba(91,76,251,0.5); }
-    .pj-gain-panel.pj-solo-block { margin-left:auto; margin-right:auto; }
-    .pj-gain-panel .pj-hero-trip { width:100%; max-width:300px; border:none; box-shadow:0 4px 12px rgba(20,21,26,0.12), 0 36px 80px -28px rgba(20,21,26,0.55); }
-    .pj-gain-panel .pj-hero-trip-seats { border:1.5px dashed #5B4CFB; border-radius:999px; padding:4px 10px; color:#5B4CFB; }
-    .pj-gain-note { position:absolute; top:-56px; right:-12px; z-index:3; background:#fff; color:#14151A; font-weight:700; font-size:12.5px; padding:8px 14px; border-radius:999px; box-shadow:0 10px 28px -8px rgba(20,21,26,0.35); white-space:nowrap; animation:pjChipPop 500ms cubic-bezier(0.22,1,0.36,1) both; }
-    .pj-gain-note b { color:#1D874A; font-weight:800; }
-    .pj-gain-note-line { position:absolute; top:-20px; right:56px; height:26px; border-left:1.5px dashed rgba(255,255,255,0.9); animation:pjLinesIn 500ms ease both; }
-    @supports (animation-timeline: view()) {
-      .pj-gain-note { animation-timeline:view(); animation-range:entry 25% entry 60%; }
-      .pj-gain-note-line { animation-timeline:view(); animation-range:entry 35% entry 70%; }
-    }
     .pj-loss-copy { max-width:560px; }
     .pj-loss-copy h2 { font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
     .pj-loss-copy p { font-size:15px; color:rgba(255,255,255,0.85); margin:0; line-height:1.5; }
@@ -280,7 +256,6 @@
       .pj-band { padding:0 24px; }
       .pj-gain-duo { grid-template-columns:1fr 1fr; margin-top:80px; }
       .pj-solo-block { margin-top:80px; }
-      .pj-gain-panel.pj-solo-block { max-width:388px; }
       .pj-section { padding:80px 0 0; }
       .pj-launch { grid-template-columns:1fr 1.15fr; gap:64px; padding:16px 0 64px; }
       .pj-hero-copy { flex:1; }
@@ -312,7 +287,6 @@
       .pj-hero h1 { font-size:40px !important; }
       .pj-hero-copy > p { font-size:17px !important; max-width:500px !important; }
       .pj-hero-eyebrow, .pj-footer-eyebrow { font-size:12.5px; }
-      .pj-hero-trip { max-width:380px; }
       .pj-section { padding:96px 0 0; }
       .pj-section-head { max-width:640px; margin-bottom:40px; }
       .pj-section-head h2 { font-size:30px !important; }
@@ -322,10 +296,9 @@
       .pj-calc-big-price { font-size:108px; }
       .pj-gain-duo { margin-top:96px; }
       .pj-solo-block { margin-top:96px; }
-      .pj-gain-panel.pj-solo-block { max-width:488px; }
       .pj-calc { margin-top:96px; }
       .pj-proof { margin-top:96px; }
-      .pj-loss-banner, .pj-gain-panel { min-height:420px; }
+      .pj-loss-banner { min-height:420px; }
       .pj-loss-copy h2 { font-size:30px; }
       .pj-loss-copy p { font-size:16px; }
       .pj-steps3 { gap:20px; }
@@ -523,39 +496,6 @@
               <p class="pj-calc-disclaimer">Càlcul orientatiu: el cost real pot variar segons l'origen, el vehicle i la ruta. Aportació de referència: 5&nbsp;€ per persona i trajecte.</p>
             </div>
 
-            <div class="pj-gain-panel pj-solo-block" aria-hidden="true">
-              <div class="pj-hero-trip">
-                <div class="pj-hero-trip-head">
-                  <div class="pj-hero-trip-user">
-                    <div class="pj-hero-trip-avatar" style="background:oklch(0.55 0.19 275);">M</div>
-                    <div style="min-width:0;">
-                      <div class="pj-hero-trip-name">Marc</div>
-                      <div class="pj-hero-trip-role">Ofereixo</div>
-                    </div>
-                  </div>
-                  <div class="pj-hero-trip-seats">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    2 places
-                  </div>
-                </div>
-                <div class="pj-hero-trip-route">
-                  <span>Barcelona</span>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  <span>Gironella</span>
-                </div>
-                <div class="pj-hero-trip-meta">
-                  <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>Demà</span>
-                  <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>18:30</span>
-                </div>
-                <div class="pj-hero-trip-foot">
-                  <div class="pj-hero-trip-price">6€<span style="opacity:0.6; font-weight:600;">/</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg></div>
-                  <span class="pj-hero-trip-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.19 1.24-1.95 1.4-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1.01-2.41.24-.27.62-.39.98-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.58.8 2 .87 2.14.07.15.11.32.02.51-.08.19-.13.3-.26.46-.13.16-.28.36-.4.48-.13.13-.27.28-.11.55.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.13 1.3.28.13.44.11.6-.07.16-.18.68-.79.87-1.06.18-.27.36-.22.61-.13.24.09 1.55.73 1.82.86.27.13.44.2.51.31.07.12.07.66-.17 1.34z"/></svg></span>
-                </div>
-                <span class="pj-gain-note"><b>+10&nbsp;€</b> per plaça i anada i tornada</span>
-                <span class="pj-gain-note-line"></span>
-              </div>
-            </div>
-
           </div>
 
           <div id="pj-comfunciona" class="pj-section">
@@ -568,22 +508,35 @@
             <div class="pj-howworks">
               <div class="pj-howworks-illus" aria-hidden="true">
                 <svg viewBox="0 0 200 300" fill="none" style="width:100%; max-width:200px; height:auto;">
-                  <line x1="20" y1="30" x2="20" y2="270" stroke="#5B4CFB" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/>
-                  <circle cx="20" cy="30" r="11" fill="#5B4CFB"/>
-                  <text x="20" y="34.5" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" style="font-family:inherit;">1</text>
-                  <rect x="44" y="19" width="88" height="22" rx="11" fill="#EEEBFF"/>
-                  <text x="88" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#5B4CFB" style="font-family:inherit;">+3 places</text>
+                  <defs>
+                    <radialGradient id="pjLightGlow" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>
+                      <stop offset="100%" stop-color="#5B4CFB" stop-opacity="0"/>
+                    </radialGradient>
+                  </defs>
+                  <line x1="20" y1="28" x2="20" y2="252" stroke="#5B4CFB" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/>
+                  <circle class="pj-howworks-light" r="9" fill="url(#pjLightGlow)">
+                    <animateMotion path="M20,28 L20,252" dur="3.2s" repeatCount="indefinite" calcMode="linear"/>
+                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.9;1" dur="3.2s" repeatCount="indefinite"/>
+                  </circle>
+                  <circle cx="20" cy="28" r="11" fill="#5B4CFB"/>
+                  <text x="20" y="32.5" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" style="font-family:inherit;">1</text>
+                  <rect x="44" y="17" width="88" height="22" rx="11" fill="#EEEBFF"/>
+                  <text x="88" y="32" text-anchor="middle" font-size="11" font-weight="800" fill="#5B4CFB" style="font-family:inherit;">+3 places</text>
+                  <text x="44" y="52" font-size="10.5" font-weight="700" fill="#6B6F7B" style="font-family:inherit;">Publiques les places</text>
                   <circle cx="20" cy="140" r="11" fill="#5B4CFB"/>
                   <text x="20" y="144.5" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" style="font-family:inherit;">2</text>
                   <rect x="44" y="127" width="96" height="26" rx="13" fill="#25D366"/>
                   <text x="92" y="144" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" style="font-family:inherit;">A les 18.00?</text>
                   <path d="M126 139l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
-                  <circle cx="20" cy="250" r="11" fill="#5B4CFB"/>
-                  <text x="20" y="254.5" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" style="font-family:inherit;">3</text>
-                  <text x="58" y="256" text-anchor="middle" font-size="16" font-weight="800" fill="#9AA0AC" style="font-family:inherit;">42€</text>
-                  <line x1="44" y1="251" x2="72" y2="251" stroke="#C22A24" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M82 250h18M94 244l6 6-6 6" stroke="#5B4CFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <text x="130" y="259" text-anchor="middle" font-size="20" font-weight="800" fill="#1D874A" style="font-family:inherit;">12€</text>
+                  <text x="44" y="166" font-size="10.5" font-weight="700" fill="#6B6F7B" style="font-family:inherit;">Confirmeu per WhatsApp</text>
+                  <circle cx="20" cy="252" r="11" fill="#5B4CFB"/>
+                  <text x="20" y="256.5" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" style="font-family:inherit;">3</text>
+                  <text x="58" y="258" text-anchor="middle" font-size="16" font-weight="800" fill="#9AA0AC" style="font-family:inherit;">42€</text>
+                  <line x1="44" y1="253" x2="72" y2="253" stroke="#C22A24" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M82 252h18M94 246l6 6-6 6" stroke="#5B4CFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text x="130" y="261" text-anchor="middle" font-size="20" font-weight="800" fill="#1D874A" style="font-family:inherit;">12€</text>
+                  <text x="44" y="279" font-size="10.5" font-weight="700" fill="#6B6F7B" style="font-family:inherit;">Compartiu el cost</text>
                 </svg>
               </div>
               <div class="pj-howworks-steps">
