@@ -253,6 +253,24 @@
     .pj-footer-divider { width:100%; height:1px; background:#ECEDF2; margin:32px 0 24px; }
     .pj-footer-bottom { display:flex; justify-content:center; }
     .pj-footer-meta { font-size:12.5px; color:#8F93A1; font-weight:600; }
+    .pj-footer-nav a { border:none; background:none; font-family:inherit; font-weight:700; font-size:13.5px; color:#6B6F7B; cursor:pointer; padding:6px 10px; border-radius:8px; transition:color 150ms ease; text-decoration:none; }
+    .pj-footer-nav a:hover { color:#5B4CFB; }
+    .pj-legal-overlay { display:none; position:fixed; inset:0; z-index:200; background:rgba(20,21,26,0.55); padding:24px 16px; overflow-y:auto; }
+    .pj-legal-overlay:target { display:flex; justify-content:center; align-items:flex-start; }
+    .pj-legal-card { width:100%; max-width:640px; margin:32px auto; background:#fff; border-radius:20px; box-shadow:0 20px 60px -30px rgba(20,21,26,0.45); overflow:hidden; }
+    .pj-legal-card-head { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px 24px; border-bottom:1px solid #ECEDF2; position:sticky; top:0; background:#fff; }
+    .pj-legal-card-head h3 { margin:0; font-size:18px; font-weight:800; letter-spacing:-0.01em; color:#14151A; }
+    .pj-legal-close { flex-shrink:0; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:10px; color:#6B6F7B; font-size:22px; line-height:1; text-decoration:none; cursor:pointer; transition:background 150ms ease; }
+    .pj-legal-close:hover { background:#F3F4F8; color:#14151A; }
+    .pj-legal-body { padding:8px 24px 28px; }
+    .pj-legal-updated { font-size:12.5px; color:#8F93A1; font-weight:600; margin:12px 0 20px; }
+    .pj-legal-body h4 { font-size:14.5px; font-weight:800; color:#14151A; margin:20px 0 6px; }
+    .pj-legal-body p { font-size:13.5px; line-height:1.6; color:#6B6F7B; margin:0 0 4px; }
+    .pj-legal-body strong { color:#14151A; }
+    @media (max-width:599px) {
+      .pj-legal-overlay { padding:0; }
+      .pj-legal-card { max-width:none; margin:0; min-height:100%; border-radius:0; }
+    }
     .pj-footer-eyebrow { font-size:11.5px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:8px; }
     .pj-footer-cta-copy h2 { font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; color:#fff; }
     .pj-footer-cta-copy p { font-size:14.5px; color:rgba(255,255,255,0.92); margin:0; line-height:1.5; }
@@ -736,6 +754,14 @@
                   <button onClick="{{ scrollToLoginCard }}">Iniciar sessió</button>
                 </nav>
               </div>
+              <div class="pj-footer-col">
+                <div class="pj-footer-col-title">Legal</div>
+                <nav class="pj-footer-nav" aria-label="Legal">
+                  <a href="#pj-legal-avis">Avís legal</a>
+                  <a href="#pj-legal-privacitat">Privacitat</a>
+                  <a href="#pj-legal-cookies">Cookies</a>
+                </nav>
+              </div>
             </div>
             <div class="pj-footer-divider"></div>
             <div class="pj-footer-bottom">
@@ -743,6 +769,78 @@
             </div>
           </div>
         </footer>
+
+        <div id="pj-legal-avis" class="pj-legal-overlay">
+          <div class="pj-legal-card">
+            <div class="pj-legal-card-head">
+              <h3>Avís legal</h3>
+              <a href="#_" class="pj-legal-close" aria-label="Tancar">&times;</a>
+            </div>
+            <div class="pj-legal-body">
+              <p class="pj-legal-updated">Última actualització: 13 de juliol de 2026</p>
+              <h4>1. Dades identificatives</h4>
+              <p>En compliment del deure d'informació de la Llei 34/2002, de serveis de la societat de la informació i comerç electrònic (LSSI-CE), es fan constar les dades del titular d'aquest lloc web:</p>
+              <p>Titular: <strong>[NOM I COGNOMS]</strong><br>NIF/DNI: <strong>[NIF/DNI]</strong><br>Adreça: <strong>[ADREÇA]</strong><br>Correu de contacte: dcbediciones@gmail.com<br>Domini: pujobaixo.cat</p>
+              <h4>2. Objecte i activitat</h4>
+              <p>Pujobaixo és una plataforma que posa en contacte persones que fan trajectes amb cotxe amb persones que busquen trajecte, amb l'objectiu de generar una comunitat que optimitzi l'ús del vehicle entre el Berguedà i Barcelona. Actualment el servei és gratuït: no es cobra cap comissió ni es genera cap ingrés per l'ús de la plataforma.</p>
+              <h4>3. Condició d'intermediari</h4>
+              <p>Pujobaixo no és transportista ni organitza els trajectes: únicament facilita el contacte entre persones usuàries. Els acords sobre punt de trobada, horari, repartiment de costos i qualsevol altre detall es pacten directament entre les persones usuàries, que en són les úniques responsables.</p>
+              <p>Pujobaixo no verifica la identitat, el vehicle, l'assegurança ni els antecedents de les persones usuàries. Recomanem prudència i sentit comú a l'hora de quedar amb altres persones.</p>
+              <h4>4. Propietat intel·lectual</h4>
+              <p>La marca, el disseny i el codi de pujobaixo.cat pertanyen al seu titular. Se'n permet un ús personal i no comercial; en queda prohibida la reproducció total o parcial sense autorització.</p>
+              <h4>5. Responsabilitat</h4>
+              <p>El titular no respon de fallades tècniques alienes (connectivitat, proveïdors tercers) ni del contingut publicat per les persones usuàries.</p>
+              <h4>6. Legislació i jurisdicció</h4>
+              <p>Aquest avís es regeix per la legislació espanyola. Per a qualsevol controvèrsia, seran competents els jutjats del domicili del titular, llevat que la normativa de consumidors n'estableixi un altre.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="pj-legal-privacitat" class="pj-legal-overlay">
+          <div class="pj-legal-card">
+            <div class="pj-legal-card-head">
+              <h3>Política de privacitat</h3>
+              <a href="#_" class="pj-legal-close" aria-label="Tancar">&times;</a>
+            </div>
+            <div class="pj-legal-body">
+              <p class="pj-legal-updated">Última actualització: 13 de juliol de 2026</p>
+              <h4>1. Responsable del tractament</h4>
+              <p><strong>[NOM I COGNOMS]</strong>, NIF/DNI <strong>[NIF/DNI]</strong>, amb domicili a <strong>[ADREÇA]</strong>. Contacte: dcbediciones@gmail.com</p>
+              <h4>2. Dades que recollim</h4>
+              <p>Nom i cognoms, telèfon, correu electrònic i contrasenya (emmagatzemada xifrada); dades dels trajectes que publiques (origen, destinació, data, hora, places, preu orientatiu, notes); foto de perfil (opcional) i preferències de viatge (opcional).</p>
+              <h4>3. Finalitat</h4>
+              <p>Crear i gestionar el teu compte, mostrar els trajectes publicats a altres persones usuàries interessades, facilitar el contacte via WhatsApp i enviar-te correus tècnics (verificació de compte, recuperació de contrasenya).</p>
+              <h4>4. Base legal</h4>
+              <p>El consentiment que dones en registrar-te i l'execució del servei que sol·licites.</p>
+              <h4>5. Encarregats de tractament</h4>
+              <p>Utilitzem Supabase (base de dades, autenticació i emmagatzematge) i Resend (enviament de correus transaccionals) com a proveïdors tècnics. No cedim dades a tercers amb finalitats comercials ni publicitàries. No fem perfilat ni prenem decisions automatitzades.</p>
+              <h4>6. Conservació</h4>
+              <p>Conservem les teves dades mentre el compte estigui actiu. Si sol·licites la baixa, les eliminem o anonimitzem en un termini raonable, llevat d'obligació legal de conservar-les.</p>
+              <h4>7. Els teus drets</h4>
+              <p>Pots exercir els drets d'accés, rectificació, supressió, oposició, limitació i portabilitat escrivint a dcbediciones@gmail.com. També tens dret a presentar una reclamació davant l'Agència Espanyola de Protecció de Dades (aepd.es).</p>
+              <h4>8. Seguretat</h4>
+              <p>Apliquem mesures tècniques raonables (xifratge de contrasenyes, accés restringit), tot i que cap sistema és totalment infal·lible.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="pj-legal-cookies" class="pj-legal-overlay">
+          <div class="pj-legal-card">
+            <div class="pj-legal-card-head">
+              <h3>Política de cookies</h3>
+              <a href="#_" class="pj-legal-close" aria-label="Tancar">&times;</a>
+            </div>
+            <div class="pj-legal-body">
+              <p class="pj-legal-updated">Última actualització: 13 de juliol de 2026</p>
+              <h4>1. Quines cookies utilitzem</h4>
+              <p>Pujobaixo només utilitza cookies tècniques estrictament necessàries per mantenir la teva sessió iniciada, gestionades per Supabase Auth. No utilitzem cookies analítiques, de seguiment ni publicitàries, ni de tercers.</p>
+              <h4>2. Consentiment</h4>
+              <p>Com que són estrictament necessàries per al funcionament del servei, no requereixen el teu consentiment previ segons la normativa vigent.</p>
+              <h4>3. Com desactivar-les</h4>
+              <p>Pots eliminar-les o bloquejar-les des de la configuració del teu navegador. Si ho fas, hauràs de tornar a iniciar sessió cada vegada que visitis Pujobaixo.</p>
+            </div>
+          </div>
+        </div>
       </sc-if>
     </sc-if>
 
