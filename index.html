@@ -347,6 +347,12 @@
       .pj-footer-cta-copy h2 { font-size:30px; }
       .pj-footer-cta-copy p { font-size:16px; }
     }
+    /* Botó primari amb icona (app) */
+    .pj-btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:0 24px 0 16px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; font-family:inherit; cursor:pointer; transition:background 150ms ease, transform 120ms ease; }
+    .pj-btn-primary:hover { background:#4A3DE8; }
+    .pj-btn-primary:active { background:#4338D6; transform:scale(0.98); }
+    .pj-btn-primary:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    .pj-btn-primary svg { flex-shrink:0; }
     /* Segmentado (pestanyes de contingut i toggles de vista) */
     .pj-seg { display:flex; gap:4px; padding:4px; background:#fff; border:1.5px solid #ECEDF2; border-radius:14px; }
     .pj-seg > button { min-height:40px; border:none; border-radius:10px; background:transparent; color:#727681; font-weight:600; font-size:14px; font-family:inherit; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; padding:0 12px; line-height:1.2; white-space:normal; transition:background 120ms ease-out, color 120ms ease-out; }
@@ -914,20 +920,21 @@
     <sc-if value="{{ isTripsView }}">
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 24px; flex-wrap:wrap; gap: 16px;">
         <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin: 0;">Propers viatges</h1>
-        <button onClick="{{ goToPost }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:14px; cursor:pointer;">+ Publicar</button>
+        <button onClick="{{ goToPost }}" class="pj-btn-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Publicar</button>
       </div>
 
-      <div style="display:flex; align-items:stretch; gap: 8px; margin-bottom: 24px;">
-        <div role="tablist" aria-label="Tipus de publicació" class="pj-seg pj-seg-tabs" style="flex:1; min-width:0;">
-          <button role="tab" aria-selected="{{ isOfferTab }}" onClick="{{ setViatgesTabOffer }}">
-            Ofereixo
-            <span class="pj-seg-count">({{ offerCount }})</span>
-          </button>
-          <button role="tab" aria-selected="{{ isRequestTab }}" onClick="{{ setViatgesTabRequest }}">
-            Necessito
-            <span class="pj-seg-count">({{ requestCount }})</span>
-          </button>
-        </div>
+      <div role="tablist" aria-label="Tipus de publicació" class="pj-seg pj-seg-tabs" style="margin-bottom: 8px;">
+        <button role="tab" aria-selected="{{ isOfferTab }}" onClick="{{ setViatgesTabOffer }}">
+          Ofereixo
+          <span class="pj-seg-count">({{ offerCount }})</span>
+        </button>
+        <button role="tab" aria-selected="{{ isRequestTab }}" onClick="{{ setViatgesTabRequest }}">
+          Necessito
+          <span class="pj-seg-count">({{ requestCount }})</span>
+        </button>
+      </div>
+
+      <div style="display:flex; align-items:center; justify-content:flex-end; margin-bottom: 16px;">
         <div class="pj-seg pj-viewtoggle" role="group" aria-label="Vista dels viatges">
           <button type="button" onClick="{{ setTripsViewList }}" aria-pressed="{{ isTripsList }}" aria-label="Veure com a llista">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle></svg>
@@ -1176,7 +1183,7 @@
         <sc-if value="{{ driverTripsEmpty }}">
           <div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center;">
             <div style="color:#6B6F7B; font-size:14px; margin-bottom: 24px;">Encara no has publicat cap viatge. Anima't a publicar-ne un!</div>
-            <button onClick="{{ goToPostAsOffer }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:14px; cursor:pointer; font-family:inherit;">+ Publicar el meu primer viatge</button>
+            <button onClick="{{ goToPostAsOffer }}" class="pj-btn-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Publicar el meu primer viatge</button>
           </div>
         </sc-if>
         <sc-for list="{{ myDriverTrips }}" as="trip" hint-placeholder-count="2">
@@ -1255,7 +1262,7 @@
         <sc-if value="{{ bookingsEmpty }}">
           <div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center;">
             <div style="color:#6B6F7B; font-size:14px; margin-bottom: 24px;">Encara no has reservat cap viatge. Publica una sol·licitud i que et trobin!</div>
-            <button onClick="{{ goToPostAsRequest }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:14px; cursor:pointer; font-family:inherit;">+ Publicar la meva sol·licitud</button>
+            <button onClick="{{ goToPostAsRequest }}" class="pj-btn-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Publicar la meva sol·licitud</button>
           </div>
         </sc-if>
 
