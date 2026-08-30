@@ -39,8 +39,7 @@ Extraída directamente del código (`index.html`) auditando todos los valores de
 - **Sombras** (solo 3 recetas en todo el producto):
   - Card/hero: `0 20px 60px -30px rgba(20,21,26,0.25)` — difuminada, oscura, sin color de marca.
   - Toast: `0 12px 30px -10px rgba(20,21,26,0.4)` — más contraste, para que flote sobre el contenido.
-  - Tab activo: `0 8px 20px -10px rgba(91,76,251,0.45)` — sombra de color (morado marca), reservada para el elemento seleccionado en un selector de pestañas.
-- **Estado "activo/seleccionado"** (tabs, nav): fondo `rgba(91,76,251,0.1)` o `#EEEBFF` + texto `#5B4CFB` + peso 700 + (opcional) la sombra de tab activo.
+- **Estado "activo/seleccionado"** (segmentados, nav): fondo `#EEEBFF` + texto `#5B4CFB` + peso 700. Sin sombra: las sombras se reservan a cards.
 
 ### Jerarquía visual general
 
@@ -161,11 +160,43 @@ padding:0 16px; font-size:15px; font-family:inherit;
 ```
 Sin excepciones — **si un input nuevo no sigue exactamente esto, rompe la consistencia** (ver el bug de fecha/hora que corregimos, que tenía iconos y padding distintos).
 
-### Tabs
+### Botón primario con icono (`.pj-btn-primary`)
 
-Dos "familias" de tabs con el mismo lenguaje visual:
-1. **Segmentos de contenido** (Ofereixo/Necessito, Conductor/Passatger): fila `flex`, cada botón `flex:1`, activo = tinte morado + sombra suave + texto morado/700; inactivo = transparente + texto gris/600.
-2. **Nav (bottom nav / sidebar)**: mismo lenguaje de activo/inactivo, pero con icono SVG que cambia de color junto al texto.
+Para acciones principales dentro de la app (Publicar y sus variantes en estados vacíos). `inline-flex`, `gap:8px`, `min-height:44px`, `padding:0 24px 0 16px` (8px menos a la izquierda para compensar el peso visual del icono), radio 14, fondo `#5B4CFB`, texto blanco 14px/700; hover `#4A3DE8`, active `#4338D6` + `scale(0.98)`, focus `#B9B0FF`. El icono es un SVG de 18px trazado con `currentColor` y `aria-hidden`, nunca un carácter de texto ("+ Publicar" queda retirado): así el espacio icono-texto es un gap de 8pt real y no depende de la fuente.
+
+### Tarjeta de beneficio con interruptor (`.pj-benefit` + `.pj-switch`)
+
+Para ofrecer un servicio opcional dentro de un formulario (hoy: avisos por correo en la sol·licitud). Se presenta como beneficio, no como casilla de consentimiento: título afirmativo ("T'avisem quan aparegui un viatge que encaixi"), no una pregunta.
+
+- Contenedor: fondo blanco, `border:1.5px solid #ECEDF2`, radio 14, `padding:16px`.
+- Cabecera `flex`, `gap:12px`: icono en círculo de 40px `#EEEBFF` con trazo `#5B4CFB` (mismo recurso que los pasos de la landing), cuerpo con título 15px/700 `#14151A` y subtítulo 13px/600 `#6B6F7B` (`margin-top:4px`), e interruptor a la derecha.
+- Interruptor `.pj-switch`: `<button role="switch" aria-checked>`, 44×26, pista `#D9DBE3` / activa `#5B4CFB`, botón blanco de 20px con desplazamiento de 18px y transición de 160ms. Un switch comunica "servicio activo/inactivo"; un checkbox comunica "acepto". Aquí es lo primero.
+- Revelado progresivo: activo → el subtítulo resume la configuración ("±2 h · només aquest dia") con un `.pj-viewlink` "Canviar"; al pulsarlo, `.pj-benefit-options` (separador superior `#ECEDF2`, `padding-top:16px`, grupos a 16px) muestra los segmentados `.pj-seg-tabs` con etiquetas 13px/700. Desactivado → subtítulo "Avís desactivat" y nada más.
+- Todo el contenido interior comparte el borde izquierdo de 16px de la tarjeta; solo el subtítulo se alinea con el título (columna del cuerpo).
+- Regla: los campos que solo importan a quien acepta una opción no se muestran hasta que la acepta y pide cambiarlos; el valor por defecto se enseña como texto, no como control. Descartado: checkbox con etiqueta larga (se leía como configuración), preguntar antes o después de publicar (pantalla extra y campos duplicados en edición).
+
+### Segmentado (`.pj-seg`)
+
+Un solo componente para toda decisión "elige una opción entre pocas" fuera de la navegación. Contenedor blanco, `border:1.5px solid #ECEDF2`, `border-radius:14px`, `padding:4px`, `gap:4px`. Cada opción: `min-height:40px`, `border-radius:10px`, 14px/600 gris `#727681`; activa (`aria-selected` o `aria-pressed`) = fondo `#EEEBFF` + `#5B4CFB` + 700. Hover inactivo `#F3F4F8`. Focus `outline:2px solid #B9B0FF`. **Sin sombra** (el antiguo tab con sombra morada queda retirado).
+
+Variantes por clase adicional:
+- `.pj-seg-tabs`: opciones con `flex:1` a ancho completo. Usado en Ofereixo/Necessito, Com a conductor/Com a passatger y en los selectores de margen horario (±1/±2/±3 h) y de día del formulario de sol·licitud (ahí con `aria-pressed` y `role="group"`, no `tablist`), con `role="tablist"`/`role="tab"`. El contador va en `<span class="pj-seg-count">` (13px/600, opacidad 0.65). Las etiquetas no repiten la palabra del título de la vista: bajo "Propers viatges" son "Ofereixo" / "Necessito", las mismas que el `roleLabel` de las tarjetas.
+
+### Enlace de cambio de vista (`.pj-viewlink`)
+
+Botón de texto para alternar lista/calendario en Viatges: `inline-flex`, `gap:8px`, `min-height:32px`, `padding:0 8px`, radio 10, sin borde ni fondo, `#5B4CFB` 13px/700, icono 16px `currentColor`; hover `#EEEBFF`, focus `#B9B0FF`, `aria-pressed`. Alineado a la derecha, 8px bajo las pestañas y 16px sobre el contenido; cuando no se muestra, las pestañas recuperan los 24px. Etiqueta "Veure per dies" (icono calendario) en lista y "Veure llista" (icono lista) en calendario.
+
+**Regla de aparición:** solo existe si la pestaña activa tiene viajes en más de un día; con todo en un mismo día no hay nada que navegar y la lista es la vista. Si el usuario tenía guardado "calendari" pero la condición no se cumple, se muestra lista sin tocar la preferencia.
+
+**Decisiones descartadas:** un segmentado de dos iconos (`.pj-seg`) en su propia fila, por peso visual excesivo; el mismo en la fila de las pestañas, por acumular dos decisiones en una línea; y calendario por defecto, porque con poca oferta enseña el vacío antes que el contenido.
+
+### Nav (bottom nav / sidebar)
+
+Mismo lenguaje de activo/inactivo que el segmentado, pero con icono SVG que cambia de color junto al texto y sin contenedor común.
+
+### Calendari (vista de viatges)
+
+Card blanca `border-radius:24px; padding:16px`. Cabecera: rango o mes (15px/800, primera letra en mayúscula desde JS, nunca `text-transform`) + dos botones de 36px `#F3F4F8` radio 12. Fila de días `dl…dg` 11px/700 mayúsculas `#8F93A1`. Grid 7 columnas, gap 4, celda `.pj-cal-day` 52px alto, radio 12, 14px/600; hoy = `#5B4CFB`/800; seleccionado = fondo `#5B4CFB` + blanco, sin sombra; pasado o mes vecino = `#C4C7D0` (pasado además `disabled`). Contador por día en pill 16px `#EEEBFF`/`#5B4CFB` (`.pj-cal-count`). Chevron centrado bajo el grid que expande de semana a mes (`aria-expanded`, icono rota 180°, `max-height` animado 260ms). Debajo, `.pj-cal-dayhead`: día seleccionado a la izquierda y "N viatges" a la derecha, y las tarjetas de ese día sin cambios.
 
 ### Navbar mobile (bottom nav)
 

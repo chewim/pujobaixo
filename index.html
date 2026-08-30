@@ -347,6 +347,20 @@
       .pj-footer-cta-copy h2 { font-size:30px; }
       .pj-footer-cta-copy p { font-size:16px; }
     }
+    /* Targeta de benefici amb interruptor (formularis) */
+    .pj-benefit { background:#fff; border:1.5px solid #ECEDF2; border-radius:14px; padding:16px; }
+    .pj-benefit-head { display:flex; align-items:flex-start; gap:12px; }
+    .pj-benefit-icon { width:40px; height:40px; border-radius:50%; background:#EEEBFF; color:#5B4CFB; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .pj-benefit-body { flex:1; min-width:0; padding-top:2px; }
+    .pj-benefit-title { font-size:15px; font-weight:700; color:#14151A; line-height:1.3; }
+    .pj-benefit-sub { display:flex; align-items:center; flex-wrap:wrap; margin-top:4px; font-size:13px; font-weight:600; color:#6B6F7B; line-height:1.4; }
+    .pj-benefit-options { display:flex; flex-direction:column; gap:16px; margin-top:16px; padding-top:16px; border-top:1.5px solid #ECEDF2; }
+    .pj-switch { position:relative; width:44px; height:26px; flex-shrink:0; margin-top:8px; border:none; border-radius:999px; background:#D9DBE3; cursor:pointer; padding:0; transition:background 160ms ease-out; }
+    .pj-switch[aria-checked="true"] { background:#5B4CFB; }
+    .pj-switch-knob { position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(20,21,26,0.25); transition:transform 160ms ease-out; }
+    .pj-switch[aria-checked="true"] .pj-switch-knob { transform:translateX(18px); }
+    .pj-switch:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    @media (prefers-reduced-motion: reduce) { .pj-switch, .pj-switch-knob { transition:none; } }
     /* Botó primari amb icona (app) */
     .pj-btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:0 24px 0 16px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; font-family:inherit; cursor:pointer; transition:background 150ms ease, transform 120ms ease; }
     .pj-btn-primary:hover { background:#4A3DE8; }
@@ -861,13 +875,13 @@
               <a href="#_" class="pj-legal-close" aria-label="Tancar">&times;</a>
             </div>
             <div class="pj-legal-body">
-              <p class="pj-legal-updated">Última actualització: 13 de juliol de 2026</p>
+              <p class="pj-legal-updated">Última actualització: 30 d'agost de 2026</p>
               <h4>1. Responsable del tractament</h4>
               <p>Persona física responsable del lloc web. Dades identificatives completes disponibles a petició a través dels canals de contacte de pujobaixo.cat.</p>
               <h4>2. Dades que recollim</h4>
               <p>Nom i cognoms, telèfon, correu electrònic i contrasenya (emmagatzemada xifrada); dades dels trajectes que publiques (origen, destinació, data, hora, places, preu orientatiu, notes); foto de perfil (opcional) i preferències de viatge (opcional).</p>
               <h4>3. Finalitat</h4>
-              <p>Crear i gestionar el teu compte, mostrar els trajectes publicats a altres persones usuàries interessades, facilitar el contacte via WhatsApp i enviar-te correus tècnics (verificació de compte, recuperació de contrasenya).</p>
+              <p>Crear i gestionar el teu compte, mostrar els trajectes publicats a altres persones usuàries interessades, facilitar el contacte via WhatsApp, enviar-te correus tècnics (verificació de compte, recuperació de contrasenya) i, si ho tens activat a la teva sol·licitud, avisar-te per correu quan es publiqui un viatge que hi encaixi.</p>
               <h4>4. Base legal</h4>
               <p>El consentiment que dones en registrar-te i l'execució del servei que sol·licites.</p>
               <h4>5. Encarregats de tractament</h4>
@@ -1000,7 +1014,7 @@
       </sc-if>
 
       <sc-for list="{{ visibleTrips }}" as="trip" hint-placeholder-count="3">
-        <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 16px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 16px;">
+        <div class="pj-appear" id="{{ trip.domId }}" style="background:#fff; border-radius:24px; padding: 16px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 16px; box-shadow:{{ trip.highlightShadow }}; transition:box-shadow 300ms ease;">
           <div style="display:flex; align-items:flex-start; justify-content:space-between; gap: 16px;">
             <div style="display:flex; align-items:center; gap: 16px; min-width:0;">
               <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
@@ -1149,7 +1163,7 @@
           <div style="flex:1;">
             <label for="post-price" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
               <sc-if value="{{ isPostOffer }}">Preu per plaça (€)</sc-if>
-              <sc-if value="{{ isPostRequest }}">Pressupost orientatiu (€) (opcional)</sc-if>
+              <sc-if value="{{ isPostRequest }}">Pressupost (€)</sc-if>
             </label>
             <input id="post-price" type="number" min="0" step="0.5" value="{{ postForm.pricePerSeat }}" onChange="{{ setPostPrice }}" placeholder="{{ postPricePlaceholder }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
           </div>
@@ -1157,9 +1171,55 @@
 
         <label for="post-notes" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
           <sc-if value="{{ isPostOffer }}">Notes de recollida (opcional)</sc-if>
-          <sc-if value="{{ isPostRequest }}">Flexibilitat horària / observacions (opcional)</sc-if>
+          <sc-if value="{{ isPostRequest }}">Observacions (opcional)</sc-if>
         </label>
         <textarea id="post-notes" value="{{ postForm.pickupNotes }}" onChange="{{ setPostNotes }}" placeholder="Ex: Sortida des de l'estació de bus" class="pj-post-section" style="width:100%; min-height:80px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 16px 16px; font-size:15px; font-family:inherit; resize:vertical;"></textarea>
+
+        <sc-if value="{{ isPostRequest }}">
+          <div class="pj-benefit pj-post-section">
+            <div class="pj-benefit-head">
+              <div class="pj-benefit-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
+              </div>
+              <div class="pj-benefit-body">
+                <div class="pj-benefit-title" id="post-notify-title">T'avisem quan aparegui un viatge que encaixi</div>
+                <sc-if value="{{ postForm.notifyEmail }}">
+                  <sc-if value="{{ !postNotifyOpen }}">
+                    <div class="pj-benefit-sub">
+                      <span>{{ postNotifySummary }}</span>
+                      <button type="button" onClick="{{ openPostNotify }}" class="pj-viewlink" style="min-height:24px; padding:0 4px; margin-left:4px;">Canviar</button>
+                    </div>
+                  </sc-if>
+                </sc-if>
+                <sc-if value="{{ !postForm.notifyEmail }}">
+                  <div class="pj-benefit-sub"><span>Avís desactivat</span></div>
+                </sc-if>
+              </div>
+              <button type="button" role="switch" aria-checked="{{ postForm.notifyEmail }}" aria-labelledby="post-notify-title" onClick="{{ toggleNotifyEmail }}" class="pj-switch"><span class="pj-switch-knob"></span></button>
+            </div>
+            <sc-if value="{{ postForm.notifyEmail }}">
+              <sc-if value="{{ postNotifyOpen }}">
+                <div class="pj-benefit-options">
+                  <div>
+                    <div id="post-window-label" style="font-size:13px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">Marge horari</div>
+                    <div role="group" aria-labelledby="post-window-label" class="pj-seg pj-seg-tabs">
+                      <button type="button" onClick="{{ setTimeWindow60 }}" aria-pressed="{{ isTimeWindow60 }}">±1 h</button>
+                      <button type="button" onClick="{{ setTimeWindow120 }}" aria-pressed="{{ isTimeWindow120 }}">±2 h</button>
+                      <button type="button" onClick="{{ setTimeWindow180 }}" aria-pressed="{{ isTimeWindow180 }}">±3 h</button>
+                    </div>
+                  </div>
+                  <div>
+                    <div id="post-daywindow-label" style="font-size:13px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">Dia</div>
+                    <div role="group" aria-labelledby="post-daywindow-label" class="pj-seg pj-seg-tabs">
+                      <button type="button" onClick="{{ setDateWindow0 }}" aria-pressed="{{ isDateWindow0 }}">Només aquest dia</button>
+                      <button type="button" onClick="{{ setDateWindow1 }}" aria-pressed="{{ isDateWindow1 }}">També ±1 dia</button>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+            </sc-if>
+          </div>
+        </sc-if>
 
         <button onClick="{{ handlePostTrip }}" disabled="{{ postBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
           <sc-if value="{{ postBusy }}">Publicant…</sc-if>
@@ -1483,9 +1543,11 @@ class Component extends DCLogic {
     calSelected: null,
     calCursor: null,
     calExpanded: false,
+    highlightTripId: null,
+    postNotifyOpen: false,
     returnAfterAuth: null,
     editingTripId: null,
-    postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '' },
+    postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '', timeWindow: 120, dateWindow: 0, notifyEmail: true },
     postBusy: false,
     postError: '',
     postShowRoutePresets: false,
@@ -1635,6 +1697,12 @@ class Component extends DCLogic {
     const { data: { session } } = await this.sb.auth.getSession();
     const user = session ? session.user : null;
 
+    const requestedTrip = params.get('trip');
+    if (requestedTrip) {
+      this._pendingTripId = requestedTrip;
+      if (!user) this.setState({ returnAfterAuth: { tripId: requestedTrip } });
+    }
+
     let initialView = 'trips';
     if (requestedView === 'verified') initialView = 'verified';
     else if (requestedView === 'reset') {
@@ -1779,6 +1847,25 @@ class Component extends DCLogic {
   _fmtDateShort(iso) {
     if (!iso) return '';
     return new Date(iso).toLocaleDateString('ca-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  // Obre la llista sobre el viatge indicat a ?trip= (enllaç dels correus d'avís).
+  _revealPendingTrip(trips) {
+    const id = this._pendingTripId;
+    if (!id) return;
+    this._pendingTripId = null;
+    const trip = trips.find((t) => t.id === id);
+    if (!trip) { this._showToast('Aquest viatge ja no està disponible', 'error'); return; }
+    this.setState({
+      viatgesTab: trip.trip_type === 'request' ? 'request' : 'offer',
+      tripsView: 'list',
+      highlightTripId: id,
+    });
+    setTimeout(() => {
+      const el = document.getElementById('trip-' + id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 120);
+    setTimeout(() => this.setState({ highlightTripId: null }), 4000);
   }
 
   // ---- Calendari (vista de viatges) ----
@@ -1974,7 +2061,11 @@ class Component extends DCLogic {
         availableSeats: trip.available_seats,
         pricePerSeat: trip.price_per_seat != null ? trip.price_per_seat : (trip.trip_type === 'request' ? '' : 0),
         pickupNotes: trip.pickup_notes || '',
+        timeWindow: trip.time_window || 120,
+        dateWindow: trip.date_window || 0,
+        notifyEmail: trip.notify_email !== false,
       },
+      postNotifyOpen: false,
       view: 'post',
     });
   }
@@ -2027,6 +2118,7 @@ class Component extends DCLogic {
   }
 
   goTo(view) {
+    if (view === 'post') this.setState({ postNotifyOpen: false });
     const rootViews = ['trips', 'myTrips', 'profile'];
     const currentIsSameRoot = rootViews.includes(view) && this.state.view === view;
     if (currentIsSameRoot) {
@@ -2077,6 +2169,7 @@ class Component extends DCLogic {
         const { error } = await this.sb.auth.signInWithPassword({ email, password: authForm.password });
         if (error) throw error;
         const pending = this.state.returnAfterAuth;
+        if (pending && pending.tripId) this._pendingTripId = pending.tripId;
         this.setState({ returnAfterAuth: null, view: 'trips' });
         this._loadTrips();
         if (pending && pending.tripId) this._showToast('Ja pots contactar per WhatsApp des de la targeta del viatge');
@@ -2194,6 +2287,7 @@ class Component extends DCLogic {
       }
       if (error) throw error;
       this.setState({ trips: data || [] });
+      this._revealPendingTrip(data || []);
     } catch (e) {
       console.error('load trips', e);
       if (!silent) this._showToast('No s\'han pogut carregar els viatges', 'error');
@@ -2241,6 +2335,11 @@ class Component extends DCLogic {
         pickup_notes: postForm.pickupNotes || null,
         trip_type: postForm.tripType,
       };
+      if (isRequest) {
+        payload.time_window = Number(postForm.timeWindow) || 120;
+        payload.date_window = Number(postForm.dateWindow) || 0;
+        payload.notify_email = postForm.notifyEmail !== false;
+      }
       let error;
       if (editingTripId) {
         ({ error } = await this.sb.from('trips').update(payload).eq('id', editingTripId));
@@ -2252,7 +2351,7 @@ class Component extends DCLogic {
       this.setState({
         view: 'trips',
         editingTripId: null,
-        postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '' },
+        postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '', timeWindow: 120, dateWindow: 0, notifyEmail: true },
       });
       this._loadTrips();
     } catch (e) {
@@ -2419,6 +2518,8 @@ class Component extends DCLogic {
         editHandler: (e) => { e.stopPropagation(); this.goToEditTrip(t); },
         deleteHandler: (e) => { e.stopPropagation(); this.handleDeleteTrip(t); },
         stopProp: (e) => e.stopPropagation(),
+        domId: 'trip-' + t.id,
+        highlightShadow: s.highlightTripId === t.id ? '0 0 0 3px #B9B0FF' : 'none',
       };
     });
     const offerTrips = trips.filter((t) => !t.isRequest);
@@ -2742,6 +2843,20 @@ class Component extends DCLogic {
       postTypeRequestBorder: s.postForm.tripType === 'request' ? '#5B4CFB' : '#ECEDF2',
       setPostDepartAt: (e) => this.setState((st) => ({ postForm: { ...st.postForm, departAt: e.target.value } })),
       departDateMin: this._todayKey(),
+      isTimeWindow60: Number(s.postForm.timeWindow) === 60,
+      isTimeWindow120: Number(s.postForm.timeWindow) === 120 || !s.postForm.timeWindow,
+      isTimeWindow180: Number(s.postForm.timeWindow) === 180,
+      setTimeWindow60: () => this.setState((st) => ({ postForm: { ...st.postForm, timeWindow: 60 } })),
+      setTimeWindow120: () => this.setState((st) => ({ postForm: { ...st.postForm, timeWindow: 120 } })),
+      setTimeWindow180: () => this.setState((st) => ({ postForm: { ...st.postForm, timeWindow: 180 } })),
+      isDateWindow0: Number(s.postForm.dateWindow || 0) === 0,
+      isDateWindow1: Number(s.postForm.dateWindow) === 1,
+      setDateWindow0: () => this.setState((st) => ({ postForm: { ...st.postForm, dateWindow: 0 } })),
+      setDateWindow1: () => this.setState((st) => ({ postForm: { ...st.postForm, dateWindow: 1 } })),
+      toggleNotifyEmail: () => this.setState((st) => ({ postForm: { ...st.postForm, notifyEmail: !(st.postForm.notifyEmail !== false) }, postNotifyOpen: false })),
+      postNotifyOpen: !!s.postNotifyOpen,
+      openPostNotify: () => this.setState({ postNotifyOpen: true }),
+      postNotifySummary: `±${Math.round((Number(s.postForm.timeWindow) || 120) / 60)} h · ${Number(s.postForm.dateWindow) === 1 ? 'també ±1 dia' : 'només aquest dia'}`,
       departDateVal: (s.postForm.departAt || '').split('T')[0] || '',
       departTimeVal: (s.postForm.departAt || '').split('T')[1] || '',
       setPostDepartDate: (e) => this.setState((st) => {
@@ -2760,7 +2875,7 @@ class Component extends DCLogic {
       postShowRoutePresets: s.postShowRoutePresets,
       togglePostRoutePresets: () => this.setState((st) => ({ postShowRoutePresets: !st.postShowRoutePresets })),
       routePresetsChevron: s.postShowRoutePresets ? 'rotate(180deg)' : 'rotate(0deg)',
-      postPricePlaceholder: s.postForm.tripType === 'request' ? 'Ex: 5' : '',
+      postPricePlaceholder: s.postForm.tripType === 'request' ? 'Opcional' : '',
       routeOptions: ROUTES.map((r) => ({
         value: r.value,
         label: r.label,
