@@ -53,3 +53,13 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 - **Verificació de telèfon en temps real al registre (consulta pública de duplicats).**
   Descartat de forma permanent, no aparcat: permetria esbrinar quins números estan registrats. Vegeu gestió de l'error `profiles_phone_unique` a `index.html` (`_isOpaqueSignupError`).
+
+## Auditoria DS ↔ index.html (31 ag. 2026)
+
+Auditoria línia per línia d'`index.html` contra `DESIGN_SYSTEM.md`. Corregit: botons del bloc d'error de signup (radi 999→14, alçada 36→44, padding 14→16, font 13→14 — eren l'única violació de "cap botó és pill" dins l'app); separador "·" `#D8DAE3`→`#C4C7D0` (gris del sistema); `.pj-hero-badge` `font-weight:500`→600 (500 no és un pes permès).
+
+**Pendents de decisió (no corregits — cal decidir si documentar-los o normalitzar-los):**
+- **Radi `20px` a 8 components de la landing** (`.pj-axis-card`, `.pj-calc`, `.pj-databento-eq/eco`, `.pj-proof-card`, `.pj-step-card`, `.pj-bento`, `.pj-legal-card`). Consistent entre ells però fora de l'escala del sistema (10/12/14/16/24/28). Opció A: pujar a 24. Opció B: documentar "20px = radi de la mini-landing" com a subsistema.
+- **Escala de color de la calculadora d'estalvi** (`calcColors`/`calcTints`, L2760/2775): gradació semàntica vermell→verd amb 4 tons intermedis (`#DE7317`, `#C9A227`, `#0B6B3A`...) fora de la paleta. Reutilitza `#C22A24`/`#1D874A` als extrems. Cal una línia al DS marcant-la com a escala semàntica local, no reutilitzable fora d'aquí.
+- **`#9AA0AC`** al `<text>` SVG del "42€" ratllat del hero (L659): gris no documentat, proper a `#8F93A1`. Menor.
+- **`.pj-benefit` amb radi 16px**: documentat, però és l'únic contenidor tipus card fora de 24/28. Decidir si s'alinea a 24 o es manté com a excepció conscient.
