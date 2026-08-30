@@ -1165,7 +1165,7 @@
               <sc-if value="{{ isPostOffer }}">Preu per plaça (€)</sc-if>
               <sc-if value="{{ isPostRequest }}">Pressupost (€)</sc-if>
             </label>
-            <input id="post-price" type="number" min="0" step="0.5" value="{{ postForm.pricePerSeat }}" onChange="{{ setPostPrice }}" placeholder="{{ postPricePlaceholder }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
+            <input id="post-price" type="text" inputmode="decimal" autocomplete="off" value="{{ postForm.pricePerSeat }}" onChange="{{ setPostPrice }}" placeholder="{{ postPricePlaceholder }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
           </div>
         </div>
 
@@ -1779,6 +1779,12 @@ class Component extends DCLogic {
     console.error(fallback, e);
     const m = (e && e.message) || '';
     if (m.includes('profiles_phone_unique')) return 'Aquest número de telèfon ja té un compte.';
+    if (m.includes('trips_price_per_seat_check')) return 'El preu per plaça ha de ser superior a 0 €.';
+    if (m.includes('trips_time_window_check') || m.includes('trips_date_window_check')) return 'Revisa el marge horari de l\'avís.';
+    if (/available_seats/i.test(m) && /check/i.test(m)) return 'Revisa el nombre de places.';
+    if (/JWT|jwt expired|not authenticated|401/i.test(m)) return 'La sessió ha caducat. Torna a iniciar sessió.';
+    if (/row-level security|violates row-level/i.test(m)) return 'No tens permís per fer aquesta acció. Torna a iniciar sessió.';
+    if (/Failed to fetch|NetworkError|network/i.test(m)) return 'No hi ha connexió. Comprova la xarxa i torna-ho a provar.';
     return fallback;
   }
 
@@ -2317,6 +2323,22 @@ class Component extends DCLogic {
       this.setState({ postError: 'La sortida ha de ser en el futur. Revisa la data i l\'hora.' });
       return;
     }
+    const seatsNum = Number(postForm.availableSeats);
+    if (!Number.isInteger(seatsNum) || seatsNum < 1) {
+      this.setState({ postError: postForm.tripType === 'request' ? 'Indica quantes persones sou (mínim 1).' : 'Indica quantes places ofereixes (mínim 1).' });
+      return;
+    }
+    // Accepta coma o punt com a separador decimal ("4,50" i "4.50").
+    const priceRaw = String(postForm.pricePerSeat == null ? '' : postForm.pricePerSeat).trim().replace(',', '.').replace(/[^\d.]/g, '');
+    const priceNum = priceRaw === '' ? null : Number(priceRaw);
+    if (priceRaw !== '' && !Number.isFinite(priceNum)) {
+      this.setState({ postError: 'El preu no és vàlid. Escriu només xifres, per exemple 5 o 4,50.' });
+      return;
+    }
+    if (postForm.tripType !== 'request' && !(priceNum > 0)) {
+      this.setState({ postError: 'Indica un preu per plaça superior a 0 €.' });
+      return;
+    }
     this.setState({ postBusy: true, postError: '' });
     try {
       const isRequest = postForm.tripType === 'request';
@@ -2324,14 +2346,14 @@ class Component extends DCLogic {
       const destinationValue = postForm.destination.trim();
       const preset = ROUTES.find((r) => r.origin === originValue && r.destination === destinationValue);
       const directionValue = preset ? preset.value : 'CUSTOM';
-      const hasPrice = postForm.pricePerSeat !== '' && postForm.pricePerSeat != null;
+      const hasPrice = priceNum != null && priceNum > 0;
       const payload = {
         direction: directionValue,
         origin: originValue,
         destination: destinationValue,
         depart_at: new Date(postForm.departAt).toISOString(),
         available_seats: Number(postForm.availableSeats),
-        price_per_seat: (isRequest && !hasPrice) ? null : Number(postForm.pricePerSeat),
+        price_per_seat: (isRequest && !hasPrice) ? null : priceNum,
         pickup_notes: postForm.pickupNotes || null,
         trip_type: postForm.tripType,
       };
