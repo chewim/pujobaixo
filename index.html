@@ -917,18 +917,17 @@
         <button onClick="{{ goToPost }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:14px; cursor:pointer;">+ Publicar</button>
       </div>
 
-      <div role="tablist" aria-label="Tipus de publicació" class="pj-seg pj-seg-tabs" style="margin-bottom: 8px;">
-        <button role="tab" aria-selected="{{ isOfferTab }}" onClick="{{ setViatgesTabOffer }}">
-          Ofereixo viatge
-          <span class="pj-seg-count">({{ offerCount }})</span>
-        </button>
-        <button role="tab" aria-selected="{{ isRequestTab }}" onClick="{{ setViatgesTabRequest }}">
-          Necessito viatge
-          <span class="pj-seg-count">({{ requestCount }})</span>
-        </button>
-      </div>
-
-      <div style="display:flex; align-items:center; justify-content:flex-end; margin-bottom: 16px;">
+      <div style="display:flex; align-items:stretch; gap: 8px; margin-bottom: 24px;">
+        <div role="tablist" aria-label="Tipus de publicació" class="pj-seg pj-seg-tabs" style="flex:1; min-width:0;">
+          <button role="tab" aria-selected="{{ isOfferTab }}" onClick="{{ setViatgesTabOffer }}">
+            Ofereixo
+            <span class="pj-seg-count">({{ offerCount }})</span>
+          </button>
+          <button role="tab" aria-selected="{{ isRequestTab }}" onClick="{{ setViatgesTabRequest }}">
+            Necessito
+            <span class="pj-seg-count">({{ requestCount }})</span>
+          </button>
+        </div>
         <div class="pj-seg pj-viewtoggle" role="group" aria-label="Vista dels viatges">
           <button type="button" onClick="{{ setTripsViewList }}" aria-pressed="{{ isTripsList }}" aria-label="Veure com a llista">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle></svg>
