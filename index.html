@@ -347,6 +347,9 @@
       .pj-footer-cta-copy h2 { font-size:30px; }
       .pj-footer-cta-copy p { font-size:16px; }
     }
+    /* Línia informativa d'avís a les targetes pròpies (no interactiva) */
+    .pj-notice { display:flex; align-items:center; justify-content:center; gap:8px; font-size:12.5px; font-weight:600; color:#727681; }
+    .pj-notice svg { color:#5B4CFB; flex-shrink:0; }
     /* Targeta de benefici amb interruptor (formularis) */
     .pj-benefit { background:#fff; border:1.5px solid #ECEDF2; border-radius:14px; padding:16px; }
     .pj-benefit-head { display:flex; align-items:flex-start; gap:12px; }
@@ -1175,14 +1178,16 @@
         </label>
         <textarea id="post-notes" value="{{ postForm.pickupNotes }}" onChange="{{ setPostNotes }}" placeholder="Ex: Sortida des de l'estació de bus" class="pj-post-section" style="width:100%; min-height:80px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 16px 16px; font-size:15px; font-family:inherit; resize:vertical;"></textarea>
 
-        <sc-if value="{{ isPostRequest }}">
-          <div class="pj-benefit pj-post-section">
+        <div class="pj-benefit pj-post-section">
             <div class="pj-benefit-head">
               <div class="pj-benefit-icon" aria-hidden="true">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
               </div>
               <div class="pj-benefit-body">
-                <div class="pj-benefit-title" id="post-notify-title">T'avisem quan aparegui un viatge que encaixi</div>
+                <div class="pj-benefit-title" id="post-notify-title">
+                  <sc-if value="{{ isPostRequest }}">T'avisem quan aparegui un viatge que encaixi</sc-if>
+                  <sc-if value="{{ isPostOffer }}">T'avisem quan algú busqui un viatge que encaixi</sc-if>
+                </div>
                 <sc-if value="{{ postForm.notifyEmail }}">
                   <sc-if value="{{ !postNotifyOpen }}">
                     <div class="pj-benefit-sub">
@@ -1219,7 +1224,6 @@
               </sc-if>
             </sc-if>
           </div>
-        </sc-if>
 
         <button onClick="{{ handlePostTrip }}" disabled="{{ postBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
           <sc-if value="{{ postBusy }}">Publicant…</sc-if>
@@ -1286,6 +1290,12 @@
                 {{ trip.timeLabel }}
               </div>
             </div>
+            <sc-if value="{{ trip.noticeLabel }}" hint-placeholder-val="{{ false }}">
+              <div class="pj-notice">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
+                <span>{{ trip.noticeLabel }}</span>
+              </div>
+            </sc-if>
 
             <sc-if value="{{ trip.pickupNotes }}" hint-placeholder-val="{{ false }}">
               <div style="background:#F3F4F8; border-radius:14px; padding: 16px 16px; display:flex; align-items:flex-start; gap: 8px;">
@@ -1366,6 +1376,12 @@
                 {{ trip.timeLabel }}
               </div>
             </div>
+            <sc-if value="{{ trip.noticeLabel }}" hint-placeholder-val="{{ false }}">
+              <div class="pj-notice">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
+                <span>{{ trip.noticeLabel }}</span>
+              </div>
+            </sc-if>
 
             <sc-if value="{{ trip.pickupNotes }}" hint-placeholder-val="{{ false }}">
               <div style="background:#F3F4F8; border-radius:14px; padding: 16px 16px; display:flex; align-items:flex-start; gap: 8px;">
@@ -1553,6 +1569,7 @@ class Component extends DCLogic {
     postShowRoutePresets: false,
     myTripsTab: 'driver',
     myDriverTrips: [],
+    noticeCounts: {},
     myRequestTrips: [],
     myBookings: [],
     myTripsLoading: false,
@@ -2357,11 +2374,9 @@ class Component extends DCLogic {
         pickup_notes: postForm.pickupNotes || null,
         trip_type: postForm.tripType,
       };
-      if (isRequest) {
-        payload.time_window = Number(postForm.timeWindow) || 120;
-        payload.date_window = Number(postForm.dateWindow) || 0;
-        payload.notify_email = postForm.notifyEmail !== false;
-      }
+      payload.time_window = Number(postForm.timeWindow) || 120;
+      payload.date_window = Number(postForm.dateWindow) || 0;
+      payload.notify_email = postForm.notifyEmail !== false;
       let error;
       if (editingTripId) {
         ({ error } = await this.sb.from('trips').update(payload).eq('id', editingTripId));
@@ -2369,7 +2384,12 @@ class Component extends DCLogic {
         ({ error } = await this.sb.from('trips').insert({ ...payload, driver_id: user.id, status: 'active' }));
       }
       if (error) throw error;
-      this._showToast(editingTripId ? 'Publicació actualitzada!' : (isRequest ? 'Sol·licitud publicada!' : 'Viatge publicat!'));
+      const notifyOn = postForm.notifyEmail !== false;
+      this._showToast(editingTripId
+        ? 'Publicació actualitzada!'
+        : (isRequest
+          ? (notifyOn ? 'Sol·licitud publicada · T\'avisarem si apareix un viatge que encaixi' : 'Sol·licitud publicada!')
+          : (notifyOn ? 'Viatge publicat · T\'avisarem si algú busca aquest trajecte' : 'Viatge publicat!')));
       this.setState({
         view: 'trips',
         editingTripId: null,
@@ -2381,6 +2401,34 @@ class Component extends DCLogic {
     } finally {
       this.setState({ postBusy: false });
     }
+  }
+
+  // Quants avisos ha generat cada viatge propi (taula match_notifications, només lectura del propietari).
+  async _loadNoticeCounts(tripIds) {
+    if (!tripIds.length) { this.setState({ noticeCounts: {} }); return; }
+    try {
+      const { data, error } = await this.sb
+        .from('match_notifications')
+        .select('request_id, offer_id')
+        .or(`request_id.in.(${tripIds.join(',')}),offer_id.in.(${tripIds.join(',')})`);
+      if (error) throw error;
+      const counts = {};
+      (data || []).forEach((n) => {
+        [n.request_id, n.offer_id].forEach((id) => { if (tripIds.includes(id)) counts[id] = (counts[id] || 0) + 1; });
+      });
+      this.setState({ noticeCounts: counts });
+    } catch (e) {
+      console.warn('notice counts', e);
+    }
+  }
+
+  _noticeLabel(t) {
+    if (t.notify_email === false) return 'Avís desactivat';
+    const hours = Math.round((Number(t.time_window) || 120) / 60);
+    const day = Number(t.date_window) === 1 ? 'també ±1 dia' : 'només aquest dia';
+    const n = (this.state.noticeCounts || {})[t.id] || 0;
+    const sent = n === 0 ? '' : ` · ${n} ${n === 1 ? 'avís enviat' : 'avisos enviats'}`;
+    return `Avís actiu · ±${hours} h · ${day}${sent}`;
   }
 
   async _loadMyTrips() {
@@ -2423,6 +2471,7 @@ class Component extends DCLogic {
         myRequestTrips: requestRes.data || [],
         myBookings: bookingsRes.data || [],
       });
+      this._loadNoticeCounts([...(driverRes.data || []), ...(requestRes.data || [])].map((t) => t.id));
     } catch (e) {
       console.error('load my trips', e);
       this._showToast('No s\u2019han pogut carregar els teus viatges', 'error');
@@ -2612,6 +2661,7 @@ class Component extends DCLogic {
         ...t,
         directionLabel: ROUTE_LABEL_BY_VALUE[t.direction] || `${t.origin} → ${t.destination}`,
         departLabel: this._fmtDate(t.depart_at),
+        noticeLabel: this._noticeLabel(t),
         dateLabel: departDate ? departDate.toLocaleDateString('ca-ES', { day: 'numeric', month: 'short' }) : '',
         timeLabel: departDate ? departDate.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) : '',
         driverName: ownName || 'Tu',
@@ -2640,6 +2690,7 @@ class Component extends DCLogic {
         ...t,
         directionLabel: ROUTE_LABEL_BY_VALUE[t.direction] || `${t.origin} → ${t.destination}`,
         departLabel: this._fmtDate(t.depart_at),
+        noticeLabel: this._noticeLabel(t),
         dateLabel: departDate ? departDate.toLocaleDateString('ca-ES', { day: 'numeric', month: 'short' }) : '',
         timeLabel: departDate ? departDate.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) : '',
         driverName: ownName || 'Tu',

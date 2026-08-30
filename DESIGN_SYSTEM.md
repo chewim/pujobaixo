@@ -164,9 +164,13 @@ Sin excepciones — **si un input nuevo no sigue exactamente esto, rompe la cons
 
 Para acciones principales dentro de la app (Publicar y sus variantes en estados vacíos). `inline-flex`, `gap:8px`, `min-height:44px`, `padding:0 24px 0 16px` (8px menos a la izquierda para compensar el peso visual del icono), radio 14, fondo `#5B4CFB`, texto blanco 14px/700; hover `#4A3DE8`, active `#4338D6` + `scale(0.98)`, focus `#B9B0FF`. El icono es un SVG de 18px trazado con `currentColor` y `aria-hidden`, nunca un carácter de texto ("+ Publicar" queda retirado): así el espacio icono-texto es un gap de 8pt real y no depende de la fuente.
 
+### Línea informativa de aviso (`.pj-notice`)
+
+En las tarjetas propias de "Els meus", bajo la fila de fecha y hora: campana 14px en `#5B4CFB` + texto 12.5px/600 `#727681`, centrada, sin fondo ni borde. Es información, no un control: no tiene hover ni cursor. Texto: "Avís actiu · ±2 h · només aquest dia · N avisos enviats" o "Avís desactivat". Si en el futuro se hace interactiva, solo puede llevar a editar el aviso de ese viaje; nunca a otra cosa.
+
 ### Tarjeta de beneficio con interruptor (`.pj-benefit` + `.pj-switch`)
 
-Para ofrecer un servicio opcional dentro de un formulario (hoy: avisos por correo en la sol·licitud). Se presenta como beneficio, no como casilla de consentimiento: título afirmativo ("T'avisem quan aparegui un viatge que encaixi"), no una pregunta.
+Para ofrecer un servicio opcional dentro de un formulario (hoy: avisos por correo, tanto en sol·licitud como en oferta; el título cambia según el rol). Se presenta como beneficio, no como casilla de consentimiento: título afirmativo ("T'avisem quan aparegui un viatge que encaixi"), no una pregunta.
 
 - Contenedor: fondo blanco, `border:1.5px solid #ECEDF2`, radio 14, `padding:16px`.
 - Cabecera `flex`, `gap:12px`: icono en círculo de 40px `#EEEBFF` con trazo `#5B4CFB` (mismo recurso que los pasos de la landing), cuerpo con título 15px/700 `#14151A` y subtítulo 13px/600 `#6B6F7B` (`margin-top:4px`), e interruptor a la derecha.
