@@ -1555,7 +1555,7 @@ class Component extends DCLogic {
     trips: [],
     tripsLoading: false,
     viatgesTab: 'offer',
-    tripsView: (() => { try { return localStorage.getItem('pj_trips_view') === 'calendar' ? 'calendar' : 'list'; } catch (e) { return 'list'; } })(),
+    tripsView: 'list',
     calSelected: null,
     calCursor: null,
     calExpanded: false,
@@ -1925,7 +1925,6 @@ class Component extends DCLogic {
   }
 
   _calSetView(mode) {
-    try { localStorage.setItem('pj_trips_view', mode); } catch (e) { /* noop */ }
     const today = this._todayKey();
     this.setState((st) => ({
       tripsView: mode,
@@ -2384,6 +2383,7 @@ class Component extends DCLogic {
         ({ error } = await this.sb.from('trips').insert({ ...payload, driver_id: user.id, status: 'active' }));
       }
       if (error) throw error;
+      this.setState({ tripsView: 'list' });
       const notifyOn = postForm.notifyEmail !== false;
       this._showToast(editingTripId
         ? 'Publicació actualitzada!'

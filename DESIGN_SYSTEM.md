@@ -190,7 +190,7 @@ Variantes por clase adicional:
 
 Botón de texto para alternar lista/calendario en Viatges: `inline-flex`, `gap:8px`, `min-height:32px`, `padding:0 8px`, radio 10, sin borde ni fondo, `#5B4CFB` 13px/700, icono 16px `currentColor`; hover `#EEEBFF`, focus `#B9B0FF`, `aria-pressed`. Alineado a la derecha, 8px bajo las pestañas y 16px sobre el contenido; cuando no se muestra, las pestañas recuperan los 24px. Etiqueta "Veure per dies" (icono calendario) en lista y "Veure llista" (icono lista) en calendario.
 
-**Regla de aparición:** solo existe si la pestaña activa tiene viajes en más de un día; con todo en un mismo día no hay nada que navegar y la lista es la vista. Si el usuario tenía guardado "calendari" pero la condición no se cumple, se muestra lista sin tocar la preferencia.
+**Regla de aparición:** solo existe si la pestaña activa tiene viajes en más de un día; con todo en un mismo día no hay nada que navegar y la lista es la vista. La vista no se persiste: la lista es siempre el estado por defecto (al cargar y al volver de publicar), y el calendario es exploración puntual dentro de la sesión. Se descartó guardar la preferencia en localStorage: volver de publicar y aterrizar en un día vacío del calendario desorientaba.
 
 **Decisiones descartadas:** un segmentado de dos iconos (`.pj-seg`) en su propia fila, por peso visual excesivo; el mismo en la fila de las pestañas, por acumular dos decisiones en una línea; y calendario por defecto, porque con poca oferta enseña el vacío antes que el contenido.
 
