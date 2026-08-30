@@ -351,7 +351,7 @@
     .pj-notice { display:flex; align-items:center; justify-content:center; gap:8px; font-size:12.5px; font-weight:600; color:#727681; }
     .pj-notice svg { color:#5B4CFB; flex-shrink:0; }
     /* Targeta de benefici amb interruptor (formularis) */
-    .pj-benefit { background:radial-gradient(120% 90% at 0% 0%, rgba(255,255,255,0.22), transparent 55%), linear-gradient(135deg, #6D5CFF 0%, #5B4CFB 45%, #4633E8 100%); border:none; border-radius:16px; padding:16px; box-shadow:0 12px 32px -16px rgba(91,76,251,0.55); color:#fff; }
+    .pj-benefit { background:radial-gradient(120% 90% at 0% 0%, rgba(255,255,255,0.5), transparent 55%), linear-gradient(135deg, #A79DFF 0%, #8F83FC 45%, #7D6EF7 100%); border:none; border-radius:16px; padding:16px; box-shadow:0 12px 32px -20px rgba(91,76,251,0.4); color:#fff; }
     .pj-benefit-new { display:inline-block; margin-bottom:6px; padding:2px 8px; border-radius:999px; background:#fff; color:#5B4CFB; font-size:10.5px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; }
     .pj-benefit .pj-benefit-icon { background:rgba(255,255,255,0.16); color:#fff; }
     .pj-benefit .pj-benefit-title { color:#fff; }
@@ -361,7 +361,7 @@
     .pj-benefit .pj-viewlink:focus-visible, .pj-benefit .pj-switch:focus-visible { outline:2px solid rgba(255,255,255,0.85); }
     .pj-benefit .pj-benefit-options { border-top-color:rgba(255,255,255,0.28); }
     .pj-benefit .pj-seg { border-color:transparent; }
-    .pj-benefit .pj-switch { background:rgba(255,255,255,0.28); }
+    .pj-benefit .pj-switch { background:rgba(255,255,255,0.35); }
     .pj-benefit .pj-switch[aria-checked="true"] { background:#fff; }
     .pj-benefit .pj-switch[aria-checked="true"] .pj-switch-knob { background:#5B4CFB; box-shadow:none; }
     .pj-benefit-head { display:flex; align-items:flex-start; gap:12px; }
@@ -1203,9 +1203,9 @@
                 </div>
                 <sc-if value="{{ postForm.notifyEmail }}">
                   <sc-if value="{{ !postNotifyOpen }}">
-                    <div class="pj-benefit-sub">
-                      <span>{{ postNotifySummary }}</span>
-                      <button type="button" onClick="{{ openPostNotify }}" class="pj-viewlink" style="min-height:24px; padding:0 4px; margin-left:4px;">Canviar</button>
+                    <div class="pj-benefit-sub" style="display:block;">
+                      <span style="display:block;">{{ postNotifySummary }}</span>
+                      <button type="button" onClick="{{ openPostNotify }}" class="pj-viewlink" style="min-height:24px; padding:0; display:inline-block; margin-top:2px;">Tens més flexibilitat? Ajusta-ho</button>
                     </div>
                   </sc-if>
                 </sc-if>
@@ -1219,7 +1219,7 @@
               <sc-if value="{{ postNotifyOpen }}">
                 <div class="pj-benefit-options">
                   <div>
-                    <div id="post-window-label" style="font-size:13px; font-weight:700; color:rgba(255,255,255,0.85); margin-bottom: 8px;">Marge horari</div>
+                    <div id="post-window-label" style="font-size:13px; font-weight:700; color:rgba(255,255,255,0.85); margin-bottom: 8px;">Quanta flexibilitat d'hora tens?</div>
                     <div role="group" aria-labelledby="post-window-label" class="pj-seg pj-seg-tabs">
                       <button type="button" onClick="{{ setTimeWindow60 }}" aria-pressed="{{ isTimeWindow60 }}">±1 h</button>
                       <button type="button" onClick="{{ setTimeWindow120 }}" aria-pressed="{{ isTimeWindow120 }}">±2 h</button>
@@ -1227,7 +1227,7 @@
                     </div>
                   </div>
                   <div>
-                    <div id="post-daywindow-label" style="font-size:13px; font-weight:700; color:rgba(255,255,255,0.85); margin-bottom: 8px;">Dia</div>
+                    <div id="post-daywindow-label" style="font-size:13px; font-weight:700; color:rgba(255,255,255,0.85); margin-bottom: 8px;">I de dia?</div>
                     <div role="group" aria-labelledby="post-daywindow-label" class="pj-seg pj-seg-tabs">
                       <button type="button" onClick="{{ setDateWindow0 }}" aria-pressed="{{ isDateWindow0 }}">Només aquest dia</button>
                       <button type="button" onClick="{{ setDateWindow1 }}" aria-pressed="{{ isDateWindow1 }}">També ±1 dia</button>
@@ -2942,7 +2942,7 @@ class Component extends DCLogic {
       toggleNotifyEmail: () => this.setState((st) => ({ postForm: { ...st.postForm, notifyEmail: !(st.postForm.notifyEmail !== false) }, postNotifyOpen: false })),
       postNotifyOpen: !!s.postNotifyOpen,
       openPostNotify: () => this.setState({ postNotifyOpen: true }),
-      postNotifySummary: `±${Math.round((Number(s.postForm.timeWindow) || 120) / 60)} h · ${Number(s.postForm.dateWindow) === 1 ? 'també ±1 dia' : 'només aquest dia'}`,
+      postNotifySummary: `Buscarem viatges fins a ±${Math.round((Number(s.postForm.timeWindow) || 120) / 60)} h de la teva hora, ${Number(s.postForm.dateWindow) === 1 ? 'aquest dia o el del costat' : 'aquest mateix dia'}.`,
       departDateVal: (s.postForm.departAt || '').split('T')[0] || '',
       departTimeVal: (s.postForm.departAt || '').split('T')[1] || '',
       setPostDepartDate: (e) => this.setState((st) => {
