@@ -351,7 +351,19 @@
     .pj-notice { display:flex; align-items:center; justify-content:center; gap:8px; font-size:12.5px; font-weight:600; color:#727681; }
     .pj-notice svg { color:#5B4CFB; flex-shrink:0; }
     /* Targeta de benefici amb interruptor (formularis) */
-    .pj-benefit { background:#fff; border:1.5px solid #ECEDF2; border-radius:14px; padding:16px; }
+    .pj-benefit { background:radial-gradient(120% 90% at 0% 0%, rgba(255,255,255,0.22), transparent 55%), linear-gradient(135deg, #6D5CFF 0%, #5B4CFB 45%, #4633E8 100%); border:none; border-radius:16px; padding:16px; box-shadow:0 12px 32px -16px rgba(91,76,251,0.55); color:#fff; }
+    .pj-benefit-new { display:inline-block; margin-bottom:6px; padding:2px 8px; border-radius:999px; background:#fff; color:#5B4CFB; font-size:10.5px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; }
+    .pj-benefit .pj-benefit-icon { background:rgba(255,255,255,0.16); color:#fff; }
+    .pj-benefit .pj-benefit-title { color:#fff; }
+    .pj-benefit .pj-benefit-sub { color:rgba(255,255,255,0.78); }
+    .pj-benefit .pj-viewlink { color:#fff; text-decoration:underline; text-underline-offset:3px; }
+    .pj-benefit .pj-viewlink:hover { background:rgba(255,255,255,0.14); }
+    .pj-benefit .pj-viewlink:focus-visible, .pj-benefit .pj-switch:focus-visible { outline:2px solid rgba(255,255,255,0.85); }
+    .pj-benefit .pj-benefit-options { border-top-color:rgba(255,255,255,0.28); }
+    .pj-benefit .pj-seg { border-color:transparent; }
+    .pj-benefit .pj-switch { background:rgba(255,255,255,0.28); }
+    .pj-benefit .pj-switch[aria-checked="true"] { background:#fff; }
+    .pj-benefit .pj-switch[aria-checked="true"] .pj-switch-knob { background:#5B4CFB; box-shadow:none; }
     .pj-benefit-head { display:flex; align-items:flex-start; gap:12px; }
     .pj-benefit-icon { width:40px; height:40px; border-radius:50%; background:#EEEBFF; color:#5B4CFB; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .pj-benefit-body { flex:1; min-width:0; padding-top:2px; }
@@ -1184,6 +1196,7 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
               </div>
               <div class="pj-benefit-body">
+                <span class="pj-benefit-new">Nou</span>
                 <div class="pj-benefit-title" id="post-notify-title">
                   <sc-if value="{{ isPostRequest }}">T'avisem quan aparegui un viatge que encaixi</sc-if>
                   <sc-if value="{{ isPostOffer }}">T'avisem quan algú busqui un viatge que encaixi</sc-if>
@@ -1206,7 +1219,7 @@
               <sc-if value="{{ postNotifyOpen }}">
                 <div class="pj-benefit-options">
                   <div>
-                    <div id="post-window-label" style="font-size:13px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">Marge horari</div>
+                    <div id="post-window-label" style="font-size:13px; font-weight:700; color:rgba(255,255,255,0.85); margin-bottom: 8px;">Marge horari</div>
                     <div role="group" aria-labelledby="post-window-label" class="pj-seg pj-seg-tabs">
                       <button type="button" onClick="{{ setTimeWindow60 }}" aria-pressed="{{ isTimeWindow60 }}">±1 h</button>
                       <button type="button" onClick="{{ setTimeWindow120 }}" aria-pressed="{{ isTimeWindow120 }}">±2 h</button>
@@ -1214,7 +1227,7 @@
                     </div>
                   </div>
                   <div>
-                    <div id="post-daywindow-label" style="font-size:13px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">Dia</div>
+                    <div id="post-daywindow-label" style="font-size:13px; font-weight:700; color:rgba(255,255,255,0.85); margin-bottom: 8px;">Dia</div>
                     <div role="group" aria-labelledby="post-daywindow-label" class="pj-seg pj-seg-tabs">
                       <button type="button" onClick="{{ setDateWindow0 }}" aria-pressed="{{ isDateWindow0 }}">Només aquest dia</button>
                       <button type="button" onClick="{{ setDateWindow1 }}" aria-pressed="{{ isDateWindow1 }}">També ±1 dia</button>
