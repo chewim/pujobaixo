@@ -90,6 +90,7 @@ declare
   v_link      text;
   v_subject   text;
   v_html      text;
+  v_footer    text;
   v_req_id    bigint;
 begin
   if exists (select 1 from public.match_notifications
@@ -121,9 +122,13 @@ begin
   from public.profiles p
   where p.id = case when p_role = 'driver' then m.passenger_id else m.driver_id end;
 
+  -- Peu amb marca de temps i assumpte amb la data del viatge: evita que Gmail
+  -- agrupi els avisos en un fil i en retalli el final (botó ocult rere "...").
+  v_footer := '<p style="font-size:12px;color:#8F93A1;margin-top:8px">Avís enviat el ' || public.ca_datetime(now()) || '.</p></div>';
+
   if p_role = 'driver' then
     v_link    := 'https://pujobaixo.cat/?trip=' || m.request_id;
-    v_subject := 'Algú busca un viatge que encaixa amb el teu';
+    v_subject := 'Algú busca viatge que encaixa amb el teu: ' || public.ca_datetime(m.request_depart_at);
     v_html :=
       '<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:520px;margin:0 auto;color:#14151A;line-height:1.5">'
       || '<p style="font-size:16px">Hola ' || v_to_name || ',</p>'
@@ -136,10 +141,10 @@ begin
       || '</div>'
       || '<p><a href="' || v_link || '" style="display:inline-block;background:#5B4CFB;color:#fff;text-decoration:none;font-weight:700;padding:12px 24px;border-radius:14px;font-size:15px">Veure la sol·licitud i contactar</a></p>'
       || '<p style="font-size:13px;color:#6B6F7B;margin-top:24px">Reps aquest correu perquè has publicat un viatge a Pujobaixo amb l''avís activat. Pots desactivar-lo editant el viatge.</p>'
-      || '</div>';
+      || v_footer;
   else
     v_link    := 'https://pujobaixo.cat/?trip=' || m.offer_id;
-    v_subject := 'Hi ha un viatge que encaixa amb la teva sol·licitud';
+    v_subject := 'Hi ha un viatge que encaixa: ' || public.ca_datetime(m.offer_depart_at);
     v_html :=
       '<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:520px;margin:0 auto;color:#14151A;line-height:1.5">'
       || '<p style="font-size:16px">Hola ' || v_to_name || ',</p>'
@@ -153,7 +158,7 @@ begin
       || '</div></div>'
       || '<p><a href="' || v_link || '" style="display:inline-block;background:#5B4CFB;color:#fff;text-decoration:none;font-weight:700;padding:12px 24px;border-radius:14px;font-size:15px">Veure el viatge i contactar</a></p>'
       || '<p style="font-size:13px;color:#6B6F7B;margin-top:24px">Reps aquest correu perquè has publicat una sol·licitud a Pujobaixo amb l''avís activat. Pots desactivar-lo editant la sol·licitud.</p>'
-      || '</div>';
+      || v_footer;
   end if;
 
   select net.http_post(
