@@ -209,7 +209,7 @@ Fija abajo, `min-height:68px`, fondo blanco, `border-top:1px solid #ECEDF2`, res
 
 ### Sidebar desktop
 
-Fija a la izquierda, ancho `248px`, fondo blanco, `border-right:1px solid #ECEDF2`. Logo arriba, lista de botones de navegación a ancho completo (no pills), mismo esquema de color activo/inactivo que el bottom nav.
+Fija a la izquierda, ancho `248px`, fondo blanco, `border-right:1px solid #ECEDF2`. Logo arriba, lista de botones de navegación a ancho completo. Estado activo tonal, patrón Material: fondo `#EEEBFF`, texto e icono `#5B4CFB`, peso 700; inactivo transparente, `#6B6F7B`/600. Se descartó el activo en morado sólido: competía en peso con el CTA Publicar — la superficie sólida de marca queda reservada a la acción primaria, la navegación indica lugar con contenedor tonal.
 
 ### Badges/tags
 

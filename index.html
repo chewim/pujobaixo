@@ -2742,9 +2742,11 @@ class Component extends DCLogic {
       : (view === 'myTrips') ? 'myTrips'
       : (view === 'profile') ? 'profile'
       : null;
+    // Patró Material: l'ítem actiu és un contenidor tonal (#EEEBFF + color primari),
+    // mai una superfície sòlida — el morat ple queda reservat a l'acció (Publicar).
     const navBtn = (name) => activeTab === name
-      ? { bg: '#5B4CFB', color: '#fff', weight: 800, iconWeight: 2.4, ariaCurrent: 'page' }
-      : { bg: '#F3F4F8', color: '#14151A', weight: 600, iconWeight: 2, ariaCurrent: undefined };
+      ? { bg: '#EEEBFF', color: '#5B4CFB', weight: 700, iconWeight: 2.4, ariaCurrent: 'page' }
+      : { bg: 'transparent', color: '#6B6F7B', weight: 600, iconWeight: 2, ariaCurrent: undefined };
     const tripsNav = navBtn('trips');
     const myTripsNav = navBtn('myTrips');
     const profileNav = navBtn('profile');
