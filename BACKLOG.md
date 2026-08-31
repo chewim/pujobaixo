@@ -18,6 +18,12 @@ No barrejar amb `ROADMAP.md` (decidit i actiu) ni amb la secció "Aparcat" del r
 - Explorar WhatsApp Business API per a avisos, en lloc de correu, si Resend mostra baixa obertura.
 - Pàgina o post explicant el "per què" del projecte per compartir a xarxes locals (Instagram Konvent, etc.).
 
+## Procés
+
+- **Adoptar spec-como-guía para funcionalitats noves** que toquin dades, seguretat o creuin sistemes (email, DNS, triggers): mitja pàgina abans de construir amb problema, objectiu, què NO tocar, i criteris d'acceptació — el mateix format que ja vam fer servir de facto per l'arreglada del signup, i que va sortir a la primera sense anades i vingudes. No aplicar-ho a iteració visual/UI (la targeta d'avís necessitava veure's sis vegades per saber què volíem; un spec previ hauria fixat la primera idea, que era la pitjor).
+  → Quan: al començar la propera funcionalitat que toqui BD o creui sistemes. Plantilla a `docs/specs/PLANTILLA.md` (encara sense crear).
+  → No crucial ara: no hi ha res trencat per no tenir-ho. Millora de procés, no urgència de producte.
+
 ## Tècnic / qualitat
 
 - `after update of depart_at` al trigger d'avisos: avui només es crua en publicar (`insert`), no en editar l'hora d'una oferta existent.
