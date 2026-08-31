@@ -42,6 +42,25 @@ Vegeu `BACKLOG.md`. No barrejar amb aquesta llista — aquí només hi ha coses 
 
 ---
 
+## Pròximes restriccions candidates
+
+Quan el volum d'oferta deixi de ser la restricció, cap a on es mourà. **No actuar sobre cap d'aquestes ara** — anticipar-se a una restricció que encara no tens és el mateix error que voler resoldre'n una de futura amb el calendari. Serveixen per saber què mirar, no què construir. La pròxima restricció real serà el primer graó de l'embut que segueixi trencat quan s'alliberi l'actual:
+
+> publicacions → encreuaments (`v_matches`) → correus → contactes (WhatsApp) → viatges fets
+
+Avui es trenca al **primer graó**. Per ordre de probabilitat un cop hi hagi oferta:
+
+1. **Retenció de conductors (la més probable).** No sabem si el problema serà que no arriben conductors o que arriben, publiquen un cop i no tornen — són dues restriccions oposades: la primera es distribució (més grups de WhatsApp), la segona és producte (recordatoris, republicar un trajecte habitual amb un toc).
+   → Dada que ho confirma: les dues consultes pendents — viatges publicats per setmana i clics de WhatsApp per setmana. Fins que no es mirin, és endevinar.
+
+2. **Densitat de rutes, no d'usuaris.** Berguedà–Barcelona no és una ruta, són moltes (Berga, Gironella, Puig-reig… a hores diferents). Amb 90 usuaris repartits en desenes de combinacions origen-hora pots tenir "prou usuaris" i gairebé cap encreuament. Si en créixer el volum els avisos segueixen sense disparar-se, la culpable és aquesta, i la resposta no és més gent: és concentrar la comunitat en menys franges (un "tots sortim a les 8:00" fa més match que cent horaris dispersos).
+   → Dada que ho confirma: ràtio d'encreuaments a `v_matches` respecte a viatges actius. Molts viatges i pocs encreuaments = problema de densitat, no de volum.
+
+3. **Confiança / conversió del contacte (més endavant).** Quan hi hagi encreuaments i contactes, la pregunta passarà a ser quants d'aquests contactes es converteixen en un viatge real. Si es contacta per WhatsApp i no es tanca, pujar al cotxe d'un desconegut en una comunitat petita necessita més senyal de la que es dóna avui.
+   → Dada que ho confirma: clics de WhatsApp alts però pocs viatges marcats com a fets / poca recurrència.
+
+Regla: no triar quina serà — deixar pujar el volum i **llegir on es trenca l'embut**. La resposta és a les dades quan arribin, no aquí.
+
 ## Historial de restriccions
 
 | Data | Restricció identificada | Com es va saber |
