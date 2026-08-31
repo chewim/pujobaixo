@@ -78,6 +78,36 @@
       to   { opacity: 1; transform: translateY(0); }
     }
     .pj-appear { animation: pjAppear 320ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+    /* Entrada lateral (dreta→esquerra) per a les targetes de viatge: arrenca ràpid i frena molt. */
+    @keyframes pjSlideIn {
+      from { opacity: 0; transform: translateX(28px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .pj-slide-in { animation: pjSlideIn 600ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .pj-slide-in:nth-child(1) { animation-delay: 0ms; }
+    .pj-slide-in:nth-child(2) { animation-delay: 70ms; }
+    .pj-slide-in:nth-child(3) { animation-delay: 140ms; }
+    .pj-slide-in:nth-child(4) { animation-delay: 210ms; }
+    .pj-slide-in:nth-child(5) { animation-delay: 280ms; }
+    .pj-slide-in:nth-child(n+6) { animation-delay: 340ms; }
+
+    /* Esquelet de càrrega: mateixa forma que la targeta real, per continuïtat visual */
+    @keyframes pjShimmer { from { background-position: -420px 0; } to { background-position: 420px 0; } }
+    .pj-skel { background:#fff; border-radius:24px; padding:16px; margin-bottom:16px; display:flex; flex-direction:column; gap:16px; }
+    .pj-skel-row { display:flex; align-items:center; gap:12px; }
+    .pj-skel-bar, .pj-skel-dot {
+      background:#EDEEF3;
+      background-image:linear-gradient(90deg, #EDEEF3 0%, #F6F7FA 40%, #EDEEF3 80%);
+      background-size:420px 100%; background-repeat:no-repeat;
+      animation: pjShimmer 1400ms linear infinite;
+    }
+    .pj-skel-dot { width:44px; height:44px; border-radius:50%; flex-shrink:0; }
+    .pj-skel-bar { height:14px; border-radius:7px; }
+    .pj-skel-center { display:flex; flex-direction:column; align-items:center; gap:12px; }
+    @media (prefers-reduced-motion: reduce) {
+      .pj-slide-in { animation-duration:1ms; }
+      .pj-skel-bar, .pj-skel-dot { animation:none; }
+    }
     .pj-appear:nth-child(1) { animation-delay: 0ms; }
     .pj-appear:nth-child(2) { animation-delay: 40ms; }
     .pj-appear:nth-child(3) { animation-delay: 80ms; }
@@ -1005,7 +1035,20 @@
         </div>
       </sc-if>
 
-      <sc-if value="{{ tripsLoading }}"><div style="color:#6B6F7B; font-size:14px; padding: 40px 0; text-align:center;">Carregant…</div></sc-if>
+      <sc-if value="{{ tripsLoading }}">
+        <div aria-live="polite" aria-busy="true">
+          <span style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);">Carregant viatges…</span>
+          <div class="pj-skel">
+            <div class="pj-skel-row"><div class="pj-skel-dot"></div><div style="flex:1;"><div class="pj-skel-bar" style="width:44%;"></div><div class="pj-skel-bar" style="width:26%; height:11px; margin-top:8px;"></div></div></div>
+            <div class="pj-skel-center"><div class="pj-skel-bar" style="width:62%; height:20px;"></div><div class="pj-skel-bar" style="width:40%; height:12px;"></div></div>
+            <div class="pj-skel-row" style="justify-content:space-between;"><div class="pj-skel-bar" style="width:22%;"></div><div class="pj-skel-bar" style="width:34%; height:40px; border-radius:14px;"></div></div>
+          </div>
+          <div class="pj-skel" style="opacity:0.6;">
+            <div class="pj-skel-row"><div class="pj-skel-dot"></div><div style="flex:1;"><div class="pj-skel-bar" style="width:38%;"></div><div class="pj-skel-bar" style="width:24%; height:11px; margin-top:8px;"></div></div></div>
+            <div class="pj-skel-center"><div class="pj-skel-bar" style="width:56%; height:20px;"></div><div class="pj-skel-bar" style="width:36%; height:12px;"></div></div>
+          </div>
+        </div>
+      </sc-if>
       <sc-if value="{{ tripsEmpty }}">
         <div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center; color:#6B6F7B; font-size:14px;">
           {{ tripsEmptyMsg }}
@@ -1018,7 +1061,7 @@
       </sc-if>
 
       <sc-for list="{{ visibleTrips }}" as="trip" hint-placeholder-count="3">
-        <div class="pj-appear" id="{{ trip.domId }}" style="background:#fff; border-radius:24px; padding: 16px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 16px; box-shadow:{{ trip.highlightShadow }}; transition:box-shadow 300ms ease;">
+        <div class="pj-slide-in" id="{{ trip.domId }}" style="background:#fff; border-radius:24px; padding: 16px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 16px; box-shadow:{{ trip.highlightShadow }}; transition:box-shadow 300ms ease;">
           <div style="display:flex; align-items:flex-start; justify-content:space-between; gap: 16px;">
             <div style="display:flex; align-items:center; gap: 16px; min-width:0;">
               <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
