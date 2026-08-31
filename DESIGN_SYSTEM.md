@@ -1,6 +1,9 @@
 # Pujobaixo — Guía de sistema de diseño
 
-Extraída directamente del código (`index.html`) auditando todos los valores de color, tipografía, espaciado y componentes ya en uso. No es un sistema inventado desde cero: documenta lo que el producto ya hace, para poder repetirlo con criterio en pantallas nuevas.
+Extraída directamente del código (`index.html`). No es un sistema inventado desde cero: documenta lo que el producto ya hace, para poder repetirlo con criterio en pantallas nuevas.
+
+**Qué va aquí:** el estado actual de tokens y componentes — cómo es algo hoy.
+**Qué NO va aquí:** por qué se descartó una alternativa (→ `DECISIONS.md`), bugs de plataforma (→ `docs/GOTCHAS.md`), qué construir después (→ `ROADMAP.md`).
 
 ---
 
@@ -180,6 +183,14 @@ Para ofrecer un servicio opcional dentro de un formulario (hoy: avisos por corre
 - Todo el contenido interior comparte el borde izquierdo de 16px de la tarjeta; solo el subtítulo se alinea con el título (columna del cuerpo).
 - Regla: los campos que solo importan a quien acepta una opción no se muestran hasta que la acepta y pide cambiarlos; el valor por defecto se enseña como texto, no como control. Descartado: checkbox con etiqueta larga (se leía como configuración), preguntar antes o después de publicar (pantalla extra y campos duplicados en edición).
 
+### Movimiento: entrada de contenido y carga
+
+Dos animaciones, una por propósito. Ambas se anulan con `prefers-reduced-motion`.
+
+- **`.pj-appear`** (320ms, `cubic-bezier(0.22,1,0.36,1)`, fade + 12px hacia arriba): bloques generales, secciones y estados vacíos. Escalonado de 40ms por posición.
+- **`.pj-slide-in`** (600ms, `cubic-bezier(0.16,1,0.3,1)`, fade + 28px desde la derecha): **solo las tarjetas de viaje**. La curva arranca rápido y desacelera mucho al final — entra deslizando y frena. Escalonado de 70ms, tope a partir de la sexta tarjeta. Se eligieron 600ms y no más: por encima de ~800ms la última tarjeta sigue moviéndose cuando el usuario ya quiere pulsar.
+- **Esqueleto de carga (`.pj-skel`)**: mientras `tripsLoading`, se muestran dos tarjetas fantasma con la **forma real** de la tarjeta (avatar 44px, dos barras de texto, ruta centrada, fila precio + botón), en `#EDEEF3` con shimmer de 1400ms. La segunda al 60% de opacidad para sugerir continuidad. Regla: el estado de carga imita la silueta del contenido que va a llegar, nunca un texto "Cargando…" — así no hay salto de layout ni cambio de lenguaje visual entre carga y contenido.
+
 ### Segmentado (`.pj-seg`)
 
 Un solo componente para toda decisión "elige una opción entre pocas" fuera de la navegación. Contenedor blanco, `border:1.5px solid #ECEDF2`, `border-radius:14px`, `padding:4px`, `gap:4px`. Cada opción: `min-height:40px`, `border-radius:10px`, 14px/600 gris `#727681`; activa (`aria-selected` o `aria-pressed`) = fondo `#EEEBFF` + `#5B4CFB` + 700. Hover inactivo `#F3F4F8`. Focus `outline:2px solid #B9B0FF`. **Sin sombra** (el antiguo tab con sombra morada queda retirado).
@@ -291,81 +302,6 @@ Justo después de la tarjeta (solo en `isLoginMode`), el resto de la mini-landin
 
 ---
 
-## Tabla resumen de tokens
+---
 
-### Colores
-| Token | Valor |
-|---|---|
-| `color-brand` | `#5B4CFB` |
-| `color-brand-tint` | `rgba(91,76,251,0.1)` / `#EEEBFF` |
-| `color-text-primary` | `#14151A` |
-| `color-text-secondary` | `#6B6F7B` |
-| `color-text-muted` | `#727681` |
-| `color-border` | `#ECEDF2` |
-| `color-bg-page` | `#F3F4F8` |
-| `color-bg-surface` | `#fff` |
-| `color-danger` | `#C22A24` |
-| `color-danger-bg` | `#FDEBEA` |
-| `color-danger-border` | `#FBD8D6` |
-| `color-success` | `#1D874A` |
-| `color-success-bg` | `#EAF7EF` |
-| `color-whatsapp` | `#25D366` (hover `#20BD5A`, active `#1DA851`, focus `#128C7E`), texto `#14151A` |
-| `color-placeholder` | `#8F93A1` |
-
-### Tipografía
-| Token | Valor |
-|---|---|
-| `font-family` | `'Plus Jakarta Sans', sans-serif` |
-| `weight-regular-app` | 600 |
-| `weight-medium-app` | 700 |
-| `weight-bold-app` | 800 |
-| `size-hero` | 26px |
-| `size-h1` | 24px |
-| `size-route` | 19px |
-| `size-price` | 17px |
-| `size-body` | 15px |
-| `size-button` | 14–15px |
-| `size-label` | 15px |
-| `size-caption` | 11–12.5px |
-| `letter-spacing-heading` | -0.02em |
-
-### Radios
-| Token | Valor |
-|---|---|
-| `radius-sm` (inputs/**todos los botones**/tabs) | 14px |
-| `radius-card` | 24px |
-| `radius-card-hero` | 28px |
-| `radius-pill` (solo badges/toast, no botones) | 999px |
-| `radius-circle` | 50% |
-
-### Sombras
-| Token | Valor |
-|---|---|
-| `shadow-card` | `0 20px 60px -30px rgba(20,21,26,0.25)` |
-| `shadow-toast` | `0 12px 30px -10px rgba(20,21,26,0.4)` |
-| `shadow-tab-active` | `0 8px 20px -10px rgba(91,76,251,0.45)` |
-
-### Spacing
-| Token | Valor |
-|---|---|
-| `gap-xs` | 4–8px |
-| `gap-sm` | 8px |
-| `gap-md` | 16px |
-| `gap-lg` | 24px |
-| `padding-page-mobile` | 16px |
-| `padding-page-desktop` | 24px |
-| `padding-card` | 32px (desktop) / 16px (móvil) |
-| `margin-list-item` | 16px |
-| `touch-target-min` | 44px |
-
-### Componentes reutilizables
-| Componente | Receta base |
-|---|---|
-| Botón primario | `#5B4CFB` bg, `#fff` texto 800, `14px` radio, `50px` alto |
-| Botón secundario | `#fff` bg, borde `#ECEDF2`, `14px` radio, `44px` alto |
-| Botón peligro | `#FDEBEA` bg, texto `#C22A24`, borde `#FBD8D6` |
-| Input estándar | `48px` alto, `14px` radio, borde `#ECEDF2`, `padding:0 16px` |
-| Card de contenido | `#fff` bg, `24px` radio, `16px` padding, `14px` margin-bottom |
-| Card hero | `#fff` bg, `28px` radio, `36px 32px` padding, `shadow-card` |
-| Tab/segmento | `flex:1`, `14px` radio, activo = tinte marca + sombra + texto marca |
-| Toast | pill fija bottom, `999px` radio, `shadow-toast` |
+> **Tabla resumen de tokens:** retirada. Duplicaba los valores de §1 Fundamentos y §4 Componentes, que son la fuente única. Si necesitas los valores en bruto, están ahí.
