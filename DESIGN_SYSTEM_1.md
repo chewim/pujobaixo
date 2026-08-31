@@ -1,0 +1,379 @@
+# Pujobaixo — Guía de sistema de diseño
+
+Extraída directamente del código (`index.html`) auditando todos los valores de color, tipografía, espaciado y componentes ya en uso. No es un sistema inventado desde cero: documenta lo que el producto ya hace, para poder repetirlo con criterio en pantallas nuevas.
+
+---
+
+## 1. Fundamentos visuales
+
+### Paleta principal
+
+| Color | Hex | Uso |
+|---|---|---|
+| Morado marca | `#5B4CFB` | Acción primaria: botones, links, iconos activos, estado seleccionado |
+| Negro texto | `#14151A` | Texto principal, títulos, precios en negrita (color base del body) |
+| Gris texto secundario | `#6B6F7B` | Labels de formulario, subtítulos, texto secundario |
+| Gris icono/meta | `#727681` | Iconos inactivos, metadatos (plazas, fecha/hora en cards) |
+| Borde por defecto | `#ECEDF2` | Bordes de inputs, cards, separadores |
+| Fondo de la app | `#F3F4F8` | Fondo general de página (fuera de las cards) |
+| Blanco superficie | `#fff` / `#FFFFFF` | Fondo de cards, inputs, navs |
+
+### Paleta secundaria (estado / semántica)
+
+| Color | Hex | Uso |
+|---|---|---|
+| Morado tenue | `#EEEBFF` | Fondo de pill/badge activo (ligero tinte de marca) |
+| Rojo error | `#C22A24` | Texto de error, botón "Eliminar" |
+| Fondo error | `#FDEBEA` | Fondo de banner/botón de error |
+| Borde error | `#FBD8D6` | Borde del botón "Eliminar" |
+| Verde éxito | `#1D874A` | Precio, texto de éxito |
+| Fondo éxito | `#EAF7EF` | Fondo de banner de éxito |
+| Verde WhatsApp | `#25D366` (hover `#20BD5A`, active `#1DA851`, focus outline `#128C7E`) — texto/icono en `#14151A`, no blanco | CTA de contacto por WhatsApp |
+| Gris placeholder | `#8F93A1` | Placeholder de inputs |
+
+### Fondos, bordes, sombras y estados
+
+- **Fondo de página**: siempre `#F3F4F8`, nunca blanco puro fuera de una card.
+- **Cards**: fondo `#fff` con esquinas muy redondeadas (ver radios abajo) — es el único contenedor "elevado" del sistema.
+- **Bordes**: 1.5px solid `#ECEDF2` en inputs y botones secundarios. No hay bordes de otro grosor.
+- **Sombras** (solo 3 recetas en todo el producto):
+  - Card/hero: `0 20px 60px -30px rgba(20,21,26,0.25)` — difuminada, oscura, sin color de marca.
+  - Toast: `0 12px 30px -10px rgba(20,21,26,0.4)` — más contraste, para que flote sobre el contenido.
+- **Estado "activo/seleccionado"** (segmentados, nav): fondo `#EEEBFF` + texto `#5B4CFB` + peso 700. Sin sombra: las sombras se reservan a cards.
+
+### Jerarquía visual general
+
+De más a menos peso visual, en cualquier pantalla:
+1. **Dato principal** (ruta origen→destino, título de pantalla) — texto grande, negro, extra-bold.
+2. **Dato secundario relevante** (precio, nombre) — un escalón por debajo en tamaño/peso, color de marca o negro.
+3. **Metadatos** (fecha, hora, plazas, notas) — gris (`#6B6F7B`/`#727681`), nunca negro ni bold.
+4. **Labels de formulario** — gris, 15px, 700, siempre encima del campo (nunca al lado ni como placeholder-only).
+
+---
+
+## 2. Tipografía
+
+- **Fuente única**: `'Plus Jakarta Sans', sans-serif` para absolutamente todo (cargada desde Google Fonts). No hay una segunda familia ni monoespaciada.
+- **Pesos usados**: solo tres — `600` (semibold, texto secundario/tabs inactivos), `700` (bold, botones y labels), `800` (extra-bold, títulos, precios, nombres, CTAs principales). Nunca 400/500/900.
+- **`letter-spacing:-0.02em`** solo en títulos grandes (24px+) — le da el aire "tight" a los headings.
+
+### Escala tipográfica observada
+
+| Tamaño | Peso | Uso |
+|---|---|---|
+| 26px / 800 | Título hero (pantalla de login) |
+| 24px / 800 | Título de pantalla (h1: "Propers viatges", "El meu perfil"...) |
+| 22px / 800 | Título de confirmación ("Compte verificat!") |
+| 19px / 800 | Ruta origen→destino en las cards (el dato más importante de una card) |
+| 17px / 800 | Precio en las cards |
+| 15px / 700 | Labels de formulario (Ruta, Tipus de publicació...) |
+| 15px / 600–700 | Texto de input, nombre de conductor |
+| 14–14.5px / 600–700 | Botones secundarios, tabs |
+| 13–13.5px / 600–700 | Metadatos, texto secundario |
+| 11–12.5px / 600 | Labels de icono en nav (bottom nav), contadores pequeños |
+
+**Jerarquía título/subtítulo/body/caption/label/botón**, en la práctica del código:
+- **Título (h1)**: 24px/800, `margin:0 0 24px`.
+- **Subtítulo**: no existe un h2 tipográfico separado — se resuelve con el mismo tamaño que el label (15px/700) o con el color mudado a `#6B6F7B`.
+- **Body**: 15px/600, es el tamaño de los inputs y del texto de conductor/nombre.
+- **Caption**: 12.5–13.5px, color `#6B6F7B` u `#727681`.
+- **Label**: 15px/700, color `#6B6F7B`, `display:block; margin-bottom:8px` — patrón fijo, siempre igual.
+- **Botón**: 14–15px/700–800, nunca 600.
+
+---
+
+## 3. Espaciado y layout
+
+**Regla del 8**: todo el espaciado (padding, margin, gap) sigue una escala de múltiplos de 8, con 4 como único medio-paso para los huecos más pequeños (icono+texto, por ejemplo). Nunca introduzcas un valor que no esté en esta escala:
+
+`4, 8, 16, 24, 32, 40, 48, 56, 64...`
+
+(No existen 6, 10, 12, 14, 18, 20, 22, 28, 36, etc. — si necesitas "más que 8 pero menos que 16", la respuesta es 8 o 16, nunca un valor intermedio.)
+
+**Gaps habituales**: `4, 8, 16px` (8 es el más común, úsalo por defecto).
+
+**Paddings habituales**:
+- Card grande (hero/auth): `40px 32px`
+- Card de contenido: `32px` (desktop) / `16px` (móvil, ver más abajo)
+- Card de item de lista (trip card): `16px`
+- Botón pill grande: `0` con `height:50px`
+- Banner de error/info: `8px 16px`
+- Input: `0 16px` con `height:48px`
+
+**Margin entre elementos de una lista**: `margin-bottom:16px` (constante en toda card repetida — trips, bookings, etc.)
+
+**Espacio dentro de un apartado vs. entre apartados distintos** (formularios largos, ej. Publicar): dentro de un mismo apartado (label→input, campos de una misma fila) se mantiene 8-16px; entre el final de un apartado y el inicio del siguiente se usa la clase `.pj-post-section` (`margin-bottom:16px` en móvil, `32px` en desktop ≥900px) — así los bloques del formulario se perciben como secciones distintas en vez de un único bloque continuo, sobre todo en pantallas anchas donde 16px se queda corto.
+
+### Grid / estructura responsive
+
+- **Un único breakpoint**: `@media (min-width: 900px)`. No hay tablet intermedio — por debajo de 900px todo es "móvil" (con bottom nav), por encima es "desktop" (con sidebar).
+- **Contenedor principal** (`.pj-main`): `max-width:920px; margin:0 auto`, con padding responsive:
+  - Móvil (por defecto): `24px 16px 104px` — **16px es el margen lateral estándar en móvil**, más un padding-bottom de 104px para dejar sitio a la bottom nav fija.
+  - Desktop (≥900px): `32px 24px 104px`.
+- **Sidebar** (`.pj-sidebar`, 248px de ancho fijo — ya es múltiplo de 8, no cambia): oculta por defecto, `display:flex` solo ≥900px. Cuando está visible, `.pj-main-shifted` añade `margin-left:248px` al contenido.
+- **Bottom nav** (`.pj-bottomnav`): visible por defecto, `display:none` ≥900px.
+
+### Diferencias mobile / desktop
+
+| | Móvil (<900px) | Desktop (≥900px) |
+|---|---|---|
+| Navegación | Bottom nav fija (iconos + label) | Sidebar fija izquierda (248px) |
+| Barra superior | Visible (con logo), fondo blanco excepto en auth | Oculta (`.pj-topnav-hide-desktop`) cuando hay sidebar |
+| Padding lateral página | 16px | 24px |
+| Card de "Publicar"/formularios | Sin fondo propio, se apoya solo en el padding de página (16px) | Fondo blanco + `padding:32px` + `border-radius:24px` |
+
+---
+
+## 4. Componentes
+
+### Botones
+
+| Variante | Fondo | Texto | Borde | Radio | Altura | Uso |
+|---|---|---|---|---|---|---|
+| Primario | `#5B4CFB` | `#fff` / 800 | ninguno | `14px` | `50px` | Acción principal de un formulario (Iniciar sessió, Publicar, Desar...) |
+| Primario compacto | `#5B4CFB` | `#fff` / 700 | ninguno | `14px` | `min-height:44px` (`padding:0 24px`) | CTA secundario en contexto ("+ Publicar", CTAs de estado vacío) |
+| Secundario/outline | `#fff` | `#14151A` / 700 | `1.5px solid #ECEDF2` | `14px` | `44px` | Acción neutra ("Editar", "Cancel·lar") |
+| Peligro | `#FDEBEA` | `#C22A24` / 700 | `1.5px solid #FBD8D6` | `14px` | `44px` | Acción destructiva ("Eliminar", "Sí, eliminar") |
+| Texto/link | transparente | `#5B4CFB` / 700 | ninguno | — | auto | Enlace de acción secundaria ("Registra't", "Has oblidat la contrasenya?") |
+| WhatsApp CTA | `#25D366` | `#14151A` / 700 | ninguno | `14px` | `44px` | Único botón con estados hover/active/focus explícitos; texto negro (no blanco) sobre el verde original |
+| Tab/segmento | tinte morado si activo / transparente si no | `#5B4CFB` si activo / `#727681` si no | ninguno | `14px` | `44px` | Selectores tipo "Ofereixo/Necessito" |
+| Nav (bottom nav) | tinte morado si activo / transparente si no | `#5B4CFB` si activo / `#727681` si no | ninguno | `14px` | `44px` | Viatges / Els meus / Perfil |
+| Icono circular | `#fff` | `#14151A` | ninguno | `14px` | `40px` | Cerrar (X) en Publicar |
+
+**Todos los botones usan el mismo radio (`14px`), sin excepción** — es la regla de consistencia más importante de este sistema: ningún botón es "píldora" (999px), independientemente de su tamaño o importancia. Solo elementos no interactivos (badges, toast) pueden usar `999px`.
+
+Todos los botones: `min-height:44px` (objetivo táctil accesible), `cursor:pointer`, `font-family:inherit`.
+
+### Cards
+
+- **Card de contenido en lista** (trip, booking): `background:#fff; border-radius:24px; padding:16px; margin-bottom:16px`.
+- **Card hero/auth**: `border-radius:28px; padding:40px 32px`, con la sombra grande.
+- **Card de formulario**: `border-radius:24px; padding:32px` (desktop) / sin fondo propio en móvil.
+- **Card de estado vacío**: `border-radius:24px; padding:40px 24px; text-align:center`, texto gris, opcionalmente con un botón CTA debajo.
+
+### Inputs
+
+Receta única para todos los inputs de texto/número/fecha/hora/email/password:
+```
+height:48px; border-radius:14px; border:1.5px solid #ECEDF2;
+padding:0 16px; font-size:15px; font-family:inherit;
+```
+Sin excepciones — **si un input nuevo no sigue exactamente esto, rompe la consistencia** (ver el bug de fecha/hora que corregimos, que tenía iconos y padding distintos).
+
+### Botón primario con icono (`.pj-btn-primary`)
+
+Para acciones principales dentro de la app (Publicar y sus variantes en estados vacíos). `inline-flex`, `gap:8px`, `min-height:44px`, `padding:0 24px 0 16px` (8px menos a la izquierda para compensar el peso visual del icono), radio 14, fondo `#5B4CFB`, texto blanco 14px/700; hover `#4A3DE8`, active `#4338D6` + `scale(0.98)`, focus `#B9B0FF`. El icono es un SVG de 18px trazado con `currentColor` y `aria-hidden`, nunca un carácter de texto ("+ Publicar" queda retirado): así el espacio icono-texto es un gap de 8pt real y no depende de la fuente.
+
+### Línea informativa de aviso (`.pj-notice`)
+
+En las tarjetas propias de "Els meus", bajo la fila de fecha y hora: campana 14px en `#5B4CFB` + texto 12.5px/600 `#727681`, centrada, sin fondo ni borde. Es información, no un control: no tiene hover ni cursor. Texto: "Avís actiu · ±2 h · només aquest dia · N avisos enviats" o "Avís desactivat". Si en el futuro se hace interactiva, solo puede llevar a editar el aviso de ese viaje; nunca a otra cosa.
+
+### Tarjeta de beneficio con interruptor (`.pj-benefit` + `.pj-switch`)
+
+Para ofrecer un servicio opcional dentro de un formulario (hoy: avisos por correo, tanto en sol·licitud como en oferta; el título cambia según el rol). Se presenta como beneficio, no como casilla de consentimiento: título afirmativo ("T'avisem quan aparegui un viatge que encaixi"), no una pregunta.
+
+- Contenedor: fondo blanco, `border:1.5px solid #ECEDF2`, radio 16, `padding:16px`. Iteración cerrada: se probaron tres degradados (sutil, morado pleno, lavanda), pill "Nou" e ilustración, y se descartó todo en favor de la versión mínima — el degradado pleno empataba con el CTA, el lavanda perdía contraste, y la carga visual no añadía comprensión. La distinción la aporta el copy.
+- Regla de copy del componente: el título promete con una palabra definible ("un viatge **compatible**") y el subtítulo la define con números ("Compatible vol dir fins a ±2 h de la teva hora, el mateix dia."), seguida de "Ajusta-ho a la teva flexibilitat". Desactivado: "No t'enviarem cap avís per aquest viatge." Nunca prometer sin definir: evita que un aviso a ±2 h se perciba como error de match.
+- Cabecera `flex`, `gap:12px`: icono de campana en círculo de 40px `#EEEBFF` con trazo `#5B4CFB` (mismo recurso que los pasos de la landing; es icono funcional, no ilustración), cuerpo con título 15px/700 `#14151A` y subtítulo 13px/600 `#6B6F7B` (`margin-top:4px`), e interruptor a la derecha.
+- Interruptor `.pj-switch`: `<button role="switch" aria-checked>`, 44×26, pista `#D9DBE3` / activa `#5B4CFB`, botón blanco de 20px con desplazamiento de 18px y transición de 160ms. Un switch comunica "servicio activo/inactivo"; un checkbox comunica "acepto". Aquí es lo primero.
+- Revelado progresivo: activo → el subtítulo describe la **consecuencia**, no la configuración ("Buscarem viatges fins a ±2 h de la teva hora, aquest mateix dia.") y el `.pj-viewlink` invita a declarar flexibilidad ("Tens més flexibilitat? Ajusta-ho"). Regla de copy: los ajustes de un aviso se explican por lo que harán llegar al usuario, nunca como parámetros sueltos — evita avisos que parezcan errores de match. Etiquetas abiertas en pregunta: "Quanta flexibilitat d'hora tens?" / "I de dia?"; al pulsarlo, `.pj-benefit-options` (separador superior `#ECEDF2`, `padding-top:16px`, grupos a 16px) muestra los segmentados `.pj-seg-tabs` con etiquetas 13px/700. Desactivado → subtítulo "Avís desactivat" y nada más.
+- Todo el contenido interior comparte el borde izquierdo de 16px de la tarjeta; solo el subtítulo se alinea con el título (columna del cuerpo).
+- Regla: los campos que solo importan a quien acepta una opción no se muestran hasta que la acepta y pide cambiarlos; el valor por defecto se enseña como texto, no como control. Descartado: checkbox con etiqueta larga (se leía como configuración), preguntar antes o después de publicar (pantalla extra y campos duplicados en edición).
+
+### Movimiento: entrada de contenido y carga
+
+Dos animaciones, una por propósito. Ambas se anulan con `prefers-reduced-motion`.
+
+- **`.pj-appear`** (320ms, `cubic-bezier(0.22,1,0.36,1)`, fade + 12px hacia arriba): bloques generales, secciones y estados vacíos. Escalonado de 40ms por posición.
+- **`.pj-slide-in`** (600ms, `cubic-bezier(0.16,1,0.3,1)`, fade + 28px desde la derecha): **solo las tarjetas de viaje**. La curva arranca rápido y desacelera mucho al final — entra deslizando y frena. Escalonado de 70ms, tope a partir de la sexta tarjeta. Se eligieron 600ms y no más: por encima de ~800ms la última tarjeta sigue moviéndose cuando el usuario ya quiere pulsar.
+- **Esqueleto de carga (`.pj-skel`)**: mientras `tripsLoading`, se muestran dos tarjetas fantasma con la **forma real** de la tarjeta (avatar 44px, dos barras de texto, ruta centrada, fila precio + botón), en `#EDEEF3` con shimmer de 1400ms. La segunda al 60% de opacidad para sugerir continuidad. Regla: el estado de carga imita la silueta del contenido que va a llegar, nunca un texto "Cargando…" — así no hay salto de layout ni cambio de lenguaje visual entre carga y contenido.
+
+### Segmentado (`.pj-seg`)
+
+Un solo componente para toda decisión "elige una opción entre pocas" fuera de la navegación. Contenedor blanco, `border:1.5px solid #ECEDF2`, `border-radius:14px`, `padding:4px`, `gap:4px`. Cada opción: `min-height:40px`, `border-radius:10px`, 14px/600 gris `#727681`; activa (`aria-selected` o `aria-pressed`) = fondo `#EEEBFF` + `#5B4CFB` + 700. Hover inactivo `#F3F4F8`. Focus `outline:2px solid #B9B0FF`. **Sin sombra** (el antiguo tab con sombra morada queda retirado).
+
+Variantes por clase adicional:
+- `.pj-seg-tabs`: opciones con `flex:1` a ancho completo. Usado en Ofereixo/Necessito, Com a conductor/Com a passatger y en los selectores de margen horario (±1/±2/±3 h) y de día del formulario de sol·licitud (ahí con `aria-pressed` y `role="group"`, no `tablist`), con `role="tablist"`/`role="tab"`. El contador va en `<span class="pj-seg-count">` (13px/600, opacidad 0.65). Las etiquetas no repiten la palabra del título de la vista: bajo "Propers viatges" son "Ofereixo" / "Necessito", las mismas que el `roleLabel` de las tarjetas.
+
+### Enlace de cambio de vista (`.pj-viewlink`)
+
+Botón de texto para alternar lista/calendario en Viatges: `inline-flex`, `gap:8px`, `min-height:32px`, `padding:0 8px`, radio 10, sin borde ni fondo, `#5B4CFB` 13px/700, icono 16px `currentColor`; hover `#EEEBFF`, focus `#B9B0FF`, `aria-pressed`. Alineado a la derecha, 8px bajo las pestañas y 16px sobre el contenido; cuando no se muestra, las pestañas recuperan los 24px. Etiqueta "Veure per dies" (icono calendario) en lista y "Veure llista" (icono lista) en calendario.
+
+**Regla de aparición:** solo existe si la pestaña activa tiene viajes en más de un día; con todo en un mismo día no hay nada que navegar y la lista es la vista. La vista no se persiste: la lista es siempre el estado por defecto (al cargar y al volver de publicar), y el calendario es exploración puntual dentro de la sesión. Se descartó guardar la preferencia en localStorage: volver de publicar y aterrizar en un día vacío del calendario desorientaba.
+
+**Decisiones descartadas:** un segmentado de dos iconos (`.pj-seg`) en su propia fila, por peso visual excesivo; el mismo en la fila de las pestañas, por acumular dos decisiones en una línea; y calendario por defecto, porque con poca oferta enseña el vacío antes que el contenido.
+
+### Nav (bottom nav / sidebar)
+
+Mismo lenguaje de activo/inactivo que el segmentado, pero con icono SVG que cambia de color junto al texto y sin contenedor común.
+
+### Calendari (vista de viatges)
+
+Card blanca `border-radius:24px; padding:16px`. Cabecera: rango o mes (15px/800, primera letra en mayúscula desde JS, nunca `text-transform`) + dos botones de 36px `#F3F4F8` radio 12. Fila de días `dl…dg` 11px/700 mayúsculas `#8F93A1`. Grid 7 columnas, gap 4, celda `.pj-cal-day` 52px alto, radio 12, 14px/600; hoy = `#5B4CFB`/800; seleccionado = fondo `#5B4CFB` + blanco, sin sombra; pasado o mes vecino = `#C4C7D0` (pasado además `disabled`). Contador por día en pill 16px `#EEEBFF`/`#5B4CFB` (`.pj-cal-count`). Chevron centrado bajo el grid que expande de semana a mes (`aria-expanded`, icono rota 180°, `max-height` animado 260ms). Debajo, `.pj-cal-dayhead`: día seleccionado a la izquierda y "N viatges" a la derecha, y las tarjetas de ese día sin cambios.
+
+### Navbar mobile (bottom nav)
+
+Fija abajo, `min-height:68px`, fondo blanco, `border-top:1px solid #ECEDF2`, respeta `env(safe-area-inset-bottom)`. Tres botones (Viatges/Els meus/Perfil), icono + label 11px, estado activo con fondo morado tenue en pill redondeado (`border-radius:16px`).
+
+### Sidebar desktop
+
+Fija a la izquierda, ancho `248px`, fondo blanco, `border-right:1px solid #ECEDF2`. Logo arriba, lista de botones de navegación a ancho completo. Estado activo tonal, patrón Material: fondo `#EEEBFF`, texto e icono `#5B4CFB`, peso 700; inactivo transparente, `#6B6F7B`/600. Se descartó el activo en morado sólido: competía en peso con el CTA Publicar — la superficie sólida de marca queda reservada a la acción primaria, la navegación indica lugar con contenedor tonal.
+
+### Badges/tags
+
+Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padding:8px 16px`. Usado para la etiqueta de ruta en "Els meus reserves".
+
+### Mini-landing en el login
+
+Solo en `isLoginMode`, debajo de la tarjeta de acceso (nunca en signup/forgot/reset, para no distraer esos flujos). Reformulada a partir de una propuesta de estructura/contenido en verde-terracota (export de Google Stitch) que el usuario aportó como referencia — se adoptó su **estructura y copy**, pero traducida por completo a nuestro sistema de diseño (morado `#5B4CFB`, Plus Jakarta Sans, iconos trazados a mano en vez de Material Symbols). Cuatro bloques, en este orden:
+
+1. **Bloque de datos** (`.pj-databento`) — titular "Moltes places viatgen buides cada dia." + dos tarjetas: `.pj-databento-eq` (blanca, con la etiqueta "L'EQUACIÓ" usando el propio icono de marca en miniatura + la frase "1 trajecte + persones = − despeses") y `.pj-databento-eco` (fondo sólido `#5B4CFB`, icono de hoja, "Menys emissions"). Apiladas en móvil, en fila (`flex:2`/`flex:1`) en desktop.
+2. **Calculadora de estalvi** (`.pj-calc`) — único bloque interactivo de la mini-landing. Tres botones (1/2/4 persones, `role="group"` + `aria-pressed`) cambian el estado `s.calcPeople`, que recalcula `calcPriceLabel` sobre un **viaje de referencia ilustrativo** (Barcelona↔Berga, 24€ total — explícitamente etiquetado como "trajecte de referència", no una cifra real de uso de la app, para no inventar datos). El resultado se muestra en `.pj-calc-circle`, un círculo con borde grueso `#ECEDF2` y el precio en `#5B4CFB` a 44px. Mismo patrón de computed-props por botón que ya usan las pestañas de tipo de viaje (`calc1Style`/`calc2Style`/`calc4Style`, activo = borde+fondo+texto morado, inactivo = borde gris).
+3. **Grid de 4 pilares** (`.pj-bento4`) — "No compartim només cotxe. Compartim territori." + 4 tarjetas (Estalvia/Connecta/Aprofita/Facilita), icono circular `#EEEBFF`/`#5B4CFB` + `<h3>` + párrafo. 1 columna en móvil, 2 en desktop (el mockup original usaba 4 en desktop grande, pero con nuestro `max-width:840px` y frases completas, 2 columnas se lee mejor que 4 apretadas). Estas son las primeras `<h3>` del proyecto — semánticamente correcto, ya que son sub-ítems bajo el `<h2>` de esta sección (antes, el sistema de 3 pilares reutilizaba `<h2>` para los títulos de cada bloque, que era menos correcto).
+4. **CTA final** (mismo patrón `.pj-footer-cta` de siempre, full-bleed morado) — copy actualizado a "El Berguedà i Barcelona ja estan connectats. Fem que els trajectes també ho estiguin." + botón "Començar a compartir" → `scrollToLoginCard`.
+
+**Iconos**: todos dibujados a mano en el mismo estilo que el resto de la app (`stroke`, `stroke-width` 2–2.4, `round` linecap/linejoin, sin relleno salvo casos puntuales) — nada de fuentes de iconos externas (el mockup de referencia usaba Material Symbols vía Google Fonts, que no encaja con el resto del proyecto ni con mantenerlo sin dependencias de red extra).
+
+**Qué se retiró de la versión anterior**: el sistema de 3 pilares (estalvi/comunitat/confiança) y el mockup SVG de teléfono con capturas de viajes — sustituidos por esta estructura nueva, no coexisten. Los assets `auth-savings.png`/`auth-community.png` se eliminaron del repo por quedar sin uso.
+
+**Hero de marketing (solo `isLoginMode`, arriba del todo).** Reemplaza por completo la antigua foto de fondo fija con parallax — se retiró esa imagen (`auth-signup-bg.png`, eliminada del repo) y toda la lógica que la sostenía (`position:fixed`, `object-position` responsive, `.pj-auth-first-screen` forzando `min-height:100vh`). El hero nuevo (`.pj-hero`) es contenido normal en el flujo de la página, sin trucos de posicionamiento: titular (h1) "Puges o baixes? Comparteix el trajecte." + subtítulo + dos botones ("Trobar un viatge" / "Publicar un viatge"), y a su lado una tarjeta ilustrativa `.pj-axis-card` (origen/destino con icono + línea conectora + badge "Conductor freqüent · Avui 18:30") sobre un panel `#F7F6FF`. Apilado en móvil, en fila (`flex:1`/`flex:1`) en desktop. Ninguno de los dos botones navega a otra vista ni cambia `authMode`: ambos ejecutan `scrollToLoginCard`, que ahora hace `document.getElementById('pj-auth-card')?.scrollIntoView({behavior:'smooth', block:'start'})` — antes bastaba con `scrollTo({top:0})` porque la tarjeta era el primer elemento de la página; ahora que el hero va antes, hace falta apuntar al elemento real.
+
+**Un único `<h1>` por vista, incluso con el hero delante.** La tarjeta de acceso (`#pj-auth-card`) ya no lleva su propio `<h1>` incondicional: en `isLoginMode` usa `<h2>Inicia sessió</h2>` (el hero de arriba ya es el `<h1>` de la página, y repetir "Puges o baixes?" habría sido además una redundancia de copy), mientras que en signup/forgot/reset — que no muestran hero — sigue siendo `<h1>` con el texto de cada modo. Importante mantener esta condición si se toca esta zona: nunca debe haber dos `<h1>` a la vez en la misma vista.
+
+Justo después de la tarjeta (solo en `isLoginMode`), el resto de la mini-landing (bloque de datos, calculadora, grid de 4 pilares) vive dentro de un contenedor **full-bleed** con fondo sólido `#F3F4F8` (el mismo que `html, body`): `width:100vw; margin: 40px calc(50% - 50vw) 0;` — este truco saca el fondo del ancho limitado de `.pj-main` (max-width:920px) para que cubra todo el viewport de lado a lado, no solo la columna central. `html, body` llevan `overflow-x:hidden` para evitar el scroll horizontal de unos pocos píxeles que el truco `100vw` puede introducir en navegadores con scrollbar no superpuesta (Windows/desktop).
+
+**Footer de cierre**: es su propia sección full-bleed (mismo truco `width:100vw; margin:0 calc(50% - 50vw)`), con fondo sólido `#5B4CFB` (morado de marca) en vez de compartir el gris `#F3F4F8` del bloque de arriba, para que se lea como un cierre diferenciado. Contraste verificado: titular blanco 5.42:1, subtítulo `rgba(255,255,255,0.92)` 4.7:1 (con menos opacidad cae por debajo del mínimo AA de 4.5:1), botón invertido (fondo blanco, texto `#5B4CFB`) 5.42:1. Altura fija por contenido + padding (`64px 16px`), sin `flex-grow` — se probó a estirarlo con flex para tocar siempre el final del viewport, pero en pantallas altas con poco contenido quedaba desproporcionadamente alto; no es el patrón habitual de un footer web. Tiene su propio layout (clases `.pj-footer-cta`/`.pj-footer-cta-copy`/`.pj-footer-cta-btn`): apilado y centrado en móvil, en fila (texto izquierda, botón derecha) en desktop.
+
+**`.pj-main` y su padding inferior de 104px** (`padding: 24px 16px 104px` móvil / `32px 24px 104px` desktop, pensado para dejar hueco a la bottom nav): se elimina en la pantalla de auth vía `mainStyle` (computado en JS, `padding-bottom:0` inline cuando `isAuthShellView`), ya que la bottom nav nunca se muestra ahí (`showBottomNav` requiere `isLoggedIn`). El padding superior no se toca.
+
+### Modales / estados vacíos
+
+- **No existe un modal real (overlay + backdrop)** en todo el producto. Las confirmaciones (ej. "¿Seguro que quieres eliminar?") se resuelven **inline dentro de la misma card**, sustituyendo su contenido por un mensaje + dos botones. Si en el futuro necesitas un modal de verdad, sería un patrón nuevo — decide conscientemente si quieres introducirlo o mantener la consistencia con este enfoque inline.
+- **Estados vacíos**: card centrada, texto gris, opcionalmente con CTA (patrón ya documentado arriba).
+- **Toast**: pill fija en `bottom:88px` (para no tapar la bottom nav), centrada horizontalmente, fondo según tipo (`info` negro / `error` rojo / `success` verde), autodesaparece a los 3.2s.
+
+---
+
+## 5. Patrones de interacción
+
+- **Hover**: solo definido explícitamente en el botón de WhatsApp (`style-hover`). El resto de botones no tienen estado hover propio — es una inconsistencia real del sistema actual, no algo a copiar sin pensar.
+- **Active/focus**: mismo caso — solo el CTA de WhatsApp define `style-active`/`style-focus` (con outline visible, buena práctica de accesibilidad que no se repite en el resto).
+- **Disabled**: no hay un estilo visual de "deshabilitado" (el botón no se atenúa). En su lugar, el patrón es **cambiar el texto del botón** mientras carga (`disabled="{{ xBusy }}"` + `<sc-if value="{{ xBusy }}">Un moment…</sc-if>`). Es el patrón a seguir: comunica el estado por texto, no por opacidad.
+- **Loading de pantalla completa**: spinner circular vía clase `.pj-spin` (borde con `border-top-color` de marca, animación de rotación) + texto "Comprovant l'enllaç…" — usado en pantallas de callback/reset.
+- **Loading de listas**: texto simple centrado "Carregant…", sin spinner.
+- **Feedback al usuario**: dos canales, sin mezclarlos:
+  - **Toast** (`_showToast`): para confirmaciones puntuales de una acción (guardar, eliminar, publicar) — no bloquea la pantalla.
+  - **Banner inline** (fondo `#FDEBEA`, arriba del formulario): para errores de validación/envío de un formulario concreto.
+- **Errores y validaciones**: todo el texto de error que ve el usuario debe ser lenguaje llano, nunca el mensaje técnico crudo de Supabase/Postgres (hay un helper `_friendlyDbError` pensado exactamente para esto — reutilízalo en cualquier función nueva que hable con la base de datos).
+- **Accesibilidad básica ya aplicada**: `min-height:44px` en todo elemento pulsable, `role="tab"`/`aria-selected` en segmentos, `aria-current="page"` en nav, `aria-label` en botones/enlaces solo-icono, `alt=""` en imágenes decorativas, `for`/`id` en todos los pares label-input de un solo campo, `role="group"` + `aria-labelledby` en grupos de varios campos (Ruta, Data i hora, Tipus de publicació).
+- **Contraste de color (WCAG AA) auditado y corregido**: todos los colores de texto/icono de la paleta cumplen ≥4.5:1 sobre su fondo habitual (texto normal) o ≥3:1 (texto grande). Verificado con la fórmula de luminancia relativa de WCAG. Si añades un color de texto nuevo, comprueba el contraste antes de darlo por bueno — no asumas que "se ve bien" es suficiente.
+
+---
+
+## 6. Reglas de consistencia
+
+**Mantener siempre:**
+- Una única familia tipográfica (Plus Jakarta Sans) y solo 3 pesos (600/700/800).
+- Radios: `14px` (inputs/**todos los botones, sin excepción**/cards pequeñas), `24px` (cards de contenido), `28px` (cards hero), `999px` (solo badges/toast, nunca botones), `50%` (avatares/círculos). No inventar un radio nuevo.
+- Los 3 colores de sombra documentados — no crear sombras grises genéricas nuevas.
+- El patrón label-encima-del-input (15px/700/gris, `margin-bottom:8px`) en cualquier formulario nuevo.
+- `min-height:44px` en todo elemento interactivo (accesibilidad táctil).
+- Mensajes de error siempre en lenguaje llano vía `_friendlyDbError`/`_authErrorMessage`, nunca el error crudo de la base de datos.
+- 16px de margen lateral en móvil, 20-28px en desktop — no mezclar anchos de página distintos entre pantallas.
+
+**Errores a evitar al crear pantallas nuevas:**
+- No añadir iconos superpuestos dentro de un input si los inputs vecinos no los llevan (ya pasó con fecha/hora — rómpelo con cuidado si es intencional, pero no por descuido).
+- No apilar dos paddings de contenedor (página + card) sin revisar el resultado en móvil — es la causa más probable de que algo "se vea distinto" o "se coma ancho" en pantallas estrechas.
+- No mostrar `e.message` (el error crudo) directamente al usuario bajo ninguna circunstancia.
+- No introducir un cuarto peso tipográfico o una segunda fuente.
+- No crear un nuevo breakpoint intermedio — el sistema solo entiende "menos de 900px" y "900px o más".
+
+**Cómo construir una pantalla nueva siguiendo este sistema:**
+1. Envuélvela en `<sc-if value="{{ isXView }}">` dentro de `.pj-main`, igual que el resto.
+2. Título de pantalla: `<h1>` 24px/800 con `margin:0 0 24px`.
+3. Contenido en una o varias cards blancas (`border-radius:24px`), separadas por `margin-bottom:16px` si son una lista.
+4. Cualquier formulario: inputs con la receta única de la sección 4, labels 15px/700 gris encima de cada campo.
+5. Acción principal: botón pill morado 50px de alto, ancho completo si es la única acción del formulario.
+6. Estados de carga/error: reutiliza `_showToast`, el banner inline de error, y `_friendlyDbError`/`_authErrorMessage` — no inventes un mensaje nuevo desde cero.
+7. Compruébala en dos anchos: <900px (bottom nav, 16px de margen) y ≥900px (sidebar, card con más padding).
+
+---
+
+## Tabla resumen de tokens
+
+### Colores
+| Token | Valor |
+|---|---|
+| `color-brand` | `#5B4CFB` |
+| `color-brand-tint` | `rgba(91,76,251,0.1)` / `#EEEBFF` |
+| `color-text-primary` | `#14151A` |
+| `color-text-secondary` | `#6B6F7B` |
+| `color-text-muted` | `#727681` |
+| `color-border` | `#ECEDF2` |
+| `color-bg-page` | `#F3F4F8` |
+| `color-bg-surface` | `#fff` |
+| `color-danger` | `#C22A24` |
+| `color-danger-bg` | `#FDEBEA` |
+| `color-danger-border` | `#FBD8D6` |
+| `color-success` | `#1D874A` |
+| `color-success-bg` | `#EAF7EF` |
+| `color-whatsapp` | `#25D366` (hover `#20BD5A`, active `#1DA851`, focus `#128C7E`), texto `#14151A` |
+| `color-placeholder` | `#8F93A1` |
+
+### Tipografía
+| Token | Valor |
+|---|---|
+| `font-family` | `'Plus Jakarta Sans', sans-serif` |
+| `weight-regular-app` | 600 |
+| `weight-medium-app` | 700 |
+| `weight-bold-app` | 800 |
+| `size-hero` | 26px |
+| `size-h1` | 24px |
+| `size-route` | 19px |
+| `size-price` | 17px |
+| `size-body` | 15px |
+| `size-button` | 14–15px |
+| `size-label` | 15px |
+| `size-caption` | 11–12.5px |
+| `letter-spacing-heading` | -0.02em |
+
+### Radios
+| Token | Valor |
+|---|---|
+| `radius-sm` (inputs/**todos los botones**/tabs) | 14px |
+| `radius-card` | 24px |
+| `radius-card-hero` | 28px |
+| `radius-pill` (solo badges/toast, no botones) | 999px |
+| `radius-circle` | 50% |
+
+### Sombras
+| Token | Valor |
+|---|---|
+| `shadow-card` | `0 20px 60px -30px rgba(20,21,26,0.25)` |
+| `shadow-toast` | `0 12px 30px -10px rgba(20,21,26,0.4)` |
+| `shadow-tab-active` | `0 8px 20px -10px rgba(91,76,251,0.45)` |
+
+### Spacing
+| Token | Valor |
+|---|---|
+| `gap-xs` | 4–8px |
+| `gap-sm` | 8px |
+| `gap-md` | 16px |
+| `gap-lg` | 24px |
+| `padding-page-mobile` | 16px |
+| `padding-page-desktop` | 24px |
+| `padding-card` | 32px (desktop) / 16px (móvil) |
+| `margin-list-item` | 16px |
+| `touch-target-min` | 44px |
+
+### Componentes reutilizables
+| Componente | Receta base |
+|---|---|
+| Botón primario | `#5B4CFB` bg, `#fff` texto 800, `14px` radio, `50px` alto |
+| Botón secundario | `#fff` bg, borde `#ECEDF2`, `14px` radio, `44px` alto |
+| Botón peligro | `#FDEBEA` bg, texto `#C22A24`, borde `#FBD8D6` |
+| Input estándar | `48px` alto, `14px` radio, borde `#ECEDF2`, `padding:0 16px` |
+| Card de contenido | `#fff` bg, `24px` radio, `16px` padding, `14px` margin-bottom |
+| Card hero | `#fff` bg, `28px` radio, `36px 32px` padding, `shadow-card` |
+| Tab/segmento | `flex:1`, `14px` radio, activo = tinte marca + sombra + texto marca |
+| Toast | pill fija bottom, `999px` radio, `shadow-toast` |
