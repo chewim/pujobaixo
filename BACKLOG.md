@@ -35,4 +35,4 @@ No barrejar amb `ROADMAP.md` (decidit i actiu) ni amb la secció "Aparcat" del r
 ## Disseny
 
 - Adaptar el toggle/segmentat i el calendari a desktop (avui optimitzat mòbil-primer; desktop no auditat).
-- Plantilles de correu de Supabase Auth (verificació, recuperació) en català i amb l'estil visual del correu d'avisos.
+- ~~Plantilles de correu de Supabase Auth en català i amb l'estil visual del correu d'avisos.~~ Fet el 29 oct. 2026: `supabase/templates/` (cal enganxar-les a Supabase, vegeu el README).
