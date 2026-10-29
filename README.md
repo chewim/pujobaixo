@@ -18,6 +18,8 @@ Plataforma de compartició de trajectes Berguedà ⇄ Barcelona. Web estàtica (
 | `docs/GOTCHAS.md` | Bugs i comportaments sorprenents de les eines. Consultar abans d'implementar. |
 | `docs/AVISOS_SOLICITUDS.md` | Com funciona i com es desplega el sistema d'avisos automàtics. |
 | `supabase/migrations/` | SQL versionat, ordre cronològic pel nom del fitxer. |
+| `supabase/diagnostics/` | Scripts de comprovació sense efectes (Resend, reportar/bloquejar). |
+| `docs/specs/` | Specs de funcionalitats que toquen dades o seguretat, amb el seu estat d'acceptació. Plantilla: `PLANTILLA.md`. |
 
 ## Regla d'or
 

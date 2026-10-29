@@ -7,7 +7,7 @@ No barrejar amb `ROADMAP.md` (decidit i actiu) ni amb la secció "Aparcat" del r
 ## Producte
 
 - Notificar també al conductor quan apareix una sol·licitud compatible amb la seva oferta *(ja fet — vegeu `docs/AVISOS_SOLICITUDS.md`, avisos v2, ambdós rols)*.
-- Senyals de confiança lleugeres a la targeta: "Membre des de setembre 2026", "3 viatges publicats" (baix cost, sense verificació forta).
+- Senyals de confiança lleugeres a la targeta: "Membre des de setembre 2026", "3 viatges publicats" (baix cost, sense verificació forta). *(Parcialment fet el 29 oct.: el perfil públic mostra viatges oferts i sol·licituds. La data d'alta es va deixar fora a propòsit; afegir-la seria un camp més a `public_profile()`.)*
 - Historial de viatges completats per usuari, visible al perfil.
 - Recordatori automàtic (correu) el dia abans d'un viatge propi, amb un enllaç ràpid per cancel·lar si cal.
 - Valoracions post-viatge (ja existeix `rating` a `profiles` segons `_loadTrips`; no s'utilitza enlloc de la UI).

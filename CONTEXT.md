@@ -22,6 +22,13 @@ Persones del Berguedà que es desplacen a Barcelona (o a l'inrevés) de manera h
 - **1 viatge actiu, 0 clics de WhatsApp** sobre viatges actius. Vegeu `ROADMAP.md` — aquesta és la restricció que decideix totes les prioritats actuals.
 - **Canals que han convertit:** grup de WhatsApp local (millor ràtio esforç/resultat) i un esdeveniment presencial puntual. Cap altre canal provat encara.
 
+### Canvis del 29 d'octubre de 2026
+
+- **WhatsApp com a únic CTA sòlid a Viatges.** "Publicar" de la capçalera passa a botó tonal i el preu a negre (`DECISIONS.md`).
+- **Seguretat: reportar i bloquejar** des d'un **perfil públic mínim** (tocant el nom a la targeta). Spec i estat: `docs/specs/2026-10-29_reportar-bloquejar.md`. Els reports arriben per correu a l'adreça `admin_email` del Vault i es revisen a mà a Supabase → Table Editor → `reports`.
+- **Resend comprovat** de punta a punta des de la BD. Des del 30 d'agost no hi ha hagut cap avís de coincidència perquè no hi ha hagut coincidències, no per cap error.
+- **RLS de `profiles` revisada:** sense sessió no es llegeix cap perfil ni telèfon. Amb sessió, qualsevol compte pot llegir les columnes de qui té un viatge actiu (inclòs `phone`, necessari per a WhatsApp); limitació acceptada i documentada a l'spec.
+
 ## Stack i infraestructura
 
 | Peça | Servei | Notes |
@@ -30,7 +37,7 @@ Persones del Berguedà que es desplacen a Barcelona (o a l'inrevés) de manera h
 | Hosting | GitHub Pages (`chewim/pujobaixo`) | `CNAME` apunta a `pujobaixo.cat` |
 | DNS | IONOS | Migrat des de Netlify DNS el 30 ag. 2026 (Netlify ja no s'usa per a res) |
 | Backend | Supabase (Postgres + Auth + Storage) | RLS actiu a totes les taules d'usuari |
-| Correu transaccional | Resend | Domini `pujobaixo.cat` verificat (DKIM/SPF/MX/DMARC). Vault: `resend_api_key` |
+| Correu transaccional | Resend | Domini `pujobaixo.cat` verificat (DKIM/SPF/MX/DMARC). Vault: `resend_api_key`, `admin_email` (destí dels reports) |
 | Auth SMTP | **Pendent** — encara amb el SMTP de prova de Supabase (límit 2/h) | Connectar a Resend és tasca activa al roadmap |
 
 ## Documents del repositori
@@ -41,6 +48,9 @@ Persones del Berguedà que es desplacen a Barcelona (o a l'inrevés) de manera h
 - `BACKLOG.md` — idees sense avaluar encara contra la restricció.
 - `docs/AVISOS_SOLICITUDS.md` — funcionament i desplegament del sistema d'avisos automàtics.
 - `supabase/migrations/` — SQL versionat, un fitxer per migració, ordre cronològic pel nom.
+- `supabase/diagnostics/` — scripts de comprovació que no modifiquen res (prova de Resend, prova automàtica de reportar/bloquejar que es desfà sola).
+- `docs/specs/` — specs de funcionalitats que toquen dades, seguretat o creuen sistemes (`PLANTILLA.md` + un fitxer per spec).
+- `docs/GOTCHAS.md` — bugs i comportaments sorprenents de les eines.
 
 ## Com treballem (mètode, no només eines)
 

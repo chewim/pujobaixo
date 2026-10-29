@@ -78,6 +78,36 @@
       to   { opacity: 1; transform: translateY(0); }
     }
     .pj-appear { animation: pjAppear 320ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+    /* Entrada lateral (dreta→esquerra) per a les targetes de viatge: arrenca ràpid i frena molt. */
+    @keyframes pjSlideIn {
+      from { opacity: 0; transform: translateX(28px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .pj-slide-in { animation: pjSlideIn 600ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .pj-slide-in:nth-child(1) { animation-delay: 0ms; }
+    .pj-slide-in:nth-child(2) { animation-delay: 70ms; }
+    .pj-slide-in:nth-child(3) { animation-delay: 140ms; }
+    .pj-slide-in:nth-child(4) { animation-delay: 210ms; }
+    .pj-slide-in:nth-child(5) { animation-delay: 280ms; }
+    .pj-slide-in:nth-child(n+6) { animation-delay: 340ms; }
+
+    /* Esquelet de càrrega: mateixa forma que la targeta real, per continuïtat visual */
+    @keyframes pjShimmer { from { background-position: -420px 0; } to { background-position: 420px 0; } }
+    .pj-skel { background:#fff; border-radius:24px; padding:16px; margin-bottom:16px; display:flex; flex-direction:column; gap:16px; }
+    .pj-skel-row { display:flex; align-items:center; gap:12px; }
+    .pj-skel-bar, .pj-skel-dot {
+      background:#EDEEF3;
+      background-image:linear-gradient(90deg, #EDEEF3 0%, #F6F7FA 40%, #EDEEF3 80%);
+      background-size:420px 100%; background-repeat:no-repeat;
+      animation: pjShimmer 1400ms linear infinite;
+    }
+    .pj-skel-dot { width:44px; height:44px; border-radius:50%; flex-shrink:0; }
+    .pj-skel-bar { height:14px; border-radius:7px; }
+    .pj-skel-center { display:flex; flex-direction:column; align-items:center; gap:12px; }
+    @media (prefers-reduced-motion: reduce) {
+      .pj-slide-in { animation-duration:1ms; }
+      .pj-skel-bar, .pj-skel-dot { animation:none; }
+    }
     .pj-appear:nth-child(1) { animation-delay: 0ms; }
     .pj-appear:nth-child(2) { animation-delay: 40ms; }
     .pj-appear:nth-child(3) { animation-delay: 80ms; }
@@ -234,7 +264,7 @@
     .pj-hero-copy h1, .pj-section-head h2, .pj-loss-copy h2, .pj-footer-cta-copy h2, .pj-calc-copy h2 { text-wrap:balance; }
     .pj-hero-feats { display:flex; flex-direction:column; gap:8px; margin:0 0 28px; animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1300ms both; }
     .pj-hero-feat { display:flex; align-items:center; gap:10px; font-size:14.5px; font-weight:700; color:#14151A; }
-    .pj-hero-badge { display:inline-flex; align-items:flex-start; gap:8px; margin:24px 0 0; padding:10px 14px; background:#fff; border:1px solid #ECEDF2; border-radius:10px; font-size:12.5px; font-weight:500; color:#6B6F7B; line-height:1.45; animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1550ms both; }
+    .pj-hero-badge { display:inline-flex; align-items:flex-start; gap:8px; margin:24px 0 0; padding:10px 14px; background:#fff; border:1px solid #ECEDF2; border-radius:10px; font-size:12.5px; font-weight:600; color:#6B6F7B; line-height:1.45; animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1550ms both; }
     .pj-hero-badge svg { flex-shrink:0; margin-top:2px; }
     .pj-calc-big-label { font-size:12.5px; font-weight:700; color:#6B6F7B; }
     .pj-calc-disclaimer { font-size:11.5px; color:#8F93A1; margin:0; max-width:480px; line-height:1.45; }
@@ -347,6 +377,89 @@
       .pj-footer-cta-copy h2 { font-size:30px; }
       .pj-footer-cta-copy p { font-size:16px; }
     }
+    /* Línia informativa d'avís a les targetes pròpies (no interactiva) */
+    .pj-notice { display:flex; align-items:center; justify-content:center; gap:8px; font-size:12.5px; font-weight:600; color:#727681; }
+    .pj-notice svg { color:#5B4CFB; flex-shrink:0; }
+    /* Targeta de benefici amb interruptor (formularis) */
+    .pj-benefit { background:#fff; border:1.5px solid #ECEDF2; border-radius:16px; padding:16px; }
+    .pj-benefit-head { display:flex; align-items:flex-start; gap:12px; }
+    .pj-benefit-icon { width:40px; height:40px; border-radius:50%; background:#EEEBFF; color:#5B4CFB; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .pj-benefit-icon { width:40px; height:40px; border-radius:50%; background:#EEEBFF; color:#5B4CFB; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .pj-benefit-body { flex:1; min-width:0; padding-top:2px; }
+    .pj-benefit-title { font-size:15px; font-weight:700; color:#14151A; line-height:1.3; }
+    .pj-benefit-sub { display:flex; align-items:center; flex-wrap:wrap; margin-top:4px; font-size:13px; font-weight:600; color:#6B6F7B; line-height:1.4; }
+    .pj-benefit-options { display:flex; flex-direction:column; gap:16px; margin-top:16px; padding-top:16px; border-top:1.5px solid #ECEDF2; }
+    .pj-switch { position:relative; width:44px; height:26px; flex-shrink:0; margin-top:8px; border:none; border-radius:999px; background:#D9DBE3; cursor:pointer; padding:0; transition:background 160ms ease-out; }
+    .pj-switch[aria-checked="true"] { background:#5B4CFB; }
+    .pj-switch-knob { position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(20,21,26,0.25); transition:transform 160ms ease-out; }
+    .pj-switch[aria-checked="true"] .pj-switch-knob { transform:translateX(18px); }
+    .pj-switch:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    @media (prefers-reduced-motion: reduce) { .pj-switch, .pj-switch-knob { transition:none; } }
+    /* Botó primari amb icona (app) */
+    .pj-btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:0 24px 0 16px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; font-family:inherit; cursor:pointer; transition:background 150ms ease, transform 120ms ease; }
+    .pj-btn-primary:hover { background:#4A3DE8; }
+    .pj-btn-primary:active { background:#4338D6; transform:scale(0.98); }
+    .pj-btn-primary:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    .pj-btn-primary svg { flex-shrink:0; }
+    .pj-btn-tonal { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:0 24px 0 16px; border:none; border-radius:14px; background:#EEEBFF; color:#5B4CFB; font-weight:700; font-size:14px; font-family:inherit; cursor:pointer; transition:background 150ms ease, transform 120ms ease; }
+    .pj-btn-tonal:hover { background:#E2DDFF; color:#4A3DE8; }
+    .pj-btn-tonal:active { background:#D7D0FF; color:#4338D6; transform:scale(0.98); }
+    .pj-btn-tonal:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    .pj-btn-tonal svg { flex-shrink:0; }
+    .pj-poster-btn { display:flex; align-items:center; gap:16px; min-width:0; min-height:44px; margin:-4px -8px; padding:4px 8px; border:none; border-radius:14px; background:none; font-family:inherit; text-align:left; cursor:pointer; transition:background 150ms ease; }
+    .pj-poster-btn:hover { background:#F3F4F8; }
+    .pj-poster-btn:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    .pj-pp { display:flex; flex-direction:column; min-height:calc(100dvh - 244px); }
+    .pj-pp-foot { margin-top:auto; padding-top:40px; padding-bottom:16px; }
+    .pj-pp-actions { display:flex; justify-content:center; gap:8px; }
+    .pj-pp-action { display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 16px; border:none; border-radius:14px; background:transparent; color:#5B4CFB; font-weight:700; font-size:13px; font-family:inherit; cursor:pointer; transition:background 150ms ease; }
+    .pj-pp-action:hover { background:#EEEBFF; }
+    .pj-pp-action:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    .pj-pp-action svg { flex-shrink:0; }
+    .pj-pp-trip { display:flex; align-items:center; justify-content:space-between; gap:16px; width:100%; padding:16px; border:none; border-radius:16px; background:#fff; font-family:inherit; text-align:left; cursor:pointer; margin-bottom:8px; }
+    .pj-pp-trip:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    /* Segmentado (pestanyes de contingut i toggles de vista) */
+    .pj-seg { display:flex; gap:4px; padding:4px; background:#fff; border:1.5px solid #ECEDF2; border-radius:14px; }
+    .pj-seg > button { min-height:40px; border:none; border-radius:10px; background:transparent; color:#727681; font-weight:600; font-size:14px; font-family:inherit; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; padding:0 12px; line-height:1.2; white-space:normal; transition:background 120ms ease-out, color 120ms ease-out; }
+    .pj-seg > button:hover { background:#F3F4F8; }
+    .pj-seg > button[aria-selected="true"], .pj-seg > button[aria-pressed="true"], .pj-seg > button[aria-selected="true"]:hover, .pj-seg > button[aria-pressed="true"]:hover { background:#EEEBFF; color:#5B4CFB; font-weight:700; }
+    .pj-seg > button:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    .pj-seg-tabs > button { flex:1; }
+    .pj-seg-count { font-weight:600; font-size:13px; opacity:0.65; }
+    .pj-viewlink { display:inline-flex; align-items:center; gap:8px; min-height:32px; padding:0 8px; border:none; border-radius:10px; background:transparent; color:#5B4CFB; font-weight:700; font-size:13px; font-family:inherit; cursor:pointer; transition:background 120ms ease-out; }
+    .pj-viewlink:hover { background:#EEEBFF; }
+    .pj-viewlink:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    /* Vista calendari (viatges) */
+    .pj-cal { background:#fff; border-radius:24px; padding:16px; margin-bottom:16px; }
+    .pj-cal-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+    .pj-cal-title { font-size:15px; font-weight:800; color:#14151A; }
+    .pj-cal-nav { display:flex; gap:4px; }
+    .pj-cal-nav button { width:36px; height:36px; border:none; border-radius:12px; background:#F3F4F8; color:#14151A; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    .pj-cal-nav button:disabled { color:#C4C7D0; cursor:default; }
+    .pj-cal-nav button:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    .pj-cal-dow { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:4px; }
+    .pj-cal-dow span { text-align:center; font-size:11px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:#8F93A1; }
+    .pj-cal-body { overflow:hidden; transition:max-height 260ms cubic-bezier(0.22,1,0.36,1); }
+    .pj-cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+    .pj-cal-day { position:relative; height:52px; border:none; border-radius:12px; background:transparent; font-family:inherit; font-size:14px; font-weight:600; color:#14151A; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:0; transition:background 120ms ease-out; }
+    .pj-cal-day:hover { background:#F3F4F8; }
+    .pj-cal-day:focus-visible { outline:2px solid #B9B0FF; outline-offset:1px; }
+    .pj-cal-day[data-today="true"] { color:#5B4CFB; font-weight:800; }
+    .pj-cal-day[data-dim="true"] { color:#C4C7D0; }
+    .pj-cal-day:disabled { color:#C4C7D0; cursor:default; background:transparent; }
+    .pj-cal-day[aria-pressed="true"], .pj-cal-day[aria-pressed="true"]:hover { background:#5B4CFB; color:#fff; }
+    .pj-cal-count { min-width:16px; height:16px; padding:0 5px; border-radius:999px; background:#EEEBFF; color:#5B4CFB; font-size:10.5px; font-weight:800; line-height:16px; }
+    .pj-cal-day[aria-pressed="true"] .pj-cal-count { background:rgba(255,255,255,0.22); color:#fff; }
+    .pj-cal-day:disabled .pj-cal-count { background:#F3F4F8; color:#C4C7D0; }
+    .pj-cal-chev { width:100%; height:32px; margin-top:8px; border:none; background:transparent; color:#727681; cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:12px; }
+    .pj-cal-chev:hover { background:#F3F4F8; }
+    .pj-cal-chev:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    .pj-cal-chev svg { transition:transform 220ms ease-out; }
+    .pj-cal-chev[aria-expanded="true"] svg { transform:rotate(180deg); }
+    .pj-cal-dayhead { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:24px 4px 12px; }
+    .pj-cal-dayhead h2 { font-size:15px; font-weight:800; margin:0; }
+    .pj-cal-dayhead span { font-size:13px; font-weight:600; color:#727681; white-space:nowrap; }
+    @media (prefers-reduced-motion: reduce) { .pj-cal-body, .pj-cal-chev svg { transition:none; } }
   </style>
 </helmet>
 
@@ -652,6 +765,16 @@
         <sc-if value="{{ isAuthView }}">
           <sc-if value="{{ authError }}"><div style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 16px;">{{ authError }}</div></sc-if>
           <sc-if value="{{ authInfo }}"><div style="background:#EAF7EF; color:#1D874A; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 16px;">{{ authInfo }}</div></sc-if>
+          <sc-if value="{{ authSignupBlocked }}">
+            <div role="status" aria-live="polite" style="background:#F3F4F8; border:1.5px solid #ECEDF2; border-radius:14px; padding: 12px 16px; margin-bottom: 16px;">
+              <div style="font-size:14px; font-weight:800; color:#14151A; margin-bottom: 4px;">No hem pogut crear el compte</div>
+              <div style="font-size:13px; color:#6B6F7B; line-height:1.45; margin-bottom: 10px;">Aquest telèfon pot estar vinculat a un compte existent. Prova d'iniciar sessió o recupera la contrasenya. Si no és el teu cas, torna-ho a provar més tard.</div>
+              <div style="display:flex; gap: 8px; flex-wrap:wrap;">
+                <button type="button" onClick="{{ switchToLogin }}" style="min-height:44px; padding:0 16px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;" style-hover="background:#4A3DE8;" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">Iniciar sessió</button>
+                <button type="button" onClick="{{ switchToForgot }}" style="min-height:44px; padding:0 16px; border:1.5px solid #5B4CFB; border-radius:14px; background:#fff; color:#5B4CFB; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;" style-hover="background:#EEEBFF;" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">Recuperar contrasenya</button>
+              </div>
+            </div>
+          </sc-if>
           <sc-if value="{{ canResend }}">
             <div style="text-align:center; margin: -8px 0 16px;">
               <button onClick="{{ handleResendConfirmation }}" disabled="{{ resendBusy }}" style="border:none; background:none; color:#5B4CFB; font-weight:700; font-size:13px; cursor:pointer; padding: 0;">
@@ -777,7 +900,7 @@
               <a href="#_" class="pj-legal-close" aria-label="Tancar">&times;</a>
             </div>
             <div class="pj-legal-body">
-              <p class="pj-legal-updated">Última actualització: 13 de juliol de 2026</p>
+              <p class="pj-legal-updated">Última actualització: 29 d'octubre de 2026</p>
               <h4>1. Dades identificatives</h4>
               <p>En compliment del deure d'informació de la Llei 34/2002, de serveis de la societat de la informació i comerç electrònic (LSSI-CE), es fan constar les dades del titular d'aquest lloc web:</p>
               <p>Titular: persona física responsable del lloc web.<br>Domini: pujobaixo.cat<br>Dades identificatives completes (NIF i domicili) disponibles a petició a través dels canals de contacte de pujobaixo.cat.</p>
@@ -786,6 +909,7 @@
               <h4>3. Condició d'intermediari</h4>
               <p>Pujobaixo no és transportista ni organitza els trajectes: únicament facilita el contacte entre persones usuàries. Els acords sobre punt de trobada, horari, repartiment de costos i qualsevol altre detall es pacten directament entre les persones usuàries, que en són les úniques responsables.</p>
               <p>Pujobaixo no verifica la identitat, el vehicle, l'assegurança ni els antecedents de les persones usuàries. Recomanem prudència i sentit comú a l'hora de quedar amb altres persones.</p>
+              <p>Si una persona o una publicació et sembla inadequada, insegura o falsa, pots reportar-la des del seu perfil (toca el seu nom en qualsevol viatge) i també bloquejar-la. Revisem cada report al més aviat possible. En cas d'emergència, truca al 112.</p>
               <h4>4. Propietat intel·lectual</h4>
               <p>La marca, el disseny i el codi de pujobaixo.cat pertanyen al seu titular. Se'n permet un ús personal i no comercial; en queda prohibida la reproducció total o parcial sense autorització.</p>
               <h4>5. Responsabilitat</h4>
@@ -803,13 +927,13 @@
               <a href="#_" class="pj-legal-close" aria-label="Tancar">&times;</a>
             </div>
             <div class="pj-legal-body">
-              <p class="pj-legal-updated">Última actualització: 13 de juliol de 2026</p>
+              <p class="pj-legal-updated">Última actualització: 29 d'octubre de 2026</p>
               <h4>1. Responsable del tractament</h4>
               <p>Persona física responsable del lloc web. Dades identificatives completes disponibles a petició a través dels canals de contacte de pujobaixo.cat.</p>
               <h4>2. Dades que recollim</h4>
               <p>Nom i cognoms, telèfon, correu electrònic i contrasenya (emmagatzemada xifrada); dades dels trajectes que publiques (origen, destinació, data, hora, places, preu orientatiu, notes); foto de perfil (opcional) i preferències de viatge (opcional).</p>
               <h4>3. Finalitat</h4>
-              <p>Crear i gestionar el teu compte, mostrar els trajectes publicats a altres persones usuàries interessades, facilitar el contacte via WhatsApp i enviar-te correus tècnics (verificació de compte, recuperació de contrasenya).</p>
+              <p>Crear i gestionar el teu compte, mostrar els trajectes publicats a altres persones usuàries interessades, mostrar un perfil bàsic (nom, inicial del cognom, foto, preferències de viatge i nombre de viatges publicats) a altres persones usuàries amb sessió iniciada, gestionar els reports i bloquejos entre persones usuàries, facilitar el contacte via WhatsApp, enviar-te correus tècnics (verificació de compte, recuperació de contrasenya) i, si ho tens activat a la teva sol·licitud, avisar-te per correu quan es publiqui un viatge que hi encaixi.</p>
               <h4>4. Base legal</h4>
               <p>El consentiment que dones en registrar-te i l'execució del servei que sol·licites.</p>
               <h4>5. Encarregats de tractament</h4>
@@ -863,26 +987,113 @@
     <sc-if value="{{ isTripsView }}">
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 24px; flex-wrap:wrap; gap: 16px;">
         <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin: 0;">Propers viatges</h1>
-        <button onClick="{{ goToPost }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:14px; cursor:pointer;">+ Publicar</button>
+        <button onClick="{{ goToPost }}" class="pj-btn-tonal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Publicar</button>
       </div>
 
-      <div role="tablist" aria-label="Tipus de publicació" style="display:flex; gap: 8px; margin-bottom: 24px;">
-        <button role="tab" aria-selected="{{ isOfferTab }}" onClick="{{ setViatgesTabOffer }}" style="flex:1; min-height:44px; border:none; background:{{ offerTabBg }}; color:{{ offerTabColor }}; font-weight:{{ offerTabWeight }}; font-size:14px; padding: 16px 16px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; box-shadow:{{ offerTabShadow }}; transition:background 120ms ease-out, color 120ms ease-out, box-shadow 120ms ease-out; display:flex; align-items:center; justify-content:center; gap: 8px;">
-          Ofereixo viatge
-          <span style="font-weight:600; font-size:13px; opacity:0.65;">({{ offerCount }})</span>
+      <div role="tablist" aria-label="Tipus de publicació" class="pj-seg pj-seg-tabs" style="margin-bottom:{{ tripsTabsMb }};">
+        <button role="tab" aria-selected="{{ isOfferTab }}" onClick="{{ setViatgesTabOffer }}">
+          Ofereixo
+          <span class="pj-seg-count">({{ offerCount }})</span>
         </button>
-        <button role="tab" aria-selected="{{ isRequestTab }}" onClick="{{ setViatgesTabRequest }}" style="flex:1; min-height:44px; border:none; background:{{ requestTabBg }}; color:{{ requestTabColor }}; font-weight:{{ requestTabWeight }}; font-size:14px; padding: 16px 16px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; box-shadow:{{ requestTabShadow }}; transition:background 120ms ease-out, color 120ms ease-out, box-shadow 120ms ease-out; display:flex; align-items:center; justify-content:center; gap: 8px;">
-          Necessito viatge
-          <span style="font-weight:600; font-size:13px; opacity:0.65;">({{ requestCount }})</span>
+        <button role="tab" aria-selected="{{ isRequestTab }}" onClick="{{ setViatgesTabRequest }}">
+          Necessito
+          <span class="pj-seg-count">({{ requestCount }})</span>
         </button>
       </div>
 
-      <sc-if value="{{ tripsLoading }}"><div style="color:#6B6F7B; font-size:14px; padding: 40px 0; text-align:center;">Carregant…</div></sc-if>
-      <sc-if value="{{ tripsEmpty }}"><div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center; color:#6B6F7B; font-size:14px;">{{ tripsEmptyMsg }}</div></sc-if>
+      <sc-if value="{{ showCalLink }}">
+        <div style="display:flex; align-items:center; justify-content:flex-end; margin-bottom: 16px;">
+          <button type="button" class="pj-viewlink" onClick="{{ toggleTripsView }}" aria-pressed="{{ isTripsCal }}">
+            <sc-if value="{{ isTripsList }}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>
+              Veure per dies
+            </sc-if>
+            <sc-if value="{{ isTripsCal }}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle></svg>
+              Veure llista
+            </sc-if>
+          </button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTripsCal }}">
+        <div class="pj-cal pj-appear">
+          <div class="pj-cal-head">
+            <div class="pj-cal-title" aria-live="polite">{{ calTitle }}</div>
+            <div class="pj-cal-nav">
+              <button type="button" onClick="{{ calPrev }}" disabled="{{ calPrevDisabled }}" aria-label="{{ calPrevLabel }}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg>
+              </button>
+              <button type="button" onClick="{{ calNext }}" aria-label="{{ calNextLabel }}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
+              </button>
+            </div>
+          </div>
+          <div class="pj-cal-dow" aria-hidden="true">
+            <span>dl</span><span>dt</span><span>dc</span><span>dj</span><span>dv</span><span>ds</span><span>dg</span>
+          </div>
+          <div class="pj-cal-body" style="max-height:{{ calBodyMaxHeight }};">
+            <div class="pj-cal-grid" role="grid" aria-label="{{ calTitle }}">
+              <sc-for list="{{ calCells }}" as="d" hint-placeholder-count="7">
+                <button type="button" class="pj-cal-day" onClick="{{ d.select }}" disabled="{{ d.disabled }}" aria-pressed="{{ d.selected }}" aria-label="{{ d.ariaLabel }}" data-today="{{ d.isToday }}" data-dim="{{ d.dim }}">
+                  {{ d.label }}
+                  <sc-if value="{{ d.count }}" hint-placeholder-val="{{ false }}"><span class="pj-cal-count">{{ d.count }}</span></sc-if>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+          <button type="button" class="pj-cal-chev" onClick="{{ calToggleExpand }}" aria-expanded="{{ calExpanded }}" aria-label="{{ calChevLabel }}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        </div>
+
+        <div class="pj-cal-dayhead">
+          <h2>{{ calSelectedLabel }}</h2>
+          <span>{{ calSelectedCountLabel }}</span>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ tripsLoading }}">
+        <div aria-live="polite" aria-busy="true">
+          <span style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);">Carregant viatges…</span>
+          <div class="pj-skel">
+            <div class="pj-skel-row"><div class="pj-skel-dot"></div><div style="flex:1;"><div class="pj-skel-bar" style="width:44%;"></div><div class="pj-skel-bar" style="width:26%; height:11px; margin-top:8px;"></div></div></div>
+            <div class="pj-skel-center"><div class="pj-skel-bar" style="width:62%; height:20px;"></div><div class="pj-skel-bar" style="width:40%; height:12px;"></div></div>
+            <div class="pj-skel-row" style="justify-content:space-between;"><div class="pj-skel-bar" style="width:22%;"></div><div class="pj-skel-bar" style="width:34%; height:40px; border-radius:14px;"></div></div>
+          </div>
+          <div class="pj-skel" style="opacity:0.6;">
+            <div class="pj-skel-row"><div class="pj-skel-dot"></div><div style="flex:1;"><div class="pj-skel-bar" style="width:38%;"></div><div class="pj-skel-bar" style="width:24%; height:11px; margin-top:8px;"></div></div></div>
+            <div class="pj-skel-center"><div class="pj-skel-bar" style="width:56%; height:20px;"></div><div class="pj-skel-bar" style="width:36%; height:12px;"></div></div>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ tripsEmpty }}">
+        <div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center; color:#6B6F7B; font-size:14px;">
+          {{ tripsEmptyMsg }}
+          <sc-if value="{{ isTripsCal }}">
+            <div style="margin-top:16px;">
+              <button type="button" onClick="{{ goToPostForSelectedDay }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:1.5px solid #5B4CFB; background:#fff; color:#5B4CFB; font-weight:700; font-size:14px; padding: 0 20px; border-radius:14px; cursor:pointer; font-family:inherit;" style-hover="background:#EEEBFF;" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">{{ calEmptyCtaLabel }}</button>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
 
       <sc-for list="{{ visibleTrips }}" as="trip" hint-placeholder-count="3">
-        <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 16px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 16px;">
+        <div class="pj-slide-in" id="{{ trip.domId }}" style="background:#fff; border-radius:24px; padding: 16px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 16px; box-shadow:{{ trip.highlightShadow }}; transition:box-shadow 300ms ease;">
           <div style="display:flex; align-items:flex-start; justify-content:space-between; gap: 16px;">
+            <sc-if value="{{ trip.canOpenProfile }}" hint-placeholder-val="{{ false }}">
+              <button type="button" onClick="{{ trip.openProfile }}" aria-label="{{ trip.openProfileLabel }}" class="pj-poster-btn">
+              <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
+                <div style="width:32px; height:32px; border-radius:50%; background:{{ trip.posterAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">{{ trip.posterInitial }}</div>
+                <img alt="" ref="{{ trip.avatarImgRef }}" style="width:32px; height:32px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ trip.posterAvatarDisplay }};"/>
+              </span>
+              <div style="min-width:0;">
+                <div style="display:flex; align-items:center; gap:4px; font-size:15px; font-weight:700; color:#14151A; min-width:0;"><span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ trip.posterName }}</span><span style="color:#727681; display:inline-flex; flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div>
+                <div style="font-size:13px; color:#727681; font-weight:600;">{{ trip.roleLabel }}</div>
+              </div>
+              </button>
+            </sc-if>
+            <sc-if value="{{ !trip.canOpenProfile }}" hint-placeholder-val="{{ true }}">
             <div style="display:flex; align-items:center; gap: 16px; min-width:0;">
               <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
                 <div style="width:32px; height:32px; border-radius:50%; background:{{ trip.posterAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">{{ trip.posterInitial }}</div>
@@ -893,6 +1104,7 @@
                 <div style="font-size:13px; color:#727681; font-weight:600;">{{ trip.roleLabel }}</div>
               </div>
             </div>
+            </sc-if>
             <div style="display:flex; align-items:center; gap: 8px; color:#727681; font-size:13px; font-weight:600; flex-shrink:0; white-space:nowrap; padding-top: 4px;">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
               {{ trip.seatsLabel }}
@@ -935,7 +1147,7 @@
 
           <div style="display:flex; align-items:center; justify-content:space-between; gap: 16px;">
             <sc-if value="{{ trip.priceLabel }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex; align-items:center; gap: 4px; font-size:17px; font-weight:800; color:#1D874A;">
+              <div style="display:flex; align-items:center; gap: 4px; font-size:17px; font-weight:800; color:#14151A;">
                 {{ trip.priceLabel }}<span style="opacity:0.6; font-weight:600;">/</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="per plaça"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg>
               </div>
             </sc-if>
@@ -952,7 +1164,7 @@
                   </button>
                 </sc-if>
                 <sc-if value="{{ trip.waHref }}">
-                  <a href="{{ trip.waHref }}" target="_blank" rel="noopener noreferrer" aria-label="{{ trip.ctaAriaLabel }}" style="display:inline-flex; align-items:center; justify-content:center; gap: 8px; width:auto; min-height:44px; border-radius:14px; background:#25D366; color:#14151A; font-weight:700; font-size:14px; padding: 0 24px; text-decoration:none; font-family:inherit;" style-hover="background:#20BD5A;" style-focus="outline:2px solid #128C7E; outline-offset:2px;" style-active="background:#1DA851;">
+                  <a href="{{ trip.waHref }}" onClick="{{ trip.onWaClick }}" target="_blank" rel="noopener noreferrer" aria-label="{{ trip.ctaAriaLabel }}" style="display:inline-flex; align-items:center; justify-content:center; gap: 8px; width:auto; min-height:44px; border-radius:14px; background:#25D366; color:#14151A; font-weight:700; font-size:14px; padding: 0 24px; text-decoration:none; font-family:inherit;" style-hover="background:#20BD5A;" style-focus="outline:2px solid #128C7E; outline-offset:2px;" style-active="background:#1DA851;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.19 1.24-1.95 1.4-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1.01-2.41.24-.27.62-.39.98-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.58.8 2 .87 2.14.07.15.11.32.02.51-.08.19-.13.3-.26.46-.13.16-.28.36-.4.48-.13.13-.27.28-.11.55.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.13 1.3.28.13.44.11.6-.07.16-.18.68-.79.87-1.06.18-.27.36-.22.61-.13.24.09 1.55.73 1.82.86.27.13.44.2.51.31.07.12.07.66-.17 1.34z"/></svg>
                     {{ trip.ctaLabel }}
                   </a>
@@ -1010,7 +1222,7 @@
         </div>
         <div role="group" aria-labelledby="post-datetime-label" class="pj-post-section" style="display:flex; gap: 8px;">
           <div style="position:relative; flex:1; min-width:0;">
-            <input type="date" value="{{ departDateVal }}" onChange="{{ setPostDepartDate }}" aria-label="Data" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 40px 0 16px; font-size:15px; font-family:inherit; color:#14151A;"/>
+            <input type="date" min="{{ departDateMin }}" value="{{ departDateVal }}" onChange="{{ setPostDepartDate }}" aria-label="Data" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 40px 0 16px; font-size:15px; font-family:inherit; color:#14151A;"/>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6F7B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); pointer-events:none;"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>
           </div>
           <div style="position:relative; flex:1; min-width:0;">
@@ -1030,17 +1242,64 @@
           <div style="flex:1;">
             <label for="post-price" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
               <sc-if value="{{ isPostOffer }}">Preu per plaça (€)</sc-if>
-              <sc-if value="{{ isPostRequest }}">Pressupost orientatiu (€) (opcional)</sc-if>
+              <sc-if value="{{ isPostRequest }}">Pressupost (€)</sc-if>
             </label>
-            <input id="post-price" type="number" min="0" step="0.5" value="{{ postForm.pricePerSeat }}" onChange="{{ setPostPrice }}" placeholder="{{ postPricePlaceholder }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
+            <input id="post-price" type="text" inputmode="decimal" autocomplete="off" value="{{ postForm.pricePerSeat }}" onChange="{{ setPostPrice }}" placeholder="{{ postPricePlaceholder }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
           </div>
         </div>
 
         <label for="post-notes" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
           <sc-if value="{{ isPostOffer }}">Notes de recollida (opcional)</sc-if>
-          <sc-if value="{{ isPostRequest }}">Flexibilitat horària / observacions (opcional)</sc-if>
+          <sc-if value="{{ isPostRequest }}">Observacions (opcional)</sc-if>
         </label>
         <textarea id="post-notes" value="{{ postForm.pickupNotes }}" onChange="{{ setPostNotes }}" placeholder="Ex: Sortida des de l'estació de bus" class="pj-post-section" style="width:100%; min-height:80px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 16px 16px; font-size:15px; font-family:inherit; resize:vertical;"></textarea>
+
+        <div class="pj-benefit pj-post-section">
+            <div class="pj-benefit-head">
+              <div class="pj-benefit-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
+              </div>
+              <div class="pj-benefit-body">
+                <div class="pj-benefit-title" id="post-notify-title">
+                  <sc-if value="{{ isPostRequest }}">T'avisem si apareix un viatge compatible</sc-if>
+                  <sc-if value="{{ isPostOffer }}">T'avisem si algú busca un viatge compatible</sc-if>
+                </div>
+                <sc-if value="{{ postForm.notifyEmail }}">
+                  <sc-if value="{{ !postNotifyOpen }}">
+                    <div class="pj-benefit-sub" style="display:block;">
+                      <span style="display:block;">{{ postNotifySummary }}</span>
+                      <button type="button" onClick="{{ openPostNotify }}" class="pj-viewlink" style="min-height:24px; padding:0; display:inline-block; margin-top:2px;">Ajusta-ho a la teva flexibilitat</button>
+                    </div>
+                  </sc-if>
+                </sc-if>
+                <sc-if value="{{ !postForm.notifyEmail }}">
+                  <div class="pj-benefit-sub"><span>No t'enviarem cap avís per aquest viatge.</span></div>
+                </sc-if>
+              </div>
+              <button type="button" role="switch" aria-checked="{{ postForm.notifyEmail }}" aria-labelledby="post-notify-title" onClick="{{ toggleNotifyEmail }}" class="pj-switch"><span class="pj-switch-knob"></span></button>
+            </div>
+            <sc-if value="{{ postForm.notifyEmail }}">
+              <sc-if value="{{ postNotifyOpen }}">
+                <div class="pj-benefit-options">
+                  <div>
+                    <div id="post-window-label" style="font-size:13px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">Quanta flexibilitat d'hora tens?</div>
+                    <div role="group" aria-labelledby="post-window-label" class="pj-seg pj-seg-tabs">
+                      <button type="button" onClick="{{ setTimeWindow60 }}" aria-pressed="{{ isTimeWindow60 }}">±1 h</button>
+                      <button type="button" onClick="{{ setTimeWindow120 }}" aria-pressed="{{ isTimeWindow120 }}">±2 h</button>
+                      <button type="button" onClick="{{ setTimeWindow180 }}" aria-pressed="{{ isTimeWindow180 }}">±3 h</button>
+                    </div>
+                  </div>
+                  <div>
+                    <div id="post-daywindow-label" style="font-size:13px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">I de dia?</div>
+                    <div role="group" aria-labelledby="post-daywindow-label" class="pj-seg pj-seg-tabs">
+                      <button type="button" onClick="{{ setDateWindow0 }}" aria-pressed="{{ isDateWindow0 }}">Només aquest dia</button>
+                      <button type="button" onClick="{{ setDateWindow1 }}" aria-pressed="{{ isDateWindow1 }}">També ±1 dia</button>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+            </sc-if>
+          </div>
 
         <button onClick="{{ handlePostTrip }}" disabled="{{ postBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
           <sc-if value="{{ postBusy }}">Publicant…</sc-if>
@@ -1052,14 +1311,14 @@
 
     <sc-if value="{{ isMyTripsView }}">
       <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin: 0 0 24px;">Els meus viatges</h1>
-      <div role="tablist" aria-label="Tipus de viatge" style="display:flex; gap: 8px; margin-bottom: 24px;">
-        <button role="tab" aria-selected="{{ isMyTabDriver }}" onClick="{{ setMyTabDriver }}" style="flex:1; min-height:44px; border:none; background:{{ myTabDriverBg }}; color:{{ myTabDriverColor }}; font-weight:{{ myTabDriverWeight }}; font-size:14px; padding: 16px 16px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; box-shadow:{{ myTabDriverShadow }}; transition:background 120ms ease-out, color 120ms ease-out, box-shadow 120ms ease-out; display:flex; align-items:center; justify-content:center; gap: 8px;">
+      <div role="tablist" aria-label="Tipus de viatge" class="pj-seg pj-seg-tabs" style="margin-bottom: 24px;">
+        <button role="tab" aria-selected="{{ isMyTabDriver }}" onClick="{{ setMyTabDriver }}">
           Com a conductor
-          <span style="font-weight:600; font-size:13px; opacity:0.65;">({{ myDriverCount }})</span>
+          <span class="pj-seg-count">({{ myDriverCount }})</span>
         </button>
-        <button role="tab" aria-selected="{{ isMyTabPassenger }}" onClick="{{ setMyTabPassenger }}" style="flex:1; min-height:44px; border:none; background:{{ myTabPassengerBg }}; color:{{ myTabPassengerColor }}; font-weight:{{ myTabPassengerWeight }}; font-size:14px; padding: 16px 16px; border-radius:14px; cursor:pointer; font-family:inherit; white-space:normal; line-height:1.2; box-shadow:{{ myTabPassengerShadow }}; transition:background 120ms ease-out, color 120ms ease-out, box-shadow 120ms ease-out; display:flex; align-items:center; justify-content:center; gap: 8px;">
+        <button role="tab" aria-selected="{{ isMyTabPassenger }}" onClick="{{ setMyTabPassenger }}">
           Com a passatger
-          <span style="font-weight:600; font-size:13px; opacity:0.65;">({{ myBookingCount }})</span>
+          <span class="pj-seg-count">({{ myBookingCount }})</span>
         </button>
       </div>
 
@@ -1069,7 +1328,7 @@
         <sc-if value="{{ driverTripsEmpty }}">
           <div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center;">
             <div style="color:#6B6F7B; font-size:14px; margin-bottom: 24px;">Encara no has publicat cap viatge. Anima't a publicar-ne un!</div>
-            <button onClick="{{ goToPostAsOffer }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:14px; cursor:pointer; font-family:inherit;">+ Publicar el meu primer viatge</button>
+            <button onClick="{{ goToPostAsOffer }}" class="pj-btn-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Publicar el meu primer viatge</button>
           </div>
         </sc-if>
         <sc-for list="{{ myDriverTrips }}" as="trip" hint-placeholder-count="2">
@@ -1107,6 +1366,12 @@
                 {{ trip.timeLabel }}
               </div>
             </div>
+            <sc-if value="{{ trip.noticeLabel }}" hint-placeholder-val="{{ false }}">
+              <div class="pj-notice">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
+                <span>{{ trip.noticeLabel }}</span>
+              </div>
+            </sc-if>
 
             <sc-if value="{{ trip.pickupNotes }}" hint-placeholder-val="{{ false }}">
               <div style="background:#F3F4F8; border-radius:14px; padding: 16px 16px; display:flex; align-items:flex-start; gap: 8px;">
@@ -1118,7 +1383,7 @@
             <sc-if value="{{ !trip.isConfirmingDelete }}">
               <div style="display:flex; align-items:center; justify-content:space-between; gap: 16px;">
                 <sc-if value="{{ trip.priceLabel }}" hint-placeholder-val="{{ false }}">
-                  <div style="display:flex; align-items:center; gap: 4px; font-size:17px; font-weight:800; color:#1D874A;">
+                  <div style="display:flex; align-items:center; gap: 4px; font-size:17px; font-weight:800; color:#14151A;">
                 {{ trip.priceLabel }}<span style="opacity:0.6; font-weight:600;">/</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="per plaça"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg>
               </div>
                 </sc-if>
@@ -1148,7 +1413,7 @@
         <sc-if value="{{ bookingsEmpty }}">
           <div style="background:#fff; border-radius:24px; padding: 40px 24px; text-align:center;">
             <div style="color:#6B6F7B; font-size:14px; margin-bottom: 24px;">Encara no has reservat cap viatge. Publica una sol·licitud i que et trobin!</div>
-            <button onClick="{{ goToPostAsRequest }}" style="display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:none; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; padding: 0 24px; border-radius:14px; cursor:pointer; font-family:inherit;">+ Publicar la meva sol·licitud</button>
+            <button onClick="{{ goToPostAsRequest }}" class="pj-btn-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Publicar la meva sol·licitud</button>
           </div>
         </sc-if>
 
@@ -1187,6 +1452,12 @@
                 {{ trip.timeLabel }}
               </div>
             </div>
+            <sc-if value="{{ trip.noticeLabel }}" hint-placeholder-val="{{ false }}">
+              <div class="pj-notice">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
+                <span>{{ trip.noticeLabel }}</span>
+              </div>
+            </sc-if>
 
             <sc-if value="{{ trip.pickupNotes }}" hint-placeholder-val="{{ false }}">
               <div style="background:#F3F4F8; border-radius:14px; padding: 16px 16px; display:flex; align-items:flex-start; gap: 8px;">
@@ -1198,7 +1469,7 @@
             <sc-if value="{{ !trip.isConfirmingDelete }}">
               <div style="display:flex; align-items:center; justify-content:space-between; gap: 16px;">
                 <sc-if value="{{ trip.priceLabel }}" hint-placeholder-val="{{ false }}">
-                  <div style="display:flex; align-items:center; gap: 4px; font-size:17px; font-weight:800; color:#1D874A;">
+                  <div style="display:flex; align-items:center; gap: 4px; font-size:17px; font-weight:800; color:#14151A;">
                 {{ trip.priceLabel }}<span style="opacity:0.6; font-weight:600;">/</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="per plaça"><path d="M8 3h8a2 2 0 0 1 2 2v7H6V5a2 2 0 0 1 2-2z"></path><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path><path d="M6 20v1"></path><path d="M18 20v1"></path></svg>
               </div>
                 </sc-if>
@@ -1233,7 +1504,7 @@
                 <div style="display:flex; align-items:center; gap: 8px; font-size:14.5px; font-weight:800; color:#14151A;">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>
                   {{ booking.dateLabel }}
-                  <span style="color:#D8DAE3;">·</span>
+                  <span style="color:#C4C7D0;">·</span>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>
                   {{ booking.timeLabel }}
                 </div>
@@ -1246,6 +1517,114 @@
             </div>
           </div>
         </sc-for>
+      </sc-if>
+    </sc-if>
+
+    <sc-if value="{{ isPublicProfileView }}">
+      <div style="display:flex; align-items:center; margin-bottom: 16px;">
+        <button type="button" onClick="{{ ppBack }}" aria-label="Tornar als viatges" style="width:44px; height:44px; flex-shrink:0; display:flex; align-items:center; justify-content:center; border:none; background:#fff; border-radius:14px; cursor:pointer;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14151A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      </div>
+      <sc-if value="{{ ppLoading }}">
+        <p style="text-align:center; color:#6B6F7B; font-weight:600; padding: 40px 0;">Carregant…</p>
+      </sc-if>
+      <sc-if value="{{ ppReady }}">
+       <div class="pj-pp">
+        <div class="pj-appear" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap: 16px; margin-bottom: 24px;">
+          <span style="position:relative; width:88px; height:88px; display:inline-block;">
+            <div style="width:88px; height:88px; border-radius:50%; background:{{ ppAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:34px;">{{ ppInitial }}</div>
+            <img alt="" ref="{{ ppAvatarImgRef }}" style="width:88px; height:88px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ ppAvatarDisplay }};"/>
+          </span>
+          <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0;">{{ ppName }}</h1>
+        </div>
+
+        <div class="pj-appear" style="display:grid; grid-template-columns:1fr 1fr; gap: 8px; margin-bottom: 24px;">
+          <div style="background:#fff; border-radius:16px; padding: 16px; text-align:center;"><div style="font-size:24px; font-weight:800;">{{ ppOffers }}</div><div style="font-size:13px; font-weight:600; color:#6B6F7B;">{{ ppOffersLabel }}</div></div>
+          <div style="background:#fff; border-radius:16px; padding: 16px; text-align:center;"><div style="font-size:24px; font-weight:800;">{{ ppRequests }}</div><div style="font-size:13px; font-weight:600; color:#6B6F7B;">{{ ppRequestsLabel }}</div></div>
+        </div>
+
+        <sc-if value="{{ ppHasChips }}">
+          <div class="pj-appear" style="margin-bottom: 24px;">
+            <h2 style="font-size:15px; font-weight:700; margin: 0 0 16px;">Com li agrada viatjar</h2>
+            <div style="background:#fff; border-radius:16px; padding: 12px 16px; display:flex; align-items:flex-start; gap: 8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0; margin-top: 6px;"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+              <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                <sc-for list="{{ ppChips }}" as="c" hint-placeholder-count="2"><span class="pj-trip-int">{{ c.label }}</span></sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ ppHasTrips }}">
+          <div class="pj-appear">
+            <h2 style="font-size:15px; font-weight:700; margin: 0 0 16px;">Viatges actius</h2>
+            <sc-for list="{{ ppTrips }}" as="pt" hint-placeholder-count="1">
+              <button type="button" class="pj-pp-trip" onClick="{{ pt.open }}" aria-label="{{ pt.rowLabel }}">
+                <div style="min-width:0;">
+                  <div style="font-weight:800; font-size:15px; color:#14151A;">{{ pt.origin }} → {{ pt.destination }}</div>
+                  <div style="display:flex; align-items:center; gap:4px; font-size:13px; font-weight:600; color:#6B6F7B; margin-top: 4px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg><span>{{ pt.dateLabel }} · {{ pt.timeLabel }}</span></div>
+                </div>
+                <span style="color:#727681; display:inline-flex; flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <div id="pp-actions" class="pj-pp-foot">
+          <sc-if value="{{ ppIsView }}">
+            <div class="pj-pp-actions">
+              <button type="button" class="pj-pp-action" onClick="{{ ppAskReport }}" aria-label="Reportar {{ ppFirst }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22V4"></path><path d="M4 4h12l-2 4 2 4H4"></path></svg><span>Reportar</span></button>
+              <button type="button" class="pj-pp-action" onClick="{{ ppAskBlock }}" aria-label="Bloquejar {{ ppFirst }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"></line></svg><span>Bloquejar</span></button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ ppIsReport }}">
+            <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 24px 16px;">
+              <h2 id="report-title" style="font-size:17px; font-weight:800; margin: 0 0 4px;">Reportar {{ ppFirst }}</h2>
+              <p style="font-size:13px; font-weight:600; color:#6B6F7B; margin: 0 0 16px; line-height:1.45;">No li direm qui ha fet el report. Si estàs en perill, truca al 112.</p>
+              <sc-if value="{{ reportError }}"><div style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 16px;">{{ reportError }}</div></sc-if>
+              <div role="group" aria-labelledby="report-title" style="display:flex; flex-direction:column; gap: 8px; margin-bottom: 16px;">
+                <sc-for list="{{ reportReasons }}" as="r" hint-placeholder-count="4">
+                  <button type="button" onClick="{{ r.select }}" aria-pressed="{{ r.on }}" style="{{ r.style }}">{{ r.label }}</button>
+                </sc-for>
+              </div>
+              <label for="report-details" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Detalls <span style="font-weight:600; color:#8F93A1;">(opcional)</span></label>
+              <textarea id="report-details" maxlength="1000" value="{{ reportDetails }}" onChange="{{ setReportDetails }}" placeholder="Explica breument què ha passat" style="width:100%; min-height:96px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 12px 16px; font-size:15px; font-weight:600; font-family:inherit; resize:vertical; box-sizing:border-box; margin-bottom: 16px;"></textarea>
+              <div style="display:flex; gap: 8px; flex-wrap:wrap;">
+                <button type="button" onClick="{{ handleReportSubmit }}" disabled="{{ reportBusy }}" style="min-height:44px; padding:0 24px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">
+                  <sc-if value="{{ reportBusy }}">Un moment…</sc-if>
+                  <sc-if value="{{ !reportBusy }}">Enviar report</sc-if>
+                </button>
+                <button type="button" onClick="{{ ppCancel }}" style="min-height:44px; padding:0 24px; border:1.5px solid #ECEDF2; border-radius:14px; background:#fff; color:#14151A; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">Cancel·lar</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ ppIsBlock }}">
+            <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 24px 16px;">
+              <h2 style="font-size:17px; font-weight:800; margin: 0 0 8px;">Bloquejar {{ ppFirst }}?</h2>
+              <p style="font-size:14px; font-weight:600; color:#4B4E58; margin: 0 0 16px; line-height:1.5;">Deixareu de veure els viatges de l'altra persona i no rebreu avisos entre vosaltres. No li direm que l'has bloquejat. Si ja teniu conversa a WhatsApp, bloqueja-la també allà.</p>
+              <div style="display:flex; gap: 8px; flex-wrap:wrap;">
+                <button type="button" onClick="{{ handleBlock }}" disabled="{{ blockBusy }}" style="min-height:44px; padding:0 24px; border:1.5px solid #FBD8D6; border-radius:14px; background:#FDEBEA; color:#C22A24; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">
+                  <sc-if value="{{ blockBusy }}">Un moment…</sc-if>
+                  <sc-if value="{{ !blockBusy }}">Bloquejar</sc-if>
+                </button>
+                <button type="button" onClick="{{ ppCancel }}" style="min-height:44px; padding:0 24px; border:1.5px solid #ECEDF2; border-radius:14px; background:#fff; color:#14151A; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">Cancel·lar</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ ppIsReported }}">
+            <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 24px 16px;">
+              <h2 style="font-size:17px; font-weight:800; margin: 0 0 8px;">Gràcies per avisar-nos</h2>
+              <p style="font-size:14px; font-weight:600; color:#4B4E58; margin: 0 0 16px; line-height:1.5;">Ho revisarem al més aviat possible i, si cal, prendrem mesures. La persona reportada no sabrà qui ha fet el report.</p>
+              <div style="display:flex; gap: 8px; flex-wrap:wrap;">
+                <button type="button" onClick="{{ ppAskBlock }}" style="min-height:44px; padding:0 24px; border:1.5px solid #FBD8D6; border-radius:14px; background:#FDEBEA; color:#C22A24; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">Bloquejar també {{ ppFirst }}</button>
+                <button type="button" onClick="{{ ppBack }}" style="min-height:44px; padding:0 24px; border:1.5px solid #ECEDF2; border-radius:14px; background:#fff; color:#14151A; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">Tornar als viatges</button>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+       </div>
       </sc-if>
     </sc-if>
 
@@ -1298,6 +1677,24 @@
           <sc-if value="{{ !profileBusy }}">Desar canvis</sc-if>
         </button>
       </div>
+      <sc-if value="{{ hasMyBlocks }}">
+        <div style="background:#fff; border-radius:24px; padding: 32px; margin-top: 16px;">
+          <h2 style="font-size:15px; font-weight:700; margin: 0 0 4px;">Persones bloquejades</h2>
+          <p style="font-size:13px; color:#6B6F7B; margin: 0 0 16px; line-height:1.45;">No veus els seus viatges ni elles els teus.</p>
+          <sc-for list="{{ myBlocks }}" as="b" hint-placeholder-count="1">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap: 16px; padding: 8px 0;">
+              <div style="display:flex; align-items:center; gap: 16px; min-width:0;">
+                <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
+                  <div style="width:32px; height:32px; border-radius:50%; background:{{ b.avatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">{{ b.initial }}</div>
+                  <img alt="" ref="{{ b.avatarImgRef }}" style="width:32px; height:32px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ b.avatarDisplay }};"/>
+                </span>
+                <span style="font-size:15px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ b.name }}</span>
+              </div>
+              <button type="button" onClick="{{ b.unblock }}" aria-label="{{ b.unblockLabel }}" style="min-height:44px; padding:0 24px; border:1.5px solid #ECEDF2; border-radius:14px; background:#fff; color:#14151A; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit; flex-shrink:0;">Desbloquejar</button>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
       <div style="background:#fff; border-radius:24px; padding: 32px; margin-top: 16px;">
         <button onClick="{{ handleLogout }}" style="width:100%; min-height:44px; border:none; background:none; color:#C22A24; font-weight:700; font-size:14.5px; cursor:pointer; font-family:inherit;">Tancar sessió</button>
       </div>
@@ -1349,6 +1746,7 @@ class Component extends DCLogic {
     authError: '',
     authInfo: '',
     authBusy: false,
+    authSignupBlocked: false,
     lastSignupEmail: '',
     resendBusy: false,
     resetForm: { password: '', confirmPassword: '' },
@@ -1359,14 +1757,21 @@ class Component extends DCLogic {
     trips: [],
     tripsLoading: false,
     viatgesTab: 'offer',
+    tripsView: 'list',
+    calSelected: null,
+    calCursor: null,
+    calExpanded: false,
+    highlightTripId: null,
+    postNotifyOpen: false,
     returnAfterAuth: null,
     editingTripId: null,
-    postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '' },
+    postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '', timeWindow: 120, dateWindow: 0, notifyEmail: true },
     postBusy: false,
     postError: '',
     postShowRoutePresets: false,
     myTripsTab: 'driver',
     myDriverTrips: [],
+    noticeCounts: {},
     myRequestTrips: [],
     myBookings: [],
     myTripsLoading: false,
@@ -1376,6 +1781,19 @@ class Component extends DCLogic {
     avatarPreview: null,
     brokenAvatarUrls: {},
     confirmDeleteId: null,
+    hiddenUserIds: [],
+    publicProfileId: null,
+    publicProfileTripId: null,
+    publicProfile: null,
+    publicProfileLoading: false,
+    ppMode: 'view',
+    reportReason: '',
+    reportDetails: '',
+    reportBusy: false,
+    reportError: '',
+    blockBusy: false,
+    myBlocks: [],
+    myBlocksLoading: false,
     toast: { show: false, message: '', kind: 'info' },
     showIntro: false,
     appFade: false,
@@ -1511,6 +1929,12 @@ class Component extends DCLogic {
     const { data: { session } } = await this.sb.auth.getSession();
     const user = session ? session.user : null;
 
+    const requestedTrip = params.get('trip');
+    if (requestedTrip) {
+      this._pendingTripId = requestedTrip;
+      if (!user) this.setState({ returnAfterAuth: { tripId: requestedTrip } });
+    }
+
     let initialView = 'trips';
     if (requestedView === 'verified') initialView = 'verified';
     else if (requestedView === 'reset') {
@@ -1587,6 +2011,15 @@ class Component extends DCLogic {
     console.error(fallback, e);
     const m = (e && e.message) || '';
     if (m.includes('profiles_phone_unique')) return 'Aquest número de telèfon ja té un compte.';
+    if (m.includes('trips_price_per_seat_check')) return 'El preu per plaça ha de ser superior a 0 €.';
+    if (m.includes('trips_time_window_check') || m.includes('trips_date_window_check')) return 'Revisa el marge horari de l\'avís.';
+    if (/available_seats/i.test(m) && /check/i.test(m)) return 'Revisa el nombre de places.';
+    if (m.includes('reports_reporter_trip_uidx')) return 'Ja has reportat aquest viatge. Ho estem revisant.';
+    if (m.includes('reports_rate_limit')) return 'Has enviat massa reports avui. Si és urgent, escriu-nos des de l\'avís legal.';
+    if (m.includes('reports_trip_not_found')) return 'Aquest viatge ja no existeix.';
+    if (/JWT|jwt expired|not authenticated|401/i.test(m)) return 'La sessió ha caducat. Torna a iniciar sessió.';
+    if (/row-level security|violates row-level/i.test(m)) return 'No tens permís per fer aquesta acció. Torna a iniciar sessió.';
+    if (/Failed to fetch|NetworkError|network/i.test(m)) return 'No hi ha connexió. Comprova la xarxa i torna-ho a provar.';
     return fallback;
   }
 
@@ -1655,6 +2088,92 @@ class Component extends DCLogic {
   _fmtDateShort(iso) {
     if (!iso) return '';
     return new Date(iso).toLocaleDateString('ca-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  // Obre la llista sobre el viatge indicat a ?trip= (enllaç dels correus d'avís).
+  _revealPendingTrip(trips) {
+    const id = this._pendingTripId;
+    if (!id) return;
+    this._pendingTripId = null;
+    const trip = trips.find((t) => t.id === id);
+    if (!trip) { this._showToast('Aquest viatge ja no està disponible', 'error'); return; }
+    this.setState({
+      viatgesTab: trip.trip_type === 'request' ? 'request' : 'offer',
+      tripsView: 'list',
+      highlightTripId: id,
+    });
+    setTimeout(() => {
+      const el = document.getElementById('trip-' + id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 120);
+    setTimeout(() => this.setState({ highlightTripId: null }), 4000);
+  }
+
+  // ---- Calendari (vista de viatges) ----
+  _dayKey(d) {
+    const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+  _keyToDate(key) {
+    const [y, m, d] = key.split('-').map(Number);
+    return new Date(y, m - 1, d);
+  }
+  _todayKey() { return this._dayKey(new Date()); }
+  _capFirst(str) { return str ? str.charAt(0).toUpperCase() + str.slice(1) : ''; }
+  _weekStart(d) {
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const dow = (x.getDay() + 6) % 7; // dilluns = 0
+    x.setDate(x.getDate() - dow);
+    return x;
+  }
+  _addDays(d, n) { const x = new Date(d); x.setDate(x.getDate() + n); return x; }
+
+  // Cel·les visibles: 7 (setmana) o 35/42 (mes, començant en dilluns).
+  _calCells(cursorKey, expanded) {
+    const cursor = this._keyToDate(cursorKey);
+    if (!expanded) {
+      const start = this._weekStart(cursor);
+      return Array.from({ length: 7 }, (_, i) => this._addDays(start, i));
+    }
+    const first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
+    const start = this._weekStart(first);
+    const last = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 0);
+    const rows = Math.ceil((((first.getDay() + 6) % 7) + last.getDate()) / 7);
+    return Array.from({ length: rows * 7 }, (_, i) => this._addDays(start, i));
+  }
+
+  _calSetView(mode) {
+    const today = this._todayKey();
+    this.setState((st) => ({
+      tripsView: mode,
+      calSelected: st.calSelected || today,
+      calCursor: st.calCursor || today,
+    }));
+  }
+
+  _calSelect(key) {
+    this.setState({ calSelected: key, calCursor: key });
+  }
+
+  _calNav(dir) {
+    const st = this.state;
+    const today = this._todayKey();
+    const cursor = this._keyToDate(st.calCursor || today);
+    let next;
+    if (st.calExpanded) {
+      next = new Date(cursor.getFullYear(), cursor.getMonth() + dir, 1);
+    } else {
+      next = this._addDays(this._weekStart(cursor), dir * 7);
+    }
+    // El dia seleccionat passa al primer dia seleccionable del període visible.
+    const cells = this._calCells(this._dayKey(next), st.calExpanded);
+    const firstOk = cells.find((d) => this._dayKey(d) >= today && (!st.calExpanded || d.getMonth() === next.getMonth()));
+    const sel = firstOk ? this._dayKey(firstOk) : this._dayKey(cells[0]);
+    this.setState({ calCursor: this._dayKey(next), calSelected: sel });
+  }
+
+  _calToggleExpand() {
+    this.setState((st) => ({ calExpanded: !st.calExpanded, calCursor: st.calSelected || st.calCursor }));
   }
 
   _scrollToId(id, center) {
@@ -1741,6 +2260,30 @@ class Component extends DCLogic {
     return `https://wa.me/${digits}?text=${text}`;
   }
 
+  trackEvent(eventType, tripId, metadata = {}) {
+    // fetch sincrono con keepalive: el builder de supabase-js solo lanza la
+    // peticion al await, y para entonces la navegacion ya la ha cancelado
+    try {
+      fetch(`${SUPABASE_URL}/rest/v1/events`, {
+        method: 'POST',
+        keepalive: true,
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          event_type: eventType,
+          trip_id: tripId,
+          user_id: this.state.user ? this.state.user.id : null,
+          metadata,
+        }),
+      }).catch(() => {});
+    } catch (e) {
+      // el tracking nunca debe romper la app
+    }
+  }
+
   requestContact(trip) {
     if (!this.state.user) {
       this.setState({ returnAfterAuth: { tripId: trip.id }, view: 'auth', authMode: 'login' });
@@ -1758,7 +2301,11 @@ class Component extends DCLogic {
         availableSeats: trip.available_seats,
         pricePerSeat: trip.price_per_seat != null ? trip.price_per_seat : (trip.trip_type === 'request' ? '' : 0),
         pickupNotes: trip.pickup_notes || '',
+        timeWindow: trip.time_window || 120,
+        dateWindow: trip.date_window || 0,
+        notifyEmail: trip.notify_email !== false,
       },
+      postNotifyOpen: false,
       view: 'post',
     });
   }
@@ -1811,6 +2358,7 @@ class Component extends DCLogic {
   }
 
   goTo(view) {
+    if (view === 'post') this.setState({ postNotifyOpen: false });
     const rootViews = ['trips', 'myTrips', 'profile'];
     const currentIsSameRoot = rootViews.includes(view) && this.state.view === view;
     if (currentIsSameRoot) {
@@ -1821,6 +2369,7 @@ class Component extends DCLogic {
     this.setState({ view });
     if (view === 'trips') this._loadTrips();
     if (view === 'myTrips') this._loadMyTrips();
+    if (view === 'profile') this._loadMyBlocks();
     requestAnimationFrame(() => {
       const y = (this._scrollPositions && this._scrollPositions[view]) || 0;
       window.scrollTo({ top: y });
@@ -1834,10 +2383,20 @@ class Component extends DCLogic {
   };
 
   switchAuthMode(mode) {
-    this.setState({ authMode: mode, authError: '', authInfo: '', lastSignupEmail: '' });
+    this.setState({ authMode: mode, authError: '', authInfo: '', authSignupBlocked: false, lastSignupEmail: '' });
+  }
+
+  // Supabase Auth returns an opaque 500 when the profiles trigger fails
+  // (e.g. profiles_phone_unique). The constraint name never reaches the
+  // client, so we can only detect the shape of the error, not its cause.
+  _isOpaqueSignupError(e) {
+    if (!e) return false;
+    const m = String(e.message || '');
+    return e.status === 500 || e.code === 'unexpected_failure' || m.includes('Database error saving new user');
   }
 
   async handleAuthSubmit() {
+    if (this.state.authBusy) return;
     const { authMode, authForm } = this.state;
     const email = (authForm.email || '').trim().toLowerCase();
     if (!email) { this.setState({ authError: 'Introdueix un correu electrònic' }); return; }
@@ -1845,12 +2404,13 @@ class Component extends DCLogic {
       this.setState({ authError: 'La contrasenya ha de tenir almenys 6 caràcters' });
       return;
     }
-    this.setState({ authBusy: true, authError: '', authInfo: '' });
+    this.setState({ authBusy: true, authError: '', authInfo: '', authSignupBlocked: false });
     try {
       if (authMode === 'login') {
         const { error } = await this.sb.auth.signInWithPassword({ email, password: authForm.password });
         if (error) throw error;
         const pending = this.state.returnAfterAuth;
+        if (pending && pending.tripId) this._pendingTripId = pending.tripId;
         this.setState({ returnAfterAuth: null, view: 'trips' });
         this._loadTrips();
         if (pending && pending.tripId) this._showToast('Ja pots contactar per WhatsApp des de la targeta del viatge');
@@ -1878,7 +2438,12 @@ class Component extends DCLogic {
         this.setState({ authInfo: "T'hem enviat un correu amb l'enllaç per restablir la contrasenya." });
       }
     } catch (e) {
-      this.setState({ authError: this._authErrorMessage(e) });
+      if (authMode === 'signup' && this._isOpaqueSignupError(e)) {
+        console.error('signup error (opaque 500 from Auth, likely profiles trigger)', e);
+        this.setState({ authError: '', authSignupBlocked: true });
+      } else {
+        this.setState({ authError: this._authErrorMessage(e) });
+      }
     } finally {
       this.setState({ authBusy: false });
     }
@@ -1962,7 +2527,9 @@ class Component extends DCLogic {
         ({ data, error } = await tripsQuery('*, profiles!trips_driver_id_fkey(first_name,last_name,rating,phone,avatar_url)'));
       }
       if (error) throw error;
+      await this._loadHiddenUsers();
       this.setState({ trips: data || [] });
+      this._revealPendingTrip(data || []);
     } catch (e) {
       console.error('load trips', e);
       if (!silent) this._showToast('No s\'han pogut carregar els viatges', 'error');
@@ -1983,6 +2550,31 @@ class Component extends DCLogic {
       this.setState({ postError: 'Indica la data i hora de sortida' });
       return;
     }
+    const departMs = new Date(postForm.departAt).getTime();
+    if (Number.isNaN(departMs)) {
+      this.setState({ postError: 'La data i hora de sortida no són vàlides' });
+      return;
+    }
+    if (departMs < Date.now()) {
+      this.setState({ postError: 'La sortida ha de ser en el futur. Revisa la data i l\'hora.' });
+      return;
+    }
+    const seatsNum = Number(postForm.availableSeats);
+    if (!Number.isInteger(seatsNum) || seatsNum < 1) {
+      this.setState({ postError: postForm.tripType === 'request' ? 'Indica quantes persones sou (mínim 1).' : 'Indica quantes places ofereixes (mínim 1).' });
+      return;
+    }
+    // Accepta coma o punt com a separador decimal ("4,50" i "4.50").
+    const priceRaw = String(postForm.pricePerSeat == null ? '' : postForm.pricePerSeat).trim().replace(',', '.').replace(/[^\d.]/g, '');
+    const priceNum = priceRaw === '' ? null : Number(priceRaw);
+    if (priceRaw !== '' && !Number.isFinite(priceNum)) {
+      this.setState({ postError: 'El preu no és vàlid. Escriu només xifres, per exemple 5 o 4,50.' });
+      return;
+    }
+    if (postForm.tripType !== 'request' && !(priceNum > 0)) {
+      this.setState({ postError: 'Indica un preu per plaça superior a 0 €.' });
+      return;
+    }
     this.setState({ postBusy: true, postError: '' });
     try {
       const isRequest = postForm.tripType === 'request';
@@ -1990,17 +2582,20 @@ class Component extends DCLogic {
       const destinationValue = postForm.destination.trim();
       const preset = ROUTES.find((r) => r.origin === originValue && r.destination === destinationValue);
       const directionValue = preset ? preset.value : 'CUSTOM';
-      const hasPrice = postForm.pricePerSeat !== '' && postForm.pricePerSeat != null;
+      const hasPrice = priceNum != null && priceNum > 0;
       const payload = {
         direction: directionValue,
         origin: originValue,
         destination: destinationValue,
         depart_at: new Date(postForm.departAt).toISOString(),
         available_seats: Number(postForm.availableSeats),
-        price_per_seat: (isRequest && !hasPrice) ? null : Number(postForm.pricePerSeat),
+        price_per_seat: (isRequest && !hasPrice) ? null : priceNum,
         pickup_notes: postForm.pickupNotes || null,
         trip_type: postForm.tripType,
       };
+      payload.time_window = Number(postForm.timeWindow) || 120;
+      payload.date_window = Number(postForm.dateWindow) || 0;
+      payload.notify_email = postForm.notifyEmail !== false;
       let error;
       if (editingTripId) {
         ({ error } = await this.sb.from('trips').update(payload).eq('id', editingTripId));
@@ -2008,11 +2603,17 @@ class Component extends DCLogic {
         ({ error } = await this.sb.from('trips').insert({ ...payload, driver_id: user.id, status: 'active' }));
       }
       if (error) throw error;
-      this._showToast(editingTripId ? 'Publicació actualitzada!' : (isRequest ? 'Sol·licitud publicada!' : 'Viatge publicat!'));
+      this.setState({ tripsView: 'list' });
+      const notifyOn = postForm.notifyEmail !== false;
+      this._showToast(editingTripId
+        ? 'Publicació actualitzada!'
+        : (isRequest
+          ? (notifyOn ? 'Sol·licitud publicada · T\'avisarem si apareix un viatge que encaixi' : 'Sol·licitud publicada!')
+          : (notifyOn ? 'Viatge publicat · T\'avisarem si algú busca aquest trajecte' : 'Viatge publicat!')));
       this.setState({
         view: 'trips',
         editingTripId: null,
-        postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '' },
+        postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '', timeWindow: 120, dateWindow: 0, notifyEmail: true },
       });
       this._loadTrips();
     } catch (e) {
@@ -2020,6 +2621,34 @@ class Component extends DCLogic {
     } finally {
       this.setState({ postBusy: false });
     }
+  }
+
+  // Quants avisos ha generat cada viatge propi (taula match_notifications, només lectura del propietari).
+  async _loadNoticeCounts(tripIds) {
+    if (!tripIds.length) { this.setState({ noticeCounts: {} }); return; }
+    try {
+      const { data, error } = await this.sb
+        .from('match_notifications')
+        .select('request_id, offer_id')
+        .or(`request_id.in.(${tripIds.join(',')}),offer_id.in.(${tripIds.join(',')})`);
+      if (error) throw error;
+      const counts = {};
+      (data || []).forEach((n) => {
+        [n.request_id, n.offer_id].forEach((id) => { if (tripIds.includes(id)) counts[id] = (counts[id] || 0) + 1; });
+      });
+      this.setState({ noticeCounts: counts });
+    } catch (e) {
+      console.warn('notice counts', e);
+    }
+  }
+
+  _noticeLabel(t) {
+    if (t.notify_email === false) return 'Avís desactivat';
+    const hours = Math.round((Number(t.time_window) || 120) / 60);
+    const day = Number(t.date_window) === 1 ? 'també ±1 dia' : 'només aquest dia';
+    const n = (this.state.noticeCounts || {})[t.id] || 0;
+    const sent = n === 0 ? '' : ` · ${n} ${n === 1 ? 'avís enviat' : 'avisos enviats'}`;
+    return `Avís actiu · ±${hours} h · ${day}${sent}`;
   }
 
   async _loadMyTrips() {
@@ -2062,6 +2691,7 @@ class Component extends DCLogic {
         myRequestTrips: requestRes.data || [],
         myBookings: bookingsRes.data || [],
       });
+      this._loadNoticeCounts([...(driverRes.data || []), ...(requestRes.data || [])].map((t) => t.id));
     } catch (e) {
       console.error('load my trips', e);
       this._showToast('No s\u2019han pogut carregar els teus viatges', 'error');
@@ -2131,12 +2761,119 @@ class Component extends DCLogic {
     }
   }
 
+  // ---- Perfil públic, reportar i bloquejar (docs/specs/2026-10-29_reportar-bloquejar.md) ----
+  async _loadHiddenUsers() {
+    if (!this.state.user) { if (this.state.hiddenUserIds.length) this.setState({ hiddenUserIds: [] }); return; }
+    const { data, error } = await this.sb.rpc('hidden_user_ids');
+    if (error) { console.error('hidden_user_ids', error); return; }
+    // PostgREST pot tornar valors solts o files { hidden_user_ids: ... } segons la versió
+    const ids = (data || []).map((r) => (typeof r === 'string' ? r : (r && (r.hidden_user_ids || Object.values(r)[0])))).filter(Boolean);
+    this.setState({ hiddenUserIds: ids });
+  }
+
+  openPublicProfile(userId, tripId) {
+    const { user } = this.state;
+    if (!user || !userId) return;
+    if (userId === user.id) { this.goTo('profile'); return; }
+    this.setState({
+      publicProfileId: userId, publicProfileTripId: tripId || null, publicProfile: null,
+      ppMode: 'view', reportReason: '', reportDetails: '', reportError: '',
+    });
+    this.goTo('publicProfile');
+    window.scrollTo({ top: 0 });
+    this._loadPublicProfile(userId);
+  }
+
+  async _loadPublicProfile(userId) {
+    this.setState({ publicProfileLoading: true });
+    try {
+      const { data, error } = await this.sb.rpc('public_profile', { p_id: userId });
+      if (error) throw error;
+      if (this.state.publicProfileId !== userId) return;
+      if (!data) {
+        this._showToast('Aquest perfil no està disponible', 'error');
+        this.goTo('trips');
+        return;
+      }
+      this.setState({ publicProfile: data });
+    } catch (e) {
+      this._showToast(this._friendlyDbError(e, 'No s\'ha pogut carregar el perfil'), 'error');
+      this.goTo('trips');
+    } finally {
+      this.setState({ publicProfileLoading: false });
+    }
+  }
+
+  _openTripFromProfile(tripId) {
+    this._pendingTripId = tripId;
+    this.goTo('trips');
+    this._revealPendingTrip(this.state.trips || []);
+  }
+
+  async handleReportSubmit() {
+    const { user, publicProfileId, publicProfileTripId, reportReason, reportDetails } = this.state;
+    if (!reportReason) { this.setState({ reportError: 'Tria un motiu.' }); return; }
+    this.setState({ reportBusy: true, reportError: '' });
+    try {
+      const { error } = await this.sb.from('reports').insert({
+        reporter_id: user.id,
+        reported_user_id: publicProfileId,
+        trip_id: publicProfileTripId,
+        reason: reportReason,
+        details: (reportDetails || '').trim().slice(0, 1000) || null,
+      });
+      if (error) throw error;
+      this.setState({ ppMode: 'reported' });
+    } catch (e) {
+      this.setState({ reportError: this._friendlyDbError(e, 'No s\'ha pogut enviar el report. Torna-ho a provar.') });
+    } finally {
+      this.setState({ reportBusy: false });
+    }
+  }
+
+  async handleBlock() {
+    const { user, publicProfileId, publicProfile } = this.state;
+    this.setState({ blockBusy: true });
+    try {
+      const { error } = await this.sb.from('blocks').insert({ blocker_id: user.id, blocked_id: publicProfileId });
+      if (error && error.code !== '23505') throw error;
+      this.setState((st) => ({ hiddenUserIds: st.hiddenUserIds.concat(publicProfileId) }));
+      this._showToast(`Has bloquejat ${(publicProfile && publicProfile.first_name) || 'aquesta persona'}`, 'success');
+      this.goTo('trips');
+    } catch (e) {
+      this._showToast(this._friendlyDbError(e, 'No s\'ha pogut bloquejar. Torna-ho a provar.'), 'error');
+    } finally {
+      this.setState({ blockBusy: false });
+    }
+  }
+
+  async _loadMyBlocks() {
+    if (!this.state.user) return;
+    this.setState({ myBlocksLoading: true });
+    const { data, error } = await this.sb.rpc('my_blocks');
+    if (error) console.error('my_blocks', error);
+    this.setState({ myBlocks: data || [], myBlocksLoading: false });
+  }
+
+  async handleUnblock(blockedId) {
+    const { user } = this.state;
+    const { error } = await this.sb.from('blocks').delete().eq('blocker_id', user.id).eq('blocked_id', blockedId);
+    if (error) { this._showToast(this._friendlyDbError(error, 'No s\'ha pogut desbloquejar.'), 'error'); return; }
+    this.setState((st) => ({
+      myBlocks: st.myBlocks.filter((b) => b.blocked_id !== blockedId),
+      hiddenUserIds: st.hiddenUserIds.filter((id) => id !== blockedId),
+    }));
+    this._showToast('Persona desbloquejada', 'success');
+    this._loadHiddenUsers();
+  }
+
   renderVals() {
     const s = this.state;
     const isLoggedIn = !!s.user && s.view !== 'reset';
     const view = s.view;
 
-    const trips = (s.trips || []).map((t) => {
+    const hidden = new Set(s.hiddenUserIds || []);
+    const trips = (s.trips || []).filter((t) => !hidden.has(t.driver_id)).map((t) => {
       const isRequest = t.trip_type === 'request';
       const posterFullName = t.profiles ? `${t.profiles.first_name || ''} ${t.profiles.last_name || ''}`.trim() : '';
       const posterName = posterFullName
@@ -2171,6 +2908,7 @@ class Component extends DCLogic {
         ctaLabel: 'WhatsApp',
         ctaAriaLabel: `Contactar per WhatsApp amb ${posterName}`,
         waHref,
+        onWaClick: () => this.trackEvent('whatsapp_click', t.id, { role: t.trip_type }),
         showLoginCta: !isOwn && !isLoggedIn,
         waDisabled: !isOwn && isLoggedIn && !waHref,
         waDisabledMsg: 'Aquest usuari no ha afegit un número de contacte.',
@@ -2178,13 +2916,71 @@ class Component extends DCLogic {
         editHandler: (e) => { e.stopPropagation(); this.goToEditTrip(t); },
         deleteHandler: (e) => { e.stopPropagation(); this.handleDeleteTrip(t); },
         stopProp: (e) => e.stopPropagation(),
+        canOpenProfile: isLoggedIn && !isOwn && !!t.driver_id,
+        openProfile: () => this.openPublicProfile(t.driver_id, t.id),
+        openProfileLabel: `Veure el perfil de ${posterName}`,
+        domId: 'trip-' + t.id,
+        highlightShadow: s.highlightTripId === t.id ? '0 0 0 3px #B9B0FF' : 'none',
       };
     });
     const offerTrips = trips.filter((t) => !t.isRequest);
     const requestTrips = trips.filter((t) => t.isRequest);
     const viatgesTab = s.viatgesTab || 'offer';
-    const visibleTrips = viatgesTab === 'offer' ? offerTrips : requestTrips;
-    const visibleTripsEmptyMsg = viatgesTab === 'offer' ? 'Encara no hi ha viatges oferts.' : 'Encara no hi ha sol·licituds de viatge.';
+    const tabTrips = viatgesTab === 'offer' ? offerTrips : requestTrips;
+    const todayKey = this._todayKey();
+    // El calendari només s'ofereix quan hi ha viatges en més d'un dia; si no, no hi ha res a navegar.
+    const tabDayKeys = new Set(tabTrips.filter((t) => t.depart_at).map((t) => this._dayKey(new Date(t.depart_at))));
+    const showCalLink = tabDayKeys.size > 1;
+    const isTripsCal = showCalLink && s.tripsView === 'calendar';
+    const calSelected = s.calSelected || todayKey;
+    const calCursor = s.calCursor || todayKey;
+    const calCountByDay = {};
+    tabTrips.forEach((t) => {
+      if (!t.depart_at) return;
+      const k = this._dayKey(new Date(t.depart_at));
+      calCountByDay[k] = (calCountByDay[k] || 0) + 1;
+    });
+    const cursorDate = this._keyToDate(calCursor);
+    const calCells = this._calCells(calCursor, s.calExpanded).map((d) => {
+      const key = this._dayKey(d);
+      const past = key < todayKey;
+      const otherMonth = s.calExpanded && d.getMonth() !== cursorDate.getMonth();
+      const count = calCountByDay[key] || 0;
+      const longLabel = d.toLocaleDateString('ca-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+      return {
+        key,
+        label: String(d.getDate()),
+        count,
+        selected: key === calSelected,
+        isToday: key === todayKey,
+        disabled: past,
+        dim: otherMonth && !past,
+        ariaLabel: `${longLabel}${count ? `, ${count} ${count === 1 ? 'viatge' : 'viatges'}` : ''}${key === calSelected ? ', seleccionat' : ''}`,
+        select: () => this._calSelect(key),
+      };
+    });
+    const calRows = calCells.length / 7;
+    const calBodyMaxHeight = `${calRows * 52 + (calRows - 1) * 4}px`;
+    const calTitle = s.calExpanded
+      ? this._capFirst(cursorDate.toLocaleDateString('ca-ES', { month: 'long', year: 'numeric' }))
+      : (() => {
+          const a = this._weekStart(cursorDate), b = this._addDays(a, 6);
+          const sameMonth = a.getMonth() === b.getMonth();
+          const fa = a.toLocaleDateString('ca-ES', sameMonth ? { day: 'numeric' } : { day: 'numeric', month: 'short' });
+          const fb = b.toLocaleDateString('ca-ES', { day: 'numeric', month: 'long' });
+          return `${fa} – ${fb}`;
+        })();
+    const calPrevDisabled = s.calExpanded
+      ? (cursorDate.getFullYear() * 12 + cursorDate.getMonth()) <= (new Date().getFullYear() * 12 + new Date().getMonth())
+      : this._weekStart(cursorDate) <= this._weekStart(new Date());
+    const selectedDate = this._keyToDate(calSelected);
+    const calSelectedCount = calCountByDay[calSelected] || 0;
+    const visibleTrips = isTripsCal
+      ? tabTrips.filter((t) => t.depart_at && this._dayKey(new Date(t.depart_at)) === calSelected)
+      : tabTrips;
+    const visibleTripsEmptyMsg = isTripsCal
+      ? (viatgesTab === 'offer' ? 'Cap viatge ofert aquest dia.' : 'Cap sol·licitud aquest dia.')
+      : (viatgesTab === 'offer' ? 'Encara no hi ha viatges oferts.' : 'Encara no hi ha sol·licituds de viatge.');
 
     const ownName = s.profile ? `${s.profile.first_name || ''} ${s.profile.last_name || ''}`.trim() : '';
     const ownAvatarUrl = s.profile ? s.profile.avatar_url : null;
@@ -2195,6 +2991,7 @@ class Component extends DCLogic {
         ...t,
         directionLabel: ROUTE_LABEL_BY_VALUE[t.direction] || `${t.origin} → ${t.destination}`,
         departLabel: this._fmtDate(t.depart_at),
+        noticeLabel: this._noticeLabel(t),
         dateLabel: departDate ? departDate.toLocaleDateString('ca-ES', { day: 'numeric', month: 'short' }) : '',
         timeLabel: departDate ? departDate.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) : '',
         driverName: ownName || 'Tu',
@@ -2223,6 +3020,7 @@ class Component extends DCLogic {
         ...t,
         directionLabel: ROUTE_LABEL_BY_VALUE[t.direction] || `${t.origin} → ${t.destination}`,
         departLabel: this._fmtDate(t.depart_at),
+        noticeLabel: this._noticeLabel(t),
         dateLabel: departDate ? departDate.toLocaleDateString('ca-ES', { day: 'numeric', month: 'short' }) : '',
         timeLabel: departDate ? departDate.toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) : '',
         driverName: ownName || 'Tu',
@@ -2269,13 +3067,44 @@ class Component extends DCLogic {
     const profileAvatarColor = this._avatarColor((profile && profile.id) || profileFullName);
     const profileStatsLabel = profile ? `${profile.trips_count || 0} viatges · ★ ${profile.rating ? Number(profile.rating).toFixed(1) : '—'}` : '';
 
-    const activeTab = (view === 'trips' || view === 'post') ? 'trips'
+    const pp = s.publicProfile;
+    const ppName = pp ? `${pp.first_name || ''} ${pp.last_initial ? pp.last_initial + '.' : ''}`.trim() || 'Persona usuària' : '';
+    const ppFirst = (pp && pp.first_name) || 'aquesta persona';
+    const ppAvatarUrl = pp ? pp.avatar_url : null;
+    const REPORT_REASONS = [
+      { id: 'unsafe', label: 'Comportament inadequat o insegur' },
+      { id: 'fake', label: 'Perfil o viatge fals' },
+      { id: 'spam', label: 'Spam o publicitat' },
+      { id: 'other', label: 'Altres' },
+    ];
+    const ppTrips = pp ? trips.filter((t) => t.driver_id === pp.id).map((t) => ({
+      ...t,
+      open: () => this._openTripFromProfile(t.id),
+      rowLabel: `${t.origin} → ${t.destination}, ${t.dateLabel} ${t.timeLabel}`,
+    })) : [];
+    const ppCount = (n) => Number(n) || 0;
+    const myBlocks = (s.myBlocks || []).map((b) => {
+      const name = `${b.first_name || ''} ${b.last_initial ? b.last_initial + '.' : ''}`.trim() || 'Persona usuària';
+      return {
+        ...b,
+        name,
+        initial: (name[0] || '?').toUpperCase(),
+        avatarColor: this._avatarColor(b.blocked_id),
+        avatarDisplay: (b.avatar_url && !s.brokenAvatarUrls[b.avatar_url]) ? 'block' : 'none',
+        avatarImgRef: this._avatarRef(b.avatar_url),
+        unblock: () => this.handleUnblock(b.blocked_id),
+        unblockLabel: `Desbloquejar ${name}`,
+      };
+    });
+    const activeTab = (view === 'trips' || view === 'post' || view === 'publicProfile') ? 'trips'
       : (view === 'myTrips') ? 'myTrips'
       : (view === 'profile') ? 'profile'
       : null;
+    // Patró Material: l'ítem actiu és un contenidor tonal (#EEEBFF + color primari),
+    // mai una superfície sòlida — el morat ple queda reservat a l'acció (Publicar).
     const navBtn = (name) => activeTab === name
-      ? { bg: '#5B4CFB', color: '#fff', weight: 800, iconWeight: 2.4, ariaCurrent: 'page' }
-      : { bg: '#F3F4F8', color: '#14151A', weight: 600, iconWeight: 2, ariaCurrent: undefined };
+      ? { bg: '#EEEBFF', color: '#5B4CFB', weight: 700, iconWeight: 2.4, ariaCurrent: 'page' }
+      : { bg: 'transparent', color: '#6B6F7B', weight: 600, iconWeight: 2, ariaCurrent: undefined };
     const tripsNav = navBtn('trips');
     const myTripsNav = navBtn('myTrips');
     const profileNav = navBtn('profile');
@@ -2344,6 +3173,47 @@ class Component extends DCLogic {
       isPostView: view === 'post',
       isMyTripsView: view === 'myTrips',
       isProfileView: view === 'profile',
+      isPublicProfileView: view === 'publicProfile',
+      ppLoading: s.publicProfileLoading || (view === 'publicProfile' && !pp),
+      ppReady: !!pp && !s.publicProfileLoading,
+      ppName,
+      ppFirst,
+      ppInitial: (ppName[0] || '?').toUpperCase(),
+      ppAvatarColor: this._avatarColor(s.publicProfileId || ppName),
+      ppAvatarDisplay: (ppAvatarUrl && !s.brokenAvatarUrls[ppAvatarUrl]) ? 'block' : 'none',
+      ppAvatarImgRef: this._avatarRef(ppAvatarUrl),
+      ppOffers: ppCount(pp && pp.offers_count),
+      ppRequests: ppCount(pp && pp.requests_count),
+      ppOffersLabel: ppCount(pp && pp.offers_count) === 1 ? 'viatge ofert' : 'viatges oferts',
+      ppRequestsLabel: ppCount(pp && pp.requests_count) === 1 ? 'sol·licitud' : 'sol·licituds',
+      ppChips: (pp && Array.isArray(pp.interests) ? pp.interests : []).map((id) => ({ label: INTEREST_LABELS[id] })).filter((c) => c.label),
+      ppHasChips: !!(pp && Array.isArray(pp.interests) && pp.interests.some((id) => INTEREST_LABELS[id])),
+      ppTrips,
+      ppHasTrips: ppTrips.length > 0,
+      ppIsView: s.ppMode === 'view',
+      ppIsReport: s.ppMode === 'report',
+      ppIsBlock: s.ppMode === 'block',
+      ppIsReported: s.ppMode === 'reported',
+      ppBack: () => this.goTo('trips'),
+      ppAskReport: () => { this.setState({ ppMode: 'report', reportError: '' }); setTimeout(() => this._scrollToId('pp-actions'), 60); },
+      ppAskBlock: () => { this.setState({ ppMode: 'block' }); setTimeout(() => this._scrollToId('pp-actions'), 60); },
+      ppCancel: () => this.setState({ ppMode: 'view', reportReason: '', reportDetails: '', reportError: '' }),
+      reportReasons: REPORT_REASONS.map((r) => ({
+        ...r,
+        on: s.reportReason === r.id,
+        select: () => this.setState({ reportReason: r.id, reportError: '' }),
+        style: 'display:flex; align-items:center; width:100%; min-height:44px; padding:8px 16px; border-radius:14px; font-weight:700; font-size:14px; text-align:left; cursor:pointer; font-family:inherit;'
+          + (s.reportReason === r.id ? ' border:1.5px solid #5B4CFB; background:#EEEBFF; color:#5B4CFB;' : ' border:1.5px solid #ECEDF2; background:#fff; color:#14151A;'),
+      })),
+      reportDetails: s.reportDetails,
+      setReportDetails: (e) => this.setState({ reportDetails: e.target.value }),
+      reportBusy: s.reportBusy,
+      reportError: s.reportError,
+      handleReportSubmit: () => this.handleReportSubmit(),
+      blockBusy: s.blockBusy,
+      handleBlock: () => this.handleBlock(),
+      myBlocks,
+      hasMyBlocks: myBlocks.length > 0,
 
       isLoginMode: s.authMode === 'login',
       isLandingMode: view === 'auth' && (s.authMode === 'login' || s.authMode === 'signup'),
@@ -2359,6 +3229,7 @@ class Component extends DCLogic {
       authError: s.authError,
       authInfo: s.authInfo,
       authBusy: s.authBusy,
+      authSignupBlocked: s.authMode === 'signup' && !!s.authSignupBlocked,
       canResend: s.authMode === 'signup' && !!s.authInfo && !!s.lastSignupEmail,
       resendBusy: s.resendBusy,
       handleResendConfirmation: () => this.handleResendConfirmation(),
@@ -2395,14 +3266,6 @@ class Component extends DCLogic {
       isRequestTab: viatgesTab === 'request',
       setViatgesTabOffer: () => this.setState({ viatgesTab: 'offer' }),
       setViatgesTabRequest: () => this.setState({ viatgesTab: 'request' }),
-      offerTabBg: viatgesTab === 'offer' ? 'rgba(91,76,251,0.1)' : 'transparent',
-      offerTabColor: viatgesTab === 'offer' ? '#5B4CFB' : '#727681',
-      offerTabShadow: viatgesTab === 'offer' ? '0 8px 20px -10px rgba(91,76,251,0.45)' : 'none',
-      requestTabBg: viatgesTab === 'request' ? 'rgba(91,76,251,0.1)' : 'transparent',
-      requestTabColor: viatgesTab === 'request' ? '#5B4CFB' : '#727681',
-      requestTabShadow: viatgesTab === 'request' ? '0 8px 20px -10px rgba(91,76,251,0.45)' : 'none',
-      offerTabWeight: viatgesTab === 'offer' ? 700 : 600,
-      requestTabWeight: viatgesTab === 'request' ? 700 : 600,
       offerCount: offerTrips.length,
       requestCount: requestTrips.length,
       offerCountBg: viatgesTab === 'offer' ? '#5B4CFB' : '#ECEDF2',
@@ -2411,6 +3274,33 @@ class Component extends DCLogic {
       requestCountColor: viatgesTab === 'request' ? '#fff' : '#6B6F7B',
       tripsLoading: s.tripsLoading,
       tripsEmpty: !s.tripsLoading && visibleTrips.length === 0,
+
+      isTripsList: !isTripsCal,
+      isTripsCal,
+      showCalLink,
+      tripsTabsMb: showCalLink ? '8px' : '24px',
+      toggleTripsView: () => this._calSetView(isTripsCal ? 'list' : 'calendar'),
+      calTitle,
+      calCells,
+      calBodyMaxHeight,
+      calExpanded: !!s.calExpanded,
+      calPrev: () => this._calNav(-1),
+      calNext: () => this._calNav(1),
+      calPrevDisabled,
+      calPrevLabel: s.calExpanded ? 'Mes anterior' : 'Setmana anterior',
+      calNextLabel: s.calExpanded ? 'Mes següent' : 'Setmana següent',
+      calToggleExpand: () => this._calToggleExpand(),
+      calChevLabel: s.calExpanded ? 'Veure només la setmana' : 'Veure el mes sencer',
+      calSelectedLabel: this._capFirst(selectedDate.toLocaleDateString('ca-ES', { weekday: 'long', day: 'numeric', month: 'long' })),
+      calSelectedCountLabel: calSelectedCount === 0 ? '' : `${calSelectedCount} ${calSelectedCount === 1 ? 'viatge' : 'viatges'}`,
+      calEmptyCtaLabel: viatgesTab === 'offer' ? 'Publicar un viatge aquest dia' : 'Publicar una sol·licitud aquest dia',
+      goToPostForSelectedDay: () => {
+        this.setState((st) => ({
+          postForm: { ...st.postForm, tripType: viatgesTab, departAt: `${calSelected}T08:00` },
+          editingTripId: null,
+        }));
+        this.goTo('post');
+      },
       tripsEmptyMsg: visibleTripsEmptyMsg,
 
       postForm: s.postForm,
@@ -2427,6 +3317,21 @@ class Component extends DCLogic {
       postTypeRequestColor: s.postForm.tripType === 'request' ? '#5B4CFB' : '#6B6F7B',
       postTypeRequestBorder: s.postForm.tripType === 'request' ? '#5B4CFB' : '#ECEDF2',
       setPostDepartAt: (e) => this.setState((st) => ({ postForm: { ...st.postForm, departAt: e.target.value } })),
+      departDateMin: this._todayKey(),
+      isTimeWindow60: Number(s.postForm.timeWindow) === 60,
+      isTimeWindow120: Number(s.postForm.timeWindow) === 120 || !s.postForm.timeWindow,
+      isTimeWindow180: Number(s.postForm.timeWindow) === 180,
+      setTimeWindow60: () => this.setState((st) => ({ postForm: { ...st.postForm, timeWindow: 60 } })),
+      setTimeWindow120: () => this.setState((st) => ({ postForm: { ...st.postForm, timeWindow: 120 } })),
+      setTimeWindow180: () => this.setState((st) => ({ postForm: { ...st.postForm, timeWindow: 180 } })),
+      isDateWindow0: Number(s.postForm.dateWindow || 0) === 0,
+      isDateWindow1: Number(s.postForm.dateWindow) === 1,
+      setDateWindow0: () => this.setState((st) => ({ postForm: { ...st.postForm, dateWindow: 0 } })),
+      setDateWindow1: () => this.setState((st) => ({ postForm: { ...st.postForm, dateWindow: 1 } })),
+      toggleNotifyEmail: () => this.setState((st) => ({ postForm: { ...st.postForm, notifyEmail: !(st.postForm.notifyEmail !== false) }, postNotifyOpen: false })),
+      postNotifyOpen: !!s.postNotifyOpen,
+      openPostNotify: () => this.setState({ postNotifyOpen: true }),
+      postNotifySummary: `Compatible vol dir fins a ±${Math.round((Number(s.postForm.timeWindow) || 120) / 60)} h de la teva hora, ${Number(s.postForm.dateWindow) === 1 ? 'aquest dia o el del costat' : 'el mateix dia'}.`,
       departDateVal: (s.postForm.departAt || '').split('T')[0] || '',
       departTimeVal: (s.postForm.departAt || '').split('T')[1] || '',
       setPostDepartDate: (e) => this.setState((st) => {
@@ -2445,7 +3350,7 @@ class Component extends DCLogic {
       postShowRoutePresets: s.postShowRoutePresets,
       togglePostRoutePresets: () => this.setState((st) => ({ postShowRoutePresets: !st.postShowRoutePresets })),
       routePresetsChevron: s.postShowRoutePresets ? 'rotate(180deg)' : 'rotate(0deg)',
-      postPricePlaceholder: s.postForm.tripType === 'request' ? 'Ex: 5' : '',
+      postPricePlaceholder: s.postForm.tripType === 'request' ? 'Opcional' : '',
       routeOptions: ROUTES.map((r) => ({
         value: r.value,
         label: r.label,
@@ -2470,14 +3375,6 @@ class Component extends DCLogic {
       setMyTabPassenger: () => this.setState({ myTripsTab: 'passenger' }),
       isMyTabDriver: s.myTripsTab === 'driver',
       isMyTabPassenger: s.myTripsTab === 'passenger',
-      myTabDriverBg: s.myTripsTab === 'driver' ? 'rgba(91,76,251,0.1)' : 'transparent',
-      myTabDriverColor: s.myTripsTab === 'driver' ? '#5B4CFB' : '#727681',
-      myTabDriverShadow: s.myTripsTab === 'driver' ? '0 8px 20px -10px rgba(91,76,251,0.45)' : 'none',
-      myTabDriverWeight: s.myTripsTab === 'driver' ? 700 : 600,
-      myTabPassengerBg: s.myTripsTab === 'passenger' ? 'rgba(91,76,251,0.1)' : 'transparent',
-      myTabPassengerColor: s.myTripsTab === 'passenger' ? '#5B4CFB' : '#727681',
-      myTabPassengerShadow: s.myTripsTab === 'passenger' ? '0 8px 20px -10px rgba(91,76,251,0.45)' : 'none',
-      myTabPassengerWeight: s.myTripsTab === 'passenger' ? 700 : 600,
       myDriverCount: myDriverTrips.length,
       myBookingCount: myRequestTrips.length + myBookings.length,
 

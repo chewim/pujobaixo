@@ -1,6 +1,6 @@
 # Spec — Reportar i bloquejar
 
-**Estat:** esborrany per revisar · 29 oct. 2026
+**Estat:** fet i desplegat · 29 oct. 2026 (vegeu "Estat de l'acceptació" al final)
 **Toca:** BD (2 taules noves, 1 funció, 1 vista existent), correu (Resend), `index.html`.
 
 ## Problema
@@ -106,6 +106,22 @@ Migració `supabase/migrations/2026-xx-xx_reports_blocks.sql`, additiva:
 9. L'avís legal menciona el canal de report.
 10. Tocar el nom d'una targeta aliena obre el perfil públic; el propi porta a Perfil. La resposta de `public_profile` (pestanya Network) no conté cap camp fora de la llista.
 11. La política de privacitat inclou el perfil públic i té la data actualitzada.
+
+## Estat de l'acceptació (29 oct. 2026)
+
+Desplegat a producció: migracions `2026-10-29_reports_blocks.sql` i `2026-10-29b_public_profile.sql` aplicades, secret `admin_email` al Vault, frontend a `main` (`6f55c88`).
+
+| Criteri | Estat | Com s'ha comprovat |
+|---|---|---|
+| 1 | ✅ | Frontend amb client simulat: sense sessió o en targeta pròpia el nom no és tocable |
+| 2 | ⏳ | Pendent: un report real des de producció i comprovar que arriba el correu "[Report] …". El camí Resend sí que està provat (`supabase/diagnostics/prova_resend.sql`) |
+| 3 | ✅ | El trigger de correu està dins `begin … exception`; prova automàtica: el report es desa |
+| 4–7 | ✅ | `supabase/diagnostics/prova_reports_blocks.sql`: 12/12 OK (duplicat, límit de 5, bloqueig en les dues direccions, desbloquejar) |
+| 8 | ✅ | Balanç `sc-if` 119/119, `sc-for` 11/11; 390 px; contrast AA (s'ha corregit un gris a 3.06:1) |
+| 9, 11 | ✅ | Avís legal i política de privacitat actualitzats (29 oct.) |
+| 10 | ✅ | `public_profile` només retorna els 7 camps permesos (prova automàtica, punt 2) |
+
+Canvis respecte a l'esborrany: el punt d'entrada és el perfil públic i no la targeta; les accions són enllaços de text al peu (vegeu `DESIGN_SYSTEM.md`, "Acciones de pie de pantalla").
 
 ## Preguntes obertes (decidir abans de construir)
 

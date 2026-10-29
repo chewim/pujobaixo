@@ -20,6 +20,8 @@ Senyal de canvi de restricció: si en repetir el canal que ja va convertir (grup
 
 - [x] **Sistema d'avisos automàtics** (30–31 ag. 2026) — elimina la necessitat de "estar present" per beneficiar-se d'una coincidència. Publiques i t'oblides; el sistema avisa quan apareix l'altra part. És l'atac directe a "mercat de baixa freqüència on ningú està connectat quan apareix la contrapart".
 - [ ] **Repetir el canal de WhatsApp amb missatge dirigit a conductors.** El grup de WhatsApp va convertir 6 registres amb cost zero (24 ag. 2026); l'esdeveniment puntual en va donar 10 amb més esforç. És la següent inversió, i no és producte — és distribució. Sense oferta, el sistema d'avisos multiplica per zero.
+- [x] **Jerarquia del CTA a Viatges** (29 oct. 2026) — WhatsApp és l'única superfície sòlida; mesura directa de la restricció (clics de WhatsApp). Comparar clics abans/després quan hi hagi volum.
+- [x] **Reportar i bloquejar + perfil públic mínim** (29 oct. 2026) — no ataca el volum d'oferta: és el mínim de seguretat (i canal de notificació que demana la DSA) abans de créixer. Spec: `docs/specs/2026-10-29_reportar-bloquejar.md`.
 - [ ] **SMTP d'Auth amb Resend.** Ja tenim el domini verificat i la clau a Vault; connectar-lo als correus de verificació/recuperació treu el límit de 2/hora del SMTP de prova de Supabase. Cost baix, sense risc, fet quan hi hagi un moment.
 
 ## Aparcat (bona idea, no és el moment)
@@ -31,7 +33,7 @@ Cada entrada porta la condició numèrica que la reactivaria — no "quan sembli
 - **Flexibilitat horària als viatges oferts** (`flex_time`/`flex_time_window` del disseny d'agost) — dissenyat i descartat en favor del sistema d'avisos, que ataca el mateix problema (viatges que no coincideixen exactament) sense requerir que el conductor mogui res.
   → Llindar: si després de 3 setmanes amb avisos actius seguim veient contactes fallits per marge horari petit, revisar.
 - **Verificació d'identitat forta** (SMS, DNI) — cara i fricció al registre; avui no hi ha cap incident reportat que ho justifiqui.
-  → Llindar: primer incident real reportat, o >150 usuaris actius.
+  → Llindar: primer incident real reportat (ara arriben per correu via `reports`), o >150 usuaris actius.
 - **Avisos per WhatsApp / Web Push** — el correu cobreix el cas d'ús actual (avisos d'1–2 per setmana, sense urgència d'immediatesa). Push té sentit quan calgui "surt en 40 min"; WhatsApp té sentit perquè és on ja viu la comunitat.
   → Llindar: si la taxa d'obertura del correu és baixa (comprovar a Resend → Emails) o apareix demanda de matching "a última hora".
 - **Notificació al conductor per interacció, no per correu** (icona de campana amb comptador a la nav) — sense app ni push, un badge dins la webapp només es veu si l'usuari torna a obrir-la, que és exactament el comportament que el correu evita. Té sentit si algun dia hi ha PWA amb push real.

@@ -172,6 +172,14 @@ Para acciones principales dentro de la app (Publicar y sus variantes en estados 
 
 Misma geometría que `.pj-btn-primary` (icono 18px, `gap:8px`, `padding:0 24px 0 16px`), pero sobre el contenedor tonal de la navegación activa. Regla: **una sola superficie sólida y saturada por pantalla**, la de la acción que se mide. En Viatges es WhatsApp, así que Publicar baja a tonal. El texto se oscurece en hover/active para mantener AA (4.64 / 5.13 / 5.17:1); solo cambiando el fondo bajaba a 4.14 y 3.71.
 
+### Perfil público (`view: 'publicProfile'`)
+
+Se llega tocando el nombre o la foto de una tarjeta ajena (`.pj-poster-btn`: el bloque avatar+nombre como botón, con chevron gris 14px tras el nombre como pista, hover `#F3F4F8`, radio 14). Con sesión y solo en tarjetas ajenas; el propio nombre lleva a Perfil. En la nav, el perfil público cuenta como Viatges.
+
+Estructura, de arriba abajo: botón volver (44×44, blanco, radio 14) → avatar 88px + nombre (h1 24/800) con `gap:16px` → dos tiles blancos de cifras (radio 16, `gap:8px`; número 24/800, etiqueta 13/600 gris) → "Com li agrada viatjar" (h2 15/700 + chips `.pj-trip-int` en card blanca) → "Viatges actius" (`.pj-pp-trip`: filas blancas radio 16 con ruta 15/800, fecha 13/600 gris y chevron; abren la tarjeta resaltada en Viatges) → acciones de pie (abajo). Los formularios de reportar/bloquear sustituyen las acciones dentro del mismo pie, como card blanca radio 24 (sin modal, igual que las confirmaciones de borrar).
+
+Datos: solo lo que devuelve `public_profile()` (nombre, inicial, foto, preferencias, viajes ofrecidos y solicitudes). Nunca teléfono, correo, apellido completo ni fecha de alta.
+
 ### Acciones de pie de pantalla (`.pj-pp-foot` / `.pj-pp-action`)
 
 Para acciones que deben existir pero no competir con el contenido (hoy: *Reportar* y *Bloquejar* en el perfil público). Son el tipo **Texto/link** de la tabla de botones: transparentes, `#5B4CFB` 13px/700, icono 16px `currentColor`, `gap:8px`, `min-height:44px`, `padding:0 16px`, radio 14; hover `#EEEBFF`, focus `#B9B0FF`. Centradas en una fila con `gap:8px`, sin separador ni card.

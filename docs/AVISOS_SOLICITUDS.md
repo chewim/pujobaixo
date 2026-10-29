@@ -6,7 +6,7 @@ Migracions, en ordre: `2026-08-30_avisos_solicituds.sql` (base) i `2026-08-31_av
 
 ## Com funciona
 
-- **Cruce**: mateix *sentit* (`baixa` = destinació conté "Barcelona", `puja` = origen conté "Barcelona"), dia dins del marge (`date_window`: 0 = només aquest dia, 1 = ±1 dia) i hora del dia dins del marge (`time_window`: 60/120/180 min). Es pren el marge **més ampli** dels dos viatges. Es cruza per sentit i no per ruta exacta perquè un cotxe Konvent → Barcelona serveix a algú de Gironella. Vista: `v_matches`.
+- **Cruce**: mateix *sentit* (`baixa` = destinació conté "Barcelona", `puja` = origen conté "Barcelona"), dia dins del marge (`date_window`: 0 = només aquest dia, 1 = ±1 dia) i hora del dia dins del marge (`time_window`: 60/120/180 min). Es pren el marge **més ampli** dels dos viatges. Es cruza per sentit i no per ruta exacta perquè un cotxe Konvent → Barcelona serveix a algú de Gironella. Vista: `v_matches`. Des del 29 oct. 2026 exclou les parelles amb un bloqueig en qualsevol direcció (`public.blocks`).
 - **Enviament**: trigger `trg_notify_matches` (after insert a `trips`) → `send_match_email(request, offer, rol)` → `pg_net` → API de Resend. La clau és a Vault (`resend_api_key`). El trigger captura qualsevol error d'enviament (`exception when others`): **publicar mai depèn del correu**.
 - **Sense repeticions**: `match_notifications` guarda una fila per parella i rol (`recipient_role`: passenger/driver).
 - **Comptador a "Els meus"**: cada targeta pròpia mostra "Avís actiu · ±2 h · només aquest dia · N avisos enviats" (línia informativa, no interactiva). El propietari pot llegir les files de `match_notifications` dels seus viatges (política RLS `owner reads own trip notifications`).

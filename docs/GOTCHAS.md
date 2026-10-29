@@ -28,9 +28,31 @@ echo "sc-for $(grep -o '<sc-for' index.html | wc -l)/$(grep -o '</sc-for>' index
 ```
 Els dos números de cada parella han de coincidir.
 
+### Un `gap` de flex separa text fix i `{{ variable }}` com si fossin dos elements
+**Símptoma:** un botó `display:flex; gap:12px` amb `Reportar {{ ppFirst }}` es veu com "Reportar   Judit", amb un forat al mig, i el nom accessible queda tallat.
+**Causa:** el motor genera nodes de text separats per al text fix i per a la interpolació; dins d'un contenidor flex, cada node és un element i el `gap` s'hi aplica.
+**Regla:** en contenidors flex amb `gap`, embolicar el text mixt en un `<span>` (`<svg/><span>Reportar {{ nom }}</span>`).
+
+### Les captures del navegador poden arribar abans del repintat
+**Símptoma:** després d'un clic, la captura mostra l'estat anterior o una targeta mig transparent.
+**Causa:** les animacions d'entrada (`.pj-appear`, `.pj-slide-in`) i el repintat asíncron.
+**Regla:** comprovar l'estat amb JS (`getBoundingClientRect`, `aria-pressed`, estat del component) abans de concloure que alguna cosa no funciona; repetir la captura.
+
 ---
 
 ## Supabase / SQL Editor
+
+### El SQL Editor només mostra el resultat de l'última sentència
+**Símptoma:** s'executa un script de diversos passos i només surt la taula de l'última consulta.
+**Regla:** quan calgui el resultat d'un pas concret, executar-lo sol o seleccionar només aquelles línies i prémer Run (executa la selecció).
+
+### `pg_net` només guarda les respostes HTTP unes hores
+**Símptoma:** `match_notifications.http_request` apunta a un id que ja no existeix a `net._http_response`.
+**Causa:** `pg_net` purga les respostes (per defecte, ~6 h). L'historial complet d'enviaments és al panell de Resend → *Emails*.
+**Regla:** per comprovar Resend, fer un enviament i mirar la resposta al moment (`supabase/diagnostics/prova_resend.sql`). Un `200` vol dir "acceptat", no "lliurat": si el destinatari és fals, Resend també respon `200`.
+
+### Provar RLS i triggers sense deixar rastre
+**Patró:** dins d'un bloc `do`, simular l'usuari amb `set_config('request.jwt.claims', …)` + `set local role authenticated`, fer les comprovacions i acabar amb `raise exception` amb els resultats. Postgres desfà tot (files, crides de `pg_net` encuades, correus) i el missatge d'error és l'informe. Exemple complet: `supabase/diagnostics/prova_reports_blocks.sql`.
 
 ### El SQL Editor talla el contingut al enganxar blocs llargs amb `$$...$$`
 **Símptoma:** error `unterminated dollar-quoted string at or near "$$"` en executar una migració amb funcions `plpgsql` llargues (500+ línies), encara que el fitxer original estigui bé.
@@ -49,6 +71,11 @@ Els dos números de cada parella han de coincidir.
 ---
 
 ## Infraestructura
+
+### `404.html` ha de ser una còpia idèntica d'`index.html`
+**Símptoma:** qui arriba per una ruta que no és un fitxer (p. ex. `/auth/callback` des del correu de verificació) veu una versió antiga de l'app.
+**Causa:** GitHub Pages serveix `404.html` en aquestes rutes (vegeu `COMO_DESPLEGAR.txt`). Si només s'edita `index.html`, `404.html` queda enrere sense que res avisi. Detectat el 29 oct. 2026: ja estava desfasat abans d'aquell dia.
+**Regla:** després de cada canvi a `index.html`, `cp index.html 404.html` al mateix commit. Comprovar amb `cmp index.html 404.html` (no ha de dir res).
 
 ### Verificar DNS a Resend pot fallar per un domini delegat a un altre proveïdor
 **Símptoma:** els registres DNS (DKIM/SPF/MX) es couen a IONOS (el registrador) però Resend els marca "Failed" indefinidament.
