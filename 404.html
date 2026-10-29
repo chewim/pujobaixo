@@ -1908,6 +1908,9 @@ class Component extends DCLogic {
   }
 
   async _initClient() {
+    // supabase-js esborra el hash de l'enllaç del correu en processar-lo: el guardem abans de crear el client
+    // perquè _handleAuthCallback sàpiga si és una recuperació de contrasenya (type=recovery).
+    this._initialHash = window.location.hash;
     this.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     const params = new URLSearchParams(window.location.search);
@@ -1968,10 +1971,12 @@ class Component extends DCLogic {
   // password-recovery emails. Never invents a session: only shows success/recovery UI
   // once Supabase actually confirms one exists.
   async _handleAuthCallback() {
-    this.setState({ view: 'authCallback', booting: false });
-
     const searchParams = new URLSearchParams(window.location.search);
-    const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    const hashParams = new URLSearchParams((this._initialHash || window.location.hash).replace(/^#/, ''));
+    // El mateix /auth/callback serveix per confirmar el compte i per recuperar la contrasenya.
+    // L'enllaç ja diu quin és: no depenem que l'esdeveniment PASSWORD_RECOVERY arribi a temps.
+    const isRecovery = (hashParams.get('type') || searchParams.get('type')) === 'recovery';
+    this.setState({ view: isRecovery ? 'reset' : 'authCallback', booting: false });
     const rawErrorDesc = searchParams.get('error_description') || hashParams.get('error_description');
     const rawError = searchParams.get('error') || hashParams.get('error');
 
@@ -1983,10 +1988,13 @@ class Component extends DCLogic {
       return;
     }
 
-    // Supabase's client may still be parsing the token from the URL hash.
-    await new Promise((resolve) => setTimeout(resolve, 300));
-
-    const { data: { session } } = await this.sb.auth.getSession();
+    // Supabase encara pot estar processant el token de l'enllaç: esperem la sessió fins a ~6 s
+    // (amb connexions lentes, una espera fixa curta enviava la recuperació a "Compte verificat").
+    let session = null;
+    for (let i = 0; i < 24 && !session; i++) {
+      ({ data: { session } } = await this.sb.auth.getSession());
+      if (!session) await new Promise((resolve) => setTimeout(resolve, 250));
+    }
     if (!session) {
       this.setState({
         view: 'auth',
@@ -1996,9 +2004,7 @@ class Component extends DCLogic {
       return;
     }
 
-    // Give onAuthStateChange a beat to flag PASSWORD_RECOVERY and switch the view itself.
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    if (this.state.view === 'reset') { this.setState({ resetReady: true }); return; }
+    if (isRecovery || this.state.view === 'reset') { this.setState({ view: 'reset', resetReady: true }); return; }
 
     const user = session.user;
     this.setState({ user, view: 'verified' });

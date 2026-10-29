@@ -28,6 +28,11 @@ echo "sc-for $(grep -o '<sc-for' index.html | wc -l)/$(grep -o '</sc-for>' index
 ```
 Els dos números de cada parella han de coincidir.
 
+### La recuperació de contrasenya no pot dependre del temps que triga `PASSWORD_RECOVERY`
+**Símptoma:** en prémer l'enllaç de "recuperar contrasenya", alguns usuaris acabaven a "Compte verificat!" o a la llista de viatges (amb sessió iniciada) en lloc del formulari; al tercer intent funcionava.
+**Causa:** confirmar compte i recuperar contrasenya comparteixen `/auth/callback`. L'app esperava 0,6 s fixos que arribés l'esdeveniment `PASSWORD_RECOVERY` de supabase-js; amb connexions lentes arribava tard i s'interpretava com una confirmació de registre.
+**Regla:** decidir pel mateix enllaç: el flux *implicit* porta `type=recovery` al hash. Cal llegir-lo **abans** de `createClient`, perquè supabase-js esborra el hash en processar-lo (`this._initialHash`). Esperar la sessió amb reintents (fins a ~6 s), no amb un temps fix. Arreglat el 29 oct. 2026.
+
 ### `wa.me` necessita el prefix de país; sense, WhatsApp diu que el número no existeix
 **Símptoma:** el botó de WhatsApp obre "No s'ha trobat el número de telèfon" per a un perfil amb `612 34 56 78`.
 **Causa:** `wa.me/<número>` interpreta els dígits com a número internacional complet. L'antiga validació només comptava 8–15 dígits.
