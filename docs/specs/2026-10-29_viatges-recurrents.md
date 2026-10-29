@@ -1,6 +1,6 @@
 # Spec — Viatges recurrents
 
-**Estat:** construït a la branca `feat/viatges-recurrents`, pendent de migració i publicació · 29 oct. 2026
+**Estat:** publicat · 29 oct. 2026. Migració `2026-10-29d` aplicada i comprovada (`match_already_notified` creada i usada pel trigger).
 
 **Provat amb client simulat (29 oct.):** dl+dc des d'un dilluns → 8 viatges amb el mateix `series_id` a les 7:30 (també després del canvi d'hora); sense dies → "Tria almenys un dia"; llista amb una targeta "Cada dl, dc" i comptador correcte; calendari amb els 8 dies; Els meus amb una targeta, sense Editar, i eliminar cancel·la tota la sèrie. Pendent: criteri 4 (correus) contra la BD real.
 **Toca:** BD (2 columnes a `trips`, trigger d'avisos), `index.html`.
