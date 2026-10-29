@@ -29,6 +29,12 @@ Senyal de canvi de restricció: si en repetir el canal que ja va convertir (grup
   - **Targeta:** mostrar "Cada dl, dt, dc · 7:30" sense omplir la llista de còpies del mateix trajecte.
   - **També per a sol·licituds** ("cada dilluns necessito baixar"): probablement sí, mateix mecanisme.
   → Mesura d'èxit: ofertes actives per setmana i contactes únics `(user_id, trip_id)` abans/després.
+- [ ] **Textos legals al dia (aviso legal, privacitat, condicions d'ús).** No ataca la restricció, però des del 29 oct. hi ha reports i bloquejos i cal una base per moderar. Revisió feta el 29 oct. 2026 (no és assessorament legal; validar amb un professional abans de publicar):
+  - **Condicions d'ús — no existeixen.** Cal crear-les: normes de conducta (què es pot reportar i per què), edat mínima, que Pujobaixo només posa en contacte (no és transportista, ni cobra, ni verifica), que les aportacions són per compartir despeses i no lucratives, suspensió de comptes i com es revisen els reports (requisit de la DSA per a qualsevol servei intermediari), i llei aplicable.
+  - **Acceptació al registre:** casella "Accepto les condicions d'ús i la política de privacitat" amb enllaços (avui no se n'accepta cap).
+  - **Aviso legal:** les dades del titular (nom, NIF, domicili, correu) consten "a petició"; la LSSI demana que siguin accessibles directament. Decidir si cal (depèn de si es considera activitat econòmica) i, si és així, publicar-les o fer-ho via una entitat/associació.
+  - **Privacitat:** afegir transferències internacionals (Resend, EUA; regió de Supabase), edat mínima (14 anys a Espanya), un canal de contacte concret per exercir drets, i el tractament dels reports (qui els veu, quant temps es guarden).
+  - **Cookies:** comprovar que segueix sent cert (avui només tècniques/sessió).
 - [ ] **Esborrar el compte des de Perfil.** No ataca la restricció, però és un dret RGPD (supressió) i avui només es pot demanar per contacte. Toca BD → spec abans: funció `security definer` que esborri l'usuari d'`auth.users` i comprovar què passa en cascada (`profiles`, `trips`, `reports`, `blocks`, `match_notifications`, fotos a Storage); confirmació inline amb doble pas; actualitzar la política de privacitat (punt 6 i 7). Mentrestant, una baixa es fa a mà a Supabase → Authentication → Users, revisant abans que el perfil i els viatges no quedin orfes.
 - [x] **SMTP d'Auth amb Resend** (29 oct. 2026) — fet i provat amb un correu de recuperació. Següent pas petit: plantilles en català amb l'estil dels avisos (`BACKLOG.md`, Disseny).
 
