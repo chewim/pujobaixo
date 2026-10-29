@@ -27,6 +27,7 @@ Persones del Berguedà que es desplacen a Barcelona (o a l'inrevés) de manera h
 - **WhatsApp com a únic CTA sòlid a Viatges.** "Publicar" de la capçalera passa a botó tonal i el preu a negre (`DECISIONS.md`).
 - **Seguretat: reportar i bloquejar** des d'un **perfil públic mínim** (tocant el nom a la targeta). Spec i estat: `docs/specs/2026-10-29_reportar-bloquejar.md`. Els reports arriben per correu a l'adreça `admin_email` del Vault i es revisen a mà a Supabase → Table Editor → `reports`.
 - **Resend comprovat** de punta a punta des de la BD. Des del 30 d'agost no hi ha hagut cap avís de coincidència perquè no hi ha hagut coincidències, no per cap error.
+- **Telèfons normalitzats a `+34…`.** 68 de 102 perfils no tenien prefix i el botó de WhatsApp els obria com a número inexistent. Corregits amb `2026-10-29c_normalize_phones.sql` (102/102 correctes després); l'app ara valida i normalitza en desar i abans de publicar.
 - **RLS de `profiles` revisada:** sense sessió no es llegeix cap perfil ni telèfon. Amb sessió, qualsevol compte pot llegir les columnes de qui té un viatge actiu (inclòs `phone`, necessari per a WhatsApp); limitació acceptada i documentada a l'spec.
 
 ## Stack i infraestructura
