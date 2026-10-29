@@ -180,6 +180,10 @@ Estructura, de arriba abajo: botón volver (44×44, blanco, radio 14) → avatar
 
 Datos: solo lo que devuelve `public_profile()` (nombre, inicial, foto, preferencias, viajes ofrecidos y solicitudes). Nunca teléfono, correo, apellido completo ni fecha de alta.
 
+### Viajes recurrentes (formulario y tarjetas)
+
+En el formulario de publicar (solo al crear): fila "És un viatge recurrent?" (título 15/700 negro + subtítulo 13/600 gris que describe la consecuencia) con el mismo `.pj-switch` del aviso. Al activarlo aparece "Quins dies?" con 7 botones `dl dt dc dj dv ds dg` en una rejilla de 7 columnas (`gap:4px`, 44px de alto, radio 14, `aria-pressed`, `aria-label` con el nombre completo del día; activo `#EEEBFF`/`#5B4CFB` con borde `#5B4CFB`, inactivo blanco con borde `#ECEDF2`), y la etiqueta de la fecha pasa a "A partir del dia i hora". En las tarjetas, la fecha se sustituye por "Cada dl, dc" (o "De dilluns a divendres", "Cada dia") en el mismo hueco, sin badge nuevo.
+
 ### Acciones de pie de pantalla (`.pj-pp-foot` / `.pj-pp-action`)
 
 Para acciones que deben existir pero no competir con el contenido (hoy: *Reportar* y *Bloquejar* en el perfil público). Son el tipo **Texto/link** de la tabla de botones: transparentes, `#5B4CFB` 13px/700, icono 16px `currentColor`, `gap:8px`, `min-height:44px`, `padding:0 16px`, radio 14; hover `#EEEBFF`, focus `#B9B0FF`. Centradas en una fila con `gap:8px`, sin separador ni card.

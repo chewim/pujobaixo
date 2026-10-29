@@ -8,6 +8,9 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 ## Producte / abast
 
+- **29 oct. — Viatges recurrents: es generen viatges concrets per a 4 setmanes, agrupats en una targeta.**
+  Una regla ("dl i dc a les 7:30") crea un viatge per dia amb el mateix `series_id`; així la llista, el calendari, `v_matches` i els avisos funcionen sense canvis. La llista i Els meus mostren una targeta per sèrie ("Cada dl, dc"); el calendari, cada dia. Avisos: un sol correu per persona i parella de sèries. Descartat: una sola fila amb la regla → caldria reescriure el calendari i els encreuaments; una targeta per dia → la llista s'omple de còpies; data de fi lliure → un camp més per a un cas rar; editar sèries a la v1 → per canviar-la, s'elimina i es torna a publicar.
+
 - **29 oct. — El telèfon es desa sempre en format internacional (`+34…`) i es valida en el moment d'escriure'l, no quan algú prem WhatsApp.**
   Motiu: una usuària va publicar amb el número sense prefix i qui la va contactar va veure "no s'ha trobat el número" de WhatsApp (`wa.me` necessita el prefix de país). Es valida al registre, en desar el perfil i abans de publicar (amb botó "Revisar el telèfon"); els 9 dígits espanyols (6/7/8/9) es completen sols amb `+34`. Descartat: un desplegable de país → fricció per al 99 % d'usuaris, que són d'aquí; validar només al botó de WhatsApp → l'error el veu qui contacta, que no el pot arreglar.
 
