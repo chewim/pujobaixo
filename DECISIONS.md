@@ -8,6 +8,9 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 ## Producte / abast
 
+- **29 oct. — A Viatges, WhatsApp és l'únic CTA sòlid; «Publicar» de la capçalera passa a tonal i el preu a negre.**
+  Motiu: la restricció és 0 clics de WhatsApp i a la llista el morat sòlid de dalt competia amb el verd de cada targeta (i el preu verd, amb el botó del costat). Descartat: amagar Publicar o treure'l de la capçalera → l'oferta també és restricció i ha de quedar a mà; outline → es llegeix com a acció neutra (Editar/Cancel·lar). Els CTA de Publicar als estats buits d'«Els meus» es mantenen sòlids: allà no hi ha WhatsApp.
+
 - **30 ag. — Vista calendari a Viatges: setmana per defecte, expandible a mes, amb enllaç condicional.**
   Descartat: calendari sempre visible amb toggle permanent → massa pes visual amb poca oferta i decisió duplicada (pestanyes + vista alhora). Calendari com a vista per defecte → amb 1 viatge actiu mostra el buit abans que el contingut; la llista és sempre l'estat inicial i després de publicar. Toggle de dos icones → substituït per enllaç de text condicionat a `showCalLink` (només amb viatges en >1 dia).
 

@@ -29,7 +29,7 @@ Extraída directamente del código (`index.html`). No es un sistema inventado de
 | Rojo error | `#C22A24` | Texto de error, botón "Eliminar" |
 | Fondo error | `#FDEBEA` | Fondo de banner/botón de error |
 | Borde error | `#FBD8D6` | Borde del botón "Eliminar" |
-| Verde éxito | `#1D874A` | Precio, texto de éxito |
+| Verde éxito | `#1D874A` | Texto de éxito (los precios de las cards van en `#14151A`: el verde queda reservado al CTA de WhatsApp) |
 | Fondo éxito | `#EAF7EF` | Fondo de banner de éxito |
 | Verde WhatsApp | `#25D366` (hover `#20BD5A`, active `#1DA851`, focus outline `#128C7E`) — texto/icono en `#14151A`, no blanco | CTA de contacto por WhatsApp |
 | Gris placeholder | `#8F93A1` | Placeholder de inputs |
@@ -134,7 +134,8 @@ De más a menos peso visual, en cualquier pantalla:
 | Variante | Fondo | Texto | Borde | Radio | Altura | Uso |
 |---|---|---|---|---|---|---|
 | Primario | `#5B4CFB` | `#fff` / 800 | ninguno | `14px` | `50px` | Acción principal de un formulario (Iniciar sessió, Publicar, Desar...) |
-| Primario compacto | `#5B4CFB` | `#fff` / 700 | ninguno | `14px` | `min-height:44px` (`padding:0 24px`) | CTA secundario en contexto ("+ Publicar", CTAs de estado vacío) |
+| Primario compacto | `#5B4CFB` | `#fff` / 700 | ninguno | `14px` | `min-height:44px` (`padding:0 24px`) | CTAs de estado vacío (Publicar en «Els meus») |
+| Tonal (`.pj-btn-tonal`) | `#EEEBFF` (hover `#E2DDFF`, active `#D7D0FF`) | `#5B4CFB` / 700 (hover `#4A3DE8`, active `#4338D6`) | ninguno | `14px` | `min-height:44px` | Acción disponible pero no protagonista: «Publicar» en la cabecera de Viatges, donde el CTA es WhatsApp |
 | Secundario/outline | `#fff` | `#14151A` / 700 | `1.5px solid #ECEDF2` | `14px` | `44px` | Acción neutra ("Editar", "Cancel·lar") |
 | Peligro | `#FDEBEA` | `#C22A24` / 700 | `1.5px solid #FBD8D6` | `14px` | `44px` | Acción destructiva ("Eliminar", "Sí, eliminar") |
 | Texto/link | transparente | `#5B4CFB` / 700 | ninguno | — | auto | Enlace de acción secundaria ("Registra't", "Has oblidat la contrasenya?") |
@@ -166,6 +167,10 @@ Sin excepciones — **si un input nuevo no sigue exactamente esto, rompe la cons
 ### Botón primario con icono (`.pj-btn-primary`)
 
 Para acciones principales dentro de la app (Publicar y sus variantes en estados vacíos). `inline-flex`, `gap:8px`, `min-height:44px`, `padding:0 24px 0 16px` (8px menos a la izquierda para compensar el peso visual del icono), radio 14, fondo `#5B4CFB`, texto blanco 14px/700; hover `#4A3DE8`, active `#4338D6` + `scale(0.98)`, focus `#B9B0FF`. El icono es un SVG de 18px trazado con `currentColor` y `aria-hidden`, nunca un carácter de texto ("+ Publicar" queda retirado): así el espacio icono-texto es un gap de 8pt real y no depende de la fuente.
+
+### Botón tonal (`.pj-btn-tonal`)
+
+Misma geometría que `.pj-btn-primary` (icono 18px, `gap:8px`, `padding:0 24px 0 16px`), pero sobre el contenedor tonal de la navegación activa. Regla: **una sola superficie sólida y saturada por pantalla**, la de la acción que se mide. En Viatges es WhatsApp, así que Publicar baja a tonal. El texto se oscurece en hover/active para mantener AA (4.64 / 5.13 / 5.17:1); solo cambiando el fondo bajaba a 4.14 y 3.71.
 
 ### Línea informativa de aviso (`.pj-notice`)
 
