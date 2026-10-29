@@ -27,6 +27,7 @@ Persones del Berguedà que es desplacen a Barcelona (o a l'inrevés) de manera h
 - **103 comptes, 99 confirmats.** 102 amb telèfon (tots ja en format `+34…`).
 - **35 persones han publicat alguna vegada** (~1 de cada 3 comptes).
 - **8 amb `last_sign_in_at` en els últims 30 dies.** Compte: aquest camp només canvia en iniciar sessió amb contrasenya; qui torna amb la sessió guardada no hi compta. És un mínim, no l'activitat real. Per a activitat real: viatges publicats i `events` (`whatsapp_click`) per setmana.
+- **Últims 30 dies:** 5 viatges publicats per 4 persones; 8 clics de WhatsApp fets per 2 persones.
 
 ### Canvis del 29 d'octubre de 2026
 
