@@ -28,6 +28,11 @@ echo "sc-for $(grep -o '<sc-for' index.html | wc -l)/$(grep -o '</sc-for>' index
 ```
 Els dos números de cada parella han de coincidir.
 
+### Els camps de data i hora porten icona nativa (doble icona)
+**Símptoma:** al costat de la nostra icona de calendari/rellotge apareix una fletxa o icona del navegador, massa enganxada.
+**Causa:** Chrome hi posa `::-webkit-calendar-picker-indicator` i Safari (sobretot iOS) dibuixa el camp amb estil natiu.
+**Regla:** a Chrome, l'indicador natiu és invisible i ocupa tot el camp (qualsevol clic obre el selector); a Safari, `appearance:none` + `::-webkit-date-and-time-value { text-align:left }`. Mai afegir una icona pròpia sense comprovar-ho a Safari iOS.
+
 ### `toISOString().slice(0, 16)` no és l'hora local
 **Símptoma:** en editar un viatge de les 7:30, el formulari mostrava les 6:30 (5:30 a l'estiu); si es desava sense mirar, el viatge s'avançava una o dues hores cada vegada.
 **Causa:** `toISOString()` retorna UTC; tallar-lo per omplir un `datetime-local` barreja UTC amb hora local.

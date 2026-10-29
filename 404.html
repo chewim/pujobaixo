@@ -23,6 +23,19 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     .pj-spin { animation: spin 0.8s linear infinite; }
     input::placeholder, textarea::placeholder { color: #8F93A1; }
+    /* Safari (sobretot iOS) dibuixa els camps de data i hora amb estil natiu i la seva fletxa, que se
+       sumava a la nostra icona. Sense aparença nativa queda només la icona del disseny; el text s'alinea
+       a l'esquerra com la resta d'inputs. */
+    input[type="date"], input[type="time"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background-color: #fff;
+      min-width: 0;
+      display: block;
+    }
+    input[type="date"]::-webkit-date-and-time-value,
+    input[type="time"]::-webkit-date-and-time-value { text-align: left; margin: 0; }
+    /* Chrome: la icona nativa queda invisible però ocupa tot el camp, així qualsevol clic obre el selector. */
     input[type="date"]::-webkit-calendar-picker-indicator,
     input[type="time"]::-webkit-calendar-picker-indicator {
       opacity: 0;
