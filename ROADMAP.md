@@ -30,7 +30,8 @@ Senyal de canvi de restricció: si en repetir el canal que ja va convertir (grup
   - **També per a sol·licituds** ("cada dilluns necessito baixar"): probablement sí, mateix mecanisme.
   → Mesura d'èxit: ofertes actives per setmana i contactes únics `(user_id, trip_id)` abans/després.
 - [ ] **Esborrar el compte des de Perfil.** No ataca la restricció, però és un dret RGPD (supressió) i avui només es pot demanar per contacte. Toca BD → spec abans: funció `security definer` que esborri l'usuari d'`auth.users` i comprovar què passa en cascada (`profiles`, `trips`, `reports`, `blocks`, `match_notifications`, fotos a Storage); confirmació inline amb doble pas; actualitzar la política de privacitat (punt 6 i 7). Mentrestant, una baixa es fa a mà a Supabase → Authentication → Users, revisant abans que el perfil i els viatges no quedin orfes.
-- [ ] **SMTP d'Auth amb Resend.** Ja tenim el domini verificat i la clau a Vault; connectar-lo als correus de verificació/recuperació treu el límit de 2/hora del SMTP de prova de Supabase. Cost baix, sense risc, fet quan hi hagi un moment.
+- [x] **SMTP d'Auth amb Resend** (29 oct. 2026) — fet i provat amb un correu de recuperació. Següent pas petit: plantilles en català amb l'estil dels avisos (`BACKLOG.md`, Disseny).
+- ~~SMTP d'Auth amb Resend.~~ Ja tenim el domini verificat i la clau a Vault; connectar-lo als correus de verificació/recuperació treu el límit de 2/hora del SMTP de prova de Supabase. Cost baix, sense risc, fet quan hi hagi un moment.
 
 ## Aparcat (bona idea, no és el moment)
 

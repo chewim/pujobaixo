@@ -47,7 +47,7 @@ Persones del Berguedà que es desplacen a Barcelona (o a l'inrevés) de manera h
 | DNS | IONOS | Migrat des de Netlify DNS el 30 ag. 2026 (Netlify ja no s'usa per a res) |
 | Backend | Supabase (Postgres + Auth + Storage) | RLS actiu a totes les taules d'usuari |
 | Correu transaccional | Resend | Domini `pujobaixo.cat` verificat (DKIM/SPF/MX/DMARC). Vault: `resend_api_key`, `admin_email` (destí dels reports) |
-| Auth SMTP | **Pendent** — encara amb el SMTP de prova de Supabase (límit 2/h) | Connectar a Resend és tasca activa al roadmap |
+| Auth SMTP | Resend (`smtp.resend.com:465`, clau `supabase-auth-smtp` només d'enviament per a `pujobaixo.cat`) | Des del 29 oct. 2026. Remitent "Pujobaixo". Límit a Supabase: 30 correus/h, 60 s mínim per usuari. Les plantilles (Authentication → Emails → Templates) encara són les de Supabase en anglès |
 
 ## Documents del repositori
 
