@@ -61,6 +61,8 @@ El correu a administració fa servir el mateix camí que els avisos de coincidè
 
 Criteri: no començar la migració fins que la prova 3 passi.
 
+**Resultat (29 oct.):** amb `supabase/diagnostics/prova_resend.sql` (sense comptes ni viatges de prova): clau al Vault, Resend respon `200` i el correu arriba a l'instant a la safata d'entrada de Gmail. El camí Vault → pg_net → Resend funciona. L'historial mostra 3 avisos, tots del 30 d'agost: no n'hi ha hagut més perquè no hi ha hagut coincidències, no per una fallada d'enviament. El trigger d'avisos no s'ha provat en viu; el de reports es provarà com a part dels criteris d'acceptació 2 i 3. Prerequisit complert.
+
 ## Dades (SQL abans que frontend)
 
 Migració `supabase/migrations/2026-xx-xx_reports_blocks.sql`, additiva:
