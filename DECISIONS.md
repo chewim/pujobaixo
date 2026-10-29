@@ -8,6 +8,9 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 ## Producte / abast
 
+- **30 oct. — Un sol exemple d'estalvi a la web i al flyer: anada i tornada ≈42 €, 5 € per plaça i trajecte, 3 places.**
+  Hi havia quatre xifres diferents (web: "fins a 30 €", 42 → 12 € i "fins a 40 €"; flyer: 13,61 € només gasoil repartit a parts iguals, 3,40 € per persona). L'exemple ha de reflectir com funciona l'app: qui condueix fixa un preu per plaça (5 € per defecte) i ofereix 3 places per defecte. Amb 3 places: recupera 30 € i el viatge li costa 12 €; qui viatja paga 10 € anada i tornada. Descartat: repartiment a parts iguals → no és el model de l'app i crea expectatives d'un preu més baix del que es troba. El flyer es genera amb `flyer/build.py` (fora del repo).
+
 - **29 oct. — Avisos també per a viatges locals: mateix origen i mateixa destinació.**
   Per promoure els trajectes dins del Berguedà (flyer), els avisos no podien dependre de Barcelona. Regla: amb Barcelona, mateix sentit com fins ara; sense, mateix poble d'origen i de destinació (normalitzat amb `place_key`). Descartat de moment: detectar pobles "de pas" (caldria una llista ordenada de pobles per ruta); afegir Manresa com a segon eix.
 
