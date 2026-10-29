@@ -44,7 +44,7 @@ Persones del Berguedà que es desplacen a Barcelona (o a l'inrevés) de manera h
 |---|---|---|
 | Frontend | `index.html` (vanilla JS + motor de plantilles propi `dc-runtime`, a `support.js`) | Un sol fitxer, sense build step. `str_replace`-only edits. |
 | Hosting | GitHub Pages (`chewim/pujobaixo`) | `CNAME` apunta a `pujobaixo.cat` |
-| DNS | IONOS | Migrat des de Netlify DNS el 30 ag. 2026 (Netlify ja no s'usa per a res) |
+| DNS | IONOS | Migrat des de Netlify DNS el 30 ag. 2026. El projecte de Netlify connectat al repo (restava des de juliol i construïa cada push a `main`, 15 crèdits cadascun) es va esborrar el 29 oct. 2026: Netlify ja no s'usa per a res |
 | Backend | Supabase (Postgres + Auth + Storage) | RLS actiu a totes les taules d'usuari |
 | Correu transaccional | Resend | Domini `pujobaixo.cat` verificat (DKIM/SPF/MX/DMARC). Vault: `resend_api_key`, `admin_email` (destí dels reports) |
 | Auth SMTP | Resend (`smtp.resend.com:465`, clau `supabase-auth-smtp` només d'enviament per a `pujobaixo.cat`) | Des del 29 oct. 2026. Remitent "Pujobaixo". Límit a Supabase: 30 correus/h, 60 s mínim per usuari. Plantilles en català a `supabase/templates/` (còpia versionada de les de Supabase) |

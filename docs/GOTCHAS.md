@@ -77,6 +77,11 @@ Els dos números de cada parella han de coincidir.
 
 ## Infraestructura
 
+### Un servei antic connectat al repo pot seguir desplegant (i gastant) en silenci
+**Símptoma:** correu de Netlify "has reached 75% of your 300 credit allowance" sense que cap projecte local hi estigui enllaçat.
+**Causa:** quan la web va passar a GitHub Pages (juliol 2026) es va canviar el DNS però el projecte de Netlify es va quedar connectat a `chewim/pujobaixo`, sense publicar estats als commits. Cada push a `main` era un desplegament de producció (15 crèdits); 16 push en un dia = 240 crèdits.
+**Regla:** en migrar d'hosting, esborrar el projecte antic i treure l'accés de l'app al repo (GitHub → Settings → Applications). Per detectar-ho: comparar els desplegaments del panell del servei amb els push (`GET /repos/chewim/pujobaixo/actions/runs`). Esborrat el 29 oct. 2026.
+
 ### `404.html` ha de ser una còpia idèntica d'`index.html`
 **Símptoma:** qui arriba per una ruta que no és un fitxer (p. ex. `/auth/callback` des del correu de verificació) veu una versió antiga de l'app.
 **Causa:** GitHub Pages serveix `404.html` en aquestes rutes (vegeu `COMO_DESPLEGAR.txt`). Si només s'edita `index.html`, `404.html` queda enrere sense que res avisi. Detectat el 29 oct. 2026: ja estava desfasat abans d'aquell dia.
