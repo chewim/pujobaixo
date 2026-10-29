@@ -22,6 +22,12 @@ Persones del Berguedà que es desplacen a Barcelona (o a l'inrevés) de manera h
 - **1 viatge actiu, 0 clics de WhatsApp** sobre viatges actius. Vegeu `ROADMAP.md` — aquesta és la restricció que decideix totes les prioritats actuals.
 - **Canals que han convertit:** grup de WhatsApp local (millor ràtio esforç/resultat) i un esdeveniment presencial puntual. Cap altre canal provat encara.
 
+### Números a 29 d'octubre de 2026
+
+- **103 comptes, 99 confirmats.** 102 amb telèfon (tots ja en format `+34…`).
+- **35 persones han publicat alguna vegada** (~1 de cada 3 comptes).
+- **8 amb `last_sign_in_at` en els últims 30 dies.** Compte: aquest camp només canvia en iniciar sessió amb contrasenya; qui torna amb la sessió guardada no hi compta. És un mínim, no l'activitat real. Per a activitat real: viatges publicats i `events` (`whatsapp_click`) per setmana.
+
 ### Canvis del 29 d'octubre de 2026
 
 - **WhatsApp com a únic CTA sòlid a Viatges.** "Publicar" de la capçalera passa a botó tonal i el preu a negre (`DECISIONS.md`).
