@@ -406,6 +406,14 @@
     .pj-btn-tonal:active { background:#D7D0FF; color:#4338D6; transform:scale(0.98); }
     .pj-btn-tonal:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
     .pj-btn-tonal svg { flex-shrink:0; }
+    .pj-poster-btn { display:flex; align-items:center; gap:16px; min-width:0; min-height:44px; margin:-6px -8px; padding:6px 8px; border:none; border-radius:14px; background:none; font-family:inherit; text-align:left; cursor:pointer; transition:background 150ms ease; }
+    .pj-poster-btn:hover { background:#F3F4F8; }
+    .pj-poster-btn:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+    .pj-pp-link { display:flex; align-items:center; gap:12px; width:100%; min-height:44px; padding:0; border:none; background:none; font-family:inherit; font-size:14px; font-weight:700; color:#6B6F7B; cursor:pointer; text-align:left; }
+    .pj-pp-link:hover { color:#14151A; }
+    .pj-pp-link:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; border-radius:8px; }
+    .pj-pp-trip { display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; padding:16px; border:none; border-radius:16px; background:#fff; font-family:inherit; text-align:left; cursor:pointer; margin-bottom:8px; }
+    .pj-pp-trip:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
     /* Segmentado (pestanyes de contingut i toggles de vista) */
     .pj-seg { display:flex; gap:4px; padding:4px; background:#fff; border:1.5px solid #ECEDF2; border-radius:14px; }
     .pj-seg > button { min-height:40px; border:none; border-radius:10px; background:transparent; color:#727681; font-weight:600; font-size:14px; font-family:inherit; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; padding:0 12px; line-height:1.2; white-space:normal; transition:background 120ms ease-out, color 120ms ease-out; }
@@ -888,7 +896,7 @@
               <a href="#_" class="pj-legal-close" aria-label="Tancar">&times;</a>
             </div>
             <div class="pj-legal-body">
-              <p class="pj-legal-updated">Última actualització: 13 de juliol de 2026</p>
+              <p class="pj-legal-updated">Última actualització: 29 d'octubre de 2026</p>
               <h4>1. Dades identificatives</h4>
               <p>En compliment del deure d'informació de la Llei 34/2002, de serveis de la societat de la informació i comerç electrònic (LSSI-CE), es fan constar les dades del titular d'aquest lloc web:</p>
               <p>Titular: persona física responsable del lloc web.<br>Domini: pujobaixo.cat<br>Dades identificatives completes (NIF i domicili) disponibles a petició a través dels canals de contacte de pujobaixo.cat.</p>
@@ -897,6 +905,7 @@
               <h4>3. Condició d'intermediari</h4>
               <p>Pujobaixo no és transportista ni organitza els trajectes: únicament facilita el contacte entre persones usuàries. Els acords sobre punt de trobada, horari, repartiment de costos i qualsevol altre detall es pacten directament entre les persones usuàries, que en són les úniques responsables.</p>
               <p>Pujobaixo no verifica la identitat, el vehicle, l'assegurança ni els antecedents de les persones usuàries. Recomanem prudència i sentit comú a l'hora de quedar amb altres persones.</p>
+              <p>Si una persona o una publicació et sembla inadequada, insegura o falsa, pots reportar-la des del seu perfil (toca el seu nom en qualsevol viatge) i també bloquejar-la. Revisem cada report al més aviat possible. En cas d'emergència, truca al 112.</p>
               <h4>4. Propietat intel·lectual</h4>
               <p>La marca, el disseny i el codi de pujobaixo.cat pertanyen al seu titular. Se'n permet un ús personal i no comercial; en queda prohibida la reproducció total o parcial sense autorització.</p>
               <h4>5. Responsabilitat</h4>
@@ -914,13 +923,13 @@
               <a href="#_" class="pj-legal-close" aria-label="Tancar">&times;</a>
             </div>
             <div class="pj-legal-body">
-              <p class="pj-legal-updated">Última actualització: 30 d'agost de 2026</p>
+              <p class="pj-legal-updated">Última actualització: 29 d'octubre de 2026</p>
               <h4>1. Responsable del tractament</h4>
               <p>Persona física responsable del lloc web. Dades identificatives completes disponibles a petició a través dels canals de contacte de pujobaixo.cat.</p>
               <h4>2. Dades que recollim</h4>
               <p>Nom i cognoms, telèfon, correu electrònic i contrasenya (emmagatzemada xifrada); dades dels trajectes que publiques (origen, destinació, data, hora, places, preu orientatiu, notes); foto de perfil (opcional) i preferències de viatge (opcional).</p>
               <h4>3. Finalitat</h4>
-              <p>Crear i gestionar el teu compte, mostrar els trajectes publicats a altres persones usuàries interessades, facilitar el contacte via WhatsApp, enviar-te correus tècnics (verificació de compte, recuperació de contrasenya) i, si ho tens activat a la teva sol·licitud, avisar-te per correu quan es publiqui un viatge que hi encaixi.</p>
+              <p>Crear i gestionar el teu compte, mostrar els trajectes publicats a altres persones usuàries interessades, mostrar un perfil bàsic (nom, inicial del cognom, foto, preferències de viatge i nombre de viatges publicats) a altres persones usuàries amb sessió iniciada, gestionar els reports i bloquejos entre persones usuàries, facilitar el contacte via WhatsApp, enviar-te correus tècnics (verificació de compte, recuperació de contrasenya) i, si ho tens activat a la teva sol·licitud, avisar-te per correu quan es publiqui un viatge que hi encaixi.</p>
               <h4>4. Base legal</h4>
               <p>El consentiment que dones en registrar-te i l'execució del servei que sol·licites.</p>
               <h4>5. Encarregats de tractament</h4>
@@ -1068,6 +1077,19 @@
       <sc-for list="{{ visibleTrips }}" as="trip" hint-placeholder-count="3">
         <div class="pj-slide-in" id="{{ trip.domId }}" style="background:#fff; border-radius:24px; padding: 16px; margin-bottom: 16px; display:flex; flex-direction:column; gap: 16px; box-shadow:{{ trip.highlightShadow }}; transition:box-shadow 300ms ease;">
           <div style="display:flex; align-items:flex-start; justify-content:space-between; gap: 16px;">
+            <sc-if value="{{ trip.canOpenProfile }}" hint-placeholder-val="{{ false }}">
+              <button type="button" onClick="{{ trip.openProfile }}" aria-label="{{ trip.openProfileLabel }}" class="pj-poster-btn">
+              <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
+                <div style="width:32px; height:32px; border-radius:50%; background:{{ trip.posterAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">{{ trip.posterInitial }}</div>
+                <img alt="" ref="{{ trip.avatarImgRef }}" style="width:32px; height:32px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ trip.posterAvatarDisplay }};"/>
+              </span>
+              <div style="min-width:0;">
+                <div style="display:flex; align-items:center; gap:4px; font-size:15px; font-weight:700; color:#14151A; min-width:0;"><span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ trip.posterName }}</span><span style="color:#727681; display:inline-flex; flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div>
+                <div style="font-size:13px; color:#727681; font-weight:600;">{{ trip.roleLabel }}</div>
+              </div>
+              </button>
+            </sc-if>
+            <sc-if value="{{ !trip.canOpenProfile }}" hint-placeholder-val="{{ true }}">
             <div style="display:flex; align-items:center; gap: 16px; min-width:0;">
               <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
                 <div style="width:32px; height:32px; border-radius:50%; background:{{ trip.posterAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">{{ trip.posterInitial }}</div>
@@ -1078,6 +1100,7 @@
                 <div style="font-size:13px; color:#727681; font-weight:600;">{{ trip.roleLabel }}</div>
               </div>
             </div>
+            </sc-if>
             <div style="display:flex; align-items:center; gap: 8px; color:#727681; font-size:13px; font-weight:600; flex-shrink:0; white-space:nowrap; padding-top: 4px;">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
               {{ trip.seatsLabel }}
@@ -1493,6 +1516,110 @@
       </sc-if>
     </sc-if>
 
+    <sc-if value="{{ isPublicProfileView }}">
+      <div style="display:flex; align-items:center; margin-bottom: 16px;">
+        <button type="button" onClick="{{ ppBack }}" aria-label="Tornar als viatges" style="width:44px; height:44px; flex-shrink:0; display:flex; align-items:center; justify-content:center; border:none; background:#fff; border-radius:14px; cursor:pointer;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14151A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      </div>
+      <sc-if value="{{ ppLoading }}">
+        <p style="text-align:center; color:#6B6F7B; font-weight:600; padding: 40px 0;">Carregant…</p>
+      </sc-if>
+      <sc-if value="{{ ppReady }}">
+        <div class="pj-appear" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap: 12px; margin-bottom: 24px;">
+          <span style="position:relative; width:88px; height:88px; display:inline-block;">
+            <div style="width:88px; height:88px; border-radius:50%; background:{{ ppAvatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:34px;">{{ ppInitial }}</div>
+            <img alt="" ref="{{ ppAvatarImgRef }}" style="width:88px; height:88px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ ppAvatarDisplay }};"/>
+          </span>
+          <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0;">{{ ppName }}</h1>
+        </div>
+
+        <div class="pj-appear" style="display:grid; grid-template-columns:1fr 1fr; gap: 12px; margin-bottom: 24px;">
+          <div style="background:#fff; border-radius:16px; padding: 16px; text-align:center;"><div style="font-size:24px; font-weight:800;">{{ ppOffers }}</div><div style="font-size:13px; font-weight:600; color:#6B6F7B;">{{ ppOffersLabel }}</div></div>
+          <div style="background:#fff; border-radius:16px; padding: 16px; text-align:center;"><div style="font-size:24px; font-weight:800;">{{ ppRequests }}</div><div style="font-size:13px; font-weight:600; color:#6B6F7B;">{{ ppRequestsLabel }}</div></div>
+        </div>
+
+        <sc-if value="{{ ppHasChips }}">
+          <div class="pj-appear" style="margin-bottom: 24px;">
+            <h2 style="font-size:15px; font-weight:700; margin: 0 0 12px;">Com li agrada viatjar</h2>
+            <div style="background:#fff; border-radius:16px; padding: 12px 16px; display:flex; align-items:flex-start; gap: 8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0; margin-top: 6px;"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+              <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                <sc-for list="{{ ppChips }}" as="c" hint-placeholder-count="2"><span class="pj-trip-int">{{ c.label }}</span></sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ ppHasTrips }}">
+          <div class="pj-appear" style="margin-bottom: 32px;">
+            <h2 style="font-size:15px; font-weight:700; margin: 0 0 12px;">Viatges actius</h2>
+            <sc-for list="{{ ppTrips }}" as="pt" hint-placeholder-count="1">
+              <button type="button" class="pj-pp-trip" onClick="{{ pt.open }}" aria-label="{{ pt.rowLabel }}">
+                <div style="min-width:0;">
+                  <div style="font-weight:800; font-size:15px; color:#14151A;">{{ pt.origin }} → {{ pt.destination }}</div>
+                  <div style="display:flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:#6B6F7B; margin-top: 4px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg><span>{{ pt.dateLabel }} · {{ pt.timeLabel }}</span></div>
+                </div>
+                <span style="color:#727681; display:inline-flex; flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <div id="pp-actions" style="border-top:1px solid #E3E4EA; padding-top: 16px;">
+          <sc-if value="{{ ppIsView }}">
+            <button type="button" class="pj-pp-link" onClick="{{ ppAskReport }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22V4"></path><path d="M4 4h12l-2 4 2 4H4"></path></svg><span>Reportar {{ ppFirst }}</span></button>
+            <button type="button" class="pj-pp-link" onClick="{{ ppAskBlock }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"></line></svg><span>Bloquejar {{ ppFirst }}</span></button>
+          </sc-if>
+
+          <sc-if value="{{ ppIsReport }}">
+            <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 24px 16px;">
+              <h2 id="report-title" style="font-size:17px; font-weight:800; margin: 0 0 4px;">Reportar {{ ppFirst }}</h2>
+              <p style="font-size:13px; font-weight:600; color:#6B6F7B; margin: 0 0 16px; line-height:1.45;">No li direm qui ha fet el report. Si estàs en perill, truca al 112.</p>
+              <sc-if value="{{ reportError }}"><div style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 16px;">{{ reportError }}</div></sc-if>
+              <div role="group" aria-labelledby="report-title" style="display:flex; flex-direction:column; gap: 8px; margin-bottom: 16px;">
+                <sc-for list="{{ reportReasons }}" as="r" hint-placeholder-count="4">
+                  <button type="button" onClick="{{ r.select }}" aria-pressed="{{ r.on }}" style="{{ r.style }}">{{ r.label }}</button>
+                </sc-for>
+              </div>
+              <label for="report-details" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Detalls <span style="font-weight:600; color:#8F93A1;">(opcional)</span></label>
+              <textarea id="report-details" maxlength="1000" value="{{ reportDetails }}" onChange="{{ setReportDetails }}" placeholder="Explica breument què ha passat" style="width:100%; min-height:96px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 12px 16px; font-size:15px; font-weight:600; font-family:inherit; resize:vertical; box-sizing:border-box; margin-bottom: 16px;"></textarea>
+              <div style="display:flex; gap: 8px; flex-wrap:wrap;">
+                <button type="button" onClick="{{ handleReportSubmit }}" disabled="{{ reportBusy }}" style="min-height:44px; padding:0 24px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">
+                  <sc-if value="{{ reportBusy }}">Un moment…</sc-if>
+                  <sc-if value="{{ !reportBusy }}">Enviar report</sc-if>
+                </button>
+                <button type="button" onClick="{{ ppCancel }}" style="min-height:44px; padding:0 24px; border:1.5px solid #ECEDF2; border-radius:14px; background:#fff; color:#14151A; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">Cancel·lar</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ ppIsBlock }}">
+            <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 24px 16px;">
+              <h2 style="font-size:17px; font-weight:800; margin: 0 0 8px;">Bloquejar {{ ppFirst }}?</h2>
+              <p style="font-size:14px; font-weight:600; color:#4B4E58; margin: 0 0 16px; line-height:1.5;">Deixareu de veure els viatges de l'altra persona i no rebreu avisos entre vosaltres. No li direm que l'has bloquejat. Si ja teniu conversa a WhatsApp, bloqueja-la també allà.</p>
+              <div style="display:flex; gap: 8px; flex-wrap:wrap;">
+                <button type="button" onClick="{{ handleBlock }}" disabled="{{ blockBusy }}" style="min-height:44px; padding:0 24px; border:1.5px solid #FBD8D6; border-radius:14px; background:#FDEBEA; color:#C22A24; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">
+                  <sc-if value="{{ blockBusy }}">Un moment…</sc-if>
+                  <sc-if value="{{ !blockBusy }}">Bloquejar</sc-if>
+                </button>
+                <button type="button" onClick="{{ ppCancel }}" style="min-height:44px; padding:0 24px; border:1.5px solid #ECEDF2; border-radius:14px; background:#fff; color:#14151A; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">Cancel·lar</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ ppIsReported }}">
+            <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 24px 16px;">
+              <h2 style="font-size:17px; font-weight:800; margin: 0 0 8px;">Gràcies per avisar-nos</h2>
+              <p style="font-size:14px; font-weight:600; color:#4B4E58; margin: 0 0 16px; line-height:1.5;">Ho revisarem al més aviat possible i, si cal, prendrem mesures. La persona reportada no sabrà qui ha fet el report.</p>
+              <div style="display:flex; gap: 8px; flex-wrap:wrap;">
+                <button type="button" onClick="{{ ppAskBlock }}" style="min-height:44px; padding:0 24px; border:1.5px solid #FBD8D6; border-radius:14px; background:#FDEBEA; color:#C22A24; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">Bloquejar també {{ ppFirst }}</button>
+                <button type="button" onClick="{{ ppBack }}" style="min-height:44px; padding:0 24px; border:1.5px solid #ECEDF2; border-radius:14px; background:#fff; color:#14151A; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">Tornar als viatges</button>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </sc-if>
+
     <sc-if value="{{ isProfileView }}">
       <h1 style="font-size:24px; font-weight:800; letter-spacing:-0.02em; margin: 0 0 24px;">El meu perfil</h1>
       <div class="pj-appear" style="background:#fff; border-radius:24px; padding: 32px; margin-bottom: 16px; display:flex; align-items:center; gap: 16px;">
@@ -1542,6 +1669,24 @@
           <sc-if value="{{ !profileBusy }}">Desar canvis</sc-if>
         </button>
       </div>
+      <sc-if value="{{ hasMyBlocks }}">
+        <div style="background:#fff; border-radius:24px; padding: 32px; margin-top: 16px;">
+          <h2 style="font-size:15px; font-weight:700; margin: 0 0 4px;">Persones bloquejades</h2>
+          <p style="font-size:13px; color:#6B6F7B; margin: 0 0 16px; line-height:1.45;">No veus els seus viatges ni elles els teus.</p>
+          <sc-for list="{{ myBlocks }}" as="b" hint-placeholder-count="1">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap: 12px; padding: 8px 0;">
+              <div style="display:flex; align-items:center; gap: 12px; min-width:0;">
+                <span style="position:relative; width:32px; height:32px; flex-shrink:0; display:inline-block;">
+                  <div style="width:32px; height:32px; border-radius:50%; background:{{ b.avatarColor }}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">{{ b.initial }}</div>
+                  <img alt="" ref="{{ b.avatarImgRef }}" style="width:32px; height:32px; border-radius:50%; object-fit:cover; position:absolute; inset:0; display:{{ b.avatarDisplay }};"/>
+                </span>
+                <span style="font-size:15px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ b.name }}</span>
+              </div>
+              <button type="button" onClick="{{ b.unblock }}" aria-label="{{ b.unblockLabel }}" style="min-height:44px; padding:0 24px; border:1.5px solid #ECEDF2; border-radius:14px; background:#fff; color:#14151A; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit; flex-shrink:0;">Desbloquejar</button>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
       <div style="background:#fff; border-radius:24px; padding: 32px; margin-top: 16px;">
         <button onClick="{{ handleLogout }}" style="width:100%; min-height:44px; border:none; background:none; color:#C22A24; font-weight:700; font-size:14.5px; cursor:pointer; font-family:inherit;">Tancar sessió</button>
       </div>
@@ -1628,6 +1773,19 @@ class Component extends DCLogic {
     avatarPreview: null,
     brokenAvatarUrls: {},
     confirmDeleteId: null,
+    hiddenUserIds: [],
+    publicProfileId: null,
+    publicProfileTripId: null,
+    publicProfile: null,
+    publicProfileLoading: false,
+    ppMode: 'view',
+    reportReason: '',
+    reportDetails: '',
+    reportBusy: false,
+    reportError: '',
+    blockBusy: false,
+    myBlocks: [],
+    myBlocksLoading: false,
     toast: { show: false, message: '', kind: 'info' },
     showIntro: false,
     appFade: false,
@@ -1848,6 +2006,9 @@ class Component extends DCLogic {
     if (m.includes('trips_price_per_seat_check')) return 'El preu per plaça ha de ser superior a 0 €.';
     if (m.includes('trips_time_window_check') || m.includes('trips_date_window_check')) return 'Revisa el marge horari de l\'avís.';
     if (/available_seats/i.test(m) && /check/i.test(m)) return 'Revisa el nombre de places.';
+    if (m.includes('reports_reporter_trip_uidx')) return 'Ja has reportat aquest viatge. Ho estem revisant.';
+    if (m.includes('reports_rate_limit')) return 'Has enviat massa reports avui. Si és urgent, escriu-nos des de l\'avís legal.';
+    if (m.includes('reports_trip_not_found')) return 'Aquest viatge ja no existeix.';
     if (/JWT|jwt expired|not authenticated|401/i.test(m)) return 'La sessió ha caducat. Torna a iniciar sessió.';
     if (/row-level security|violates row-level/i.test(m)) return 'No tens permís per fer aquesta acció. Torna a iniciar sessió.';
     if (/Failed to fetch|NetworkError|network/i.test(m)) return 'No hi ha connexió. Comprova la xarxa i torna-ho a provar.';
@@ -2200,6 +2361,7 @@ class Component extends DCLogic {
     this.setState({ view });
     if (view === 'trips') this._loadTrips();
     if (view === 'myTrips') this._loadMyTrips();
+    if (view === 'profile') this._loadMyBlocks();
     requestAnimationFrame(() => {
       const y = (this._scrollPositions && this._scrollPositions[view]) || 0;
       window.scrollTo({ top: y });
@@ -2357,6 +2519,7 @@ class Component extends DCLogic {
         ({ data, error } = await tripsQuery('*, profiles!trips_driver_id_fkey(first_name,last_name,rating,phone,avatar_url)'));
       }
       if (error) throw error;
+      await this._loadHiddenUsers();
       this.setState({ trips: data || [] });
       this._revealPendingTrip(data || []);
     } catch (e) {
@@ -2590,12 +2753,119 @@ class Component extends DCLogic {
     }
   }
 
+  // ---- Perfil públic, reportar i bloquejar (docs/specs/2026-10-29_reportar-bloquejar.md) ----
+  async _loadHiddenUsers() {
+    if (!this.state.user) { if (this.state.hiddenUserIds.length) this.setState({ hiddenUserIds: [] }); return; }
+    const { data, error } = await this.sb.rpc('hidden_user_ids');
+    if (error) { console.error('hidden_user_ids', error); return; }
+    // PostgREST pot tornar valors solts o files { hidden_user_ids: ... } segons la versió
+    const ids = (data || []).map((r) => (typeof r === 'string' ? r : (r && (r.hidden_user_ids || Object.values(r)[0])))).filter(Boolean);
+    this.setState({ hiddenUserIds: ids });
+  }
+
+  openPublicProfile(userId, tripId) {
+    const { user } = this.state;
+    if (!user || !userId) return;
+    if (userId === user.id) { this.goTo('profile'); return; }
+    this.setState({
+      publicProfileId: userId, publicProfileTripId: tripId || null, publicProfile: null,
+      ppMode: 'view', reportReason: '', reportDetails: '', reportError: '',
+    });
+    this.goTo('publicProfile');
+    window.scrollTo({ top: 0 });
+    this._loadPublicProfile(userId);
+  }
+
+  async _loadPublicProfile(userId) {
+    this.setState({ publicProfileLoading: true });
+    try {
+      const { data, error } = await this.sb.rpc('public_profile', { p_id: userId });
+      if (error) throw error;
+      if (this.state.publicProfileId !== userId) return;
+      if (!data) {
+        this._showToast('Aquest perfil no està disponible', 'error');
+        this.goTo('trips');
+        return;
+      }
+      this.setState({ publicProfile: data });
+    } catch (e) {
+      this._showToast(this._friendlyDbError(e, 'No s\'ha pogut carregar el perfil'), 'error');
+      this.goTo('trips');
+    } finally {
+      this.setState({ publicProfileLoading: false });
+    }
+  }
+
+  _openTripFromProfile(tripId) {
+    this._pendingTripId = tripId;
+    this.goTo('trips');
+    this._revealPendingTrip(this.state.trips || []);
+  }
+
+  async handleReportSubmit() {
+    const { user, publicProfileId, publicProfileTripId, reportReason, reportDetails } = this.state;
+    if (!reportReason) { this.setState({ reportError: 'Tria un motiu.' }); return; }
+    this.setState({ reportBusy: true, reportError: '' });
+    try {
+      const { error } = await this.sb.from('reports').insert({
+        reporter_id: user.id,
+        reported_user_id: publicProfileId,
+        trip_id: publicProfileTripId,
+        reason: reportReason,
+        details: (reportDetails || '').trim().slice(0, 1000) || null,
+      });
+      if (error) throw error;
+      this.setState({ ppMode: 'reported' });
+    } catch (e) {
+      this.setState({ reportError: this._friendlyDbError(e, 'No s\'ha pogut enviar el report. Torna-ho a provar.') });
+    } finally {
+      this.setState({ reportBusy: false });
+    }
+  }
+
+  async handleBlock() {
+    const { user, publicProfileId, publicProfile } = this.state;
+    this.setState({ blockBusy: true });
+    try {
+      const { error } = await this.sb.from('blocks').insert({ blocker_id: user.id, blocked_id: publicProfileId });
+      if (error && error.code !== '23505') throw error;
+      this.setState((st) => ({ hiddenUserIds: st.hiddenUserIds.concat(publicProfileId) }));
+      this._showToast(`Has bloquejat ${(publicProfile && publicProfile.first_name) || 'aquesta persona'}`, 'success');
+      this.goTo('trips');
+    } catch (e) {
+      this._showToast(this._friendlyDbError(e, 'No s\'ha pogut bloquejar. Torna-ho a provar.'), 'error');
+    } finally {
+      this.setState({ blockBusy: false });
+    }
+  }
+
+  async _loadMyBlocks() {
+    if (!this.state.user) return;
+    this.setState({ myBlocksLoading: true });
+    const { data, error } = await this.sb.rpc('my_blocks');
+    if (error) console.error('my_blocks', error);
+    this.setState({ myBlocks: data || [], myBlocksLoading: false });
+  }
+
+  async handleUnblock(blockedId) {
+    const { user } = this.state;
+    const { error } = await this.sb.from('blocks').delete().eq('blocker_id', user.id).eq('blocked_id', blockedId);
+    if (error) { this._showToast(this._friendlyDbError(error, 'No s\'ha pogut desbloquejar.'), 'error'); return; }
+    this.setState((st) => ({
+      myBlocks: st.myBlocks.filter((b) => b.blocked_id !== blockedId),
+      hiddenUserIds: st.hiddenUserIds.filter((id) => id !== blockedId),
+    }));
+    this._showToast('Persona desbloquejada', 'success');
+    this._loadHiddenUsers();
+  }
+
   renderVals() {
     const s = this.state;
     const isLoggedIn = !!s.user && s.view !== 'reset';
     const view = s.view;
 
-    const trips = (s.trips || []).map((t) => {
+    const hidden = new Set(s.hiddenUserIds || []);
+    const trips = (s.trips || []).filter((t) => !hidden.has(t.driver_id)).map((t) => {
       const isRequest = t.trip_type === 'request';
       const posterFullName = t.profiles ? `${t.profiles.first_name || ''} ${t.profiles.last_name || ''}`.trim() : '';
       const posterName = posterFullName
@@ -2638,6 +2908,9 @@ class Component extends DCLogic {
         editHandler: (e) => { e.stopPropagation(); this.goToEditTrip(t); },
         deleteHandler: (e) => { e.stopPropagation(); this.handleDeleteTrip(t); },
         stopProp: (e) => e.stopPropagation(),
+        canOpenProfile: isLoggedIn && !isOwn && !!t.driver_id,
+        openProfile: () => this.openPublicProfile(t.driver_id, t.id),
+        openProfileLabel: `Veure el perfil de ${posterName}`,
         domId: 'trip-' + t.id,
         highlightShadow: s.highlightTripId === t.id ? '0 0 0 3px #B9B0FF' : 'none',
       };
@@ -2786,7 +3059,36 @@ class Component extends DCLogic {
     const profileAvatarColor = this._avatarColor((profile && profile.id) || profileFullName);
     const profileStatsLabel = profile ? `${profile.trips_count || 0} viatges · ★ ${profile.rating ? Number(profile.rating).toFixed(1) : '—'}` : '';
 
-    const activeTab = (view === 'trips' || view === 'post') ? 'trips'
+    const pp = s.publicProfile;
+    const ppName = pp ? `${pp.first_name || ''} ${pp.last_initial ? pp.last_initial + '.' : ''}`.trim() || 'Persona usuària' : '';
+    const ppFirst = (pp && pp.first_name) || 'aquesta persona';
+    const ppAvatarUrl = pp ? pp.avatar_url : null;
+    const REPORT_REASONS = [
+      { id: 'unsafe', label: 'Comportament inadequat o insegur' },
+      { id: 'fake', label: 'Perfil o viatge fals' },
+      { id: 'spam', label: 'Spam o publicitat' },
+      { id: 'other', label: 'Altres' },
+    ];
+    const ppTrips = pp ? trips.filter((t) => t.driver_id === pp.id).map((t) => ({
+      ...t,
+      open: () => this._openTripFromProfile(t.id),
+      rowLabel: `${t.origin} → ${t.destination}, ${t.dateLabel} ${t.timeLabel}`,
+    })) : [];
+    const ppCount = (n) => Number(n) || 0;
+    const myBlocks = (s.myBlocks || []).map((b) => {
+      const name = `${b.first_name || ''} ${b.last_initial ? b.last_initial + '.' : ''}`.trim() || 'Persona usuària';
+      return {
+        ...b,
+        name,
+        initial: (name[0] || '?').toUpperCase(),
+        avatarColor: this._avatarColor(b.blocked_id),
+        avatarDisplay: (b.avatar_url && !s.brokenAvatarUrls[b.avatar_url]) ? 'block' : 'none',
+        avatarImgRef: this._avatarRef(b.avatar_url),
+        unblock: () => this.handleUnblock(b.blocked_id),
+        unblockLabel: `Desbloquejar ${name}`,
+      };
+    });
+    const activeTab = (view === 'trips' || view === 'post' || view === 'publicProfile') ? 'trips'
       : (view === 'myTrips') ? 'myTrips'
       : (view === 'profile') ? 'profile'
       : null;
@@ -2863,6 +3165,47 @@ class Component extends DCLogic {
       isPostView: view === 'post',
       isMyTripsView: view === 'myTrips',
       isProfileView: view === 'profile',
+      isPublicProfileView: view === 'publicProfile',
+      ppLoading: s.publicProfileLoading || (view === 'publicProfile' && !pp),
+      ppReady: !!pp && !s.publicProfileLoading,
+      ppName,
+      ppFirst,
+      ppInitial: (ppName[0] || '?').toUpperCase(),
+      ppAvatarColor: this._avatarColor(s.publicProfileId || ppName),
+      ppAvatarDisplay: (ppAvatarUrl && !s.brokenAvatarUrls[ppAvatarUrl]) ? 'block' : 'none',
+      ppAvatarImgRef: this._avatarRef(ppAvatarUrl),
+      ppOffers: ppCount(pp && pp.offers_count),
+      ppRequests: ppCount(pp && pp.requests_count),
+      ppOffersLabel: ppCount(pp && pp.offers_count) === 1 ? 'viatge ofert' : 'viatges oferts',
+      ppRequestsLabel: ppCount(pp && pp.requests_count) === 1 ? 'sol·licitud' : 'sol·licituds',
+      ppChips: (pp && Array.isArray(pp.interests) ? pp.interests : []).map((id) => ({ label: INTEREST_LABELS[id] })).filter((c) => c.label),
+      ppHasChips: !!(pp && Array.isArray(pp.interests) && pp.interests.some((id) => INTEREST_LABELS[id])),
+      ppTrips,
+      ppHasTrips: ppTrips.length > 0,
+      ppIsView: s.ppMode === 'view',
+      ppIsReport: s.ppMode === 'report',
+      ppIsBlock: s.ppMode === 'block',
+      ppIsReported: s.ppMode === 'reported',
+      ppBack: () => this.goTo('trips'),
+      ppAskReport: () => { this.setState({ ppMode: 'report', reportError: '' }); setTimeout(() => this._scrollToId('pp-actions'), 60); },
+      ppAskBlock: () => { this.setState({ ppMode: 'block' }); setTimeout(() => this._scrollToId('pp-actions'), 60); },
+      ppCancel: () => this.setState({ ppMode: 'view', reportReason: '', reportDetails: '', reportError: '' }),
+      reportReasons: REPORT_REASONS.map((r) => ({
+        ...r,
+        on: s.reportReason === r.id,
+        select: () => this.setState({ reportReason: r.id, reportError: '' }),
+        style: 'display:flex; align-items:center; width:100%; min-height:44px; padding:8px 16px; border-radius:14px; font-weight:700; font-size:14px; text-align:left; cursor:pointer; font-family:inherit;'
+          + (s.reportReason === r.id ? ' border:1.5px solid #5B4CFB; background:#EEEBFF; color:#5B4CFB;' : ' border:1.5px solid #ECEDF2; background:#fff; color:#14151A;'),
+      })),
+      reportDetails: s.reportDetails,
+      setReportDetails: (e) => this.setState({ reportDetails: e.target.value }),
+      reportBusy: s.reportBusy,
+      reportError: s.reportError,
+      handleReportSubmit: () => this.handleReportSubmit(),
+      blockBusy: s.blockBusy,
+      handleBlock: () => this.handleBlock(),
+      myBlocks,
+      hasMyBlocks: myBlocks.length > 0,
 
       isLoginMode: s.authMode === 'login',
       isLandingMode: view === 'auth' && (s.authMode === 'login' || s.authMode === 'signup'),
