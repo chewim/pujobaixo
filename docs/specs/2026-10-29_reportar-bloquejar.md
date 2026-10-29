@@ -17,10 +17,20 @@ Avui, si algú té un problema amb una altra persona usuària (comportament inad
 
 ## Comportament
 
+### Perfil públic (punt d'entrada)
+
+*Canvi respecte a l'esborrany (29 oct.):* la targeta no té espai per a un menú més, i reportar actua sobre una persona, no sobre un viatge. Per això s'hi arriba des d'un perfil públic molt senzill, que a més és la base de les senyals de confiança del `BACKLOG.md`.
+
+- **Com s'hi arriba:** tocant el nom o la foto d'una targeta aliena. El propi nom porta a la pestanya Perfil. La pista visual que el nom és tocable s'itera sobre la pantalla.
+- **Què mostra (i res més):** nom + inicial del cognom, foto (si n'hi ha), preferències de viatge (si n'hi ha), nombre de viatges oferts i de sol·licituds publicades, i els seus viatges actius.
+- **Què no mostra mai:** cognom complet, telèfon, correu, data d'alta, valoració (`rating` no té sistema al darrere).
+- **Privacitat per disseny:** les dades arriben d'una funció `public_profile(id)` que només retorna aquests camps. El client no rep res més, així que no depèn que el frontend "no ho pinti". Només amb sessió iniciada, i no retorna res si hi ha un bloqueig entre totes dues persones.
+- **Política de privacitat:** afegir al punt 3 (Finalitat) "mostrar un perfil bàsic (nom, inicial del cognom, foto, preferències i nombre de viatges publicats) a altres persones usuàries amb sessió iniciada", i actualitzar la data.
+
 ### Reportar
 
-- **On:** punt d'entrada discret a cada targeta que no és pròpia (ofertes i sol·licituds), només amb sessió iniciada. La forma visual (enllaç de text, menú "···"...) **no es fixa aquí**: s'itera sobre la pantalla, com la targeta d'avís.
-- **Formulari inline dins la targeta** (no hi ha modals al sistema, vegeu `DESIGN_SYSTEM.md`):
+- **On:** al perfil públic de la persona (vegeu més avall), al final de la pantalla i amb poc pes visual. S'hi arriba tocant el nom o la foto de qualsevol targeta que no és pròpia (ofertes i sol·licituds), només amb sessió iniciada.
+- **Formulari inline dins el perfil** (no hi ha modals al sistema, vegeu `DESIGN_SYSTEM.md`):
   - Motiu (obligatori, un de): *Comportament inadequat o insegur* · *Perfil o viatge fals* · *Spam o publicitat* · *Altres*.
   - Detalls (opcional, màx. 1000 caràcters).
   - Línia fixa: **"Si estàs en perill, truca al 112."** — el report no és un canal d'emergència i no ho ha de semblar.
@@ -32,7 +42,7 @@ Avui, si algú té un problema amb una altra persona usuària (comportament inad
 
 ### Bloquejar
 
-- **On:** al mateix punt d'entrada que reportar, i després d'enviar un report.
+- **On:** al perfil públic, al costat de reportar, i després d'enviar un report.
 - **Confirmació inline:** "Deixareu de veure els viatges de l'altra persona i no rebreu avisos entre vosaltres. No li direm que l'has bloquejat." → *Bloquejar* (perill) · *Cancel·lar*.
 - **Efecte:** bidireccional — ni qui bloqueja veu els viatges de l'altre, ni a l'inrevés. Sense avisos de coincidència entre tots dos, en cap dels dos rols.
 - **Desbloquejar:** llista "Persones bloquejades" a Perfil, amb *Desbloquejar* a cada fila.
@@ -94,6 +104,8 @@ Migració `supabase/migrations/2026-xx-xx_reports_blocks.sql`, additiva:
 7. A pot desbloquejar B des de Perfil i els viatges tornen a aparèixer sense recarregar la sessió.
 8. Validació habitual: balanç `sc-if`/`sc-for`, prova a 390 px, contrast AA de tots els textos nous.
 9. L'avís legal menciona el canal de report.
+10. Tocar el nom d'una targeta aliena obre el perfil públic; el propi porta a Perfil. La resposta de `public_profile` (pestanya Network) no conté cap camp fora de la llista.
+11. La política de privacitat inclou el perfil públic i té la data actualitzada.
 
 ## Preguntes obertes (decidir abans de construir)
 
