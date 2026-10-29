@@ -172,6 +172,14 @@ Para acciones principales dentro de la app (Publicar y sus variantes en estados 
 
 Misma geometría que `.pj-btn-primary` (icono 18px, `gap:8px`, `padding:0 24px 0 16px`), pero sobre el contenedor tonal de la navegación activa. Regla: **una sola superficie sólida y saturada por pantalla**, la de la acción que se mide. En Viatges es WhatsApp, así que Publicar baja a tonal. El texto se oscurece en hover/active para mantener AA (4.64 / 5.13 / 5.17:1); solo cambiando el fondo bajaba a 4.14 y 3.71.
 
+### Acciones de pie de pantalla (`.pj-pp-foot` / `.pj-pp-action`)
+
+Para acciones que deben existir pero no competir con el contenido (hoy: *Reportar* y *Bloquejar* en el perfil público). Son el tipo **Texto/link** de la tabla de botones: transparentes, `#5B4CFB` 13px/700, icono 16px `currentColor`, `gap:8px`, `min-height:44px`, `padding:0 16px`, radio 14; hover `#EEEBFF`, focus `#B9B0FF`. Centradas en una fila con `gap:8px`, sin separador ni card.
+
+**Posición:** la pantalla es una columna flex (`.pj-pp`, `min-height:calc(100dvh - 244px)`) y el pie lleva `margin-top:auto`, así que con poco contenido las acciones bajan al pie, y con mucho quedan después del último bloque (`padding-top:40px`). En ambos casos el borde inferior queda a 120px del borde de la pantalla (104px de `.pj-main` + 16px propios). La etiqueta visible es corta ("Reportar"); el nombre de la persona va en `aria-label`.
+
+**Descartado:** filas a ancho completo en gris `#6B6F7B` con separador `#E3E4EA`. El gris no es color de acción del sistema, el separador no era un token y dos filas apiladas pesaban como una lista de opciones.
+
 ### Línea informativa de aviso (`.pj-notice`)
 
 En las tarjetas propias de "Els meus", bajo la fila de fecha y hora: campana 14px en `#5B4CFB` + texto 12.5px/600 `#727681`, centrada, sin fondo ni borde. Es información, no un control: no tiene hover ni cursor. Texto: "Avís actiu · ±2 h · només aquest dia · N avisos enviats" o "Avís desactivat". Si en el futuro se hace interactiva, solo puede llevar a editar el aviso de ese viaje; nunca a otra cosa.
