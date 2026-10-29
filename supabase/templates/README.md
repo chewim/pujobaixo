@@ -29,4 +29,4 @@ Requereixen l'SMTP propi (Resend) configurat; amb l'SMTP de Supabase no es poden
 
 ## Estil
 
-El mateix que els avisos de coincidència (`send_match_email`): fons `#F3F4F8`, targeta blanca radi 24, botó `#5B4CFB` radi 14, text secundari `#6B6F7B`. Sense imatges (molts clients les bloquegen), amb l'enllaç en text sota el botó i un peu que explica per què es rep el correu.
+El mateix que els avisos de coincidència (`send_match_email`): fons `#F3F4F8`, targeta blanca radi 24, botó `#5B4CFB` radi 14, text secundari `#6B6F7B`. Només `confirm_signup.html` porta imatge: `assets/email-viatge.jpg` (retall 800×320 de `hero-viatge.jpg`, 50 KB), servida des de `pujobaixo.cat`, sota el botó i amb `alt`; el correu s'entén sense ella. Els correus de seguretat (contrasenya, codis) van sense imatges a propòsit. Enllaç en text sota el botó i un peu que explica per què es rep el correu.
