@@ -10,6 +10,7 @@ No barrejar amb `ROADMAP.md` (decidit i actiu) ni amb la secció "Aparcat" del r
 - Senyals de confiança lleugeres a la targeta: "Membre des de setembre 2026", "3 viatges publicats" (baix cost, sense verificació forta). *(Parcialment fet el 29 oct.: el perfil públic mostra viatges oferts i sol·licituds. La data d'alta es va deixar fora a propòsit; afegir-la seria un camp més a `public_profile()`.)*
 - Historial de viatges completats per usuari, visible al perfil.
 - Recordatori automàtic (correu) el dia abans d'un viatge propi, amb un enllaç ràpid per cancel·lar si cal.
+- Preguntar "Vau fer el viatge?" després de la data d'un viatge contactat, per saber quants contactes acaben en viatge real (avui és invisible: la conversa passa a WhatsApp). Base per a valoracions.
 - Valoracions post-viatge (ja existeix `rating` a `profiles` segons `_loadTrips`; no s'utilitza enlloc de la UI).
 
 ## Distribució / creixement

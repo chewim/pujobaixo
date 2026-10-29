@@ -68,6 +68,6 @@ Regla: no triar quina serà — deixar pujar el volum i **llegir on es trenca l'
 | Data | Restricció identificada | Com es va saber |
 |---|---|---|
 | 30 ag. 2026 | Volum d'oferta (no descobriment) | `v_pending_matches`/`trips` actius: 1 viatge, 0 clics sobre actius |
-| 29 oct. 2026 | Segueix sent volum d'oferta | Últims 30 dies: 5 viatges publicats per 4 persones, 8 clics de WhatsApp de 2 persones, 0 coincidències a `v_matches`. Hi ha demanda que contacta; falta oferta. (Fins al 29 oct., 2 de cada 3 perfils tenien el telèfon sense prefix: part dels clics anteriors podien acabar en error de WhatsApp.) |
+| 29 oct. 2026 | Segueix sent volum d'oferta | Últims 30 dies (nets): 3 ofertes, 1 sol·licitud, 3 contactes únics per WhatsApp, 0 coincidències a `v_matches`. Només 11 persones han ofert mai un viatge, de 103 comptes. Hi ha demanda que contacta; falta oferta. (Fins al 29 oct., 2 de cada 3 perfils tenien el telèfon sense prefix: part dels clics anteriors podien acabar en error de WhatsApp.) |
 
 Actualitzar aquesta taula cada vegada que es replantegi la pregunta de restricció, encara que la resposta no canviï.

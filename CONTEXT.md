@@ -25,9 +25,10 @@ Persones del Berguedà que es desplacen a Barcelona (o a l'inrevés) de manera h
 ### Números a 29 d'octubre de 2026
 
 - **103 comptes, 99 confirmats.** 102 amb telèfon (tots ja en format `+34…`).
-- **35 persones han publicat alguna vegada** (~1 de cada 3 comptes).
+- **35 persones han publicat alguna vegada** (ofertes i sol·licituds juntes); **només 11 han ofert mai un viatge com a conductores.**
 - **8 amb `last_sign_in_at` en els últims 30 dies.** Compte: aquest camp només canvia en iniciar sessió amb contrasenya; qui torna amb la sessió guardada no hi compta. És un mínim, no l'activitat real. Per a activitat real: viatges publicats i `events` (`whatsapp_click`) per setmana.
-- **Últims 30 dies:** 5 viatges publicats per 4 persones; 8 clics de WhatsApp fets per 2 persones.
+- **Últims 30 dies (dades netes, sense cancel·lats):** 3 ofertes, 1 sol·licitud, 3 contactes únics per WhatsApp (persona + viatge). En brut eren 5 viatges i 8 clics: la diferència són cancel·lacions i clics repetits.
+- **Com mesurar-ho:** `events` només registra `whatsapp_click`; comptar parelles úniques `(user_id, trip_id)`, no files. No sabem quants contactes acaben en viatge (la conversa és a WhatsApp).
 
 ### Canvis del 29 d'octubre de 2026
 
