@@ -1246,43 +1246,57 @@
           </div>
         </div>
 
-        <sc-if value="{{ isPostCreate }}">
-          <div class="pj-post-section" style="display:flex; align-items:center; justify-content:space-between; gap: 16px;">
-            <div style="min-width:0;">
-              <div id="post-return-title" style="font-size:15px; font-weight:700; color:#14151A;">Tornes el mateix dia?</div>
-              <div style="font-size:13px; font-weight:600; color:#6B6F7B; margin-top: 4px; line-height:1.45;">{{ postReturnSub }}</div>
-            </div>
-            <button type="button" role="switch" aria-checked="{{ postReturn }}" aria-labelledby="post-return-title" onClick="{{ togglePostReturn }}" class="pj-switch"><span class="pj-switch-knob"></span></button>
-          </div>
-          <sc-if value="{{ postReturn }}">
-            <label for="post-return-time" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Hora de tornada</label>
-            <div class="pj-post-section" style="position:relative;">
-              <input id="post-return-time" type="time" value="{{ postForm.returnTime }}" onChange="{{ setPostReturnTime }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 40px 0 16px; font-size:15px; font-family:inherit; color:#14151A;"/>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6F7B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); pointer-events:none;"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>
-            </div>
-          </sc-if>
-        </sc-if>
-        <sc-if value="{{ isPostCreate }}">
-          <div class="pj-post-section" style="display:flex; align-items:center; justify-content:space-between; gap: 16px;">
-            <div style="min-width:0;">
-              <div id="post-recur-title" style="font-size:15px; font-weight:700; color:#14151A;">És un viatge recurrent?</div>
-              <div style="font-size:13px; font-weight:600; color:#6B6F7B; margin-top: 4px; line-height:1.45;">{{ postRecurSub }}</div>
-            </div>
-            <button type="button" role="switch" aria-checked="{{ postRecurring }}" aria-labelledby="post-recur-title" onClick="{{ togglePostRecurring }}" class="pj-switch"><span class="pj-switch-knob"></span></button>
-          </div>
-          <sc-if value="{{ postRecurring }}">
-            <div id="post-days-label" style="font-size:15px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">Quins dies?</div>
-            <div role="group" aria-labelledby="post-days-label" aria-describedby="post-series-preview" style="display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap: 4px; margin-bottom: 8px;">
-              <sc-for list="{{ recurDayOptions }}" as="d" hint-placeholder-count="7"><button type="button" onClick="{{ d.toggle }}" aria-pressed="{{ d.on }}" aria-label="{{ d.long }}" style="{{ d.style }}">{{ d.short }}</button></sc-for>
-            </div>
-            <p id="post-series-preview" class="pj-post-section" aria-live="polite" style="font-size:13px; font-weight:600; color:#6B6F7B; margin-top:0; line-height:1.45;">{{ postSeriesPreview }}</p>
-          </sc-if>
-        </sc-if>
         <label for="post-notes" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
           <sc-if value="{{ isPostOffer }}">Notes de recollida (opcional)</sc-if>
           <sc-if value="{{ isPostRequest }}">Observacions (opcional)</sc-if>
         </label>
         <textarea id="post-notes" value="{{ postForm.pickupNotes }}" onChange="{{ setPostNotes }}" placeholder="Ex: Sortida des de l'estació de bus" class="pj-post-section" style="width:100%; min-height:80px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 16px 16px; font-size:15px; font-family:inherit; resize:vertical;"></textarea>
+
+        <sc-if value="{{ isPostCreate }}">
+          <div class="pj-benefit pj-post-section">
+            <div class="pj-benefit-head">
+              <div class="pj-benefit-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"></path><path d="M4 7h16"></path><path d="m16 21 4-4-4-4"></path><path d="M20 17H4"></path></svg></div>
+              <div class="pj-benefit-body">
+                <div class="pj-benefit-title" id="post-return-title">Tornes el mateix dia?</div>
+                <div class="pj-benefit-sub"><span>{{ postReturnSub }}</span></div>
+              </div>
+              <button type="button" role="switch" aria-checked="{{ postReturn }}" aria-labelledby="post-return-title" onClick="{{ togglePostReturn }}" class="pj-switch"><span class="pj-switch-knob"></span></button>
+            </div>
+            <sc-if value="{{ postReturn }}">
+              <div class="pj-benefit-options">
+                <div>
+                  <label for="post-return-time" style="font-size:13px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Hora de tornada</label>
+                  <div style="position:relative;">
+                    <input id="post-return-time" type="time" value="{{ postForm.returnTime }}" onChange="{{ setPostReturnTime }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 40px 0 16px; font-size:15px; font-family:inherit; color:#14151A;"/>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6F7B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); pointer-events:none;"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+          <div class="pj-benefit pj-post-section">
+            <div class="pj-benefit-head">
+              <div class="pj-benefit-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg></div>
+              <div class="pj-benefit-body">
+                <div class="pj-benefit-title" id="post-recur-title">És un viatge recurrent?</div>
+                <div class="pj-benefit-sub"><span>{{ postRecurSub }}</span></div>
+              </div>
+              <button type="button" role="switch" aria-checked="{{ postRecurring }}" aria-labelledby="post-recur-title" onClick="{{ togglePostRecurring }}" class="pj-switch"><span class="pj-switch-knob"></span></button>
+            </div>
+            <sc-if value="{{ postRecurring }}">
+              <div class="pj-benefit-options">
+                <div>
+                  <div id="post-days-label" style="font-size:13px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">Quins dies?</div>
+                  <div role="group" aria-labelledby="post-days-label" aria-describedby="post-series-preview" style="display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap: 4px; margin-bottom: 8px;">
+                    <sc-for list="{{ recurDayOptions }}" as="d" hint-placeholder-count="7"><button type="button" onClick="{{ d.toggle }}" aria-pressed="{{ d.on }}" aria-label="{{ d.long }}" style="{{ d.style }}">{{ d.short }}</button></sc-for>
+                  </div>
+                  <p id="post-series-preview" aria-live="polite" style="font-size:13px; font-weight:600; color:#6B6F7B; margin:0; line-height:1.45;">{{ postSeriesPreview }}</p>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
 
         <div class="pj-benefit pj-post-section">
             <div class="pj-benefit-head">

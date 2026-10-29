@@ -182,7 +182,16 @@ Datos: solo lo que devuelve `public_profile()` (nombre, inicial, foto, preferenc
 
 ### Orden del formulario de publicar
 
-De obligatorio a opcional, y siguiendo "¿cuándo sales? → ¿vuelves? → ¿cada semana?": 1. Tipus de publicació · 2. Ruta · 3. Data i hora · 4. Places i preu · 5. Tornes el mateix dia? *(opcional)* · 6. És un viatge recurrent? *(opcional)* · 7. Notes *(opcional)* · 8. Avisos · Publicar. Los dos interruptores usan el mismo patrón (título 15/700 + subtítulo 13/600 que describe la consecuencia + `.pj-switch`) y despliegan su contenido justo debajo de sí mismos. Quien publica un viaje sencillo termina en el punto 4. Las etiquetas de campos anteriores no cambian al activar opciones posteriores: la confirmación va debajo ("Primera sortida… · Última… · N viatges").
+Dos capas para dosificar la información:
+
+1. **Bloque base, sin tarjeta** (lo necesario para un viaje normal): Tipus de publicació → Ruta → Data i hora → Places i preu → Notes *(opcional)*.
+2. **Extras, cada uno en su tarjeta `.pj-benefit`** (blanca, borde `#ECEDF2`, radio 16, icono de 40px en círculo `#EEEBFF`, título 15/700, subtítulo 13/600 que describe la consecuencia y `.pj-switch` a la derecha). Plegadas por defecto; al activar el interruptor, su contenido se despliega dentro de la misma tarjeta bajo `.pj-benefit-options` (separador `#ECEDF2`):
+   - **Tornes el mateix dia?** (icono de flechas en dos sentidos) → hora de vuelta.
+   - **És un viatge recurrent?** (icono de repetir) → días y resumen de la serie.
+   - **Avisos** (icono de campana, activo por defecto).
+3. **Publicar.**
+
+Quien publica un viaje sencillo no abre ninguna tarjeta. Al editar, las dos primeras tarjetas no aparecen. Las etiquetas de campos anteriores no cambian al activar un extra: la confirmación va dentro de su tarjeta.
 
 ### Viajes recurrentes (formulario y tarjetas)
 
