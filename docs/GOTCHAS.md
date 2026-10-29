@@ -28,6 +28,11 @@ echo "sc-for $(grep -o '<sc-for' index.html | wc -l)/$(grep -o '</sc-for>' index
 ```
 Els dos números de cada parella han de coincidir.
 
+### `toISOString().slice(0, 16)` no és l'hora local
+**Símptoma:** en editar un viatge de les 7:30, el formulari mostrava les 6:30 (5:30 a l'estiu); si es desava sense mirar, el viatge s'avançava una o dues hores cada vegada.
+**Causa:** `toISOString()` retorna UTC; tallar-lo per omplir un `datetime-local` barreja UTC amb hora local.
+**Regla:** per omplir camps de data/hora, formatar amb `getFullYear/getMonth/getDate/getHours/getMinutes` (hora local) o `_todayKey()`. Detectat i arreglat el 29 oct. 2026 (`goToEditTrip` i la data per defecte de `setPostDepartTime`).
+
 ### La recuperació de contrasenya no pot dependre del temps que triga `PASSWORD_RECOVERY`
 **Símptoma:** en prémer l'enllaç de "recuperar contrasenya", alguns usuaris acabaven a "Compte verificat!" o a la llista de viatges (amb sessió iniciada) en lloc del formulari; al tercer intent funcionava.
 **Causa:** confirmar compte i recuperar contrasenya comparteixen `/auth/callback`. L'app esperava 0,6 s fixos que arribés l'esdeveniment `PASSWORD_RECOVERY` de supabase-js; amb connexions lentes arribava tard i s'interpretava com una confirmació de registre.

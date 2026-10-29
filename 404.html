@@ -2424,7 +2424,8 @@ class Component extends DCLogic {
         tripType: trip.trip_type || 'offer',
         origin: trip.origin || '',
         destination: trip.destination || '',
-        departAt: trip.depart_at ? new Date(trip.depart_at).toISOString().slice(0, 16) : '',
+        // Hora local, no UTC: toISOString() desplaçava el viatge 1–2 h enrere cada vegada que s'editava.
+        departAt: trip.depart_at ? (() => { const d = new Date(trip.depart_at); const p = (n) => String(n).padStart(2, '0'); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`; })() : '',
         availableSeats: trip.available_seats,
         pricePerSeat: trip.price_per_seat != null ? trip.price_per_seat : (trip.trip_type === 'request' ? '' : 0),
         pickupNotes: trip.pickup_notes || '',
@@ -3571,7 +3572,7 @@ class Component extends DCLogic {
         return { postForm: { ...st.postForm, departAt: `${e.target.value}T${time}` } };
       }),
       setPostDepartTime: (e) => this.setState((st) => {
-        const date = (st.postForm.departAt || '').split('T')[0] || new Date().toISOString().slice(0, 10);
+        const date = (st.postForm.departAt || '').split('T')[0] || this._todayKey();
         return { postForm: { ...st.postForm, departAt: `${date}T${e.target.value}` } };
       }),
       setPostSeats: (e) => this.setState((st) => ({ postForm: { ...st.postForm, availableSeats: e.target.value } })),
