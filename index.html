@@ -1244,6 +1244,22 @@
           </div>
         </div>
 
+        <sc-if value="{{ isPostCreate }}">
+          <div class="pj-post-section" style="display:flex; align-items:center; justify-content:space-between; gap: 16px;">
+            <div style="min-width:0;">
+              <div id="post-return-title" style="font-size:15px; font-weight:700; color:#14151A;">Tornes el mateix dia?</div>
+              <div style="font-size:13px; font-weight:600; color:#6B6F7B; margin-top: 4px; line-height:1.45;">{{ postReturnSub }}</div>
+            </div>
+            <button type="button" role="switch" aria-checked="{{ postReturn }}" aria-labelledby="post-return-title" onClick="{{ togglePostReturn }}" class="pj-switch"><span class="pj-switch-knob"></span></button>
+          </div>
+          <sc-if value="{{ postReturn }}">
+            <label for="post-return-time" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Hora de tornada</label>
+            <div class="pj-post-section" style="position:relative;">
+              <input id="post-return-time" type="time" value="{{ postForm.returnTime }}" onChange="{{ setPostReturnTime }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 40px 0 16px; font-size:15px; font-family:inherit; color:#14151A;"/>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6F7B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); pointer-events:none;"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>
+            </div>
+          </sc-if>
+        </sc-if>
         <div class="pj-post-section" style="display:flex; gap: 16px;">
           <div style="flex:1;">
             <label for="post-seats" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
@@ -1793,7 +1809,7 @@ class Component extends DCLogic {
     postNotifyOpen: false,
     returnAfterAuth: null,
     editingTripId: null,
-    postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '', timeWindow: 120, dateWindow: 0, notifyEmail: true, recurring: false, recurDays: [] },
+    postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '', timeWindow: 120, dateWindow: 0, notifyEmail: true, recurring: false, recurDays: [], returnTrip: false, returnTime: '' },
     postBusy: false,
     postError: '',
     postShowRoutePresets: false,
@@ -2686,6 +2702,12 @@ class Component extends DCLogic {
       this.setState({ postError: 'Cap dels dies triats cau en les properes setmanes. Revisa la data d\'inici i l\'hora.' });
       return;
     }
+    const wantsReturn = !editingTripId && !!postForm.returnTrip;
+    const departTime = (postForm.departAt || '').split('T')[1] || '';
+    if (wantsReturn && (!/^\d{2}:\d{2}$/.test(postForm.returnTime || '') || postForm.returnTime <= departTime)) {
+      this.setState({ postError: 'Indica l\'hora de tornada: ha de ser més tard que la de sortida.' });
+      return;
+    }
     if (!isSeries && departMs < Date.now()) {
       this.setState({ postError: 'La sortida ha de ser en el futur. Revisa la data i l\'hora.' });
       return;
@@ -2728,17 +2750,33 @@ class Component extends DCLogic {
       payload.date_window = Number(postForm.dateWindow) || 0;
       payload.notify_email = postForm.notifyEmail !== false;
       let error;
+      let publishedCount = 1;
       if (editingTripId) {
         ({ error } = await this.sb.from('trips').update(payload).eq('id', editingTripId));
-      } else if (isSeries) {
-        const seriesId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
-          : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => { const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16); });
-        const seriesDays = recurDays.slice().sort((a, b) => a - b);
-        ({ error } = await this.sb.from('trips').insert(seriesDates.map((d) => ({
-          ...payload, depart_at: d.toISOString(), driver_id: user.id, status: 'active', series_id: seriesId, series_days: seriesDays,
-        }))));
       } else {
-        ({ error } = await this.sb.from('trips').insert({ ...payload, driver_id: user.id, status: 'active' }));
+        const newId = () => ((window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+          : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => { const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16); }));
+        const base = { ...payload, driver_id: user.id, status: 'active' };
+        // Tornada el mateix dia: mateix viatge amb origen i destinació invertits, a l'hora de tornada.
+        const backPreset = ROUTES.find((r) => r.origin === destinationValue && r.destination === originValue);
+        const back = { ...base, origin: destinationValue, destination: originValue, direction: backPreset ? backPreset.value : 'CUSTOM' };
+        const atReturnTime = (d) => { const [h, m] = postForm.returnTime.split(':').map(Number); const x = new Date(d); x.setHours(h, m, 0, 0); return x; };
+        let rows;
+        if (isSeries) {
+          const seriesDays = recurDays.slice().sort((a, b) => a - b);
+          const outId = newId();
+          rows = seriesDates.map((d) => ({ ...base, depart_at: d.toISOString(), series_id: outId, series_days: seriesDays }));
+          if (wantsReturn) {
+            const backId = newId();
+            rows = rows.concat(seriesDates.map(atReturnTime).filter((d) => d.getTime() > Date.now())
+              .map((d) => ({ ...back, depart_at: d.toISOString(), series_id: backId, series_days: seriesDays })));
+          }
+        } else {
+          rows = [base];
+          if (wantsReturn) rows.push({ ...back, depart_at: atReturnTime(new Date(postForm.departAt)).toISOString() });
+        }
+        publishedCount = rows.length;
+        ({ error } = await this.sb.from('trips').insert(rows.length === 1 ? rows[0] : rows));
       }
       if (error) throw error;
       this.setState({ tripsView: 'list' });
@@ -2746,14 +2784,16 @@ class Component extends DCLogic {
       this._showToast(editingTripId
         ? 'Publicació actualitzada!'
         : isSeries
-        ? `${this._seriesLabel(recurDays)} · ${seriesDates.length} sortides les properes ${SERIES_WEEKS} setmanes`
+        ? `${this._seriesLabel(recurDays)} · ${publishedCount} ${wantsReturn ? 'viatges (anada i tornada)' : 'sortides'} les properes ${SERIES_WEEKS} setmanes`
+        : wantsReturn
+        ? (isRequest ? 'Sol·licituds d\'anada i tornada publicades!' : 'Anada i tornada publicades!')
         : (isRequest
           ? (notifyOn ? 'Sol·licitud publicada · T\'avisarem si apareix un viatge que encaixi' : 'Sol·licitud publicada!')
           : (notifyOn ? 'Viatge publicat · T\'avisarem si algú busca aquest trajecte' : 'Viatge publicat!')));
       this.setState({
         view: 'trips',
         editingTripId: null,
-        postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '', timeWindow: 120, dateWindow: 0, notifyEmail: true, recurring: false, recurDays: [] },
+        postForm: { tripType: 'offer', origin: '', destination: '', departAt: '', availableSeats: 3, pricePerSeat: 5, pickupNotes: '', timeWindow: 120, dateWindow: 0, notifyEmail: true, recurring: false, recurDays: [], returnTrip: false, returnTime: '' },
       });
       this._loadTrips();
     } catch (e) {
@@ -3485,6 +3525,12 @@ class Component extends DCLogic {
       toggleNotifyEmail: () => this.setState((st) => ({ postForm: { ...st.postForm, notifyEmail: !(st.postForm.notifyEmail !== false) }, postNotifyOpen: false })),
       postNotifyOpen: !!s.postNotifyOpen,
       isPostCreate: !s.editingTripId,
+      postReturn: !!s.postForm.returnTrip,
+      postReturnSub: s.postForm.returnTrip
+        ? `Publicarem també ${(s.postForm.destination || '').trim() || 'la destinació'} → ${(s.postForm.origin || '').trim() || 'l\'origen'} a l'hora que triïs.`
+        : 'Publica també la tornada amb el mateix formulari.',
+      togglePostReturn: () => this.setState((st) => ({ postForm: { ...st.postForm, returnTrip: !st.postForm.returnTrip }, postError: '' })),
+      setPostReturnTime: (e) => this.setState((st) => ({ postForm: { ...st.postForm, returnTime: e.target.value }, postError: '' })),
       postRecurring: !!s.postForm.recurring,
       postRecurSub: s.postForm.recurring
         ? `Es publicarà cada dia que triïs durant les properes ${SERIES_WEEKS} setmanes.`
