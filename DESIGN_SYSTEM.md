@@ -180,9 +180,13 @@ Estructura, de arriba abajo: botón volver (44×44, blanco, radio 14) → avatar
 
 Datos: solo lo que devuelve `public_profile()` (nombre, inicial, foto, preferencias, viajes ofrecidos y solicitudes). Nunca teléfono, correo, apellido completo ni fecha de alta.
 
+### Orden del formulario de publicar
+
+De obligatorio a opcional, y siguiendo "¿cuándo sales? → ¿vuelves? → ¿cada semana?": 1. Tipus de publicació · 2. Ruta · 3. Data i hora · 4. Places i preu · 5. Tornes el mateix dia? *(opcional)* · 6. És un viatge recurrent? *(opcional)* · 7. Notes *(opcional)* · 8. Avisos · Publicar. Los dos interruptores usan el mismo patrón (título 15/700 + subtítulo 13/600 que describe la consecuencia + `.pj-switch`) y despliegan su contenido justo debajo de sí mismos. Quien publica un viaje sencillo termina en el punto 4. Las etiquetas de campos anteriores no cambian al activar opciones posteriores: la confirmación va debajo ("Primera sortida… · Última… · N viatges").
+
 ### Viajes recurrentes (formulario y tarjetas)
 
-En el formulario de publicar (solo al crear): fila "És un viatge recurrent?" (título 15/700 negro + subtítulo 13/600 gris que describe la consecuencia) con el mismo `.pj-switch` del aviso. Al activarlo aparece "Quins dies?" con 7 botones `dl dt dc dj dv ds dg` en una rejilla de 7 columnas (`gap:4px`, 44px de alto, radio 14, `aria-pressed`, `aria-label` con el nombre completo del día; activo `#EEEBFF`/`#5B4CFB` con borde `#5B4CFB`, inactivo blanco con borde `#ECEDF2`), y la etiqueta de la fecha pasa a "A partir del dia i hora". En las tarjetas, la fecha se sustituye por "Cada dl, dc" (o "De dilluns a divendres", "Cada dia") en el mismo hueco, sin badge nuevo.
+En el formulario de publicar (solo al crear): fila "És un viatge recurrent?" (título 15/700 negro + subtítulo 13/600 gris que describe la consecuencia) con el mismo `.pj-switch` del aviso. Al activarlo aparece "Quins dies?" con 7 botones `dl dt dc dj dv ds dg` en una rejilla de 7 columnas (`gap:4px`, 44px de alto, radio 14, `aria-pressed`, `aria-label` con el nombre completo del día; activo `#EEEBFF`/`#5B4CFB` con borde `#5B4CFB`, inactivo blanco con borde `#ECEDF2`), y debajo una línea de confirmación (13/600 gris, `aria-live`) con la primera y la última salida y el total de viajes. La etiqueta de la fecha no cambia. En las tarjetas, la fecha se sustituye por "Cada dl, dc" (o "De dilluns a divendres", "Cada dia") en el mismo hueco, sin badge nuevo.
 
 ### Acciones de pie de pantalla (`.pj-pp-foot` / `.pj-pp-action`)
 

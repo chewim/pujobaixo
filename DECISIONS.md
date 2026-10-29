@@ -8,6 +8,9 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 ## Producte / abast
 
+- **29 oct. — "Tornes el mateix dia?" crea la tornada com una publicació separada (també en sèrie).**
+  Qui baixa per feina torna el mateix dia; sense això només es publicava l'anada. Dues targetes (anada i tornada) i no una de combinada: cadascuna encaixa sola amb qui només necessita un sentit, els avisos no canvien i el missatge de WhatsApp diu el trajecte exacte. Descartat: tornada un altre dia (cas poc habitual que complica el formulari).
+
 - **29 oct. — Viatges recurrents: es generen viatges concrets per a 4 setmanes, agrupats en una targeta.**
   Una regla ("dl i dc a les 7:30") crea un viatge per dia amb el mateix `series_id`; així la llista, el calendari, `v_matches` i els avisos funcionen sense canvis. La llista i Els meus mostren una targeta per sèrie ("Cada dl, dc"); el calendari, cada dia. Avisos: un sol correu per persona i parella de sèries. Descartat: una sola fila amb la regla → caldria reescriure el calendari i els encreuaments; una targeta per dia → la llista s'omple de còpies; data de fi lliure → un camp més per a un cas rar; editar sèries a la v1 → per canviar-la, s'elimina i es torna a publicar.
 

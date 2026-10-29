@@ -1217,21 +1217,6 @@
           </div>
         </sc-if>
 
-        <sc-if value="{{ isPostCreate }}">
-          <div class="pj-post-section" style="display:flex; align-items:center; justify-content:space-between; gap: 16px;">
-            <div style="min-width:0;">
-              <div id="post-recur-title" style="font-size:15px; font-weight:700; color:#14151A;">És un viatge recurrent?</div>
-              <div style="font-size:13px; font-weight:600; color:#6B6F7B; margin-top: 4px; line-height:1.45;">{{ postRecurSub }}</div>
-            </div>
-            <button type="button" role="switch" aria-checked="{{ postRecurring }}" aria-labelledby="post-recur-title" onClick="{{ togglePostRecurring }}" class="pj-switch"><span class="pj-switch-knob"></span></button>
-          </div>
-          <sc-if value="{{ postRecurring }}">
-            <div id="post-days-label" style="font-size:15px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">Quins dies?</div>
-            <div role="group" aria-labelledby="post-days-label" class="pj-post-section" style="display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap: 4px;">
-              <sc-for list="{{ recurDayOptions }}" as="d" hint-placeholder-count="7"><button type="button" onClick="{{ d.toggle }}" aria-pressed="{{ d.on }}" aria-label="{{ d.long }}" style="{{ d.style }}">{{ d.short }}</button></sc-for>
-            </div>
-          </sc-if>
-        </sc-if>
         <div id="post-datetime-label" style="font-size:15px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">{{ postDateLabel }}</div>
         <div role="group" aria-labelledby="post-datetime-label" class="pj-post-section" style="display:flex; gap: 8px;">
           <div style="position:relative; flex:1; min-width:0;">
@@ -1241,6 +1226,23 @@
           <div style="position:relative; flex:1; min-width:0;">
             <input type="time" value="{{ departTimeVal }}" onChange="{{ setPostDepartTime }}" aria-label="Hora" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 40px 0 16px; font-size:15px; font-family:inherit; color:#14151A;"/>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6F7B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); pointer-events:none;"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>
+          </div>
+        </div>
+
+        <div class="pj-post-section" style="display:flex; gap: 16px;">
+          <div style="flex:1;">
+            <label for="post-seats" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
+              <sc-if value="{{ isPostOffer }}">Places disponibles</sc-if>
+              <sc-if value="{{ isPostRequest }}">Nombre de persones</sc-if>
+            </label>
+            <input id="post-seats" type="number" min="1" max="8" value="{{ postForm.availableSeats }}" onChange="{{ setPostSeats }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
+          </div>
+          <div style="flex:1;">
+            <label for="post-price" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
+              <sc-if value="{{ isPostOffer }}">Preu per plaça (€)</sc-if>
+              <sc-if value="{{ isPostRequest }}">Pressupost (€)</sc-if>
+            </label>
+            <input id="post-price" type="text" inputmode="decimal" autocomplete="off" value="{{ postForm.pricePerSeat }}" onChange="{{ setPostPrice }}" placeholder="{{ postPricePlaceholder }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
           </div>
         </div>
 
@@ -1260,23 +1262,22 @@
             </div>
           </sc-if>
         </sc-if>
-        <div class="pj-post-section" style="display:flex; gap: 16px;">
-          <div style="flex:1;">
-            <label for="post-seats" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
-              <sc-if value="{{ isPostOffer }}">Places disponibles</sc-if>
-              <sc-if value="{{ isPostRequest }}">Nombre de persones</sc-if>
-            </label>
-            <input id="post-seats" type="number" min="1" max="8" value="{{ postForm.availableSeats }}" onChange="{{ setPostSeats }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
+        <sc-if value="{{ isPostCreate }}">
+          <div class="pj-post-section" style="display:flex; align-items:center; justify-content:space-between; gap: 16px;">
+            <div style="min-width:0;">
+              <div id="post-recur-title" style="font-size:15px; font-weight:700; color:#14151A;">És un viatge recurrent?</div>
+              <div style="font-size:13px; font-weight:600; color:#6B6F7B; margin-top: 4px; line-height:1.45;">{{ postRecurSub }}</div>
+            </div>
+            <button type="button" role="switch" aria-checked="{{ postRecurring }}" aria-labelledby="post-recur-title" onClick="{{ togglePostRecurring }}" class="pj-switch"><span class="pj-switch-knob"></span></button>
           </div>
-          <div style="flex:1;">
-            <label for="post-price" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
-              <sc-if value="{{ isPostOffer }}">Preu per plaça (€)</sc-if>
-              <sc-if value="{{ isPostRequest }}">Pressupost (€)</sc-if>
-            </label>
-            <input id="post-price" type="text" inputmode="decimal" autocomplete="off" value="{{ postForm.pricePerSeat }}" onChange="{{ setPostPrice }}" placeholder="{{ postPricePlaceholder }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
-          </div>
-        </div>
-
+          <sc-if value="{{ postRecurring }}">
+            <div id="post-days-label" style="font-size:15px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">Quins dies?</div>
+            <div role="group" aria-labelledby="post-days-label" aria-describedby="post-series-preview" style="display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap: 4px; margin-bottom: 8px;">
+              <sc-for list="{{ recurDayOptions }}" as="d" hint-placeholder-count="7"><button type="button" onClick="{{ d.toggle }}" aria-pressed="{{ d.on }}" aria-label="{{ d.long }}" style="{{ d.style }}">{{ d.short }}</button></sc-for>
+            </div>
+            <p id="post-series-preview" class="pj-post-section" aria-live="polite" style="font-size:13px; font-weight:600; color:#6B6F7B; margin-top:0; line-height:1.45;">{{ postSeriesPreview }}</p>
+          </sc-if>
+        </sc-if>
         <label for="post-notes" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">
           <sc-if value="{{ isPostOffer }}">Notes de recollida (opcional)</sc-if>
           <sc-if value="{{ isPostRequest }}">Observacions (opcional)</sc-if>
@@ -3533,12 +3534,21 @@ class Component extends DCLogic {
       setPostReturnTime: (e) => this.setState((st) => ({ postForm: { ...st.postForm, returnTime: e.target.value }, postError: '' })),
       postRecurring: !!s.postForm.recurring,
       postRecurSub: s.postForm.recurring
-        ? `Es publicarà cada dia que triïs durant les properes ${SERIES_WEEKS} setmanes.`
+        ? `Es publicarà els dies que triïs durant les properes ${SERIES_WEEKS} setmanes.`
         : 'Si fas aquest trajecte cada setmana, publica\'l un sol cop.',
       togglePostRecurring: () => this.setState((st) => ({ postForm: { ...st.postForm, recurring: !st.postForm.recurring }, postError: '' })),
-      postDateLabel: s.postForm.recurring && !s.editingTripId
-        ? 'A partir del dia i hora'
-        : (s.postForm.tripType === 'request' ? 'Data i hora aproximada' : 'Data i hora de sortida'),
+      postDateLabel: s.postForm.tripType === 'request' ? 'Data i hora aproximada' : 'Data i hora de sortida',
+      postSeriesPreview: (() => {
+        if (!s.postForm.recurring) return '';
+        const days = (s.postForm.recurDays || []).map(Number);
+        if (!days.length) return 'Tria els dies per veure quines sortides es publicaran.';
+        if (!s.postForm.departAt) return 'Indica la data i hora de sortida per veure les sortides.';
+        const dates = this._seriesDates(s.postForm.departAt, days);
+        if (!dates.length) return 'Cap dels dies triats cau en les properes setmanes.';
+        const f = (d) => d.toLocaleDateString('ca-ES', { weekday: 'short', day: 'numeric', month: 'short' });
+        const n = dates.length * (s.postForm.returnTrip ? 2 : 1);
+        return `Primera sortida: ${f(dates[0])} · Última: ${f(dates[dates.length - 1])} · ${n} ${n === 1 ? 'viatge' : 'viatges'}`;
+      })(),
       recurDayOptions: WEEKDAYS.map((d) => {
         const on = (s.postForm.recurDays || []).includes(d.n);
         return {
