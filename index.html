@@ -789,7 +789,7 @@
               <input placeholder="Nom" aria-label="Nom" value="{{ authForm.firstName }}" onChange="{{ setAuthFirstName }}" style="flex:1; min-width:0; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
               <input placeholder="Cognoms" aria-label="Cognoms" value="{{ authForm.lastName }}" onChange="{{ setAuthLastName }}" style="flex:1; min-width:0; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
             </div>
-            <input placeholder="Telèfon" aria-label="Telèfon" value="{{ authForm.phone }}" onChange="{{ setAuthPhone }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 16px;"/>
+            <input type="tel" inputmode="tel" autocomplete="tel" placeholder="Telèfon mòbil (WhatsApp)" aria-label="Telèfon mòbil (WhatsApp)" value="{{ authForm.phone }}" onChange="{{ setAuthPhone }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 16px;"/>
           </sc-if>
 
           <input type="email" placeholder="Correu electrònic" aria-label="Correu electrònic" value="{{ authForm.email }}" onChange="{{ setAuthEmail }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 16px;"/>
@@ -1190,7 +1190,8 @@
         </button>
       </div>
       <div class="pj-post-card pj-appear">
-        <sc-if value="{{ postError }}"><div style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 16px;">{{ postError }}</div></sc-if>
+        <sc-if value="{{ postError }}"><div role="alert" style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 16px;">{{ postError }}</div></sc-if>
+        <sc-if value="{{ postPhoneMissing }}"><button type="button" onClick="{{ goToProfileFromPost }}" class="pj-btn-tonal" style="margin-bottom: 16px;">Revisar el telèfon</button></sc-if>
 
         <div id="post-type-label" style="font-size:15px; font-weight:700; color:#6B6F7B; margin-bottom: 8px;">Tipus de publicació</div>
         <div role="group" aria-labelledby="post-type-label" class="pj-post-section" style="display:flex; gap: 8px;">
@@ -1656,8 +1657,12 @@
             <input id="profile-last-name" value="{{ profileForm.lastName }}" onChange="{{ setProfileLastName }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
           </div>
         </div>
-        <label for="profile-phone" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Telèfon</label>
-        <input id="profile-phone" value="{{ profileForm.phone }}" onChange="{{ setProfilePhone }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 24px;"/>
+        <label for="profile-phone" style="font-size:15px; font-weight:700; color:#6B6F7B; display:block; margin-bottom: 8px;">Telèfon mòbil (WhatsApp)</label>
+        <input id="profile-phone" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="profile-phone-help" value="{{ profileForm.phone }}" onChange="{{ setProfilePhone }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 8px;"/>
+        <sc-if value="{{ profilePhoneError }}">
+          <div role="alert" style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 8px;">{{ profilePhoneError }}</div>
+        </sc-if>
+        <p id="profile-phone-help" style="font-size:13px; font-weight:600; color:#6B6F7B; margin: 0 0 24px; line-height:1.45;">És el número on et contactaran. Si no és d'Espanya, escriu-lo amb el prefix del país (+33…).</p>
         <div style="margin-bottom: 24px;">
           <div style="font-size:15px; font-weight:700; color:#6B6F7B; margin-bottom: 4px;">Preferències de viatge <span style="font-weight:600; color:#8F93A1;">(opcional)</span></div>
           <p style="font-size:13px; color:#8F93A1; margin: 0 0 12px; line-height:1.45;">Es mostraran a les teves publicacions per ajudar a trobar bona companyia de viatge.</p>
@@ -1777,6 +1782,8 @@ class Component extends DCLogic {
     myTripsLoading: false,
     profileForm: { firstName: '', lastName: '', phone: '', interests: [] },
     profileBusy: false,
+    profilePhoneError: '',
+    postPhoneMissing: false,
     avatarUploading: false,
     avatarPreview: null,
     brokenAvatarUrls: {},
@@ -2239,9 +2246,25 @@ class Component extends DCLogic {
     return String(phone || '').replace(/\D/g, '');
   }
 
+  // wa.me necessita el número amb prefix de país. Accepta com escriu la gent
+  // ("612 34 56 78", "+34 612…", "0034 612…", "+33 6…") i retorna "+<dígits>",
+  // o null si no es pot saber el país. Sense prefix, només s'accepten mòbils i
+  // fixos espanyols de 9 xifres (6/7/8/9): és el cas de gairebé tots els usuaris.
+  _normalizePhone(phone) {
+    const raw = String(phone || '').trim();
+    if (!raw) return null;
+    let d = this._stripPhone(raw);
+    if (raw.startsWith('+')) { /* ja porta prefix */ }
+    else if (d.startsWith('00')) d = d.slice(2);
+    else if (/^[6789]\d{8}$/.test(d)) d = '34' + d;
+    else if (!/^34[6789]\d{8}$/.test(d)) return null;
+    if (d.startsWith('34') && !/^34[6789]\d{8}$/.test(d)) return null;
+    if (d.length < 8 || d.length > 15) return null;
+    return '+' + d;
+  }
+
   _isValidPhone(phone) {
-    const d = this._stripPhone(phone);
-    return d.length >= 8 && d.length <= 15;
+    return !!this._normalizePhone(phone);
   }
 
   _waMessage(trip) {
@@ -2254,8 +2277,9 @@ class Component extends DCLogic {
 
   _waLink(trip) {
     const phone = trip.profiles && trip.profiles.phone;
-    if (!this._isValidPhone(phone)) return null;
-    const digits = this._stripPhone(phone);
+    const normalized = this._normalizePhone(phone);
+    if (!normalized) return null;
+    const digits = normalized.slice(1);
     const text = encodeURIComponent(this._waMessage(trip));
     return `https://wa.me/${digits}?text=${text}`;
   }
@@ -2400,6 +2424,11 @@ class Component extends DCLogic {
     const { authMode, authForm } = this.state;
     const email = (authForm.email || '').trim().toLowerCase();
     if (!email) { this.setState({ authError: 'Introdueix un correu electrònic' }); return; }
+    const signupPhone = authMode === 'signup' ? this._normalizePhone(authForm.phone) : null;
+    if (authMode === 'signup' && !signupPhone) {
+      this.setState({ authError: 'Revisa el telèfon: un mòbil com 612 34 56 78, o amb el prefix del país si no és d\'Espanya (+33…).' });
+      return;
+    }
     if (authMode === 'signup' && (authForm.password || '').length < 6) {
       this.setState({ authError: 'La contrasenya ha de tenir almenys 6 caràcters' });
       return;
@@ -2421,7 +2450,7 @@ class Component extends DCLogic {
           password: authForm.password,
           options: {
             emailRedirectTo: redirectUrl,
-            data: { first_name: authForm.firstName, last_name: authForm.lastName, phone: authForm.phone },
+            data: { first_name: authForm.firstName, last_name: authForm.lastName, phone: signupPhone },
           },
         });
         if (error) throw error;
@@ -2542,6 +2571,11 @@ class Component extends DCLogic {
 
   async handlePostTrip() {
     const { postForm, user, editingTripId } = this.state;
+    this.setState({ postPhoneMissing: false });
+    if (!this._normalizePhone(this.state.profile && this.state.profile.phone)) {
+      this.setState({ postError: 'Abans de publicar, revisa el telèfon del teu perfil: sense un número vàlid ningú et podrà escriure per WhatsApp.', postPhoneMissing: true });
+      return;
+    }
     if (!postForm.origin.trim() || !postForm.destination.trim()) {
       this.setState({ postError: 'Indica l\'origen i la destinació' });
       return;
@@ -2701,8 +2735,15 @@ class Component extends DCLogic {
   }
 
   async handleProfileSave() {
-    const { profileForm, user } = this.state;
-    this.setState({ profileBusy: true });
+    const { user } = this.state;
+    const phone = this._normalizePhone(this.state.profileForm.phone);
+    if (!phone) {
+      this.setState({ profilePhoneError: 'Aquest número no és vàlid. Escriu un mòbil com 612 34 56 78.' });
+      requestAnimationFrame(() => this._scrollToId('profile-phone', true));
+      return;
+    }
+    const profileForm = { ...this.state.profileForm, phone };
+    this.setState({ profileBusy: true, profilePhoneError: '', profileForm });
     try {
       let { error } = await this.sb.from('profiles').update({
         first_name: profileForm.firstName,
@@ -3391,7 +3432,10 @@ class Component extends DCLogic {
       avatarImgRef: this._avatarRef(profileAvatarUrl),
       setProfileFirstName: (e) => this.setState((st) => ({ profileForm: { ...st.profileForm, firstName: e.target.value } })),
       setProfileLastName: (e) => this.setState((st) => ({ profileForm: { ...st.profileForm, lastName: e.target.value } })),
-      setProfilePhone: (e) => this.setState((st) => ({ profileForm: { ...st.profileForm, phone: e.target.value } })),
+      setProfilePhone: (e) => this.setState((st) => ({ profileForm: { ...st.profileForm, phone: e.target.value }, profilePhoneError: '' })),
+      profilePhoneError: s.profilePhoneError,
+      postPhoneMissing: !!s.postPhoneMissing && !!s.postError,
+      goToProfileFromPost: () => { this.setState({ postError: '', postPhoneMissing: false }); this.goTo('profile'); requestAnimationFrame(() => this._scrollToId('profile-phone', true)); },
       handleProfileSave: () => this.handleProfileSave(),
       ...this._interestBindings(),
 

@@ -28,6 +28,11 @@ echo "sc-for $(grep -o '<sc-for' index.html | wc -l)/$(grep -o '</sc-for>' index
 ```
 Els dos números de cada parella han de coincidir.
 
+### `wa.me` necessita el prefix de país; sense, WhatsApp diu que el número no existeix
+**Símptoma:** el botó de WhatsApp obre "No s'ha trobat el número de telèfon" per a un perfil amb `612 34 56 78`.
+**Causa:** `wa.me/<número>` interpreta els dígits com a número internacional complet. L'antiga validació només comptava 8–15 dígits.
+**Regla:** tot telèfon passa per `_normalizePhone()` (desar i construir l'enllaç). Dades antigues: `supabase/migrations/2026-10-29c_normalize_phones.sql`.
+
 ### Un `gap` de flex separa text fix i `{{ variable }}` com si fossin dos elements
 **Símptoma:** un botó `display:flex; gap:12px` amb `Reportar {{ ppFirst }}` es veu com "Reportar   Judit", amb un forat al mig, i el nom accessible queda tallat.
 **Causa:** el motor genera nodes de text separats per al text fix i per a la interpolació; dins d'un contenidor flex, cada node és un element i el `gap` s'hi aplica.
