@@ -8,6 +8,9 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 ## Producte / abast
 
+- **29 oct. — Avisos també per a viatges locals: mateix origen i mateixa destinació.**
+  Per promoure els trajectes dins del Berguedà (flyer), els avisos no podien dependre de Barcelona. Regla: amb Barcelona, mateix sentit com fins ara; sense, mateix poble d'origen i de destinació (normalitzat amb `place_key`). Descartat de moment: detectar pobles "de pas" (caldria una llista ordenada de pobles per ruta); afegir Manresa com a segon eix.
+
 - **29 oct. — "Tornes el mateix dia?" crea la tornada com una publicació separada (també en sèrie).**
   Qui baixa per feina torna el mateix dia; sense això només es publicava l'anada. Dues targetes (anada i tornada) i no una de combinada: cadascuna encaixa sola amb qui només necessita un sentit, els avisos no canvien i el missatge de WhatsApp diu el trajecte exacte. Descartat: tornada un altre dia (cas poc habitual que complica el formulari).
 
