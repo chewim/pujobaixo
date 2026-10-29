@@ -22,6 +22,13 @@ Senyal de canvi de restricció: si en repetir el canal que ja va convertir (grup
 - [ ] **Repetir el canal de WhatsApp amb missatge dirigit a conductors.** El grup de WhatsApp va convertir 6 registres amb cost zero (24 ag. 2026); l'esdeveniment puntual en va donar 10 amb més esforç. És la següent inversió, i no és producte — és distribució. Sense oferta, el sistema d'avisos multiplica per zero.
 - [x] **Jerarquia del CTA a Viatges** (29 oct. 2026) — WhatsApp és l'única superfície sòlida; mesura directa de la restricció (clics de WhatsApp). Comparar clics abans/després quan hi hagi volum.
 - [x] **Reportar i bloquejar + perfil públic mínim** (29 oct. 2026) — no ataca el volum d'oferta: és el mínim de seguretat (i canal de notificació que demana la DSA) abans de créixer. Spec: `docs/specs/2026-10-29_reportar-bloquejar.md`.
+- [ ] **Viatges recurrents** ("cada dilluns, dimarts i dimecres baixo a les 7:30"). Ataca directament la restricció: només 11 persones han ofert mai un viatge i n'hi ha 3 al mes, però qui fa el trajecte per feina o estudis el fa cada setmana. Publicar-lo un cop com a recurrent multiplica l'oferta visible sense demanar més esforç a qui condueix, i dona als avisos (`v_matches`) alguna cosa amb què creuar.
+  Preguntes per a l'spec (toca BD → spec abans de construir, `docs/specs/PLANTILLA.md`):
+  - **Model:** una regla (dies de la setmana + hora + data de fi) que genera viatges concrets per a les properes 1–2 setmanes, o una sola fila amb la regla? Generar viatges concrets manté intactes la llista, el calendari, `v_matches` i els avisos.
+  - **Cancel·lar un dia** sense cancel·lar la sèrie, i **data de fi** obligatòria o per defecte (p. ex. 4 setmanes, renovable) perquè no quedin viatges fantasma de qui ja no baixa.
+  - **Targeta:** mostrar "Cada dl, dt, dc · 7:30" sense omplir la llista de còpies del mateix trajecte.
+  - **També per a sol·licituds** ("cada dilluns necessito baixar"): probablement sí, mateix mecanisme.
+  → Mesura d'èxit: ofertes actives per setmana i contactes únics `(user_id, trip_id)` abans/després.
 - [ ] **SMTP d'Auth amb Resend.** Ja tenim el domini verificat i la clau a Vault; connectar-lo als correus de verificació/recuperació treu el límit de 2/hora del SMTP de prova de Supabase. Cost baix, sense risc, fet quan hi hagi un moment.
 
 ## Aparcat (bona idea, no és el moment)
