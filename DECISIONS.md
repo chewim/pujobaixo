@@ -50,6 +50,9 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 ## Components visuals
 
+- **30 oct. — La il·lustració de la xarxa («Estem posant en marxa») passa a animada (bucle de 9 s).**
+  El trajecte es dibuixa de Berga a Barcelona, un punt el recorre i cada persona apareix (amb el «+» i una ona) quan hi arriba; al final cau el pin de Barcelona. Diu el mateix que el dibuix estàtic (gent que se suma pel camí) però es llegeix com una història. SVG + CSS (màscara amb `pathLength`) i `animateMotion` per al punt; sense moviment, el dibuix final fix.
+
 - **30 oct. — La calculadora va just després del hero; el banner amb imatge i «Estem posant en marxa» passen al final.**
   Ordre: Hero → Calculadora (+ Recuperat / Estalvi anual) → Com funciona → Confiança → Banner CTA → Xarxa. Motiu: la calculadora és la prova del missatge del hero («fins a 30 € recuperats») i quedava massa avall, darrere de dos blocs de CTA. Les targetes de Recuperat/Estalvi anual van sota la calculadora perquè mostren els seus valors.
 
