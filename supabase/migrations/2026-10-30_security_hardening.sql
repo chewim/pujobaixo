@@ -24,6 +24,7 @@
 
 -- 1. Funcions antigues sense ús
 revoke execute on function public.mark_trip_full(uuid)                      from public, anon, authenticated;
+revoke execute on function public.mark_trip_full()                          from public, anon, authenticated;  -- també existia sense arguments
 revoke execute on function public.reopen_trip(uuid, integer)                from public, anon, authenticated;
 revoke execute on function public.update_trip_seats_manual(uuid, integer, text) from public, anon, authenticated;
 revoke execute on function public.mark_verification_screen_shown(uuid)      from public, anon, authenticated;
