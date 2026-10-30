@@ -150,8 +150,8 @@
     .pj-topnav-inner > div:first-of-type { animation:pjNavIn 450ms cubic-bezier(0.22,1,0.36,1) 150ms both; }
     .pj-topnav-link:nth-of-type(1) { animation:pjNavIn 450ms cubic-bezier(0.22,1,0.36,1) 320ms both; }
     .pj-topnav-link:nth-of-type(2) { animation:pjNavIn 450ms cubic-bezier(0.22,1,0.36,1) 440ms both; }
-    .pj-topnav-login { animation:pjNavIn 450ms cubic-bezier(0.22,1,0.36,1) 500ms both; }
     .pj-topnav-cta { animation:pjNavIn 450ms cubic-bezier(0.22,1,0.36,1) 560ms both; }
+    .pj-topnav-login { animation:pjNavIn 450ms cubic-bezier(0.22,1,0.36,1) 620ms both; }
     .pj-hero-eyebrow { animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 900ms both; }
     .pj-hero-copy h1 { animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1050ms both; }
     .pj-hero-copy > p { animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1200ms both; }
@@ -357,12 +357,13 @@
     .pj-footer-cta { display:flex; flex-direction:column; align-items:center; text-align:center; gap:32px; max-width:840px; margin:0 auto; padding:56px 0; }
     .pj-topnav-link { display:none; border:none; background:none; font-family:inherit; font-weight:700; font-size:14px; color:#14151A; cursor:pointer; padding:8px 12px; border-radius:10px; }
     .pj-topnav-link:hover { color:#5B4CFB; }
-    /* «Entra»: accés directe per a qui ja té compte; visible també al mòbil, amb menys pes que «Publicar places». */
-    .pj-topnav-login { display:inline-flex; align-items:center; height:40px; border:none; background:none; font-family:inherit; font-weight:700; font-size:14px; color:#14151A; cursor:pointer; padding:0 12px; border-radius:999px; transition:background 150ms ease, color 150ms ease; }
-    .pj-topnav-login:hover { color:#5B4CFB; background:#EEEBFF; }
+    /* «Entrar»: botó secundari (contorn lila, com «Busco viatge» del hero) al costat de «Publicar places». */
+    .pj-topnav-login { display:inline-flex; align-items:center; height:40px; margin-left:8px; padding:0 18px; border:1.5px solid #5B4CFB; border-radius:999px; background:#fff; color:#5B4CFB; font-family:inherit; font-weight:800; font-size:14px; cursor:pointer; transition:background 150ms ease; }
+    .pj-topnav-login:hover { background:#EEEBFF; }
     .pj-topnav-login:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
-    /* Mòbils estrets (≤ 359 px): «Publicar places» passa a «Publicar» perquè hi càpiga «Entra». */
-    @media (max-width:359px) { .pj-topnav-cta-more { display:none; } .pj-topnav-cta { padding:0 16px !important; } .pj-topnav-login { padding:0 10px; } }
+    /* Mòbil: «Publicar places» passa a «Publicar» perquè els dos botons hi càpiguen al costat del logo. */
+    @media (max-width:419px) { .pj-topnav-cta-more { display:none; } }
+    @media (max-width:359px) { .pj-topnav { padding:14px 12px; } .pj-topnav-cta { padding:0 14px !important; margin-left:4px !important; } .pj-topnav-login { padding:0 12px; margin-left:6px; } }
     .pj-topnav-inner { display:flex; align-items:center; justify-content:space-between; max-width:840px; margin:0 auto; }
     .pj-hero-copy h1, .pj-section-head h2, .pj-loss-copy h2, .pj-footer-cta-copy h2, .pj-calc-copy h2 { text-wrap:balance; }
     .pj-hero-feats { display:flex; flex-direction:column; gap:8px; margin:0 0 28px; animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1300ms both; }
@@ -596,8 +597,8 @@
       <div style="display:flex; align-items:center; gap:4px;">
         <button class="pj-topnav-link" data-scroll-target="pj-estalvi">Estalvi</button>
         <button class="pj-topnav-link" data-scroll-target="pj-comfunciona">Com funciona</button>
-        <button class="pj-topnav-login" data-scroll-target="pj-auth-card" data-scroll-center data-auth-login>Entra</button>
         <button class="pj-topnav-cta" data-scroll-target="pj-auth-card" data-scroll-center data-auth-signup style="height:40px; padding:0 20px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; margin-left:8px; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.96);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">Publicar<span class="pj-topnav-cta-more"> places</span></button>
+        <button class="pj-topnav-login" data-scroll-target="pj-auth-card" data-scroll-center data-auth-login>Entrar</button>
       </div>
     </sc-if>
     </div>

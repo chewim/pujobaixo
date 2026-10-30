@@ -50,8 +50,8 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 ## Components visuals
 
-- **30 oct. — «Entra» a la barra superior de la landing, al costat de «Publicar places», visible també al mòbil.**
-  Qui ja té compte havia de baixar fins a la targeta d'accés i canviar a «Inicia sessió». «Entra» hi porta directament en mode login (`data-auth-login`). Text sense fons, perquè «Publicar places» continuï sent l'acció principal. Per sota de 360 px, «Publicar places» passa a «Publicar» perquè hi càpiguen tots dos.
+- **30 oct. — «Entrar» és un botó secundari (contorn lila) just després de «Publicar places» a la barra superior, visible també al mòbil.**
+  Qui ja té compte havia de baixar fins a la targeta d'accés i canviar a «Inicia sessió»; «Entrar» hi porta directament en mode login (`data-auth-login`). Descartat: enllaç de text al costat de «Com funciona» (publicat i retirat el mateix dia) → semblava navegació, no una acció de compte. Al mòbil (< 420 px) «Publicar places» passa a «Publicar» perquè hi càpiguen tots dos botons.
 
 - **30 oct. — La il·lustració de la xarxa és un mapa de connexions que es teixeix (bucle de 12 s): primer Berga → Barcelona i després Bagà, Gironella, Olvan, Avià i Puig-reig.**
   Descartat: persones repartides pel trajecte (9 s, publicat i retirat el mateix dia) → semblava que el conductor havia de fer parades, i això genera fricció; viatges que surten plens de l'origen → seguia centrat en persones, quan el missatge és la unió entre pobles. Sense moviment, el mapa complet fix.
