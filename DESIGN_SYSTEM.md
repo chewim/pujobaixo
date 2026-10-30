@@ -266,6 +266,8 @@ Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padd
 
 ### Mini-landing en el login
 
+> **Orden actual (30 oct. 2026), manda sobre la descripción histórica de abajo:** Hero → Calculadora (`.pj-calc`, abre `#pj-estalvi`) + tarjetas «Recuperat per viatge / Estalvi anual» (`.pj-proof`, dependen de la calculadora) → Com funciona (`#pj-comfunciona`, mini tarjeta animada) → Confiança (`#pj-confianca`) → banner con imagen y CTA (`.pj-loss-banner`) → Xarxa «Estem posant en marxa» (`.pj-launch`) → CTA final y acceso. Todo lo que va tras el hero vive en la banda gris (`.pj-band-gray`).
+
 Solo en `isLoginMode`, debajo de la tarjeta de acceso (nunca en signup/forgot/reset, para no distraer esos flujos). Reformulada a partir de una propuesta de estructura/contenido en verde-terracota (export de Google Stitch) que el usuario aportó como referencia — se adoptó su **estructura y copy**, pero traducida por completo a nuestro sistema de diseño (morado `#5B4CFB`, Plus Jakarta Sans, iconos trazados a mano en vez de Material Symbols). Cuatro bloques, en este orden:
 
 1. **Bloque de datos** (`.pj-databento`) — titular "Moltes places viatgen buides cada dia." + dos tarjetas: `.pj-databento-eq` (blanca, con la etiqueta "L'EQUACIÓ" usando el propio icono de marca en miniatura + la frase "1 trajecte + persones = − despeses") y `.pj-databento-eco` (fondo sólido `#5B4CFB`, icono de hoja, "Menys emissions"). Apiladas en móvil, en fila (`flex:2`/`flex:1`) en desktop.
