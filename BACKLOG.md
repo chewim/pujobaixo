@@ -12,6 +12,10 @@ No barrejar amb `ROADMAP.md` (decidit i actiu) ni amb la secció "Aparcat" del r
 - Recordatori automàtic (correu) el dia abans d'un viatge propi, amb un enllaç ràpid per cancel·lar si cal.
 - Preguntar "Vau fer el viatge?" després de la data d'un viatge contactat, per saber quants contactes acaben en viatge real (avui és invisible: la conversa passa a WhatsApp). Base per a valoracions.
 - Valoracions post-viatge (ja existeix `rating` a `profiles` segons `_loadTrips`; no s'utilitza enlloc de la UI).
+- **"Autostop digital" (idea en el radar, 30 oct. 2026).** Qui condueix prem "Surto ara" i qui espera en aquell sentit rep l'avís al moment i queden en un punt del camí; com aixecar el polze, però des del mòbil. Cobreix el viatge improvisat, que avui l'app no resol.
+  → **Condició clau: densitat.** Cal un conductor i un passatger al mateix moment i sentit; amb ~8 actius al mes el radar sortiria buit, i un radar buit diu "aquí no hi ha ningú". No abans de tenir més usuaris actius.
+  → **Riscos:** confiança (pujar amb algú en 10 minuts sense conversa prèvia), privacitat (ubicació en directe: aproximada, que caduqui sola i sense historial), límits de la web (sense ubicació en segon pla i push limitat a iPhone; un radar real demana app nativa), i el conductor no pot gestionar sol·licituds mentre condueix.
+  → **Per fases:** 1) "Surto ara" sense mapa: un viatge normal amb sortida en menys de 30 minuts, destacat a dalt i amb avís immediat a qui tingui alerta en aquell sentit (reaprofita viatges, avisos i WhatsApp; serveix per mesurar si hi ha demanda real). 2) "Busco ara" per a passatgers ("soc a Gironella i baixo ara"). 3) Radar amb mapa en directe, només si les dades de 1 i 2 ho justifiquen.
 
 ## Distribució / creixement
 
