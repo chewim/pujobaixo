@@ -14,7 +14,7 @@ Gratuït. 0 € de comissió declarat explícitament a l'avís legal. No hi ha, 
 
 ## Usuari
 
-Persones del Berguedà que es desplacen a Barcelona (o a l'inrevés) de manera habitual. Coneixement local alt, ús de WhatsApp com a eina social per defecte, sensibilitat al cost del trajecte (~42 €/anada-tornada en solitari).
+Persones del Berguedà que es desplacen a Barcelona (o a l'inrevés) de manera habitual. Coneixement local alt, ús de WhatsApp com a eina social per defecte, sensibilitat al cost del trajecte (~48,50 €/anada-tornada en solitari un dia feiner, entre gasolina i peatges).
 
 ## Estat a 30 d'agost de 2026
 
