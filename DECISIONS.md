@@ -50,6 +50,9 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 ## Components visuals
 
+- **30 oct. — La il·lustració de «Com funciona» passa a ser una mini targeta de viatge animada (bucle de 10 s), sincronitzada amb el número de pas actiu.**
+  Escenes: 1) la targeta es publica, 2) dues bombolles de WhatsApp, 3) les 3 places s'omplen i surt «+15 € en aquest trajecte». Una etiqueta a dalt diu el pas, perquè al mòbil la il·lustració queda sota els passos. Descartat: la línia de punts amb llum i els passos 1-2-3 repetits en SVG → duplicava el text del costat sense explicar res i distreia. Amb `prefers-reduced-motion`, estat final fix.
+
 - **30 ag. — Segmentat unificat (`.pj-seg`) sense ombra de color, substitueix els tabs amb tint+ombra morada.**
   Descartat: ombra de color a l'element actiu (patró antic) → xocava amb el toggle de vista, que no la duia; es va retirar de tot el sistema per coherència.
 
@@ -85,5 +88,5 @@ Auditoria línia per línia d'`index.html` contra `DESIGN_SYSTEM.md`. Corregit: 
 **Pendents de decisió (no corregits — cal decidir si documentar-los o normalitzar-los):**
 - **Radi `20px` a 8 components de la landing** (`.pj-axis-card`, `.pj-calc`, `.pj-databento-eq/eco`, `.pj-proof-card`, `.pj-step-card`, `.pj-bento`, `.pj-legal-card`). Consistent entre ells però fora de l'escala del sistema (10/12/14/16/24/28). Opció A: pujar a 24. Opció B: documentar "20px = radi de la mini-landing" com a subsistema.
 - **Escala de color de la calculadora d'estalvi** (`calcColors`/`calcTints`, L2760/2775): gradació semàntica vermell→verd amb 4 tons intermedis (`#DE7317`, `#C9A227`, `#0B6B3A`...) fora de la paleta. Reutilitza `#C22A24`/`#1D874A` als extrems. Cal una línia al DS marcant-la com a escala semàntica local, no reutilitzable fora d'aquí.
-- **`#9AA0AC`** al `<text>` SVG del "48,50€" (abans "42€") ratllat del hero (L659): gris no documentat, proper a `#8F93A1`. Menor.
+- ~~**`#9AA0AC`** al `<text>` SVG del "48,50€" ratllat~~: eliminat amb la nova il·lustració de «Com funciona» (30 oct.).
 - **`.pj-benefit` amb radi 16px**: documentat, però és l'únic contenidor tipus card fora de 24/28. Decidir si s'alinea a 24 o es manté com a excepció conscient.

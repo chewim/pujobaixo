@@ -177,7 +177,60 @@
     .pj-hero-total { position:absolute; left:12px; right:12px; bottom:12px; z-index:3; padding:11px 16px; border-radius:14px; background:rgba(255,255,255,0.9); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); font-size:13.5px; font-weight:700; color:#14151A; text-align:center; animation:pjFadeUp 600ms cubic-bezier(0.22,1,0.36,1) 2.3s both; }
     @keyframes pjChipFloat { 0%, 100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
     @media (prefers-reduced-motion: reduce) { .pj-hero-chip, .pj-hero-lines, .pj-hero-total { animation:none !important; } }
-    @media (prefers-reduced-motion: reduce) { .pj-howworks-light { display:none; } }
+    /* «Com funciona»: mini targeta de viatge que explica els tres passos en un bucle de 10 s. */
+    .pj-hw-demo { width:100%; max-width:264px; }
+    .pj-hw-cap { position:relative; height:24px; margin-bottom:12px; }
+    .pj-hw-cap span { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:8px; font-size:13px; font-weight:800; color:#14151A; }
+    .pj-hw-cap b { width:22px; height:22px; border-radius:999px; background:#5B4CFB; color:#fff; font-size:11.5px; display:flex; align-items:center; justify-content:center; }
+    .pj-hw-c1 { animation:pjHwC1 10s ease infinite both; }
+    .pj-hw-c2 { animation:pjHwC2 10s ease infinite both; }
+    .pj-hw-c3 { animation:pjHwC3 10s ease infinite both; }
+    .pj-hw-note { position:absolute; left:0; right:0; top:8px; display:flex; align-items:center; justify-content:center; gap:6px; font-size:12px; font-weight:700; color:#6B6F7B; animation:pjHwNote 10s ease infinite both; }
+    .pj-hw-card { background:#fff; border:1px solid #ECEDF2; border-radius:18px; padding:14px; box-shadow:0 16px 36px -24px rgba(20,21,26,0.35); display:flex; flex-direction:column; gap:10px; animation:pjHwCard 10s ease infinite both; }
+    .pj-hw-head { display:flex; align-items:center; justify-content:space-between; }
+    .pj-hw-who { display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; color:#14151A; }
+    .pj-hw-avatar { width:26px; height:26px; border-radius:999px; background:#EEEBFF; color:#5B4CFB; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+    .pj-hw-pub { display:inline-flex; align-items:center; gap:4px; background:#E7F3EC; color:#1D874A; font-size:11px; font-weight:800; padding:4px 9px; border-radius:999px; animation:pjHwPop 10s cubic-bezier(0.22,1,0.36,1) infinite both; }
+    .pj-hw-route { display:flex; align-items:center; justify-content:center; gap:6px; font-size:15px; font-weight:800; color:#14151A; letter-spacing:-0.01em; }
+    .pj-hw-meta { text-align:center; font-size:12px; font-weight:600; color:#6B6F7B; }
+    .pj-hw-seats { display:flex; align-items:center; justify-content:center; gap:6px; padding-top:10px; border-top:1px solid #ECEDF2; }
+    .pj-hw-seat { width:26px; height:26px; border-radius:999px; border:1.5px dashed #C9C2FF; position:relative; }
+    .pj-hw-seat-fill { position:absolute; inset:-1.5px; border-radius:999px; background:#5B4CFB; color:#fff; display:flex; align-items:center; justify-content:center; }
+    .pj-hw-s1 { animation:pjHwS1 10s cubic-bezier(0.22,1,0.36,1) infinite both; }
+    .pj-hw-s2 { animation:pjHwS2 10s cubic-bezier(0.22,1,0.36,1) infinite both; }
+    .pj-hw-s3 { animation:pjHwS3 10s cubic-bezier(0.22,1,0.36,1) infinite both; }
+    .pj-hw-seats-label { margin-left:4px; font-size:12px; font-weight:700; color:#6B6F7B; }
+    .pj-hw-slot { position:relative; height:84px; margin-top:12px; }
+    .pj-hw-bub { position:absolute; max-width:86%; font-size:12px; font-weight:600; line-height:1.35; padding:8px 11px; border-radius:14px; color:#14151A; }
+    .pj-hw-in { top:0; left:0; background:#fff; border:1px solid #ECEDF2; border-bottom-left-radius:4px; animation:pjHwB1 10s ease infinite both; }
+    .pj-hw-out { top:42px; right:0; background:#DCF8C6; border-bottom-right-radius:4px; animation:pjHwB2 10s ease infinite both; }
+    .pj-hw-ticks { color:#34B7F1; font-size:10px; margin-left:2px; letter-spacing:-0.1em; }
+    .pj-hw-total { position:absolute; left:0; right:0; top:10px; margin:0 auto; width:max-content; text-align:center; background:#E7F3EC; color:#1D874A; font-size:13px; font-weight:700; padding:10px 16px; border-radius:16px; animation:pjHwTotal 10s cubic-bezier(0.22,1,0.36,1) infinite both; }
+    .pj-hw-total strong { font-size:17px; font-weight:800; }
+    .pj-hw-total span { display:block; margin-top:2px; font-size:11px; font-weight:700; color:#4B4E58; }
+    .pj-howworks-step:nth-child(2) .pj-howworks-num { animation:pjHwN1 10s ease infinite both; }
+    .pj-howworks-step:nth-child(3) .pj-howworks-num { animation:pjHwN2 10s ease infinite both; }
+    .pj-howworks-step:nth-child(4) .pj-howworks-num { animation:pjHwN3 10s ease infinite both; }
+    @keyframes pjHwC1 { 0% { opacity:0; } 4%, 30% { opacity:1; } 33%, 100% { opacity:0; } }
+    @keyframes pjHwC2 { 0%, 34% { opacity:0; } 37%, 63% { opacity:1; } 66%, 100% { opacity:0; } }
+    @keyframes pjHwC3 { 0%, 67% { opacity:0; } 70%, 94% { opacity:1; } 97%, 100% { opacity:0; } }
+    @keyframes pjHwNote { 0%, 14% { opacity:0; transform:translateY(6px); } 18%, 29% { opacity:1; transform:none; } 33%, 100% { opacity:0; } }
+    @keyframes pjHwCard { 0% { opacity:0; transform:translateY(12px); } 6%, 95% { opacity:1; transform:none; } 100% { opacity:0; } }
+    @keyframes pjHwPop { 0%, 9% { opacity:0; transform:scale(0.6); } 13%, 95% { opacity:1; transform:none; } 100% { opacity:0; } }
+    @keyframes pjHwB1 { 0%, 35% { opacity:0; transform:translateY(8px); } 39%, 64% { opacity:1; transform:none; } 68%, 100% { opacity:0; } }
+    @keyframes pjHwB2 { 0%, 45% { opacity:0; transform:translateY(8px); } 49%, 64% { opacity:1; transform:none; } 68%, 100% { opacity:0; } }
+    @keyframes pjHwS1 { 0%, 69% { opacity:0; transform:scale(0.4); } 72%, 95% { opacity:1; transform:none; } 100% { opacity:0; } }
+    @keyframes pjHwS2 { 0%, 74% { opacity:0; transform:scale(0.4); } 77%, 95% { opacity:1; transform:none; } 100% { opacity:0; } }
+    @keyframes pjHwS3 { 0%, 79% { opacity:0; transform:scale(0.4); } 82%, 95% { opacity:1; transform:none; } 100% { opacity:0; } }
+    @keyframes pjHwTotal { 0%, 84% { opacity:0; transform:translateY(8px); } 88%, 95% { opacity:1; transform:none; } 100% { opacity:0; } }
+    @keyframes pjHwN1 { 0%, 31% { background:#5B4CFB; color:#fff; } 34%, 97% { background:#EEEBFF; color:#5B4CFB; } 100% { background:#5B4CFB; color:#fff; } }
+    @keyframes pjHwN2 { 0%, 31% { background:#EEEBFF; color:#5B4CFB; } 34%, 64% { background:#5B4CFB; color:#fff; } 67%, 100% { background:#EEEBFF; color:#5B4CFB; } }
+    @keyframes pjHwN3 { 0%, 64% { background:#EEEBFF; color:#5B4CFB; } 67%, 97% { background:#5B4CFB; color:#fff; } 100% { background:#EEEBFF; color:#5B4CFB; } }
+    /* Sense moviment: estat final fix (targeta publicada, places plenes i total). */
+    @media (prefers-reduced-motion: reduce) {
+      .pj-hw-card, .pj-hw-pub, .pj-hw-seat-fill, .pj-hw-total, .pj-howworks-num { animation:none !important; }
+      .pj-hw-bub, .pj-hw-note, .pj-hw-cap { display:none; }
+    }
     .pj-axis-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; box-shadow:0 20px 60px -30px rgba(20,21,26,0.25); padding:24px; width:100%; max-width:280px; display:flex; flex-direction:column; gap:12px; }
     .pj-axis-row { display:flex; align-items:center; gap:12px; font-size:14px; font-weight:700; }
     .pj-axis-line { width:2px; height:32px; background:#5B4CFB; opacity:0.35; margin-left:8px; border-radius:1px; }
@@ -692,37 +745,29 @@
                 </div>
               </div>
               <div class="pj-howworks-illus" aria-hidden="true">
-                <svg viewBox="0 0 200 300" fill="none" style="width:100%; max-width:200px; height:auto;">
-                  <defs>
-                    <radialGradient id="pjLightGlow" cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>
-                      <stop offset="100%" stop-color="#5B4CFB" stop-opacity="0"/>
-                    </radialGradient>
-                  </defs>
-                  <line x1="20" y1="28" x2="20" y2="252" stroke="#5B4CFB" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/>
-                  <circle class="pj-howworks-light" r="9" fill="url(#pjLightGlow)">
-                    <animateMotion path="M20,28 L20,252" dur="3.2s" repeatCount="indefinite" calcMode="linear"/>
-                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.9;1" dur="3.2s" repeatCount="indefinite"/>
-                  </circle>
-                  <circle cx="20" cy="28" r="11" fill="#5B4CFB"/>
-                  <text x="20" y="32.5" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" style="font-family:inherit;">1</text>
-                  <rect x="44" y="17" width="88" height="22" rx="11" fill="#EEEBFF"/>
-                  <text x="88" y="32" text-anchor="middle" font-size="11" font-weight="800" fill="#5B4CFB" style="font-family:inherit;">+3 places</text>
-                  <text x="44" y="52" font-size="10.5" font-weight="700" fill="#6B6F7B" style="font-family:inherit;">Publiques les places</text>
-                  <circle cx="20" cy="140" r="11" fill="#5B4CFB"/>
-                  <text x="20" y="144.5" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" style="font-family:inherit;">2</text>
-                  <rect x="44" y="127" width="96" height="26" rx="13" fill="#25D366"/>
-                  <text x="92" y="144" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" style="font-family:inherit;">A les 18.00?</text>
-                  <path d="M126 139l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
-                  <text x="44" y="166" font-size="10.5" font-weight="700" fill="#6B6F7B" style="font-family:inherit;">Confirmeu per WhatsApp</text>
-                  <circle cx="20" cy="252" r="11" fill="#5B4CFB"/>
-                  <text x="20" y="256.5" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" style="font-family:inherit;">3</text>
-                  <text x="44" y="258" font-size="14" font-weight="800" fill="#9AA0AC" style="font-family:inherit;">48,50€</text>
-                  <line x1="43" y1="253" x2="98" y2="253" stroke="#C22A24" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M104 252h12M110 246l6 6-6 6" stroke="#5B4CFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <text x="123" y="260" font-size="18" font-weight="800" fill="#1D874A" style="font-family:inherit;">18,50€</text>
-                  <text x="44" y="279" font-size="10.5" font-weight="700" fill="#6B6F7B" style="font-family:inherit;">Compartiu el cost</text>
-                </svg>
+                <!-- Història en bucle (10 s), sincronitzada amb el número de pas actiu: publica → WhatsApp → places plenes. -->
+                <div class="pj-hw-demo">
+                  <div class="pj-hw-cap">
+                    <span class="pj-hw-c1"><b>1</b>Publiques les places</span>
+                    <span class="pj-hw-c2"><b>2</b>Parleu per WhatsApp</span>
+                    <span class="pj-hw-c3"><b>3</b>Compartiu les despeses</span>
+                  </div>
+                  <div class="pj-hw-card">
+                    <div class="pj-hw-head">
+                      <span class="pj-hw-who"><span class="pj-hw-avatar">M</span>Marta</span>
+                      <span class="pj-hw-pub"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Publicat</span>
+                    </div>
+                    <div class="pj-hw-route">Berga<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>Barcelona</div>
+                    <div class="pj-hw-meta">Dilluns · 7:30 · 5&nbsp;€ per plaça</div>
+                    <div class="pj-hw-seats"><span class="pj-hw-seat"><span class="pj-hw-seat-fill pj-hw-s1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span></span><span class="pj-hw-seat"><span class="pj-hw-seat-fill pj-hw-s2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span></span><span class="pj-hw-seat"><span class="pj-hw-seat-fill pj-hw-s3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span></span><span class="pj-hw-seats-label">3 places</span></div>
+                  </div>
+                  <div class="pj-hw-slot">
+                    <div class="pj-hw-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Ho veu qui fa el mateix camí</div>
+                    <div class="pj-hw-bub pj-hw-in">Hola! Queda plaça dilluns?</div>
+                    <div class="pj-hw-bub pj-hw-out">Sí! Et recullo a les 7:20 <span class="pj-hw-ticks">✓✓</span></div>
+                    <div class="pj-hw-total"><strong>+15&nbsp;€</strong> en aquest trajecte<span>3 places × 5&nbsp;€</span></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
