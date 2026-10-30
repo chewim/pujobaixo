@@ -90,6 +90,11 @@ Els dos números de cada parella han de coincidir.
 
 ---
 
+### El repo és públic: la seguretat de les dades és RLS, no amagar el codi
+**Símptoma:** dubte recurrent de si tenir el repo públic exposa dades.
+**Causa:** la clau `sb_publishable_…` és pública per disseny (també es veu a la web). El que protegeix les dades són les polítiques RLS de cada taula i els permisos `EXECUTE` de les funcions.
+**Solució/regla:** mai pujar `service_role`, la clau de Resend ni dades personals (van al Vault). Després de crear taules o funcions, revisar **Advisors → Security Advisor**. Les funcions `security definer` es tanquen sempre a `anon` (`revoke … from public, anon`) i, si l'app no les crida, també a `authenticated`; compte amb versions amb arguments diferents (`mark_trip_full()` i `mark_trip_full(uuid)` convivien). Estat a 30 oct. 2026 (`2026-10-30_security_hardening.sql`): només queden 3 avisos intencionats (`hidden_user_ids`, `my_blocks`, `public_profile`, que l'app necessita) i el de contrasenyes filtrades (interruptor del panell).
+
 ## Infraestructura
 
 ### Un servei antic connectat al repo pot seguir desplegant (i gastant) en silenci
