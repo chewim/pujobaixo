@@ -50,6 +50,9 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 ## Components visuals
 
+- **30 oct. — La calculadora va just després del hero; el banner amb imatge i «Estem posant en marxa» passen al final.**
+  Ordre: Hero → Calculadora (+ Recuperat / Estalvi anual) → Com funciona → Confiança → Banner CTA → Xarxa. Motiu: la calculadora és la prova del missatge del hero («fins a 30 € recuperats») i quedava massa avall, darrere de dos blocs de CTA. Les targetes de Recuperat/Estalvi anual van sota la calculadora perquè mostren els seus valors.
+
 - **30 oct. — La il·lustració de «Com funciona» passa a ser una mini targeta de viatge animada (bucle de 10 s), sincronitzada amb el número de pas actiu.**
   Escenes: 1) la targeta es publica, 2) dues bombolles de WhatsApp, 3) les 3 places s'omplen i surt «+15 € en aquest trajecte». Una etiqueta a dalt diu el pas, perquè al mòbil la il·lustració queda sota els passos. Descartat: la línia de punts amb llum i els passos 1-2-3 repetits en SVG → duplicava el text del costat sense explicar res i distreia. Amb `prefers-reduced-motion`, estat final fix.
 
