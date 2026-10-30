@@ -8,8 +8,11 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 ## Producte / abast
 
-- **30 oct. — Un sol exemple d'estalvi a la web i al flyer: anada i tornada ≈42 €, 5 € per plaça i trajecte, 3 places.**
-  Hi havia quatre xifres diferents (web: "fins a 30 €", 42 → 12 € i "fins a 40 €"; flyer: 13,61 € només gasoil repartit a parts iguals, 3,40 € per persona). L'exemple ha de reflectir com funciona l'app: qui condueix fixa un preu per plaça (5 € per defecte) i ofereix 3 places per defecte. Amb 3 places: recupera 30 € i el viatge li costa 12 €; qui viatja paga 10 € anada i tornada. Descartat: repartiment a parts iguals → no és el model de l'app i crea expectatives d'un preu més baix del que es troba. El flyer es genera amb `flyer/build.py` (fora del repo).
+- **30 oct. — L'exemple passa de ≈42 € a 48,50 €, calculat amb dades reals: Berga → Barcelona i tornada, dia feiner, sense compartir.**
+  210 km × 6,5 l/100 km × 1,719 €/l (gasolina 95, prov. de Barcelona, 30/10/2026) = 23,46 € + peatges en hora punta sense descomptes (Manresa 5,81 + Les Fonts 1,43 + Vallvidrera 5,28 = 12,52 € per trajecte, ×2 = 25,04 €). Escala amb 5 € per plaça i trajecte: 48,50 / 38,50 / 28,50 / 18,50 / 8,50 €. El 42 € no corresponia a cap escenari concret i el flyer ja usava 48,50 €. Es manté "fins a 30 € recuperats" (3 × 5 € × 2). Descartat: 60 € (peatges de cap de setmana); 37 € (Via-T amb la barrera de Manresa gratuïta: no és el cas general). Detall i fonts: `flyer/PRODUCCIO.md`.
+
+- **30 oct. (substituïda per l'anterior) — Un sol exemple d'estalvi a la web i al flyer: anada i tornada ≈42 €, 5 € per plaça i trajecte, 3 places.**
+  Hi havia quatre xifres diferents (web: "fins a 30 €", 42 → 12 € i "fins a 40 €"; flyer: 13,61 € només gasoil repartit a parts iguals, 3,40 € per persona). L'exemple ha de reflectir com funciona l'app: qui condueix fixa un preu per plaça (5 € per defecte) i ofereix 3 places per defecte. Amb 3 places: recupera 30 € i el viatge li costa 12 € (ara 18,50 €, vegeu l'entrada anterior); qui viatja paga 10 € anada i tornada. Descartat: repartiment a parts iguals → no és el model de l'app i crea expectatives d'un preu més baix del que es troba. El flyer es genera amb `flyer/build.py` (fora del repo).
 
 - **29 oct. — Avisos també per a viatges locals: mateix origen i mateixa destinació.**
   Per promoure els trajectes dins del Berguedà (flyer), els avisos no podien dependre de Barcelona. Regla: amb Barcelona, mateix sentit com fins ara; sense, mateix poble d'origen i de destinació (normalitzat amb `place_key`). Descartat de moment: detectar pobles "de pas" (caldria una llista ordenada de pobles per ruta); afegir Manresa com a segon eix.
@@ -82,5 +85,5 @@ Auditoria línia per línia d'`index.html` contra `DESIGN_SYSTEM.md`. Corregit: 
 **Pendents de decisió (no corregits — cal decidir si documentar-los o normalitzar-los):**
 - **Radi `20px` a 8 components de la landing** (`.pj-axis-card`, `.pj-calc`, `.pj-databento-eq/eco`, `.pj-proof-card`, `.pj-step-card`, `.pj-bento`, `.pj-legal-card`). Consistent entre ells però fora de l'escala del sistema (10/12/14/16/24/28). Opció A: pujar a 24. Opció B: documentar "20px = radi de la mini-landing" com a subsistema.
 - **Escala de color de la calculadora d'estalvi** (`calcColors`/`calcTints`, L2760/2775): gradació semàntica vermell→verd amb 4 tons intermedis (`#DE7317`, `#C9A227`, `#0B6B3A`...) fora de la paleta. Reutilitza `#C22A24`/`#1D874A` als extrems. Cal una línia al DS marcant-la com a escala semàntica local, no reutilitzable fora d'aquí.
-- **`#9AA0AC`** al `<text>` SVG del "42€" ratllat del hero (L659): gris no documentat, proper a `#8F93A1`. Menor.
+- **`#9AA0AC`** al `<text>` SVG del "48,50€" (abans "42€") ratllat del hero (L659): gris no documentat, proper a `#8F93A1`. Menor.
 - **`.pj-benefit` amb radi 16px**: documentat, però és l'únic contenidor tipus card fora de 24/28. Decidir si s'alinea a 24 o es manté com a excepció conscient.

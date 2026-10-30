@@ -265,6 +265,7 @@
     .pj-proof-formula { display:inline-block; background:#F3F4F8; border-radius:8px; padding:6px 12px; font-size:12.5px; font-weight:700; color:#4B4E58; margin:0; }
     .pj-calc-big-price { font-size:88px; font-weight:800; letter-spacing:-0.04em; line-height:1; transition:color 450ms ease; }
     .pj-calc-big-price small { font-size:40px; font-weight:700; margin-left:6px; }
+    .pj-calc-big-price small.pj-calc-cents { margin-left:0; letter-spacing:-0.02em; }
     .pj-bento4 { display:grid; grid-template-columns:1fr; gap:16px; }
     .pj-bento4-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; }
     .pj-bento4-icon { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; background:#EEEBFF; margin-bottom:16px; }
@@ -641,10 +642,10 @@
             <div class="pj-calc">
               <div class="pj-calc-copy">
                 <h2>El cost real dels teus viatges</h2>
-                <p>Una anada i tornada Berguedà ⇄ Barcelona pot costar uns 42&nbsp;€ entre combustible i peatges. Mira com canvia quan comparteixes les places.</p>
+                <p>Un dia feiner, anar i tornar de Berga a Barcelona sense compartir costa uns 48,50&nbsp;€ entre gasolina i peatges. Mira com canvia quan comparteixes les places.</p>
               </div>
               <div class="pj-calc-big">
-                <span class="pj-calc-big-price" style="color:{{ calcPriceColor }};">{{ calcPriceLabel }}<small>€</small></span>
+                <span class="pj-calc-big-price" style="color:{{ calcPriceColor }};">{{ calcPriceLabel }}<small class="pj-calc-cents">{{ calcPriceCents }}</small><small>€</small></span>
               </div>
               <div class="pj-calc-seg" role="group" aria-label="Places compartides">
                 <div class="pj-calc-track" style="transform:{{ calcTrackShift }};">
@@ -655,7 +656,7 @@
                 <button onClick="{{ setCalcSeats4 }}" aria-label="4 places compartides" aria-pressed="{{ calcSeg4Pressed }}" style="{{ calcSeg4Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 4 places</button>
                 </div>
               </div>
-              <p class="pj-calc-disclaimer">Càlcul orientatiu: el cost real pot variar segons l'origen, el vehicle i la ruta. Aportació de referència: 5&nbsp;€ per persona i trajecte.</p>
+              <p class="pj-calc-disclaimer">Càlcul orientatiu: ≈105&nbsp;km per trajecte, gasolina 95 a 1,719&nbsp;€/l i 6,5&nbsp;l/100&nbsp;km, peatges en hora punta sense descomptes (Manresa, Les Fonts i Vallvidrera). El cost real pot variar segons l'origen, el vehicle i la ruta. Aportació de referència: 5&nbsp;€ per persona i trajecte.</p>
             </div>
 
           </div>
@@ -716,10 +717,10 @@
                   <text x="44" y="166" font-size="10.5" font-weight="700" fill="#6B6F7B" style="font-family:inherit;">Confirmeu per WhatsApp</text>
                   <circle cx="20" cy="252" r="11" fill="#5B4CFB"/>
                   <text x="20" y="256.5" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" style="font-family:inherit;">3</text>
-                  <text x="58" y="258" text-anchor="middle" font-size="16" font-weight="800" fill="#9AA0AC" style="font-family:inherit;">42€</text>
-                  <line x1="44" y1="253" x2="72" y2="253" stroke="#C22A24" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M82 252h18M94 246l6 6-6 6" stroke="#5B4CFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <text x="130" y="261" text-anchor="middle" font-size="20" font-weight="800" fill="#1D874A" style="font-family:inherit;">12€</text>
+                  <text x="44" y="258" font-size="14" font-weight="800" fill="#9AA0AC" style="font-family:inherit;">48,50€</text>
+                  <line x1="43" y1="253" x2="98" y2="253" stroke="#C22A24" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M104 252h12M110 246l6 6-6 6" stroke="#5B4CFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text x="123" y="260" font-size="18" font-weight="800" fill="#1D874A" style="font-family:inherit;">18,50€</text>
                   <text x="44" y="279" font-size="10.5" font-weight="700" fill="#6B6F7B" style="font-family:inherit;">Compartiu el cost</text>
                 </svg>
               </div>
@@ -1812,7 +1813,7 @@ class Component extends DCLogic {
     view: 'auth',
     authMode: 'login',
     calcSeats: '0',
-    calcDisplay: 42,
+    calcDisplay: 48.5,
     user: null,
     authForm: { email: '', password: '', firstName: '', lastName: '', phone: '' },
     authError: '',
@@ -1936,7 +1937,7 @@ class Component extends DCLogic {
     document.addEventListener('click', this._onDocClick, true);
 
     // Auto-advances the savings calculator on the login landing so the
-    // 42 -> 12 story plays without interaction. Stops if the user clicks.
+    // 48,50 -> 18,50 story plays without interaction. Stops if the user clicks.
     this._calcAutoTimer = setInterval(() => {
       const st = this.state;
       if (this._calcAutoStopped) return;
@@ -2271,7 +2272,8 @@ class Component extends DCLogic {
 
   _setCalcSeats(n, fromAuto) {
     if (!fromAuto) this._calcAutoStopped = true;
-    const costs = { '0': 42, '1': 32, '2': 22, '3': 12, '4': 2 };
+    // Anada i tornada Berga–Barcelona, dia feiner (vegeu DECISIONS): 48,50 € sol, −10 € per plaça a 5 €/trajecte.
+    const costs = { '0': 48.5, '1': 38.5, '2': 28.5, '3': 18.5, '4': 8.5 };
     const from = this.state.calcDisplay == null ? costs[this.state.calcSeats || '0'] : this.state.calcDisplay;
     const target = costs[n];
     this.setState({ calcSeats: n });
@@ -2285,7 +2287,7 @@ class Component extends DCLogic {
     this._calcTimer = setInterval(() => {
       const t = Math.min(1, (Date.now() - start) / dur);
       const eased = 1 - Math.pow(1 - t, 3);
-      this.setState({ calcDisplay: Math.round(from + (target - from) * eased) });
+      this.setState({ calcDisplay: Math.round((from + (target - from) * eased) * 2) / 2 });
       if (t >= 1) clearInterval(this._calcTimer);
     }, 30);
   }
@@ -3338,10 +3340,11 @@ class Component extends DCLogic {
     const isAuthShellView = view === 'auth' || view === 'reset';
 
     const calcSeats = s.calcSeats || '0';
+    const calcValue = s.calcDisplay == null ? 48.5 : s.calcDisplay;
     const calcColors = { '0': '#C22A24', '1': '#DE7317', '2': '#C9A227', '3': '#1D874A', '4': '#0B6B3A' };
-    const calcRamp = [[42, [194, 42, 36]], [32, [222, 115, 23]], [22, [201, 162, 39]], [12, [29, 135, 74]], [2, [11, 107, 58]]];
+    const calcRamp = [[48.5, [194, 42, 36]], [38.5, [222, 115, 23]], [28.5, [201, 162, 39]], [18.5, [29, 135, 74]], [8.5, [11, 107, 58]]];
     const calcColorFor = (v) => {
-      const x = Math.max(2, Math.min(42, v));
+      const x = Math.max(8.5, Math.min(48.5, v));
       for (let i = 0; i < calcRamp.length - 1; i++) {
         const [v1, c1] = calcRamp[i], [v2, c2] = calcRamp[i + 1];
         if (x <= v1 && x >= v2) {
@@ -3360,12 +3363,13 @@ class Component extends DCLogic {
 
     return {
       isLoggedIn,
-      calcPriceLabel: String(s.calcDisplay == null ? 42 : s.calcDisplay),
-      calcSavedShort: `+${42 - (s.calcDisplay == null ? 42 : s.calcDisplay)} €`,
+      calcPriceLabel: String(Math.floor(calcValue)),
+      calcPriceCents: calcValue % 1 ? ',50' : ',00',
+      calcSavedShort: `+${(48.5 - calcValue) % 1 ? (48.5 - calcValue).toFixed(2).replace('.', ',') : 48.5 - calcValue} €`,
       calcSavedFormula: `${calcSeats} ${calcSeats === '1' ? 'plaça' : 'places'} × 5 € × 2 trajectes`,
       calcYearShort: calcSeats === '0' ? '0 €' : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} €`,
       calcYearFormula: `${Number(calcSeats) * 10} € × 52 setmanes`,
-      calcPriceColor: calcColorFor(s.calcDisplay == null ? 42 : s.calcDisplay),
+      calcPriceColor: calcColorFor(calcValue),
       calcTrackShift: `translateX(${-(Number(calcSeats) * 198)}px)`,
       calcSeg0Style: calcSegStyle('0'),
       calcSeg1Style: calcSegStyle('1'),
