@@ -160,6 +160,43 @@
     .pj-launch { max-width:840px; margin:0 auto; padding:8px 0 56px; display:grid; grid-template-columns:1fr; gap:32px; align-items:center; }
     .pj-launch-illus { display:flex; align-items:center; justify-content:center; aspect-ratio:4/3; border-radius:24px; background:linear-gradient(160deg, #F4F2FF 0%, #F7F9FF 100%); }
     .pj-launch-illus svg { width:72%; height:auto; }
+    /* Xarxa: el trajecte es dibuixa (màscara), un punt el recorre i cada persona apareix quan hi arriba; el pin cau al final. */
+    .pj-ln-all { animation:pjLnAll 9s ease infinite both; }
+    .pj-ln-reveal { animation:pjLnReveal 9s linear infinite both; }
+    .pj-ln-pop, .pj-ln-pin, .pj-ln-ring { transform-box:fill-box; transform-origin:center; }
+    .pj-ln-origin { animation:pjLnOrigin 9s cubic-bezier(0.34,1.56,0.64,1) infinite both; }
+    .pj-ln-p1 { animation:pjLnP1 9s cubic-bezier(0.34,1.56,0.64,1) infinite both; }
+    .pj-ln-p2 { animation:pjLnP2 9s cubic-bezier(0.34,1.56,0.64,1) infinite both; }
+    .pj-ln-p3 { animation:pjLnP3 9s cubic-bezier(0.34,1.56,0.64,1) infinite both; }
+    .pj-ln-b1 { animation:pjLnB1 9s cubic-bezier(0.34,1.56,0.64,1) infinite both; }
+    .pj-ln-b2 { animation:pjLnB2 9s cubic-bezier(0.34,1.56,0.64,1) infinite both; }
+    .pj-ln-b3 { animation:pjLnB3 9s cubic-bezier(0.34,1.56,0.64,1) infinite both; }
+    .pj-ln-ring { opacity:0; }
+    .pj-ln-r1 { animation:pjLnR1 9s ease-out infinite both; }
+    .pj-ln-r2 { animation:pjLnR2 9s ease-out infinite both; }
+    .pj-ln-r3 { animation:pjLnR3 9s ease-out infinite both; }
+    .pj-ln-rpin { animation:pjLnRPin 9s ease-out infinite both; }
+    .pj-ln-dest { animation:pjLnDest 9s ease infinite both; }
+    .pj-ln-pin { transform-origin:50% 100%; animation:pjLnPin 9s cubic-bezier(0.34,1.56,0.64,1) infinite both; }
+    @keyframes pjLnAll { 0%, 92% { opacity:1; } 97%, 100% { opacity:0; } }
+    @keyframes pjLnReveal { 0%, 6% { stroke-dashoffset:1; } 54%, 100% { stroke-dashoffset:0; } }
+    @keyframes pjLnOrigin { 0% { transform:scale(0); } 5%, 100% { transform:scale(1); } }
+    @keyframes pjLnP1 { 0%, 18% { transform:scale(0); } 22%, 100% { transform:scale(1); } }
+    @keyframes pjLnP2 { 0%, 30.5% { transform:scale(0); } 34.5%, 100% { transform:scale(1); } }
+    @keyframes pjLnP3 { 0%, 43% { transform:scale(0); } 47%, 100% { transform:scale(1); } }
+    @keyframes pjLnB1 { 0%, 21% { transform:scale(0); } 24%, 100% { transform:scale(1); } }
+    @keyframes pjLnB2 { 0%, 33.5% { transform:scale(0); } 36.5%, 100% { transform:scale(1); } }
+    @keyframes pjLnB3 { 0%, 46% { transform:scale(0); } 49%, 100% { transform:scale(1); } }
+    @keyframes pjLnR1 { 0%, 18% { opacity:0; transform:scale(1); } 19% { opacity:0.5; transform:scale(1); } 30%, 100% { opacity:0; transform:scale(1.9); } }
+    @keyframes pjLnR2 { 0%, 30.5% { opacity:0; transform:scale(1); } 31.5% { opacity:0.5; transform:scale(1); } 42.5%, 100% { opacity:0; transform:scale(1.9); } }
+    @keyframes pjLnR3 { 0%, 43% { opacity:0; transform:scale(1); } 44% { opacity:0.5; transform:scale(1); } 55%, 100% { opacity:0; transform:scale(1.9); } }
+    @keyframes pjLnRPin { 0%, 59% { opacity:0; transform:scale(1); } 60% { opacity:0.6; transform:scale(1); } 74%, 100% { opacity:0; transform:scale(3); } }
+    @keyframes pjLnDest { 0%, 56% { opacity:0; } 62%, 100% { opacity:1; } }
+    @keyframes pjLnPin { 0%, 53% { opacity:0; transform:translateY(-14px) scale(0.8); } 59%, 100% { opacity:1; transform:none; } }
+    @media (prefers-reduced-motion: reduce) {
+      .pj-ln-all, .pj-ln-reveal, .pj-ln-pop, .pj-ln-pin, .pj-ln-ring, .pj-ln-dest { animation:none !important; }
+      .pj-ln-car { display:none; }
+    }
     .pj-launch-copy h2 { font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 12px; text-wrap:balance; }
     .pj-launch-copy p { font-size:15px; color:#6B6F7B; margin:0 0 24px; line-height:1.55; max-width:480px; }
     .pj-band { position:relative; z-index:1; width:100vw; width:100dvw; margin:0 calc(50% - 50vw); margin:0 calc(50% - 50dvw); padding-left:16px; padding-right:16px; }
@@ -785,14 +822,26 @@
 
             <div class="pj-launch pj-solo-block">
               <div class="pj-launch-illus" aria-hidden="true">
+                <!-- Bucle de 9 s: el trajecte es dibuixa de Berga a Barcelona i s'hi sumen persones pel camí. -->
                 <svg viewBox="0 0 240 160" fill="none">
-                  <circle cx="26" cy="122" r="6" stroke="#5B4CFB" stroke-width="2.2"/>
-                  <path d="M33 120 C 75 70, 150 150, 204 62" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="1 8"/>
-                  <path d="M206 34c6.6 0 12 5.4 12 12 0 8.6-12 20-12 20s-12-11.4-12-20c0-6.6 5.4-12 12-12z" stroke="#5B4CFB" stroke-width="2.2" stroke-linejoin="round"/>
-                  <circle cx="206" cy="46" r="3.2" fill="#5B4CFB"/>
-                  <g transform="translate(78,92)"><circle r="16" fill="#fff" stroke="#ECEDF2" stroke-width="1.5"/><circle cx="0" cy="-3" r="4.2" stroke="#5B4CFB" stroke-width="2" fill="none"/><path d="M-7 9c0-4 3.2-6 7-6s7 2 7 6" stroke="#5B4CFB" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="12" cy="-11" r="5.5" fill="#1D874A"/><path d="M12 -13.5v5M9.5 -11h5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></g>
-                  <g transform="translate(128,112)"><circle r="16" fill="#fff" stroke="#ECEDF2" stroke-width="1.5"/><circle cx="0" cy="-3" r="4.2" stroke="#5B4CFB" stroke-width="2" fill="none"/><path d="M-7 9c0-4 3.2-6 7-6s7 2 7 6" stroke="#5B4CFB" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="12" cy="-11" r="5.5" fill="#1D874A"/><path d="M12 -13.5v5M9.5 -11h5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></g>
-                  <g transform="translate(170,86)"><circle r="16" fill="#fff" stroke="#ECEDF2" stroke-width="1.5"/><circle cx="0" cy="-3" r="4.2" stroke="#5B4CFB" stroke-width="2" fill="none"/><path d="M-7 9c0-4 3.2-6 7-6s7 2 7 6" stroke="#5B4CFB" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="12" cy="-11" r="5.5" fill="#1D874A"/><path d="M12 -13.5v5M9.5 -11h5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></g>
+                  <defs>
+                    <mask id="pjLaunchMask" maskUnits="userSpaceOnUse" x="0" y="0" width="240" height="160"><path class="pj-ln-reveal" d="M33 120 C 75 70, 150 150, 204 62" stroke="#fff" stroke-width="10" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1"/></mask>
+                  </defs>
+                  <g class="pj-ln-all">
+                  <circle class="pj-ln-pop pj-ln-origin" cx="26" cy="122" r="6" stroke="#5B4CFB" stroke-width="2.2"/>
+                  <text x="26" y="144" text-anchor="middle" font-size="9" font-weight="700" fill="#6B6F7B" style="font-family:inherit;">Berga</text>
+                  <path d="M33 120 C 75 70, 150 150, 204 62" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="1 8" mask="url(#pjLaunchMask)"/>
+                  <g transform="translate(78,92)"><circle class="pj-ln-ring pj-ln-r1" r="16" stroke="#5B4CFB" stroke-width="1.5"/><g class="pj-ln-pop pj-ln-p1"><circle r="16" fill="#fff" stroke="#ECEDF2" stroke-width="1.5"/><circle cx="0" cy="-3" r="4.2" stroke="#5B4CFB" stroke-width="2" fill="none"/><path d="M-7 9c0-4 3.2-6 7-6s7 2 7 6" stroke="#5B4CFB" stroke-width="2" fill="none" stroke-linecap="round"/></g><g class="pj-ln-pop pj-ln-b1"><circle cx="12" cy="-11" r="5.5" fill="#1D874A"/><path d="M12 -13.5v5M9.5 -11h5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></g></g>
+                  <g transform="translate(128,112)"><circle class="pj-ln-ring pj-ln-r2" r="16" stroke="#5B4CFB" stroke-width="1.5"/><g class="pj-ln-pop pj-ln-p2"><circle r="16" fill="#fff" stroke="#ECEDF2" stroke-width="1.5"/><circle cx="0" cy="-3" r="4.2" stroke="#5B4CFB" stroke-width="2" fill="none"/><path d="M-7 9c0-4 3.2-6 7-6s7 2 7 6" stroke="#5B4CFB" stroke-width="2" fill="none" stroke-linecap="round"/></g><g class="pj-ln-pop pj-ln-b2"><circle cx="12" cy="-11" r="5.5" fill="#1D874A"/><path d="M12 -13.5v5M9.5 -11h5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></g></g>
+                  <g transform="translate(170,86)"><circle class="pj-ln-ring pj-ln-r3" r="16" stroke="#5B4CFB" stroke-width="1.5"/><g class="pj-ln-pop pj-ln-p3"><circle r="16" fill="#fff" stroke="#ECEDF2" stroke-width="1.5"/><circle cx="0" cy="-3" r="4.2" stroke="#5B4CFB" stroke-width="2" fill="none"/><path d="M-7 9c0-4 3.2-6 7-6s7 2 7 6" stroke="#5B4CFB" stroke-width="2" fill="none" stroke-linecap="round"/></g><g class="pj-ln-pop pj-ln-b3"><circle cx="12" cy="-11" r="5.5" fill="#1D874A"/><path d="M12 -13.5v5M9.5 -11h5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></g></g>
+                  <g class="pj-ln-car"><circle r="9" fill="#5B4CFB" opacity="0.16"/><circle r="4.5" fill="#5B4CFB"/>
+                    <animateMotion dur="9s" repeatCount="indefinite" path="M33 120 C 75 70, 150 150, 204 62" keyPoints="0;0;1;1" keyTimes="0;0.06;0.54;1" calcMode="linear"/>
+                    <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.05;0.07;0.52;0.56;1"/>
+                  </g>
+                  <circle class="pj-ln-ring pj-ln-rpin" cx="206" cy="66" r="7" stroke="#5B4CFB" stroke-width="1.5"/>
+                  <g class="pj-ln-pin"><path d="M206 34c6.6 0 12 5.4 12 12 0 8.6-12 20-12 20s-12-11.4-12-20c0-6.6 5.4-12 12-12z" fill="#fff" stroke="#5B4CFB" stroke-width="2.2" stroke-linejoin="round"/><circle cx="206" cy="46" r="3.2" fill="#5B4CFB"/></g>
+                  <text class="pj-ln-dest" x="206" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#6B6F7B" style="font-family:inherit;">Barcelona</text>
+                  </g>
                 </svg>
               </div>
               <div class="pj-launch-copy">
