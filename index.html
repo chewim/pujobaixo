@@ -510,7 +510,8 @@
     /* Tancament + accés (com a la web actual: la targeta d'accés viu al final i tots els CTA hi porten) */
     .lp-final { position:relative; padding:88px 0 0; overflow:hidden; background:linear-gradient(180deg, var(--lp-bg-page) 0%, var(--lp-bg-alt) 70%); }
     .lp-final-grid { position:relative; z-index:2; display:grid; gap:40px; align-items:center; }
-    .lp-final-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--lp-primary); background:rgba(120,95,247,0.07); border:1px solid rgba(120,95,247,0.32); box-shadow:0 0 0 3px rgba(120,95,247,0.05), 0 4px 14px -4px rgba(120,95,247,0.38); padding:8px 14px; border-radius:var(--lp-radius-pill); margin-bottom:24px; }
+    .lp-final-note { margin-top:24px; max-width:460px; padding:12px 18px; border-left:3px solid var(--lp-primary-accent); border-radius:0 12px 12px 0; background:rgba(120,95,247,0.07); font-size:15px !important; line-height:1.5; color:var(--lp-text-primary) !important; }
+    .lp-final-note strong { color:var(--lp-primary); font-weight:600; }
     .lp-final h2 { font-size:clamp(32px, 4.4vw, 52px); margin-bottom:16px; }
     .lp-final-copy p { font-size:17px; color:var(--lp-text-secondary); max-width:460px; line-height:1.6; }
     .lp-auth { width:100%; max-width:440px; justify-self:center; background:var(--lp-surface); border:1px solid var(--lp-border); border-radius:var(--lp-radius-card); padding:32px 24px; box-shadow:0 30px 60px -24px rgba(33,22,52,0.22); scroll-margin-top:96px; }
@@ -571,6 +572,14 @@
       .lp-chip-save { right:0; bottom:2%; }
       .lp-chip-save small { font-size:11px; }
     }
+    /* Mòbil: cada frase del titular en una sola línia (mida fluida segons l'amplada) i els dos botons apilats
+       a tota l'amplada, perquè el hero es llegeixi en blocs iguals i no amb salts de línia desiguals. */
+    @media (max-width:599px) {
+      .lp-hero h1 { font-size:clamp(24px, 9vw, 40px); }
+      .lp-h1 .lp-line { white-space:nowrap; }
+      .lp-hero-actions { flex-direction:column; align-items:stretch; }
+      .lp-hero-actions .lp-btn { width:100%; }
+    }
     @media (max-width:719px) {
       .lp-save-arrow { position:relative; left:auto; top:auto; transform:rotate(90deg); margin:-14px auto; }
       .lp-feat-sep { display:none; }
@@ -615,7 +624,7 @@
       .lp-final { padding-top:140px; }
       .lp-final h2 { font-size:clamp(48px, 4.2vw, 62px); }
       .lp-final-copy p { font-size:19px; max-width:520px; }
-      .lp-final-eyebrow { font-size:14px; }
+      .lp-final-note { font-size:16px !important; max-width:520px; }
       .lp-auth { max-width:480px; padding:44px 40px; }
       .lp-auth-title { font-size:34px; }
       .lp-auth-sub { font-size:15px; }
@@ -666,6 +675,12 @@
     @keyframes lp-title-in { from { opacity:0; transform:translateY(18px); filter:blur(6px); letter-spacing:0.01em; } }
     @supports (animation-timeline: view()) {
       .lp-title { animation:lp-title-in linear both; animation-timeline:view(); animation-range:entry 5% entry 45%; }
+      /* Dosificació en fer scroll: primer el títol, després el text i finalment les peces, una darrere l'altra. */
+      .lp-sec-lead, .lp-final-copy > p:not(.lp-final-note) { animation:lp-reveal linear both; animation-timeline:view(); animation-range:entry 12% entry 52%; }
+      .lp-final-note { animation:lp-reveal linear both; animation-timeline:view(); animation-range:entry 20% entry 60%; }
+      .lp-steps > :nth-child(2), .lp-trust-list > :nth-child(2) { animation-range:entry 10% entry 50%; }
+      .lp-steps > :nth-child(3), .lp-trust-list > :nth-child(3) { animation-range:entry 20% entry 60%; }
+      .lp-save > :nth-child(2), .lp-auth { animation-range:entry 12% entry 52%; }
     }
     @supports (animation-timeline: view()) {
       .lp-reveal { animation:lp-reveal linear both; animation-timeline:view(); animation-range:entry 0% entry 35%; }
@@ -708,7 +723,7 @@
       .lp-nav-links .lp-nav-link { font-size:16px; }
     }
     @media (prefers-reduced-motion:reduce) {
-      .lp-in, .lp-reveal, .lp-chip-num, .lp-title, .lp-h1 .lp-line > span { animation:none !important; }
+      .lp-in, .lp-reveal, .lp-chip-num, .lp-title, .lp-h1 .lp-line > span, .lp-sec-lead, .lp-final-copy > p { animation:none !important; }
       .lp-nav::before { transition:none; }
     }
 
@@ -836,7 +851,7 @@
   </div>
           <section class="lp-section" id="pj-estalvi" style="padding-top:24px">
     <div class="lp-wrap lp-save">
-      <div class="lp-reveal">
+      <div>
         <h2 class="lp-display lp-sec-title lp-title">Compartir el trajecte t'ajuda a estalviar de debò.</h2>
         <p class="lp-sec-lead">Redueix la despesa dels teus desplaçaments habituals entre el Berguedà i Barcelona, de manera senzilla i flexible.</p>
       </div>
@@ -942,10 +957,10 @@
         <section class="{{ authShellClass }}" id="pj-acces">
           <div class="lp-wrap lp-final-grid">
             <sc-if value="{{ isLandingMode }}">
-              <div class="lp-final-copy lp-reveal">
-        <span class="lp-final-eyebrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1"/><path d="M16 4a4 4 0 0 1 0 8"/></svg>3 places compartides = fins a 30&nbsp;€ recuperats per anada i tornada</span>
+              <div class="lp-final-copy">
         <h2 class="lp-display lp-title">El pròxim trajecte no l'has de pagar tot tu sol.</h2>
         <p>Publica les places que et sobren i troba persones que ja necessiten fer el mateix camí.</p>
+        <p class="lp-final-note">3 places compartides = <strong>fins a 30&nbsp;€ recuperats</strong> per anada i tornada</p>
       </div>
             </sc-if>
 
