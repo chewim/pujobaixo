@@ -17,7 +17,7 @@
   <script src="/supabase.umd.js"></script>
   <style>
     * { box-sizing: border-box; }
-    html, body { margin: 0; background: #F3F4F8; overflow-x: hidden; }
+    html, body { margin: 0; background: var(--lp-bg-page); overflow-x: hidden; }  /* mateix blanc trencat que la landing: sense flaix gris en carregar */
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -716,7 +716,7 @@
 </helmet>
 
 <sc-if value="{{ showIntro }}" hint-placeholder-val="{{ false }}">
-  <div class="pj-intro-overlay" style="position:fixed; inset:0; z-index:200; background:#F3F4F8; display:flex; align-items:center; justify-content:center;">
+  <div class="pj-intro-overlay" style="position:fixed; inset:0; z-index:200; background:var(--lp-bg-page); display:flex; align-items:center; justify-content:center;">
     <svg width="96" height="96" viewBox="0 0 24 24" fill="none" style="overflow:visible;">
       <g class="pj-intro-mark">
         <circle class="pj-intro-dot-a" cx="6" cy="19" r="2.5" fill="none" stroke="#5B4CFB" stroke-width="2.2"/>

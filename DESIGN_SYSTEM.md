@@ -302,6 +302,8 @@ Pantalla de acceso sin sesión (`view: 'auth'` y `'reset'`). Tiene **su propio s
 
 **Botón secundario** (`.lp-btn-outline`: «Busco viatge», «Entrar»): fondo blanco, borde lila azulado `#8B7FE6` (3,4:1) y texto morado `--lp-primary`; al pasar el ratón, borde morado y fondo lila muy ligero. Con borde gris no se reconocía como botón.
 
+**Carga**: la animación del logo (`.pj-intro-overlay`) y el fondo de `html, body` usan `--lp-bg-page` (`#FFFEFC`), el mismo blanco roto que la landing, así no hay un destello gris al cargar. La app con sesión mantiene su `#F3F4F8` en su propio contenedor.
+
 **Movimiento**: fade + 12 px en 420 ms. **Titulares**: el del hero entra línea a línea (cada línea sube desde una máscara y se enfoca, 760 ms, 120 / 260 ms de retardo), y después el texto (420 ms) y las acciones (540 ms), para guiar la lectura. Los títulos de sección (`.lp-title`) se enfocan, suben 18 px y ajustan el espaciado al entrar en pantalla (scroll-driven). El hero aparece al cargar (`.lp-in`, retardos `.lp-d1–d3`); el resto, al entrar en pantalla con `animation-timeline: view()` (`.lp-reveal`, sin JS: el motor de plantillas puede repintar el DOM y perder clases puestas a mano). `prefers-reduced-motion` lo desactiva todo y deja las escenas en su estado final.
 
 ### Modales / estados vacíos
