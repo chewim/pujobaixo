@@ -13,7 +13,7 @@
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="apple-touch-icon" href="/assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="/supabase.umd.js"></script>
   <style>
     * { box-sizing: border-box; }
@@ -140,255 +140,31 @@
     .pj-main { padding: 24px 16px 104px; }
     .pj-post-card { background: transparent; padding: 0; }
     .pj-post-section { margin-bottom: 16px; }
-    .pj-hero { display:flex; flex-direction:column; gap:40px; padding:48px 0 40px; max-width:840px; margin:0 auto; }
-    #pj-estalvi { padding-top:24px; }
+
     @keyframes pjFadeDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
-    @keyframes pjFadeLeft { from { opacity:0; transform:translateX(-28px); } to { opacity:1; transform:none; } }
-    @keyframes pjFadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
     @keyframes pjNavIn { from { opacity:0; transform:translateX(-10px); } to { opacity:1; transform:none; } }
     .pj-topnav { padding:14px 16px; animation:pjFadeDown 500ms cubic-bezier(0.22,1,0.36,1) both; }
     .pj-topnav-inner > div:first-of-type { animation:pjNavIn 450ms cubic-bezier(0.22,1,0.36,1) 150ms both; }
-    .pj-topnav-link:nth-of-type(1) { animation:pjNavIn 450ms cubic-bezier(0.22,1,0.36,1) 320ms both; }
-    .pj-topnav-link:nth-of-type(2) { animation:pjNavIn 450ms cubic-bezier(0.22,1,0.36,1) 440ms both; }
-    .pj-topnav-cta { animation:pjNavIn 450ms cubic-bezier(0.22,1,0.36,1) 560ms both; }
-    .pj-topnav-login { animation:pjNavIn 450ms cubic-bezier(0.22,1,0.36,1) 620ms both; }
-    .pj-hero-eyebrow { animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 900ms both; }
-    .pj-hero-copy h1 { animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1050ms both; }
-    .pj-hero-copy > p { animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1200ms both; }
-    .pj-hero-actions { animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1420ms both; }
-    .pj-hero-visual { animation:pjFadeUp 750ms cubic-bezier(0.22,1,0.36,1) 1450ms both; }
-    @keyframes pjChipPop { from { opacity:0; transform:translateY(6px) scale(0.6); } to { opacity:1; transform:none; } }
-    .pj-launch { max-width:840px; margin:0 auto; padding:8px 0 56px; display:grid; grid-template-columns:1fr; gap:32px; align-items:center; }
-    .pj-launch-illus { display:flex; align-items:center; justify-content:center; aspect-ratio:4/3; border-radius:24px; background:linear-gradient(160deg, #F4F2FF 0%, #F7F9FF 100%); }
-    .pj-launch-illus svg { width:72%; height:auto; }
-    /* Xarxa: el trajecte principal es dibuixa primer i després les connexions locals; cada element té el seu tram del bucle de 12 s. */
-    .pj-net-line, .pj-net-node, .pj-net-label { animation-duration:12s; animation-iteration-count:infinite; animation-fill-mode:both; }
-    .pj-net-line { animation-timing-function:cubic-bezier(0.45,0,0.55,1); }
-    .pj-net-node { transform-box:fill-box; transform-origin:center; animation-timing-function:cubic-bezier(0.34,1.56,0.64,1); }
-    .pj-net-pin { transform-origin:50% 100%; }
-    .pj-net-label { animation-timing-function:ease; }
-    @keyframes pjNetL0 { 0%, 4% { stroke-dashoffset:1; opacity:1; } 22%, 90% { stroke-dashoffset:0; opacity:1; } 96%, 100% { stroke-dashoffset:0; opacity:0; } }
-    @keyframes pjNetL1 { 0%, 26% { stroke-dashoffset:1; opacity:1; } 32%, 90% { stroke-dashoffset:0; opacity:1; } 96%, 100% { stroke-dashoffset:0; opacity:0; } }
-    @keyframes pjNetL2 { 0%, 35% { stroke-dashoffset:1; opacity:1; } 41%, 90% { stroke-dashoffset:0; opacity:1; } 96%, 100% { stroke-dashoffset:0; opacity:0; } }
-    @keyframes pjNetL3 { 0%, 44% { stroke-dashoffset:1; opacity:1; } 50%, 90% { stroke-dashoffset:0; opacity:1; } 96%, 100% { stroke-dashoffset:0; opacity:0; } }
-    @keyframes pjNetL4 { 0%, 53% { stroke-dashoffset:1; opacity:1; } 59%, 90% { stroke-dashoffset:0; opacity:1; } 96%, 100% { stroke-dashoffset:0; opacity:0; } }
-    @keyframes pjNetL5 { 0%, 62% { stroke-dashoffset:1; opacity:1; } 68%, 90% { stroke-dashoffset:0; opacity:1; } 96%, 100% { stroke-dashoffset:0; opacity:0; } }
-    @keyframes pjNetL6 { 0%, 71% { stroke-dashoffset:1; opacity:1; } 77%, 90% { stroke-dashoffset:0; opacity:1; } 96%, 100% { stroke-dashoffset:0; opacity:0; } }
-    @keyframes pjNetN0 { 0%, 0% { transform:scale(0); opacity:0; } 3%, 90% { transform:scale(1); opacity:1; } 96%, 100% { transform:scale(1); opacity:0; } }
-    @keyframes pjNetT0 { 0%, 0% { opacity:0; } 3%, 90% { opacity:1; } 96%, 100% { opacity:0; } }
-    @keyframes pjNetN1 { 0%, 26% { transform:scale(0); opacity:0; } 29%, 90% { transform:scale(1); opacity:1; } 96%, 100% { transform:scale(1); opacity:0; } }
-    @keyframes pjNetT1 { 0%, 26% { opacity:0; } 29%, 90% { opacity:1; } 96%, 100% { opacity:0; } }
-    @keyframes pjNetN2 { 0%, 53% { transform:scale(0); opacity:0; } 56%, 90% { transform:scale(1); opacity:1; } 96%, 100% { transform:scale(1); opacity:0; } }
-    @keyframes pjNetT2 { 0%, 53% { opacity:0; } 56%, 90% { opacity:1; } 96%, 100% { opacity:0; } }
-    @keyframes pjNetN3 { 0%, 35% { transform:scale(0); opacity:0; } 38%, 90% { transform:scale(1); opacity:1; } 96%, 100% { transform:scale(1); opacity:0; } }
-    @keyframes pjNetT3 { 0%, 35% { opacity:0; } 38%, 90% { opacity:1; } 96%, 100% { opacity:0; } }
-    @keyframes pjNetN4 { 0%, 44% { transform:scale(0); opacity:0; } 47%, 90% { transform:scale(1); opacity:1; } 96%, 100% { transform:scale(1); opacity:0; } }
-    @keyframes pjNetT4 { 0%, 44% { opacity:0; } 47%, 90% { opacity:1; } 96%, 100% { opacity:0; } }
-    @keyframes pjNetN5 { 0%, 62% { transform:scale(0); opacity:0; } 65%, 90% { transform:scale(1); opacity:1; } 96%, 100% { transform:scale(1); opacity:0; } }
-    @keyframes pjNetT5 { 0%, 62% { opacity:0; } 65%, 90% { opacity:1; } 96%, 100% { opacity:0; } }
-    @keyframes pjNetPin { 0%, 0% { transform:scale(0); opacity:0; } 3%, 90% { transform:scale(1); opacity:1; } 96%, 100% { transform:scale(1); opacity:0; } }
-    @keyframes pjNetPinT { 0%, 0% { opacity:0; } 3%, 90% { opacity:1; } 96%, 100% { opacity:0; } }
-    @media (prefers-reduced-motion: reduce) { .pj-net-line, .pj-net-node, .pj-net-label { animation:none !important; } }
-    .pj-launch-copy h2 { font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 12px; text-wrap:balance; }
-    .pj-launch-copy p { font-size:15px; color:#6B6F7B; margin:0 0 24px; line-height:1.55; max-width:480px; }
-    .pj-band { position:relative; z-index:1; width:100vw; width:100dvw; margin:0 calc(50% - 50vw); margin:0 calc(50% - 50dvw); padding-left:16px; padding-right:16px; }
-    .pj-band-gray { background:#F3F4F8; padding-bottom:56px; }
-    .pj-section { max-width:840px; margin:0 auto; padding:56px 0 0; scroll-margin-top:72px; }
-    .pj-section-head { max-width:560px; margin:0 0 32px; }
-    .pj-hero-visual { display:flex; align-items:center; justify-content:center; aspect-ratio:1/1; background-image:url('/assets/seients-buits.jpg'), linear-gradient(160deg, #EFEBFF 0%, #F7F6FF 60%, #EAF0FF 100%); background-size:cover; background-position:center; border-radius:24px; padding:32px; box-shadow:0 24px 56px -28px rgba(20,21,26,0.4); overflow:hidden; }
-    .pj-hero-stack { position:relative; width:100%; height:100%; display:grid; place-items:center; }
-    .pj-hero-chip { position:absolute; z-index:3; display:inline-flex; align-items:center; background:#fff; color:#C22A24; font-weight:800; font-size:14px; padding:8px 14px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 10px 28px -8px rgba(20,21,26,0.35); white-space:nowrap; animation:pjChipPop 500ms cubic-bezier(0.22,1,0.36,1) both; }
-    .pj-hero-chip-tag { color:#4B4E58; font-weight:700; margin-right:6px; }
-    .pj-hero-chip-1 { top:7%; left:8%; animation-delay:1.7s; }
-    .pj-hero-chip-2 { top:42%; right:4%; animation-delay:1.85s; }
-    .pj-hero-lines { position:absolute; inset:0; width:100%; height:100%; z-index:2; animation:pjLinesIn 700ms ease 2.1s both; }
-    @keyframes pjLinesIn { from { opacity:0; } to { opacity:1; } }
-    .pj-hero-total { position:absolute; left:12px; right:12px; bottom:12px; z-index:3; padding:11px 16px; border-radius:14px; background:rgba(255,255,255,0.9); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); font-size:13.5px; font-weight:700; color:#14151A; text-align:center; animation:pjFadeUp 600ms cubic-bezier(0.22,1,0.36,1) 2.3s both; }
-    @keyframes pjChipFloat { 0%, 100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
-    @media (prefers-reduced-motion: reduce) { .pj-hero-chip, .pj-hero-lines, .pj-hero-total { animation:none !important; } }
-    /* «Com funciona»: mini targeta de viatge que explica els tres passos en un bucle de 10 s. */
-    .pj-hw-demo { width:100%; max-width:264px; }
-    .pj-hw-cap { position:relative; height:24px; margin-bottom:12px; }
-    .pj-hw-cap span { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:8px; font-size:13px; font-weight:800; color:#14151A; }
-    .pj-hw-cap b { width:22px; height:22px; border-radius:999px; background:#5B4CFB; color:#fff; font-size:11.5px; display:flex; align-items:center; justify-content:center; }
-    .pj-hw-c1 { animation:pjHwC1 10s ease infinite both; }
-    .pj-hw-c2 { animation:pjHwC2 10s ease infinite both; }
-    .pj-hw-c3 { animation:pjHwC3 10s ease infinite both; }
-    .pj-hw-note { position:absolute; left:0; right:0; top:8px; display:flex; align-items:center; justify-content:center; gap:6px; font-size:12px; font-weight:700; color:#6B6F7B; animation:pjHwNote 10s ease infinite both; }
-    .pj-hw-card { background:#fff; border:1px solid #ECEDF2; border-radius:18px; padding:14px; box-shadow:0 16px 36px -24px rgba(20,21,26,0.35); display:flex; flex-direction:column; gap:10px; animation:pjHwCard 10s ease infinite both; }
-    .pj-hw-head { display:flex; align-items:center; justify-content:space-between; }
-    .pj-hw-who { display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; color:#14151A; }
-    .pj-hw-avatar { width:26px; height:26px; border-radius:999px; background:#EEEBFF; color:#5B4CFB; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; }
-    .pj-hw-pub { display:inline-flex; align-items:center; gap:4px; background:#E7F3EC; color:#1D874A; font-size:11px; font-weight:800; padding:4px 9px; border-radius:999px; animation:pjHwPop 10s cubic-bezier(0.22,1,0.36,1) infinite both; }
-    .pj-hw-route { display:flex; align-items:center; justify-content:center; gap:6px; font-size:15px; font-weight:800; color:#14151A; letter-spacing:-0.01em; }
-    .pj-hw-meta { text-align:center; font-size:12px; font-weight:600; color:#6B6F7B; }
-    .pj-hw-seats { display:flex; align-items:center; justify-content:center; gap:6px; padding-top:10px; border-top:1px solid #ECEDF2; }
-    .pj-hw-seat { width:26px; height:26px; border-radius:999px; border:1.5px dashed #C9C2FF; position:relative; }
-    .pj-hw-seat-fill { position:absolute; inset:-1.5px; border-radius:999px; background:#5B4CFB; color:#fff; display:flex; align-items:center; justify-content:center; }
-    .pj-hw-s1 { animation:pjHwS1 10s cubic-bezier(0.22,1,0.36,1) infinite both; }
-    .pj-hw-s2 { animation:pjHwS2 10s cubic-bezier(0.22,1,0.36,1) infinite both; }
-    .pj-hw-s3 { animation:pjHwS3 10s cubic-bezier(0.22,1,0.36,1) infinite both; }
-    .pj-hw-seats-label { margin-left:4px; font-size:12px; font-weight:700; color:#6B6F7B; }
-    .pj-hw-slot { position:relative; height:84px; margin-top:12px; }
-    .pj-hw-bub { position:absolute; max-width:86%; font-size:12px; font-weight:600; line-height:1.35; padding:8px 11px; border-radius:14px; color:#14151A; }
-    .pj-hw-in { top:0; left:0; background:#fff; border:1px solid #ECEDF2; border-bottom-left-radius:4px; animation:pjHwB1 10s ease infinite both; }
-    .pj-hw-out { top:42px; right:0; background:#DCF8C6; border-bottom-right-radius:4px; animation:pjHwB2 10s ease infinite both; }
-    .pj-hw-ticks { color:#34B7F1; font-size:10px; margin-left:2px; letter-spacing:-0.1em; }
-    .pj-hw-total { position:absolute; left:0; right:0; top:10px; margin:0 auto; width:max-content; text-align:center; background:#E7F3EC; color:#1D874A; font-size:13px; font-weight:700; padding:10px 16px; border-radius:16px; animation:pjHwTotal 10s cubic-bezier(0.22,1,0.36,1) infinite both; }
-    .pj-hw-total strong { font-size:17px; font-weight:800; }
-    .pj-hw-total span { display:block; margin-top:2px; font-size:11px; font-weight:700; color:#4B4E58; }
-    .pj-howworks-step:nth-child(2) .pj-howworks-num { animation:pjHwN1 10s ease infinite both; }
-    .pj-howworks-step:nth-child(3) .pj-howworks-num { animation:pjHwN2 10s ease infinite both; }
-    .pj-howworks-step:nth-child(4) .pj-howworks-num { animation:pjHwN3 10s ease infinite both; }
-    @keyframes pjHwC1 { 0% { opacity:0; } 4%, 30% { opacity:1; } 33%, 100% { opacity:0; } }
-    @keyframes pjHwC2 { 0%, 34% { opacity:0; } 37%, 63% { opacity:1; } 66%, 100% { opacity:0; } }
-    @keyframes pjHwC3 { 0%, 67% { opacity:0; } 70%, 94% { opacity:1; } 97%, 100% { opacity:0; } }
-    @keyframes pjHwNote { 0%, 14% { opacity:0; transform:translateY(6px); } 18%, 29% { opacity:1; transform:none; } 33%, 100% { opacity:0; } }
-    @keyframes pjHwCard { 0% { opacity:0; transform:translateY(12px); } 6%, 95% { opacity:1; transform:none; } 100% { opacity:0; } }
-    @keyframes pjHwPop { 0%, 9% { opacity:0; transform:scale(0.6); } 13%, 95% { opacity:1; transform:none; } 100% { opacity:0; } }
-    @keyframes pjHwB1 { 0%, 35% { opacity:0; transform:translateY(8px); } 39%, 64% { opacity:1; transform:none; } 68%, 100% { opacity:0; } }
-    @keyframes pjHwB2 { 0%, 45% { opacity:0; transform:translateY(8px); } 49%, 64% { opacity:1; transform:none; } 68%, 100% { opacity:0; } }
-    @keyframes pjHwS1 { 0%, 69% { opacity:0; transform:scale(0.4); } 72%, 95% { opacity:1; transform:none; } 100% { opacity:0; } }
-    @keyframes pjHwS2 { 0%, 74% { opacity:0; transform:scale(0.4); } 77%, 95% { opacity:1; transform:none; } 100% { opacity:0; } }
-    @keyframes pjHwS3 { 0%, 79% { opacity:0; transform:scale(0.4); } 82%, 95% { opacity:1; transform:none; } 100% { opacity:0; } }
-    @keyframes pjHwTotal { 0%, 84% { opacity:0; transform:translateY(8px); } 88%, 95% { opacity:1; transform:none; } 100% { opacity:0; } }
-    @keyframes pjHwN1 { 0%, 31% { background:#5B4CFB; color:#fff; } 34%, 97% { background:#EEEBFF; color:#5B4CFB; } 100% { background:#5B4CFB; color:#fff; } }
-    @keyframes pjHwN2 { 0%, 31% { background:#EEEBFF; color:#5B4CFB; } 34%, 64% { background:#5B4CFB; color:#fff; } 67%, 100% { background:#EEEBFF; color:#5B4CFB; } }
-    @keyframes pjHwN3 { 0%, 64% { background:#EEEBFF; color:#5B4CFB; } 67%, 97% { background:#5B4CFB; color:#fff; } 100% { background:#EEEBFF; color:#5B4CFB; } }
+
     /* Sense moviment: estat final fix (targeta publicada, places plenes i total). */
     @media (prefers-reduced-motion: reduce) {
       .pj-hw-card, .pj-hw-pub, .pj-hw-seat-fill, .pj-hw-total, .pj-howworks-num { animation:none !important; }
       .pj-hw-bub, .pj-hw-note, .pj-hw-cap { display:none; }
     }
-    .pj-axis-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; box-shadow:0 20px 60px -30px rgba(20,21,26,0.25); padding:24px; width:100%; max-width:280px; display:flex; flex-direction:column; gap:12px; }
-    .pj-axis-row { display:flex; align-items:center; gap:12px; font-size:14px; font-weight:700; }
-    .pj-axis-line { width:2px; height:32px; background:#5B4CFB; opacity:0.35; margin-left:8px; border-radius:1px; }
-    .pj-axis-footer { display:flex; align-items:center; justify-content:space-between; margin-top:4px; padding-top:12px; border-top:1px solid #ECEDF2; font-size:12.5px; color:#6B6F7B; }
-    .pj-axis-badge { background:#EEEBFF; color:#5B4CFB; font-weight:800; font-size:12px; padding:4px 12px; border-radius:999px; }
-    .pj-databento { display:flex; flex-direction:column; gap:16px; }
-    .pj-databento-eq { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; display:flex; flex-direction:column; justify-content:center; gap:16px; }
-    .pj-databento-label { display:flex; align-items:center; gap:8px; font-size:12px; font-weight:800; letter-spacing:0.08em; color:#5B4CFB; text-transform:uppercase; }
-    .pj-databento-statement { font-size:20px; font-weight:800; letter-spacing:-0.01em; }
-    .pj-steps3 { display:grid; grid-template-columns:1fr; gap:16px; }
-    .pj-step-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; }
-    .pj-step-illus { display:flex; align-items:center; justify-content:center; aspect-ratio:4/3; border-radius:14px; background:linear-gradient(160deg, #F4F2FF 0%, #F7F9FF 100%); margin-bottom:16px; }
-    .pj-step-illus svg { width:78%; height:auto; }
-    .pj-step-kicker { font-size:11.5px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#5B4CFB; margin-bottom:4px; }
-    .pj-step-card h3 { font-size:17px; font-weight:800; margin:0 0 6px; }
-    .pj-step-card p { font-size:14px; color:#6B6F7B; margin:0; line-height:1.5; }
-    .pj-howworks { display:grid; grid-template-columns:1fr; gap:32px; align-items:center; margin-top:32px; }
-    .pj-howworks-illus { display:flex; align-items:center; justify-content:center; padding:32px 24px; border-radius:24px; background:linear-gradient(160deg, #F4F2FF 0%, #F7F9FF 100%); }
-    .pj-howworks-steps { display:flex; flex-direction:column; gap:24px; }
-    .pj-howworks-steps .pj-section-head { margin-bottom:0; max-width:none; }
-    .pj-howworks-step { display:flex; gap:16px; align-items:flex-start; }
-    .pj-howworks-num { flex-shrink:0; width:32px; height:32px; border-radius:999px; background:#EEEBFF; color:#5B4CFB; font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; }
-    .pj-howworks-step h3 { font-size:17px; font-weight:800; letter-spacing:-0.01em; margin:0 0 4px; }
-    .pj-howworks-step p { font-size:14px; color:#6B6F7B; margin:0; line-height:1.5; }
-    @keyframes pjInOnly { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
-    @keyframes pjInOutX {
-      0% { opacity:0; transform:translateX(-32px); }
-      15%, 85% { opacity:1; transform:none; }
-      100% { opacity:0; transform:translateY(-20px); }
-    }
-    @keyframes pjInOut {
-      0% { opacity:0; transform:translateY(28px); }
-      15%, 85% { opacity:1; transform:none; }
-      100% { opacity:0; transform:translateY(-20px); }
-    }
-    @supports (animation-timeline: view()) {
-      .pj-loss-banner, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big, .pj-proof-card, .pj-proof-num, .pj-proof-formula, .pj-launch-illus, .pj-launch-copy, .pj-howworks-illus, .pj-howworks-step, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card { animation:pjInOut linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
-      .pj-section-head p, .pj-calc-big, .pj-proof-card:nth-child(2), .pj-proof-num, .pj-launch-copy, .pj-footer-cta-copy h2, #pj-auth-card { animation-range:entry 10% exit 100%; }
-      .pj-calc-seg, .pj-proof-formula, .pj-footer-cta-copy p { animation-range:entry 20% exit 100%; }
-      .pj-howworks-step:nth-child(3) { animation-range:entry 6% exit 100%; }
-      .pj-howworks-step:nth-child(4) { animation-range:entry 12% exit 100%; }
-      .pj-step-card { animation:pjInOutX linear both; animation-timeline:view(); animation-range:entry 0% exit 100%; }
-      .pj-step-card:nth-child(2) { animation-range:entry 6% exit 100%; }
-      .pj-step-card:nth-child(3) { animation-range:entry 12% exit 100%; }
-      .pj-footer-brand, .pj-footer-tagline, .pj-footer-nav, .pj-footer-meta { animation:pjInOnly 1ms linear both; animation-timeline:view(); animation-range:entry 0% entry 55%; }
-      .pj-footer-nav { animation-range:entry 8% entry 63%; }
-      .pj-footer-meta { animation-range:entry 16% entry 71%; }
-    }
+
     @media (prefers-reduced-motion: reduce) {
-      .pj-topnav, .pj-topnav-inner > div:first-of-type, .pj-topnav-link, .pj-topnav-login, .pj-topnav-cta,
-      .pj-hero-eyebrow, .pj-hero-copy h1, .pj-hero-copy > p, .pj-hero-actions, .pj-hero-feats, .pj-hero-badge, .pj-hero-visual,
-      .pj-loss-banner, .pj-loss-chip, .pj-howworks-illus, .pj-howworks-step, .pj-section-head h2, .pj-section-head p, .pj-calc-copy, .pj-calc-seg, .pj-calc-big,
-      .pj-proof-card, .pj-proof-num, .pj-proof-formula, .pj-step-card, .pj-launch-illus, .pj-launch-copy, .pj-footer-eyebrow, .pj-footer-cta-copy h2, .pj-footer-cta-copy p, #pj-auth-card,
-      .pj-footer-brand, .pj-footer-tagline, .pj-footer-nav, .pj-footer-meta { animation:none !important; }
+      .pj-topnav, .pj-topnav-inner > div:first-of-type { animation:none !important; }
     }
-    .pj-databento-eco { background:#5B4CFB; color:#fff; border-radius:20px; padding:24px; display:flex; flex-direction:column; gap:16px; }
-    .pj-databento-eco h3 { font-size:18px; font-weight:800; margin:0 0 4px; }
-    .pj-databento-eco p { font-size:14px; color:rgba(255,255,255,0.92); margin:0; line-height:1.5; }
-    .pj-calc { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:32px 24px; margin-top:56px; display:flex; flex-direction:column; gap:32px; align-items:center; text-align:center; }
-    .pj-calc-copy h2 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
-    .pj-calc-copy p { font-size:14px; color:#6B6F7B; margin:0 auto; max-width:480px; line-height:1.5; }
-    .pj-calc-buttons { display:flex; flex-wrap:wrap; gap:8px; }
-    .pj-calc-big { display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:-16px; }
-    .pj-calc-seg { position:relative; width:100%; max-width:520px; height:44px; overflow:hidden; -webkit-mask-image:linear-gradient(to right, transparent 0, #000 36px, #000 calc(100% - 36px), transparent 100%); mask-image:linear-gradient(to right, transparent 0, #000 36px, #000 calc(100% - 36px), transparent 100%); }
-    .pj-calc-track { position:absolute; left:50%; top:0; margin-left:-95px; display:flex; gap:8px; transition:transform 520ms cubic-bezier(0.22,1,0.36,1); will-change:transform; }
-    .pj-gain-duo { display:grid; grid-template-columns:1fr; gap:16px; margin-top:56px; }
-    .pj-solo-block { margin-top:56px; }
-    #pj-estalvi > .pj-calc:first-child { margin-top:0; }  /* la calculadora obre la secció, just després del hero */
-    .pj-launch.pj-solo-block { padding-bottom:0; }
-    .pj-loss-banner { position:relative; border-radius:24px; overflow:hidden; min-height:340px; display:flex; align-items:flex-end; padding:96px 32px 32px; color:#fff; background-image:linear-gradient(160deg, rgba(20,21,26,0.72) 0%, rgba(20,21,26,0.3) 70%), url('/assets/hero-viatge.jpg'); background-size:cover; background-position:center; box-shadow:0 24px 56px -28px rgba(20,21,26,0.4); background-color:#14151A; }
-    .pj-loss-copy { max-width:560px; }
-    .pj-loss-copy h2 { font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; }
-    .pj-loss-copy p { font-size:15px; color:rgba(255,255,255,0.85); margin:0; line-height:1.5; }
-    .pj-loss-chip { position:absolute; z-index:2; background:#fff; color:#C22A24; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid #ECEDF2; box-shadow:0 8px 24px -8px rgba(20,21,26,0.4); animation:pjChipFloat 4s ease-in-out infinite; }
-    .pj-loss-chip--gain { color:#1D874A; }
-    .pj-loss-chip-1 { top:12%; right:12%; }
-    .pj-loss-chip-2 { top:48%; left:6%; animation-delay:1.3s; }
-    .pj-loss-chip-3 { bottom:10%; right:16%; animation-delay:2.6s; }
-    .pj-proof { display:grid; grid-template-columns:1fr; gap:16px; margin-top:56px; }
-    .pj-proof-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; text-align:left; }
+
+      /* la calculadora obre la secció { padding-bottom:0; }
+
     .pj-trip-int { background:#fff; border:1px solid #ECEDF2; border-radius:999px; padding:5px 12px; font-size:11.5px; font-weight:700; color:#4B4E58; }
-    .pj-proof-title { font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0; color:#14151A; }
-    .pj-proof-sub { font-size:14px; font-weight:600; color:#6B6F7B; margin:2px 0 14px; }
-    .pj-proof-num { display:block; font-size:40px; font-weight:800; letter-spacing:-0.03em; line-height:1; margin-bottom:12px; color:#14151A; }
-    .pj-proof-num-green { color:#1D874A; }
-    .pj-proof-formula { display:inline-block; background:#F3F4F8; border-radius:10px; padding:8px 14px; font-size:15px; font-weight:700; color:#4B4E58; margin:0; }
-    .pj-calc-big-price { font-size:88px; font-weight:800; letter-spacing:-0.04em; line-height:1; transition:color 450ms ease; }
-    .pj-calc-big-price small { font-size:40px; font-weight:700; margin-left:6px; }
-    .pj-calc-big-price small.pj-calc-cents { margin-left:0; letter-spacing:-0.02em; }
-    .pj-bento4 { display:grid; grid-template-columns:1fr; gap:16px; }
-    .pj-bento4-card { background:#fff; border:1px solid #ECEDF2; border-radius:20px; padding:24px; }
-    .pj-bento4-icon { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; background:#EEEBFF; margin-bottom:16px; }
-    .pj-bento4-card h3 { font-size:17px; font-weight:800; margin:0 0 6px; }
-    .pj-bento4-card p { font-size:14px; color:#6B6F7B; margin:0; line-height:1.5; }
-    .pj-footer-cta { display:flex; flex-direction:column; align-items:center; text-align:center; gap:32px; max-width:840px; margin:0 auto; padding:56px 0; }
-    .pj-topnav-link { display:none; border:none; background:none; font-family:inherit; font-weight:700; font-size:14px; color:#14151A; cursor:pointer; padding:8px 12px; border-radius:10px; }
-    .pj-topnav-link:hover { color:#5B4CFB; }
-    /* «Entrar»: botó secundari (contorn lila, com «Busco viatge» del hero) al costat de «Publicar places». */
-    .pj-topnav-login { display:inline-flex; align-items:center; height:40px; margin-left:8px; padding:0 18px; border:1.5px solid #5B4CFB; border-radius:999px; background:#fff; color:#5B4CFB; font-family:inherit; font-weight:800; font-size:14px; cursor:pointer; transition:background 150ms ease; }
-    .pj-topnav-login:hover { background:#EEEBFF; }
-    .pj-topnav-login:focus-visible { outline:2px solid #B9B0FF; outline-offset:2px; }
+
     /* Mòbil: «Publicar places» passa a «Publicar» perquè els dos botons hi càpiguen al costat del logo. */
     @media (max-width:419px) { .pj-topnav-cta-more { display:none; } }
-    @media (max-width:359px) { .pj-topnav { padding:14px 12px; } .pj-topnav-cta { padding:0 14px !important; margin-left:4px !important; } .pj-topnav-login { padding:0 12px; margin-left:6px; } }
+    @media (max-width:359px) { .pj-topnav { padding:14px 12px; }   }
     .pj-topnav-inner { display:flex; align-items:center; justify-content:space-between; max-width:840px; margin:0 auto; }
-    .pj-hero-copy h1, .pj-section-head h2, .pj-loss-copy h2, .pj-footer-cta-copy h2, .pj-calc-copy h2 { text-wrap:balance; }
-    .pj-hero-feats { display:flex; flex-direction:column; gap:8px; margin:0 0 28px; animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1300ms both; }
-    .pj-hero-feat { display:flex; align-items:center; gap:10px; font-size:14.5px; font-weight:700; color:#14151A; }
-    .pj-hero-badge { display:inline-flex; align-items:flex-start; gap:8px; margin:24px 0 0; padding:10px 14px; background:#fff; border:1px solid #ECEDF2; border-radius:10px; font-size:12.5px; font-weight:600; color:#6B6F7B; line-height:1.45; animation:pjFadeLeft 650ms cubic-bezier(0.22,1,0.36,1) 1550ms both; }
-    .pj-hero-badge svg { flex-shrink:0; margin-top:2px; }
-    .pj-calc-big-label { font-size:12.5px; font-weight:700; color:#6B6F7B; }
-    .pj-calc-disclaimer { font-size:11.5px; color:#8F93A1; margin:0; max-width:480px; line-height:1.45; }
-    .pj-hero-eyebrow { font-size:11.5px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:#5B4CFB; margin-bottom:8px; }
-    .pj-footer { padding:40px 0 24px; }
-    .pj-footer-inner { max-width:840px; margin:0 auto; }
-    .pj-footer-top { display:flex; flex-direction:column; align-items:center; gap:32px; text-align:center; }
-    .pj-footer-brand-col { display:flex; flex-direction:column; align-items:center; gap:12px; max-width:320px; }
-    .pj-footer-brand { display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:800; font-size:16px; letter-spacing:-0.02em; }
-    .pj-footer-tagline { font-size:13.5px; color:#6B6F7B; line-height:1.5; margin:0; }
-    .pj-footer-col { display:flex; flex-direction:column; align-items:center; gap:4px; }
-    .pj-footer-col-title { font-size:11.5px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#8F93A1; margin-bottom:4px; }
-    .pj-footer-nav { display:flex; flex-direction:column; align-items:center; gap:2px; }
-    .pj-footer-nav button { border:none; background:none; font-family:inherit; font-weight:700; font-size:13.5px; color:#6B6F7B; cursor:pointer; padding:6px 10px; border-radius:8px; transition:color 150ms ease; }
-    .pj-footer-nav button:hover { color:#5B4CFB; }
-    .pj-footer-divider { width:100%; height:1px; background:#ECEDF2; margin:32px 0 24px; }
-    .pj-footer-bottom { display:flex; justify-content:center; }
-    .pj-footer-meta { font-size:12.5px; color:#8F93A1; font-weight:600; }
-    .pj-footer-nav a { border:none; background:none; font-family:inherit; font-weight:700; font-size:13.5px; color:#6B6F7B; cursor:pointer; padding:6px 10px; border-radius:8px; transition:color 150ms ease; text-decoration:none; }
-    .pj-footer-nav a:hover { color:#5B4CFB; }
+
     .pj-legal-overlay { display:none; position:fixed; inset:0; z-index:200; background:rgba(20,21,26,0.55); padding:24px 16px; overflow-y:auto; }
     .pj-legal-overlay:target { display:flex; justify-content:center; align-items:flex-start; }
     .pj-legal-card { width:100%; max-width:640px; margin:32px auto; background:#fff; border-radius:20px; box-shadow:0 20px 60px -30px rgba(20,21,26,0.45); overflow:hidden; }
@@ -405,43 +181,12 @@
       .pj-legal-overlay { padding:0; }
       .pj-legal-card { max-width:none; margin:0; min-height:100%; border-radius:0; }
     }
-    .pj-footer-eyebrow { font-size:11.5px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:8px; }
-    .pj-footer-cta-copy h2 { font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px; color:#fff; }
-    .pj-footer-cta-copy p { font-size:14.5px; color:rgba(255,255,255,0.92); margin:0; line-height:1.5; }
-    .pj-footer-cta-btn { width:100%; max-width:280px; height:50px; border:none; border-radius:14px; background:#fff; color:#5B4CFB; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; flex-shrink:0; }
+
     @media (min-width: 900px) {
       .pj-post-section { margin-bottom: 32px; }
-      .pj-hero { flex-direction:row; align-items:center; padding:40px 0 48px; gap:64px; }
-      #pj-estalvi { padding-top:32px; }
-      .pj-band-gray { padding-bottom:80px; }
-      .pj-band { padding-left:24px; padding-right:24px; }
+
       .pj-topnav { padding:14px 24px; }
-      .pj-gain-duo { grid-template-columns:1fr 1fr; margin-top:80px; }
-      .pj-solo-block { margin-top:80px; }
-      .pj-section { padding:80px 0 0; }
-      .pj-launch { grid-template-columns:1fr 1.15fr; gap:64px; padding:16px 0 64px; }
-      .pj-hero-copy { flex:1; }
-      .pj-hero-visual { flex:1; padding:48px; }
-      .pj-databento { flex-direction:row; }
-      .pj-steps3 { grid-template-columns:1fr 1fr 1fr; }
-      .pj-howworks { grid-template-columns:1fr 1.15fr; gap:64px; margin-top:40px; }
-      .pj-howworks-illus { order:-1; }
-      .pj-howworks-illus { padding:40px 32px; }
-      .pj-databento-eq { flex:2; }
-      .pj-databento-eco { flex:1; }
-      .pj-calc { padding:48px 32px; margin-top:80px; }
-      .pj-proof { grid-template-columns:1fr 1fr; margin-top:80px; }
-      .pj-proof-card { padding:32px; }
-      .pj-bento4 { grid-template-columns:1fr 1fr; }
-      .pj-footer-cta { flex-direction:row; justify-content:space-between; align-items:center; text-align:left; gap:48px; padding:80px 0; }
-      .pj-footer { padding:56px 0 24px; }
-      .pj-footer-top { flex-direction:row; align-items:flex-start; justify-content:flex-start; gap:64px; text-align:left; }
-      .pj-footer-brand-col { align-items:flex-start; text-align:left; flex:1; }
-      .pj-footer-col { align-items:flex-start; text-align:left; }
-      .pj-footer-nav { align-items:flex-start; }
-      .pj-footer-bottom { justify-content:flex-start; }
-      .pj-footer-cta-copy { flex:1; }
-      .pj-topnav-link { display:inline-block; }
+
       .pj-topnav-hide-desktop { display: none !important; }
       .pj-sidebar { display: flex !important; }
       .pj-main-shifted { margin-left: 248px !important; }
@@ -450,36 +195,8 @@
       .pj-post-card { background: #fff; border-radius: 24px; padding: 32px; }
     }
     @media (min-width: 1440px) {
-      .pj-topnav-inner, .pj-hero, .pj-section, .pj-footer-cta, .pj-footer-inner, .pj-launch { max-width:1040px; }
-      .pj-hero { min-height:calc(100vh - 260px); padding:24px 0 48px; gap:80px; }
-      #pj-estalvi { padding-top:40px; }
-      .pj-band-gray { padding-bottom:96px; }
-      .pj-hero h1 { font-size:40px !important; }
-      .pj-hero-copy > p { font-size:17px !important; max-width:500px !important; }
-      .pj-hero-eyebrow, .pj-footer-eyebrow { font-size:12.5px; }
-      .pj-section { padding:96px 0 0; }
-      .pj-section-head { max-width:640px; margin-bottom:40px; }
-      .pj-section-head h2 { font-size:30px !important; }
-      .pj-section-head p { font-size:16px !important; }
-      .pj-calc-copy h2 { font-size:26px; }
-      .pj-calc-copy p { font-size:15px; max-width:540px; }
-      .pj-calc-big-price { font-size:108px; }
-      .pj-gain-duo { margin-top:96px; }
-      .pj-solo-block { margin-top:96px; }
-      .pj-calc { margin-top:96px; }
-      .pj-proof { margin-top:96px; }
-      .pj-loss-banner { min-height:420px; }
-      .pj-loss-copy h2 { font-size:30px; }
-      .pj-loss-copy p { font-size:16px; }
-      .pj-steps3 { gap:20px; }
-      .pj-step-card { padding:32px; }
-      .pj-step-card h3 { font-size:18px; }
-      .pj-step-card p { font-size:15px; }
-      .pj-howworks-step h3 { font-size:18px; }
-      .pj-howworks-step p { font-size:15px; }
-      .pj-footer-cta { padding:96px 0; gap:64px; }
-      .pj-footer-cta-copy h2 { font-size:30px; }
-      .pj-footer-cta-copy p { font-size:16px; }
+      .pj-topnav-inner { max-width:1040px; }
+
     }
     /* Línia informativa d'avís a les targetes pròpies (no interactiva) */
     .pj-notice { display:flex; align-items:center; justify-content:center; gap:8px; font-size:12.5px; font-weight:600; color:#727681; }
@@ -564,6 +281,410 @@
     .pj-cal-dayhead h2 { font-size:15px; font-weight:800; margin:0; }
     .pj-cal-dayhead span { font-size:13px; font-weight:600; color:#727681; white-space:nowrap; }
     @media (prefers-reduced-motion: reduce) { .pj-cal-body, .pj-cal-chev svg { transition:none; } }
+
+    /* ===================== Landing (redisseny nov. 2026) =====================
+       Classes i variables amb prefix lp- perquè no toquin l'app. Font de veritat del disseny:
+       DESIGN_SYSTEM.md (secció «Landing»). Les il·lustracions isomètriques són SVG inline (classes lp-s1/s2/s3). */
+
+    :root {
+      /* BRAND */
+      --lp-primary:#6547AF; --lp-primary-hover:#563895; --lp-primary-accent:#7A5AF8; --lp-primary-light:#EEE9FD;
+      /* SECONDARY */
+      --lp-secondary-blue:#E6F0FF; --lp-secondary-sand:#FFF1E2; --lp-whatsapp:#25D366;
+      /* BACKGROUNDS */
+      --lp-bg-page:#FCF8F5; --lp-bg-alt:#F6F3FF; --lp-bg-app:#F3F4F8; --lp-surface:#FFFFFF; --lp-surface-muted:#F7F6FA;
+      /* TEXT */
+      --lp-text-primary:#1B1A22; --lp-text-secondary:#62606E; --lp-text-on-primary:#FFFFFF;
+      /* BORDER */
+      --lp-border:#E5E2E9;
+      /* TYPOGRAPHY */
+      --lp-font-display:"Source Serif 4", Georgia, serif; --lp-font-ui:"Inter", Arial, sans-serif; --lp-font-app:"Plus Jakarta Sans", sans-serif;
+      /* RADII */
+      --lp-radius-card:20px; --lp-radius-control:14px; --lp-radius-pill:999px;
+      /* SHADOWS */
+      --lp-shadow-card:0 12px 32px rgba(33,22,52,0.06);
+      /* ANIMATION */
+      --lp-motion-fast:180ms; --lp-motion-normal:420ms; --lp-ease:cubic-bezier(0.22,1,0.36,1);
+    }
+    .lp-wrap { max-width:1320px; margin:0 auto; padding:0 20px; }
+    .lp-display { font-family:var(--lp-font-display); font-weight:700; letter-spacing:-0.02em; line-height:1.08; text-wrap:balance; font-optical-sizing:auto; }
+
+    /* ---------- Botons ---------- */
+    .lp-btn { display:inline-flex; align-items:center; justify-content:center; gap:10px; height:52px; padding:0 28px; border-radius:var(--lp-radius-pill); font-weight:600; font-size:16px; cursor:pointer; text-decoration:none; border:1.5px solid transparent; transition:background var(--lp-motion-fast) ease, border-color var(--lp-motion-fast) ease, transform var(--lp-motion-fast) ease, box-shadow var(--lp-motion-fast) ease; white-space:nowrap; }
+    .lp-btn:active { transform:scale(0.97); }
+    .lp-btn:focus-visible { outline:2px solid var(--lp-primary-accent); outline-offset:3px; }
+    .lp-btn-primary { background:var(--lp-primary); color:var(--lp-text-on-primary); box-shadow:0 8px 20px -8px rgba(101,71,175,0.55); }
+    .lp-btn-primary:hover { background:var(--lp-primary-hover); }
+    .lp-btn-primary svg { transition:transform var(--lp-motion-fast) ease; }
+    .lp-btn-primary:hover svg { transform:translateX(3px); }
+    .lp-btn-outline { background:var(--lp-surface); color:var(--lp-text-primary); border-color:var(--lp-border); }
+    .lp-btn-outline:hover { border-color:var(--lp-primary); color:var(--lp-primary); }
+    .lp-btn-sm { height:40px; padding:0 18px; font-size:14px; }
+
+    /* ---------- Barra superior ---------- */
+
+    /* ---------- Hero ---------- */
+    .lp-hero { display:grid; gap:40px; padding:32px 0 56px; }
+    .lp-eyebrow { font-size:13px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--lp-primary); margin-bottom:16px; }
+    .lp-hero h1 { font-size:clamp(40px, 4.2vw, 56px); margin-bottom:24px; }
+    .lp-hero h1 .lp-soft { display:block; font-weight:400; }
+    .lp-hero-lead { font-size:clamp(17px, 1.6vw, 19px); color:var(--lp-text-secondary); max-width:480px; margin-bottom:32px; line-height:1.6; }
+    .lp-hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:32px; }
+    .lp-feats { display:flex; flex-wrap:wrap; align-items:center; gap:16px 24px; font-size:14px; color:var(--lp-text-secondary); font-weight:500; }
+    .lp-feat { display:inline-flex; align-items:center; gap:10px; }
+    .lp-feat-icon { width:32px; height:32px; border-radius:10px; background:var(--lp-primary-light); color:var(--lp-primary); display:grid; place-items:center; }
+    .lp-feat-sep { width:1px; height:24px; background:var(--lp-border); }
+
+    /* Visual: muntanyes del Berguedà + mòbil real (imatge retallada) */
+    .lp-hero-visual { position:relative; width:100%; aspect-ratio:1/1.05; }
+    .lp-hero-blob { position:absolute; top:6%; bottom:5%; left:-4%; right:calc(-1 * (max(0px, (100vw - 1320px) / 2) + 32px)); clip-path:url(#lp-blob); background:url('/assets/bergueda.webp') center 18%/cover; }
+    .lp-hero-glass { position:absolute; left:2%; top:3%; width:40%; aspect-ratio:1/1.1; border-radius:32px; background:linear-gradient(160deg, rgba(122,90,248,0.14), rgba(122,90,248,0.02)); border:1px solid rgba(122,90,248,0.2); transform:rotate(-10deg); }
+    .lp-phone-img { position:absolute; z-index:2; left:50%; top:50%; height:106%; width:auto; transform:translate(-48%,-50%); filter:drop-shadow(28px 36px 36px rgba(33,22,52,0.28)) drop-shadow(4px 8px 10px rgba(33,22,52,0.12)); animation:lp-phoneIn 900ms var(--lp-ease) 150ms both, lp-phoneFloat 7s ease-in-out 1.2s infinite; }
+    @keyframes lp-phoneIn { from { opacity:0; transform:translate(-48%,-46%); } }
+    @keyframes lp-phoneFloat { 50% { transform:translate(-48%,-51.5%); } }
+    .lp-hero-chip { position:absolute; z-index:3; display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.94); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border:1px solid var(--lp-border); border-radius:16px; padding:12px 16px; box-shadow:0 18px 40px -14px rgba(33,22,52,0.25); font-size:14px; font-weight:600; line-height:1.3; animation:lp-chipIn var(--lp-motion-normal) var(--lp-ease) both; }
+    @keyframes lp-chipIn { from { opacity:0; transform:translateY(12px); } }
+    .lp-chip-msg { left:-6%; top:12%; max-width:62%; border-bottom-left-radius:4px; animation-delay:800ms; }
+    .lp-chip-msg .lp-wa { width:32px; height:32px; border-radius:50%; background:var(--lp-whatsapp); display:grid; place-items:center; flex-shrink:0; }
+    .lp-chip-save { right:0; bottom:9%; animation-delay:1000ms; }
+    .lp-chip-save .lp-ic { width:40px; height:40px; border-radius:12px; background:var(--lp-primary-light); color:var(--lp-primary); display:grid; place-items:center; flex-shrink:0; }
+    .lp-chip-save strong { display:block; font-family:var(--lp-font-display); font-size:22px; font-weight:700; color:var(--lp-primary); letter-spacing:-0.01em; line-height:1.1; }
+    .lp-chip-save small { display:block; color:var(--lp-text-secondary); font-size:12.5px; font-weight:500; }
+
+    .lp-app-card { margin:0 4% 3%; background:#fff; border-radius:16px; padding:5%; box-shadow:0 6px 18px -12px rgba(20,21,26,0.25); }
+    .lp-app-card-top { display:flex; justify-content:space-between; align-items:flex-start; }
+    .lp-app-who { display:flex; gap:8px; align-items:center; }
+    .lp-avatar { width:2.2em; height:2.2em; border-radius:50%; display:grid; place-items:center; color:#fff; font-weight:800; font-size:0.95em; flex-shrink:0; }
+    .lp-app-name { font-weight:800; font-size:0.95em; line-height:1.2; }
+    .lp-app-role { color:#6B6F7B; font-size:0.85em; font-weight:600; }
+    .lp-app-ppl { display:flex; align-items:center; gap:4px; color:#727681; font-size:0.85em; font-weight:600; }
+    .lp-app-route { display:flex; justify-content:center; align-items:center; gap:6px; font-size:1.3em; font-weight:800; letter-spacing:-0.02em; margin:5% 0 2%; }
+    .lp-app-meta { display:flex; justify-content:center; gap:12px; color:#727681; font-size:0.88em; font-weight:600; }
+    .lp-app-meta span { display:inline-flex; align-items:center; gap:4px; }
+    .lp-app-chips { display:flex; flex-wrap:wrap; gap:4px; background:#F3F4F8; border-radius:12px; padding:6px; margin-top:5%; }
+    .lp-app-chips span { background:#fff; border-radius:999px; padding:3px 8px; font-size:0.78em; font-weight:700; }
+    .lp-app-foot { display:flex; justify-content:space-between; align-items:center; margin-top:5%; }
+    .lp-app-price { font-weight:800; font-size:1em; }
+    .lp-app-price small { color:#727681; font-weight:600; }
+    .lp-app-wa { display:inline-flex; align-items:center; gap:5px; background:var(--lp-whatsapp); color:#14151A; border-radius:12px; padding:7px 14px; font-weight:800; font-size:0.92em; }
+
+    /* ---------- Seccions ---------- */
+    .lp-section { padding:72px 0; }
+    .lp-sec-title { font-size:clamp(30px, 4vw, 46px); margin-bottom:16px; }
+    .lp-sec-lead { font-size:17px; color:var(--lp-text-secondary); max-width:500px; line-height:1.6; }
+    .lp-band-alt { background:var(--lp-bg-alt); }
+
+    /* Estalvi */
+    .lp-save { display:grid; gap:32px; align-items:center; }
+    .lp-save-card { display:grid; background:var(--lp-surface); border:1px solid var(--lp-border); border-radius:var(--lp-radius-card); box-shadow:var(--lp-shadow-card); padding:8px; position:relative; }
+    .lp-save-col { padding:24px; }
+    .lp-save-col:last-child { background:linear-gradient(160deg, var(--lp-primary-light), #F6F3FF); border-radius:16px; }
+    .lp-save-k { font-size:12px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--lp-text-secondary); margin-bottom:12px; }
+    .lp-save-col:last-child .lp-save-k { color:var(--lp-primary); }
+    .lp-save-big { font-family:var(--lp-font-display); font-size:44px; font-weight:700; letter-spacing:-0.02em; line-height:1; margin-bottom:12px; font-variant-numeric:tabular-nums; }
+    .lp-save-big .lp-approx { font-size:0.7em; font-weight:400; margin-right:4px; }
+    .lp-save-recovered { color:var(--lp-primary); }
+    .lp-save-recovered .lp-pre { font-size:0.55em; font-weight:600; }
+    .lp-save-recovered .lp-post { display:block; font-size:0.62em; margin-top:4px; }
+    .lp-save-recovered .lp-num { display:inline-block; transition:transform var(--lp-motion-normal) var(--lp-ease), opacity var(--lp-motion-normal) ease; }
+    .lp-save-sub { font-size:14px; color:var(--lp-text-secondary); line-height:1.5; }
+    .lp-save-arrow { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) rotate(90deg); width:44px; height:44px; border-radius:50%; background:var(--lp-surface); border:1px solid var(--lp-border); display:grid; place-items:center; color:var(--lp-primary); z-index:2; }
+    .lp-seats { display:flex; gap:8px; margin:16px 0 12px; }
+    .lp-seat { width:44px; height:44px; border-radius:var(--lp-radius-control); border:1.5px dashed #7F72C8; background:rgba(255,255,255,0.6); color:#7F72C8;  /* contrast ≥3:1 (WCAG 1.4.11) */ display:grid; place-items:center; cursor:pointer; transition:background var(--lp-motion-fast) ease, border-color var(--lp-motion-fast) ease, color var(--lp-motion-fast) ease, transform var(--lp-motion-fast) ease; }
+    .lp-seat:hover { border-color:var(--lp-primary); color:var(--lp-primary); }
+    .lp-seat:focus-visible { outline:2px solid var(--lp-primary-accent); outline-offset:2px; }
+    .lp-seat[aria-pressed="true"] { border-style:solid; border-color:var(--lp-primary); background:var(--lp-primary); color:#fff; }
+    .lp-seat:active { transform:scale(0.92); }
+    .lp-save-note { margin-top:16px; font-size:13px; color:var(--lp-text-secondary); }
+    .lp-save-note summary { cursor:pointer; font-weight:600; color:var(--lp-primary); list-style:none; display:inline-flex; align-items:center; gap:6px; }
+    .lp-save-note summary::-webkit-details-marker { display:none; }
+    .lp-save-note p { margin-top:8px; line-height:1.55; max-width:560px; font-size:12.5px; }
+
+    /* Com funciona */
+    .lp-steps { display:grid; gap:16px; margin-top:40px; }
+    .lp-step { background:var(--lp-surface); border:1px solid var(--lp-border); border-radius:var(--lp-radius-card); padding:16px 16px 28px; box-shadow:var(--lp-shadow-card); transition:transform var(--lp-motion-normal) var(--lp-ease), box-shadow var(--lp-motion-normal) var(--lp-ease); }
+    .lp-step:hover { transform:translateY(-4px); box-shadow:0 20px 40px rgba(33,22,52,0.09); }
+    .lp-step-illus { height:168px; border-radius:14px; display:grid; place-items:center; margin-bottom:24px; }
+    .lp-step:nth-child(1) .lp-step-illus { background:var(--lp-surface-muted); }
+    .lp-step:nth-child(2) .lp-step-illus { background:var(--lp-secondary-sand); }
+    .lp-step:nth-child(3) .lp-step-illus { background:var(--lp-secondary-blue); }
+    .lp-step-num { font-size:13px; font-weight:700; color:var(--lp-primary); margin:0 8px 8px; }
+    .lp-step h3 { font-family:var(--lp-font-display); font-size:24px; font-weight:600; letter-spacing:-0.01em; margin:0 8px 8px; }
+    .lp-step p { font-size:15px; color:var(--lp-text-secondary); margin:0 8px; line-height:1.55; }
+
+    /* Il·lustracions isomètriques (generades amb iso_escenes.py) */
+    .lp-step-illus { height:auto; padding:12px 8px 4px; }
+    .lp-step-illus .lp-iso { width:100%; max-width:340px; height:auto; overflow:visible; }
+    .lp-iso * { transform-box:fill-box; transform-origin:center; }
+    .lp-s1-lane { animation:lp-s1lane 1.4s linear infinite; }
+    @keyframes lp-s1lane { 0.0% { stroke-dashoffset:0 } 100.0% { stroke-dashoffset:-12 } }
+    .lp-s1-car { animation:lp-s1car 6s ease-in-out infinite; }
+    @keyframes lp-s1car { 0.0% { transform:translate(-14px,-8px); opacity:0 } 3.3% { opacity:1 } 15.0% { transform:none } 90.0% { transform:none; opacity:1 } 98.3% { transform:translate(14px,8px); opacity:0 } 100.0% { opacity:0 } }
+    .lp-s1-link { animation:lp-s1link 6s ease infinite; stroke-dashoffset:0; }
+    @keyframes lp-s1link { 0.0% { opacity:0 } 16.7% { opacity:0 } 21.7% { opacity:1 } 88.3% { opacity:1 } 93.3% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s1-card { animation:lp-s1card 6s cubic-bezier(0.22,1,0.36,1) infinite; }
+    @keyframes lp-s1card { 0.0% { opacity:0; transform:translateY(10px) } 18.3% { opacity:0; transform:translateY(10px) } 26.7% { opacity:1; transform:none } 88.3% { opacity:1; transform:none } 95.0% { opacity:0; transform:translateY(-6px) } 100.0% { opacity:0 } }
+    .lp-s1-seat1 .lp-fill { animation:lp-s1seat1 6s ease infinite; }
+    @keyframes lp-s1seat1 { 0.0% { opacity:0 } 33.3% { opacity:0 } 36.7% { opacity:1 } 88.3% { opacity:1 } 93.3% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s1-seat2 .lp-fill { animation:lp-s1seat2 6s ease infinite; }
+    @keyframes lp-s1seat2 { 0.0% { opacity:0 } 41.7% { opacity:0 } 45.0% { opacity:1 } 88.3% { opacity:1 } 93.3% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s1-seat3 .lp-fill { animation:lp-s1seat3 6s ease infinite; }
+    @keyframes lp-s1seat3 { 0.0% { opacity:0 } 50.0% { opacity:0 } 53.3% { opacity:1 } 88.3% { opacity:1 } 93.3% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s1-plus { animation:lp-s1plus 6s cubic-bezier(0.22,1,0.36,1) infinite; }
+    @keyframes lp-s1plus { 0.0% { opacity:0; transform:scale(0.4) } 60.0% { opacity:0; transform:scale(0.4) } 65.0% { opacity:1; transform:scale(1.15) } 68.3% { transform:scale(1) } 88.3% { opacity:1 } 93.3% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s2-bubA { animation:lp-s2bubA 7s cubic-bezier(0.22,1,0.36,1) infinite; }
+    @keyframes lp-s2bubA { 0.0% { opacity:0; transform:translateY(8px) scale(0.92) } 5.7% { opacity:0; transform:translateY(8px) scale(0.92) } 10.7% { opacity:1; transform:none } 90.0% { opacity:1; transform:none } 95.7% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s2-dotsA { animation:lp-s2dotsA 7s linear infinite; }
+    @keyframes lp-s2dotsA { 0.0% { opacity:1 } 22.9% { opacity:1 } 24.3% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s2-textA { animation:lp-s2textA 7s ease infinite; }
+    @keyframes lp-s2textA { 0.0% { opacity:0 } 23.6% { opacity:0 } 26.4% { opacity:1 } 100.0% { opacity:1 } }
+    .lp-s2-bubB { animation:lp-s2bubB 7s cubic-bezier(0.22,1,0.36,1) infinite; }
+    @keyframes lp-s2bubB { 0.0% { opacity:0; transform:translateY(8px) scale(0.92) } 37.1% { opacity:0; transform:translateY(8px) scale(0.92) } 42.1% { opacity:1; transform:none } 90.0% { opacity:1; transform:none } 95.7% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s2-dotsB { animation:lp-s2dotsB 7s linear infinite; }
+    @keyframes lp-s2dotsB { 0.0% { opacity:1 } 54.3% { opacity:1 } 55.7% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s2-textB { animation:lp-s2textB 7s ease infinite; }
+    @keyframes lp-s2textB { 0.0% { opacity:0 } 55.0% { opacity:0 } 57.9% { opacity:1 } 100.0% { opacity:1 } }
+    .lp-s2-msg1 { animation:lp-s2msg1 7s linear infinite; opacity:0; }
+    @keyframes lp-s2msg1 { 0.0% { opacity:0; transform:translate(77.1px,96.6px) } 25.0% { opacity:0; transform:translate(77.1px,96.6px) } 27.0% { opacity:1; transform:translate(93.3px,81.2px) } 29.0% { opacity:1; transform:translate(109.5px,73.3px) } 31.0% { opacity:1; transform:translate(125.7px,73.0px) } 33.0% { opacity:1; transform:translate(141.9px,80.1px) } 35.0% { opacity:1; transform:translate(158.1px,94.7px) } 36.1% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s2-msg2 { animation:lp-s2msg2 7s linear infinite; opacity:0; }
+    @keyframes lp-s2msg2 { 0.0% { opacity:0; transform:translate(158.1px,94.7px) } 56.4% { opacity:0; transform:translate(158.1px,94.7px) } 58.4% { opacity:1; transform:translate(141.9px,80.1px) } 60.4% { opacity:1; transform:translate(125.7px,73.0px) } 62.4% { opacity:1; transform:translate(109.5px,73.3px) } 64.4% { opacity:1; transform:translate(93.3px,81.2px) } 66.4% { opacity:1; transform:translate(77.1px,96.6px) } 67.6% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s2-route { animation:lp-s2route 7s ease infinite; }
+    @keyframes lp-s2route { 0.0% { opacity:0 } 22.9% { opacity:0 } 25.7% { opacity:0.55 } 90.0% { opacity:0.55 } 95.7% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s2-dots circle { animation:lp-s2type 0.9s ease-in-out infinite; }
+    @keyframes lp-s2type { 0.0% { transform:translateY(0) } 30.0% { transform:translateY(-2.5px) } 60.0% { transform:translateY(0) } 100.0% { transform:translateY(0) } }
+    .lp-s2-ticks { animation:lp-s2ticks 7s ease infinite; }
+    @keyframes lp-s2ticks { 0.0% { opacity:0 } 65.7% { opacity:0 } 68.6% { opacity:1 } 100.0% { opacity:1 } }
+    .lp-s2-a { animation:lp-s2nodA 7s ease-in-out infinite; } .lp-s2-b { animation:lp-s2nodB 7s ease-in-out infinite; }
+    @keyframes lp-s2nodA { 0.0% { transform:none } 5.7% { transform:translateY(-1.5px) } 14.3% { transform:none } 100.0% { transform:none } }
+    @keyframes lp-s2nodB { 0.0% { transform:none } 37.1% { transform:translateY(-1.5px) } 45.7% { transform:none } 100.0% { transform:none } }
+    .lp-s3-fly1 { animation:lp-s3fly1 6s cubic-bezier(0.45,0,0.55,1) infinite; opacity:0; }
+    @keyframes lp-s3fly1 { 0.0% { opacity:0; transform:translate(91.4px,58.0px) } 8.3% { opacity:0; transform:translate(91.4px,58.0px) } 10.0% { opacity:1 } 14.6% { transform:translate(105.7px,36.0px) } 20.8% { opacity:1; transform:translate(120.0px,101.5px) } 21.2% { opacity:0 } 100.0% { opacity:0; transform:translate(120.0px,101.5px) } }
+    .lp-s3-layer1 { animation:lp-s3layer1 6s cubic-bezier(0.22,1,0.36,1) infinite; }
+    @keyframes lp-s3layer1 { 0.0% { opacity:0; transform:translateY(-4px) } 20.8% { opacity:0; transform:translateY(-4px) } 21.2% { opacity:1; transform:translateY(-2px) } 25.0% { transform:none } 88.3% { opacity:1; transform:none } 95.0% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s3-fly2 { animation:lp-s3fly2 6s cubic-bezier(0.45,0,0.55,1) infinite; opacity:0; }
+    @keyframes lp-s3fly2 { 0.0% { opacity:0; transform:translate(148.6px,58.0px) } 25.0% { opacity:0; transform:translate(148.6px,58.0px) } 26.7% { opacity:1 } 31.2% { transform:translate(134.3px,36.0px) } 37.5% { opacity:1; transform:translate(120.0px,97.2px) } 37.8% { opacity:0 } 100.0% { opacity:0; transform:translate(120.0px,97.2px) } }
+    .lp-s3-layer2 { animation:lp-s3layer2 6s cubic-bezier(0.22,1,0.36,1) infinite; }
+    @keyframes lp-s3layer2 { 0.0% { opacity:0; transform:translateY(-4px) } 37.5% { opacity:0; transform:translateY(-4px) } 37.8% { opacity:1; transform:translateY(-2px) } 41.7% { transform:none } 88.3% { opacity:1; transform:none } 95.0% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s3-fly3 { animation:lp-s3fly3 6s cubic-bezier(0.45,0,0.55,1) infinite; opacity:0; }
+    @keyframes lp-s3fly3 { 0.0% { opacity:0; transform:translate(149.5px,88.2px) } 41.7% { opacity:0; transform:translate(149.5px,88.2px) } 43.3% { opacity:1 } 47.9% { transform:translate(134.8px,66.2px) } 54.2% { opacity:1; transform:translate(120.0px,92.8px) } 54.5% { opacity:0 } 100.0% { opacity:0; transform:translate(120.0px,92.8px) } }
+    .lp-s3-layer3 { animation:lp-s3layer3 6s cubic-bezier(0.22,1,0.36,1) infinite; }
+    @keyframes lp-s3layer3 { 0.0% { opacity:0; transform:translateY(-4px) } 54.2% { opacity:0; transform:translateY(-4px) } 54.5% { opacity:1; transform:translateY(-2px) } 58.3% { transform:none } 88.3% { opacity:1; transform:none } 95.0% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s3-check { animation:lp-s3check 6s cubic-bezier(0.22,1,0.36,1) infinite; }
+    @keyframes lp-s3check { 0.0% { opacity:0; transform:scale(0.4) } 60.0% { opacity:0; transform:scale(0.4) } 64.2% { opacity:1; transform:scale(1.15) } 67.5% { transform:scale(1) } 88.3% { opacity:1 } 95.0% { opacity:0 } 100.0% { opacity:0 } }
+    .lp-s3-spark { animation:lp-s3spark 6s ease infinite; }
+    @keyframes lp-s3spark { 0.0% { opacity:0; transform:scale(0.6) } 63.3% { opacity:0; transform:scale(0.6) } 68.3% { opacity:1; transform:scale(1) } 76.7% { opacity:0; transform:scale(1.2) } 100.0% { opacity:0 } }
+    .lp-s3-pa { animation:lp-s3give0 6s ease-in-out infinite; }
+    @keyframes lp-s3give0 { 0.0% { transform:none } 8.3% { transform:translateY(-2px) } 13.3% { transform:none } 100.0% { transform:none } }
+    .lp-s3-pb { animation:lp-s3give1 6s ease-in-out infinite; }
+    @keyframes lp-s3give1 { 0.0% { transform:none } 25.0% { transform:translateY(-2px) } 30.0% { transform:none } 100.0% { transform:none } }
+    .lp-s3-pc { animation:lp-s3give2 6s ease-in-out infinite; }
+    @keyframes lp-s3give2 { 0.0% { transform:none } 41.7% { transform:translateY(-2px) } 46.7% { transform:none } 100.0% { transform:none } }
+    @media (prefers-reduced-motion: reduce) { .lp-iso, .lp-iso * { animation:none !important; } .lp-s3-fly { opacity:0 !important; } .lp-s1-card, .lp-s1-link, .lp-s1-plus, .lp-s2-bub, .lp-s2-text, .lp-s2-ticks, .lp-s3-layer, .lp-s3-check { opacity:1 !important; transform:none !important; } .lp-s2-dots, .lp-s3-spark, .lp-s2-msg { opacity:0 !important; } .lp-s1-seat .lp-fill { opacity:1 !important; } }
+
+    /* Confiança */
+    .lp-trust { display:grid; gap:48px; align-items:center; }
+    .lp-trust-visual { position:relative; display:grid; place-items:center; padding:24px 0; }
+    .lp-trust-visual::before { content:""; position:absolute; width:86%; aspect-ratio:1.6/1; border-radius:50%; background:var(--lp-primary-light); filter:blur(2px); }
+    .lp-trust-card { position:relative; width:100%; max-width:360px; font-family:var(--lp-font-app); font-size:15px; background:#fff; border:1px solid var(--lp-border); border-radius:var(--lp-radius-card); padding:20px; box-shadow:0 24px 48px -16px rgba(33,22,52,0.16); transform:rotate(-2deg); transition:transform var(--lp-motion-normal) var(--lp-ease); }
+    .lp-trust-card:hover { transform:rotate(0); }
+    .lp-trust-badge { position:absolute; right:-8px; top:-16px; background:#fff; border:1px solid var(--lp-border); border-radius:var(--lp-radius-pill); padding:8px 14px; font-family:var(--lp-font-ui); font-size:13px; font-weight:600; display:flex; align-items:center; gap:8px; box-shadow:var(--lp-shadow-card); transform:rotate(3deg); }
+    .lp-trust-badge i { width:8px; height:8px; border-radius:50%; background:var(--lp-whatsapp); }
+    .lp-trust-list { display:grid; gap:24px; margin-top:32px; }
+    .lp-trust-item { display:grid; grid-template-columns:44px 1fr; gap:16px; align-items:start; }
+    .lp-trust-icon { width:44px; height:44px; border-radius:var(--lp-radius-control); background:var(--lp-primary-light); color:var(--lp-primary); display:grid; place-items:center; }
+    .lp-trust-item h3 { font-size:17px; font-weight:600; margin-bottom:2px; }
+    .lp-trust-item p { font-size:15px; color:var(--lp-text-secondary); }
+
+    /* Tancament + accés (com a la web actual: la targeta d'accés viu al final i tots els CTA hi porten) */
+    .lp-final { position:relative; padding:88px 0 0; overflow:hidden; background:linear-gradient(180deg, var(--lp-bg-page) 0%, var(--lp-bg-alt) 70%); }
+    .lp-final-grid { position:relative; z-index:2; display:grid; gap:40px; align-items:center; }
+    .lp-final-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--lp-primary); background:var(--lp-primary-light); padding:8px 14px; border-radius:var(--lp-radius-pill); margin-bottom:24px; }
+    .lp-final h2 { font-size:clamp(32px, 4.4vw, 52px); margin-bottom:16px; }
+    .lp-final-copy p { font-size:17px; color:var(--lp-text-secondary); max-width:460px; line-height:1.6; }
+    .lp-auth { width:100%; max-width:440px; justify-self:center; background:var(--lp-surface); border:1px solid var(--lp-border); border-radius:var(--lp-radius-card); padding:32px 24px; box-shadow:0 30px 60px -24px rgba(33,22,52,0.22); scroll-margin-top:96px; }
+    .lp-auth-title { font-family:var(--lp-font-display); font-size:30px; font-weight:700; letter-spacing:-0.02em; line-height:1.1; }
+    .lp-auth-sub { font-size:14px; color:var(--lp-text-secondary); margin:4px 0 24px; }
+    .lp-auth-form { display:grid; gap:12px; }
+    .lp-row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .lp-field { width:100%; height:50px; border:1.5px solid #8E8A99;  /* vora 3,4:1 sobre blanc (WCAG 1.4.11) */ border-radius:var(--lp-radius-control); padding:0 16px; font:500 15px var(--lp-font-ui); color:var(--lp-text-primary); background:var(--lp-surface); transition:border-color var(--lp-motion-fast) ease, box-shadow var(--lp-motion-fast) ease; }
+    .lp-field::placeholder { color:#6E6C7A; }  /* 5,1:1: és l'única etiqueta visible del camp */
+    .lp-field:hover { border-color:#6E6C7A; }
+    .lp-field:focus { outline:none; border-color:var(--lp-primary); box-shadow:0 0 0 4px var(--lp-primary-light); }
+    .lp-auth-forgot { justify-self:end; background:none; border:0; padding:2px 0; font:600 13px var(--lp-font-ui); color:var(--lp-primary); cursor:pointer; }
+    .lp-auth .lp-btn { width:100%; margin-top:8px; }
+    .lp-auth-switch { text-align:center; font-size:14px; color:var(--lp-text-secondary); margin-top:20px; }
+    .lp-auth-switch button { background:none; border:0; padding:0; font:600 14px var(--lp-font-ui); color:var(--lp-primary); cursor:pointer; }
+    .lp-auth-switch button:hover, .lp-auth-forgot:hover { text-decoration:underline; text-underline-offset:3px; }
+    .lp-final-photo { height:clamp(280px, 34vw, 460px); margin-top:-120px; background:url('/assets/bergueda.webp') center 30%/cover; -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 50%); mask-image:linear-gradient(180deg, transparent 0%, #000 50%); }
+
+    /* Peu */
+    .lp-foot { background:#1B1A22; color:rgba(255,255,255,0.68); font-size:14px; padding:56px 0 32px; }
+    .lp-foot-top { display:grid; gap:32px; }
+    .lp-foot .lp-logo { color:#fff; font-size:18px; margin-bottom:12px; }
+    .lp-foot-tag { max-width:300px; line-height:1.6; }
+    .lp-foot-col h4 { margin:0 0 12px; color:#fff; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; }
+    .lp-foot-col nav { display:grid; gap:8px; justify-items:start; }
+    .lp-foot-col a, .lp-foot-col button { color:inherit; text-decoration:none; background:none; border:0; padding:0; font:inherit; cursor:pointer; }
+    .lp-foot-col a:hover, .lp-foot-col button:hover { color:#fff; }
+    .lp-foot-bottom { margin-top:40px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.1); font-size:13px; }
+
+
+    @media (min-width:720px) {
+      .lp-save-card { grid-template-columns:1fr 1fr; }
+      .lp-save-arrow { transform:translate(-50%,-50%); }
+      .lp-steps { grid-template-columns:repeat(3,1fr); }
+    }
+    @media (min-width:960px) {
+      .lp-wrap { padding:0 32px; }
+      .lp-hero { grid-template-columns:1.15fr 1fr; align-items:center; gap:48px; padding:40px 0 80px; min-height:calc(100vh - 68px); }
+      .lp-hero-visual { max-width:none; }
+      .lp-section { padding:96px 0; }
+      .lp-save { grid-template-columns:1fr 1.1fr; gap:64px; }
+      .lp-trust { grid-template-columns:1fr 1fr; gap:80px; }
+      .lp-trust-visual { order:0; }
+      .lp-final { padding-top:120px; }
+      .lp-final-grid { grid-template-columns:1.1fr 1fr; gap:64px; }
+      .lp-auth { justify-self:end; padding:40px 36px; }
+      .lp-foot-top { grid-template-columns:2fr 1fr 1fr 1fr; }
+    }
+    @media (max-width:959px) {
+      .lp-hero-visual { margin:8px auto 0; max-width:480px; }
+      .lp-hero-blob { right:-20px; left:-20px; }
+      .lp-hero-chip { font-size:12.5px; padding:8px 12px; gap:8px; border-radius:14px; }
+      .lp-chip-save strong { font-size:18px; }
+      .lp-chip-save small { font-size:11.5px; }
+      .lp-chip-save .lp-ic { width:32px; height:32px; border-radius:10px; }
+      .lp-chip-msg .lp-wa { width:26px; height:26px; }
+      .lp-chip-msg { left:0; top:4%; max-width:none; white-space:nowrap; }
+      .lp-chip-save { right:0; bottom:-1%; }
+      .lp-chip-save small { font-size:11px; }
+    }
+    @media (max-width:719px) {
+      .lp-save-arrow { position:relative; left:auto; top:auto; transform:rotate(90deg); margin:-14px auto; }
+      .lp-feat-sep { display:none; }
+    }
+
+    /* Auditoria de mides (nov. 2026): a escriptori ens quedàvem per sota de les referències
+       (BlaBlaCar, Wise, Revolut, Too Good To Go) en titulars, cos de text, botons i aire entre seccions. */
+    @media (min-width:1200px) {
+      .lp-btn { height:56px; padding:0 32px; font-size:17px; }
+      .lp-btn-sm { height:44px; padding:0 20px; font-size:15px; }
+      .lp-hero { gap:64px; min-height:calc(100vh - 76px); }
+      .lp-hero h1 { font-size:clamp(56px, 4.9vw, 76px); margin-bottom:28px; }
+      .lp-hero-lead { font-size:20px; max-width:540px; margin-bottom:40px; }
+      .lp-eyebrow { font-size:14px; }
+      .lp-feats { font-size:15px; }
+      .lp-feat-icon { width:36px; height:36px; }
+      .lp-hero-chip { font-size:15px; padding:14px 18px; }
+      .lp-chip-save strong { font-size:26px; }
+      .lp-chip-save small { font-size:13.5px; }
+      .lp-section { padding:120px 0; }
+      .lp-sec-title { font-size:clamp(44px, 3.8vw, 56px); margin-bottom:20px; }
+      .lp-sec-lead { font-size:19px; max-width:560px; }
+      .lp-save { gap:80px; }
+      .lp-save-col { padding:32px; }
+      .lp-save-big { font-size:56px; }
+      .lp-save-k { font-size:13px; }
+      .lp-save-sub { font-size:15px; }
+      .lp-seat { width:52px; height:52px; }
+      .lp-steps { gap:24px; margin-top:56px; }
+      .lp-step { padding:20px 20px 36px; }
+      .lp-step-illus { margin-bottom:28px; }
+      .lp-step-num { font-size:14px; margin:0 12px 10px; }
+      .lp-step h3 { font-size:28px; margin:0 12px 10px; }
+      .lp-step p { font-size:17px; margin:0 12px; }
+      .lp-trust { gap:96px; }
+      .lp-trust-card { max-width:420px; font-size:17px; padding:24px; }
+      .lp-trust-list { gap:32px; margin-top:40px; }
+      .lp-trust-item { grid-template-columns:52px 1fr; gap:20px; }
+      .lp-trust-icon { width:52px; height:52px; }
+      .lp-trust-item h3 { font-size:20px; margin-bottom:4px; }
+      .lp-trust-item p { font-size:17px; }
+      .lp-final { padding-top:140px; }
+      .lp-final h2 { font-size:clamp(48px, 4.2vw, 62px); }
+      .lp-final-copy p { font-size:19px; max-width:520px; }
+      .lp-final-eyebrow { font-size:14px; }
+      .lp-auth { max-width:480px; padding:44px 40px; }
+      .lp-auth-title { font-size:34px; }
+      .lp-auth-sub { font-size:15px; }
+      .lp-field { height:56px; font-size:16px; }
+      .lp-foot { font-size:15px; padding:72px 0 40px; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .lp-phone-img, .lp-hero-chip { animation:none !important; }
+    }
+
+
+    /* ---------- Peces pròpies del repo (no venen del prototip) ---------- */
+    :where(.lp, .lp *, .lp-foot, .lp-foot *, .lp-nav-links, .lp-nav-links *) { box-sizing:border-box; }
+    .lp, .lp-foot { font-family:var(--lp-font-ui); color:var(--lp-text-primary); font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased; }
+    .lp { background:var(--lp-bg-page); }
+    :where(.lp, .lp-foot) :where(h1, h2, h3, h4, p) { margin:0; }  /* especificitat 0: no trepitja els marges de les classes */
+    :where(.lp, .lp-foot, .lp-nav-links) :where(button) { font-family:inherit; }
+    :where(.lp, .lp-foot) :where(a) { color:inherit; }
+
+    /* Barra superior de la landing: és la .pj-topnav de sempre amb la classe lp-nav.
+       En fer scroll apareix un vel difuminat que s'esvaeix cap avall, sense línia de tall. */
+    .pj-topnav.lp-nav { padding:0; }
+    .lp-nav .pj-topnav-inner { max-width:1320px; height:68px; padding:0 20px; }
+    .lp-nav::before { content:""; position:absolute; inset:0 0 -32px 0; z-index:-1; pointer-events:none; background:linear-gradient(180deg, rgba(252,248,245,0.94) 0%, rgba(252,248,245,0.8) 55%, rgba(252,248,245,0) 100%); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); -webkit-mask-image:linear-gradient(180deg, #000 50%, transparent 100%); mask-image:linear-gradient(180deg, #000 50%, transparent 100%); opacity:0; transition:opacity var(--lp-motion-normal) ease; }
+    .lp-nav.lp-scrolled::before { opacity:1; }
+    .lp-nav-links { display:flex; align-items:center; gap:32px; }
+    .lp-nav-links .lp-nav-link { display:none; background:none; border:0; padding:8px 0; font-size:15px; font-weight:500; color:var(--lp-text-secondary); cursor:pointer; transition:color var(--lp-motion-fast) ease; }
+    .lp-nav-links .lp-nav-link:hover { color:var(--lp-text-primary); }
+    .lp-nav-links .lp-btn { font-family:var(--lp-font-ui); }
+
+    .lp-logo { display:flex; align-items:center; gap:8px; font-family:var(--lp-font-app); font-weight:800; letter-spacing:-0.02em; text-decoration:none; cursor:pointer; }
+
+    /* Aparició: al hero, en carregar; a la resta, en entrar a la pantalla (scroll-driven, sense JS). */
+    @keyframes lp-reveal { from { opacity:0; transform:translateY(12px); } }
+    .lp-in { animation:lp-reveal var(--lp-motion-normal) var(--lp-ease) both; }
+    .lp-d1 { animation-delay:80ms; } .lp-d2 { animation-delay:160ms; } .lp-d3 { animation-delay:240ms; }
+    @supports (animation-timeline: view()) {
+      .lp-reveal { animation:lp-reveal linear both; animation-timeline:view(); animation-range:entry 0% entry 35%; }
+    }
+
+    /* Xifra de l'etiqueta del hero: compta de 0 a 30 sense JS. */
+    @property --lp-n { syntax:'<integer>'; initial-value:30; inherits:false; }
+    .lp-chip-num { counter-reset:lpn var(--lp-n); animation:lp-count 900ms var(--lp-ease) 1100ms both; }
+    .lp-chip-num::after { content:counter(lpn); }
+    @keyframes lp-count { from { --lp-n:0; } to { --lp-n:30; } }
+
+    /* Accés: missatges, estats i variant sense landing (recuperar / nova contrasenya). */
+    .lp-auth-head { margin-bottom:24px; }
+    .lp-auth-sub { margin:4px 0 0; }
+    .lp-auth-msg { font-size:14px; font-weight:600; padding:10px 16px; border-radius:var(--lp-radius-control); line-height:1.45; }
+    .lp-auth-msg-error { background:#FDEBEA; color:#C22A24; }
+    .lp-auth-msg-info { background:#EAF7EF; color:#1D874A; }
+    .lp-auth-blocked { background:var(--lp-surface-muted); border:1px solid var(--lp-border); border-radius:var(--lp-radius-control); padding:14px 16px; }
+    .lp-auth-blocked strong { display:block; font-size:15px; margin-bottom:4px; }
+    .lp-auth-blocked p { font-size:14px; color:var(--lp-text-secondary); line-height:1.5; margin:0 0 12px; }
+    .lp-auth-blocked-actions { display:flex; gap:8px; flex-wrap:wrap; }
+    .lp-auth-blocked-actions .lp-btn { height:44px; padding:0 18px; font-size:14px; width:auto; margin:0; }
+    .lp-link-btn { background:none; border:0; padding:0; font:600 14px var(--lp-font-ui); color:var(--lp-primary); cursor:pointer; }
+    .lp-link-btn:hover { text-decoration:underline; text-underline-offset:3px; }
+    .lp-auth-center { text-align:center; }
+    .lp-auth-loading { text-align:center; color:var(--lp-text-secondary); font-size:15px; padding:24px 0; }
+    .lp-auth-loading .pj-spin { width:32px; height:32px; border-radius:50%; border:3px solid var(--lp-border); border-top-color:var(--lp-primary); margin:0 auto 16px; }
+    .lp-auth .lp-btn[disabled] { opacity:0.7; cursor:progress; }
+    .lp-final-solo { min-height:calc(100vh - 68px); }
+    .lp-final-solo .lp-final-grid { grid-template-columns:1fr !important; }
+    .lp-final-solo .lp-auth { justify-self:center !important; }
+
+    @media (min-width:960px) {
+      .lp-nav .pj-topnav-inner { padding:0 32px; }
+      .lp-nav-links .lp-nav-link { display:inline-block; }
+    }
+    @media (min-width:1200px) {
+      .lp-nav .pj-topnav-inner { height:76px; }
+      .lp-nav-links { gap:40px; }
+      .lp-nav-links .lp-nav-link { font-size:16px; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .lp-in, .lp-reveal, .lp-chip-num { animation:none !important; }
+      .lp-nav::before { transition:none; }
+    }
+
   </style>
 </helmet>
 
@@ -579,9 +700,9 @@
   </div>
 </sc-if>
 
-<div class="{{ appFadeClass }}" style="min-height:100vh; background:#F3F4F8; font-family:'Plus Jakarta Sans',sans-serif; color:#14151A;" data-screen-label="app">
+<div class="{{ appFadeClass }}" style="min-height:100vh; background:{{ appBg }}; font-family:'Plus Jakarta Sans',sans-serif; color:#14151A;" data-screen-label="app">
 
-  <nav class="pj-topnav {{ topnavDesktopClass }}" style="position:sticky; top:0; z-index:20; background:{{ topnavBg }}; border-bottom:{{ topnavBorder }}; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);">
+  <nav class="pj-topnav {{ topnavDesktopClass }} {{ topnavLandingClass }}" style="position:sticky; top:0; z-index:20; background:{{ topnavBg }}; border-bottom:{{ topnavBorder }}; -webkit-backdrop-filter:{{ topnavBlur }}; backdrop-filter:{{ topnavBlur }};">
     <div class="pj-topnav-inner">
     <div style="display:flex; align-items:center; gap: 8px; cursor:pointer;" onClick="{{ handleLogoClick }}">
       <div style="width:28px; height:28px; display:flex; align-items:center; justify-content:center;">
@@ -594,11 +715,10 @@
       <span style="font-size:19px; font-weight:800; letter-spacing:-0.02em;">Pujobaixo</span>
     </div>
     <sc-if value="{{ isLandingMode }}" hint-placeholder-val="{{ false }}">
-      <div style="display:flex; align-items:center; gap:4px;">
-        <button class="pj-topnav-link" data-scroll-target="pj-estalvi">Estalvi</button>
-        <button class="pj-topnav-link" data-scroll-target="pj-comfunciona">Com funciona</button>
-        <button class="pj-topnav-cta" data-scroll-target="pj-auth-card" data-scroll-center data-auth-signup style="height:40px; padding:0 20px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; margin-left:8px; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.96);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">Publicar<span class="pj-topnav-cta-more"> places</span></button>
-        <button class="pj-topnav-login" data-scroll-target="pj-auth-card" data-scroll-center data-auth-login>Entrar</button>
+      <div class="lp-nav-links">
+        <button class="lp-nav-link" data-scroll-target="pj-comfunciona">Com funciona</button>
+        <button class="lp-nav-link" data-scroll-target="pj-estalvi">Avantatges</button>
+        <button class="lp-btn lp-btn-outline lp-btn-sm" data-scroll-target="pj-auth-card" data-scroll-center data-auth-login>Entrar</button>
       </div>
     </sc-if>
     </div>
@@ -645,366 +765,284 @@
   <div class="pj-main" style="{{ mainStyle }}">
 
     <sc-if value="{{ isAuthShellView }}" hint-placeholder-val="{{ true }}">
-      <div>
 
+      <div class="lp">
         <sc-if value="{{ isLandingMode }}">
-          <div class="pj-hero">
-            <div class="pj-hero-copy">
-              <div class="pj-hero-eyebrow">Berguedà ⇄ Barcelona</div>
-              <h1 style="font-size:32px; font-weight:800; letter-spacing:-0.02em; margin:0 0 16px; line-height:1.15;">Tens places buides quan <span style="color:#5B4CFB;">baixes a Barcelona</span>?</h1>
-              <p style="font-size:16px; color:#6B6F7B; margin:0 0 20px; line-height:1.5; max-width:440px;">Recupera part del que et costa el trajecte compartint les places que et sobren amb persones que fan el mateix camí.</p>
-              <div class="pj-hero-feats">
-                <div class="pj-hero-feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D874A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Sense comissions</div>
-                <div class="pj-hero-feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.19 1.24-1.95 1.4-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1.01-2.41.24-.27.62-.39.98-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.58.8 2 .87 2.14.07.15.11.32.02.51-.08.19-.13.3-.26.46-.13.16-.28.36-.4.48-.13.13-.27.28-.11.55.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.13 1.3.28.13.44.11.6-.07.16-.18.68-.79.87-1.06.18-.27.36-.22.61-.13.24.09 1.55.73 1.82.86.27.13.44.2.51.31.07.12.07.66-.17 1.34z"/></svg>Contacte directe per WhatsApp</div>
-              </div>
-              <div class="pj-hero-actions" style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
-                <button data-scroll-target="pj-auth-card" data-scroll-center data-auth-signup style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.97);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">
-                  Publicar les meves places
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </button>
-                <button data-scroll-target="pj-auth-card" data-scroll-center style="height:52px; padding:0 24px; border:1.5px solid #5B4CFB; border-radius:999px; background:#fff; color:#5B4CFB; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; transition:background 150ms ease;" style-hover="background:#EEEBFF;" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">Busco viatge</button>
-              </div>
-              <div class="pj-hero-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Publicar un trajecte és gratis i no et compromet a acceptar cap passatger.</div>
-            </div>
-            <div class="pj-hero-visual">
-              <div class="pj-hero-stack" aria-hidden="true">
-                <svg class="pj-hero-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
-                  <path d="M 24 16 L 32 48" stroke="rgba(255,255,255,0.85)" stroke-width="1.5" stroke-dasharray="3 5" stroke-linecap="round" vector-effect="non-scaling-stroke" fill="none"/>
-                  <circle cx="32" cy="49" r="1.3" fill="rgba(255,255,255,0.9)"/>
-                  <path d="M 87 49 L 85 64" stroke="rgba(255,255,255,0.85)" stroke-width="1.5" stroke-dasharray="3 5" stroke-linecap="round" vector-effect="non-scaling-stroke" fill="none"/>
-                  <circle cx="85" cy="65" r="1.3" fill="rgba(255,255,255,0.9)"/>
-                </svg>
-                <span class="pj-hero-chip pj-hero-chip-1"><span class="pj-hero-chip-tag">Seient buit</span>−10&nbsp;€</span>
-                <span class="pj-hero-chip pj-hero-chip-2"><span class="pj-hero-chip-tag">Seient buit</span>−10&nbsp;€</span>
-                <div class="pj-hero-total">3 places compartides = <span style="color:#1D874A;">fins a 30&nbsp;€</span> recuperats</div>
-              </div>
-            </div>
-          </div>
-
-        </sc-if>
-
+          <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <clipPath id="lp-blob" clipPathUnits="objectBoundingBox">
+    <path d="M0.08,0.42 C0.14,0.18 0.36,0.2 0.52,0.12 C0.68,0.04 0.86,-0.02 0.96,0.16 C1.04,0.3 0.98,0.5 1,0.66 C1.02,0.84 0.9,0.98 0.7,0.96 C0.52,0.94 0.42,0.86 0.26,0.9 C0.08,0.94 -0.04,0.8 0.02,0.62 C0.04,0.54 0.06,0.48 0.08,0.42 Z"/>
+  </clipPath>
+</svg>
+          <div class="lp-wrap">
+    <header class="lp-hero">
+      <div>
+        <div class="lp-eyebrow lp-in">Berguedà ⇄ Barcelona</div>
+        <h1 class="lp-display lp-in lp-d1">Comparteix trajectes. <span class="lp-soft">Recupera part del cost.</span></h1>
+        <p class="lp-hero-lead lp-in lp-d2">Connecta persones que baixen entre el Berguedà i Barcelona i aprofita les places lliures del teu cotxe d'una manera simple i directa.</p>
+        <div class="lp-hero-actions lp-in lp-d3">
+          <button class="lp-btn lp-btn-primary" data-scroll-target="pj-auth-card" data-scroll-center data-auth-signup>Publicar les meves places
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <button class="lp-btn lp-btn-outline" data-scroll-target="pj-auth-card" data-scroll-center data-auth-signup>Busco viatge</button>
+        </div>
+        <div class="lp-feats lp-in lp-d3">
+          <span class="lp-feat"><span class="lp-feat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></span>Sense comissions</span>
+          <span class="lp-feat-sep" aria-hidden="true"></span>
+          <span class="lp-feat"><span class="lp-feat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.4-4.1A8.5 8.5 0 1 1 8 19.4z"/><path d="M9.2 8.6c.2-.5.6-.6.9-.6h.5l.9 2.1-.7.9a5 5 0 0 0 2.3 2.3l.9-.7 2.1.9v.5c0 .3-.1.7-.6.9-1.2.6-3 .1-4.6-1.5S8.6 9.8 9.2 8.6z"/></svg></span>Contacte directe per WhatsApp</span>
+        </div>
       </div>
 
-      <sc-if value="{{ isLandingMode }}">
-        <div class="pj-band pj-band-gray">
-          <div id="pj-estalvi" class="pj-section">
-
-            <div class="pj-calc">
-              <div class="pj-calc-copy">
-                <h2>El cost real dels teus viatges</h2>
-                <p>Un dia feiner, anar i tornar de Berga a Barcelona sense compartir costa uns 48,50&nbsp;€ entre gasolina i peatges. Mira com canvia quan comparteixes les places.</p>
-              </div>
-              <div class="pj-calc-big">
-                <span class="pj-calc-big-price" style="color:{{ calcPriceColor }};">{{ calcPriceLabel }}<small class="pj-calc-cents">{{ calcPriceCents }}</small><small>€</small></span>
-              </div>
-              <div class="pj-calc-seg" role="group" aria-label="Places compartides">
-                <div class="pj-calc-track" style="transform:{{ calcTrackShift }};">
-                <button onClick="{{ setCalcSeats0 }}" aria-pressed="{{ calcSeg0Pressed }}" style="{{ calcSeg0Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="2.5"></circle><path d="M12 14.5V21M9.8 10.8 3.4 8.6M14.2 10.8l6.4-2.2"></path></svg>Sol</button>
-                <button onClick="{{ setCalcSeats1 }}" aria-pressed="{{ calcSeg1Pressed }}" style="{{ calcSeg1Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 1 plaça</button>
-                <button onClick="{{ setCalcSeats2 }}" aria-pressed="{{ calcSeg2Pressed }}" style="{{ calcSeg2Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 2 places</button>
-                <button onClick="{{ setCalcSeats3 }}" aria-pressed="{{ calcSeg3Pressed }}" style="{{ calcSeg3Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 3 places</button>
-                <button onClick="{{ setCalcSeats4 }}" aria-label="4 places compartides" aria-pressed="{{ calcSeg4Pressed }}" style="{{ calcSeg4Style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Compartint 4 places</button>
-                </div>
-              </div>
-              <p class="pj-calc-disclaimer">Càlcul orientatiu: ≈105&nbsp;km per trajecte, gasolina 95 a 1,719&nbsp;€/l i 6,5&nbsp;l/100&nbsp;km, peatges en hora punta sense descomptes (Manresa, Les Fonts i Vallvidrera). El cost real pot variar segons l'origen, el vehicle i la ruta. Aportació de referència: 5&nbsp;€ per persona i trajecte.</p>
-            </div>
-
-            <div class="pj-proof">
-              <div class="pj-proof-card">
-                <h3 class="pj-proof-title">Recuperat per viatge</h3>
-                <p class="pj-proof-sub">en una anada i tornada</p>
-                <span class="pj-proof-num pj-proof-num-green">{{ calcSavedShort }}</span>
-                <p class="pj-proof-formula">{{ calcSavedFormula }}</p>
-              </div>
-              <div class="pj-proof-card">
-                <h3 class="pj-proof-title">Estalvi anual</h3>
-                <p class="pj-proof-sub">amb un viatge per setmana</p>
-                <span class="pj-proof-num pj-proof-num-green">{{ calcYearShort }}</span>
-                <p class="pj-proof-formula">{{ calcYearFormula }}</p>
-              </div>
-            </div>
-
+      <div class="lp-hero-visual" aria-hidden="true">
+        <div class="lp-hero-glass"></div>
+        <div class="lp-hero-blob"></div>
+        <img class="lp-phone-img" src="/assets/movil.webp" alt="" width="780" height="1221" fetchpriority="high">
+        <div class="lp-hero-chip lp-chip-msg">
+          <span class="lp-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.4-4.1A8.5 8.5 0 1 1 8 19.4z"/></svg></span>
+          Hola! Queda plaça dilluns?
+        </div>
+        <div class="lp-hero-chip lp-chip-save">
+          <span class="lp-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1"/><path d="M16 4a4 4 0 0 1 0 8"/><path d="M22 21v-1a6 6 0 0 0-4-5.6"/></svg></span>
+          <span><strong>fins a <span class="lp-chip-num"></span>&nbsp;€</strong><small>recuperats per anada i tornada</small></span>
+        </div>
+      </div>
+    </header>
+  </div>
+          <section class="lp-section" id="pj-estalvi" style="padding-top:24px">
+    <div class="lp-wrap lp-save">
+      <div class="lp-reveal">
+        <h2 class="lp-display lp-sec-title">Compartir el trajecte t'ajuda a estalviar de debò.</h2>
+        <p class="lp-sec-lead">Redueix la despesa dels teus desplaçaments habituals entre el Berguedà i Barcelona, de manera senzilla i flexible.</p>
+      </div>
+      <div class="lp-reveal">
+        <div class="lp-save-card">
+          <div class="lp-save-col">
+            <div class="lp-save-k">Anar i tornar</div>
+            <div class="lp-save-big"><span class="lp-approx">≈</span>48,50&nbsp;€</div>
+            <p class="lp-save-sub">Cost aproximat del trajecte Berguedà ↔ Barcelona, si vas sol.</p>
           </div>
-
-          <div id="pj-comfunciona" class="pj-section">
-
-            <div class="pj-howworks">
-              <div class="pj-howworks-steps">
-                <div class="pj-section-head">
-                  <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Publicar un trajecte és molt fàcil</h2>
-                  <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Tres passos i cap comissió.</p>
-                </div>
-                <div class="pj-howworks-step">
-                  <span class="pj-howworks-num">1</span>
-                  <div>
-                    <h3>Publica les places que et sobren</h3>
-                    <p>Indica d'on surts, on vas, l'horari i quantes places tens disponibles.</p>
-                  </div>
-                </div>
-                <div class="pj-howworks-step">
-                  <span class="pj-howworks-num">2</span>
-                  <div>
-                    <h3>Parla directament per WhatsApp</h3>
-                    <p>Confirmeu el punt de trobada, l'horari i qualsevol detall abans de sortir.</p>
-                  </div>
-                </div>
-                <div class="pj-howworks-step">
-                  <span class="pj-howworks-num">3</span>
-                  <div>
-                    <h3>Compartiu les despeses</h3>
-                    <p>Acordeu l'aportació abans del trajecte. Pujobaixo no cobra comissions.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="pj-howworks-illus" aria-hidden="true">
-                <!-- Història en bucle (10 s), sincronitzada amb el número de pas actiu: publica → WhatsApp → places plenes. -->
-                <div class="pj-hw-demo">
-                  <div class="pj-hw-cap">
-                    <span class="pj-hw-c1"><b>1</b>Publiques les places</span>
-                    <span class="pj-hw-c2"><b>2</b>Parleu per WhatsApp</span>
-                    <span class="pj-hw-c3"><b>3</b>Compartiu les despeses</span>
-                  </div>
-                  <div class="pj-hw-card">
-                    <div class="pj-hw-head">
-                      <span class="pj-hw-who"><span class="pj-hw-avatar">M</span>Marta</span>
-                      <span class="pj-hw-pub"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Publicat</span>
-                    </div>
-                    <div class="pj-hw-route">Berga<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>Barcelona</div>
-                    <div class="pj-hw-meta">Dilluns · 7:30 · 5&nbsp;€ per plaça</div>
-                    <div class="pj-hw-seats"><span class="pj-hw-seat"><span class="pj-hw-seat-fill pj-hw-s1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span></span><span class="pj-hw-seat"><span class="pj-hw-seat-fill pj-hw-s2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span></span><span class="pj-hw-seat"><span class="pj-hw-seat-fill pj-hw-s3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span></span><span class="pj-hw-seats-label">3 places</span></div>
-                  </div>
-                  <div class="pj-hw-slot">
-                    <div class="pj-hw-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Ho veu qui fa el mateix camí</div>
-                    <div class="pj-hw-bub pj-hw-in">Hola! Queda plaça dilluns?</div>
-                    <div class="pj-hw-bub pj-hw-out">Sí! Et recullo a les 7:20 <span class="pj-hw-ticks">✓✓</span></div>
-                    <div class="pj-hw-total"><strong>+15&nbsp;€</strong> en aquest trajecte<span>3 places × 5&nbsp;€</span></div>
-                  </div>
-                </div>
-              </div>
+          <span class="lp-save-arrow" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="lp-save-col">
+            <div class="lp-save-k">Compartint places</div>
+            <div class="lp-save-big lp-save-recovered" aria-live="polite"><span class="lp-pre">fins a </span><span class="lp-num">{{ calcRecovered }}</span>&nbsp;€<span class="lp-post">recuperats</span></div>
+            <div class="lp-seats" role="group" aria-label="Places compartides">
+              <button type="button" class="lp-seat" aria-pressed="{{ calcSeat1Pressed }}" aria-label="1 plaça" onClick="{{ setCalcSeats1 }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></button>
+              <button type="button" class="lp-seat" aria-pressed="{{ calcSeat2Pressed }}" aria-label="2 places" onClick="{{ setCalcSeats2 }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></button>
+              <button type="button" class="lp-seat" aria-pressed="{{ calcSeat3Pressed }}" aria-label="3 places" onClick="{{ setCalcSeats3 }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></button>
+              <button type="button" class="lp-seat" aria-pressed="{{ calcSeat4Pressed }}" aria-label="4 places" onClick="{{ setCalcSeats4 }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></button>
             </div>
-          </div>
-
-          <div id="pj-confianca" class="pj-section">
-
-            <div class="pj-section-head">
-              <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Tu decideixes amb qui comparteixes el trajecte</h2>
-              <p style="font-size:15px; color:#6B6F7B; margin:0; line-height:1.5;">Contacte directe i sense compromisos automàtics.</p>
-            </div>
-
-            <div class="pj-steps3">
-              <div class="pj-step-card">
-                <span class="pj-bento4-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
-                <h3>Mira la informació abans de contactar</h3>
-                <p>Consulta el nom, la ruta, l'horari, les places i l'aportació proposada.</p>
-              </div>
-              <div class="pj-step-card">
-                <span class="pj-bento4-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
-                <h3>Parleu abans de sortir</h3>
-                <p>Utilitza WhatsApp per confirmar el punt de trobada i resoldre qualsevol dubte.</p>
-              </div>
-              <div class="pj-step-card">
-                <span class="pj-bento4-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
-                <h3>Accepta només si et va bé</h3>
-                <p>Publicar un trajecte no t'obliga a acceptar totes les sol·licituds.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Tancament: banner amb imatge i CTA, i la xarxa que estem fent créixer. -->
-          <div class="pj-section">
-            <div class="pj-loss-banner">
-              <div class="pj-loss-copy">
-                <h2>Ja fas el trajecte. Només falta publicar les places.</h2>
-                <p>No cal canviar la ruta ni fer més quilòmetres. Publica el trajecte que ja tens previst i decideix amb qui vols compartir-lo.</p>
-                <button data-scroll-target="pj-auth-card" data-scroll-center data-auth-signup style="margin-top:20px; height:48px; padding:0 24px; border:none; border-radius:999px; background:#fff; color:#14151A; font-weight:800; font-size:14.5px; cursor:pointer; font-family:inherit; transition:transform 120ms ease;" style-active="transform:scale(0.97);">Publicar el pròxim trajecte</button>
-              </div>
-            </div>
-
-            <div class="pj-launch pj-solo-block">
-              <div class="pj-launch-illus" aria-hidden="true">
-                <!-- Xarxa (bucle de 12 s): primer es dibuixa Berga → Barcelona i després s'hi sumen altres connexions del Berguedà. -->
-                <svg viewBox="0 0 240 160" fill="none">
-                  <path class="pj-net-line" style="animation-name:pjNetL0" d="M80 50 C 130 52, 160 110, 210 118" stroke="#5B4CFB" stroke-width="2.6" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1"/>
-                  <path class="pj-net-line" style="animation-name:pjNetL1" d="M56 18 Q 66 34, 80 50" stroke="#B9B0FF" stroke-width="1.8" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1"/>
-                  <path class="pj-net-line" style="animation-name:pjNetL2" d="M80 50 Q 86 70, 96 86" stroke="#B9B0FF" stroke-width="1.8" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1"/>
-                  <path class="pj-net-line" style="animation-name:pjNetL3" d="M48 104 Q 72 98, 96 86" stroke="#B9B0FF" stroke-width="1.8" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1"/>
-                  <path class="pj-net-line" style="animation-name:pjNetL4" d="M38 58 Q 60 52, 80 50" stroke="#B9B0FF" stroke-width="1.8" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1"/>
-                  <path class="pj-net-line" style="animation-name:pjNetL5" d="M96 86 Q 100 106, 108 122" stroke="#B9B0FF" stroke-width="1.8" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1"/>
-                  <path class="pj-net-line" style="animation-name:pjNetL6" d="M108 122 C 140 142, 180 132, 210 118" stroke="#B9B0FF" stroke-width="1.8" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1"/>
-                  <circle class="pj-net-node" style="animation-name:pjNetN0" cx="80" cy="50" r="5" fill="#fff" stroke="#5B4CFB" stroke-width="2.2"/>
-                  <circle class="pj-net-node" style="animation-name:pjNetN1" cx="56" cy="18" r="3.6" fill="#fff" stroke="#5B4CFB" stroke-width="1.8"/>
-                  <circle class="pj-net-node" style="animation-name:pjNetN2" cx="38" cy="58" r="3.6" fill="#fff" stroke="#5B4CFB" stroke-width="1.8"/>
-                  <circle class="pj-net-node" style="animation-name:pjNetN3" cx="96" cy="86" r="3.6" fill="#fff" stroke="#5B4CFB" stroke-width="1.8"/>
-                  <circle class="pj-net-node" style="animation-name:pjNetN4" cx="48" cy="104" r="3.6" fill="#fff" stroke="#5B4CFB" stroke-width="1.8"/>
-                  <circle class="pj-net-node" style="animation-name:pjNetN5" cx="108" cy="122" r="3.6" fill="#fff" stroke="#5B4CFB" stroke-width="1.8"/>
-                  <text class="pj-net-label" style="animation-name:pjNetT0;font-family:inherit" x="80" y="40" text-anchor="middle" font-size="9" font-weight="800" fill="#14151A">Berga</text>
-                  <text class="pj-net-label" style="animation-name:pjNetT1;font-family:inherit" x="64" y="21" text-anchor="start" font-size="8" font-weight="700" fill="#6B6F7B">Bagà</text>
-                  <text class="pj-net-label" style="animation-name:pjNetT2;font-family:inherit" x="38" y="72" text-anchor="middle" font-size="8" font-weight="700" fill="#6B6F7B">Avià</text>
-                  <text class="pj-net-label" style="animation-name:pjNetT3;font-family:inherit" x="104" y="89" text-anchor="start" font-size="8" font-weight="700" fill="#6B6F7B">Gironella</text>
-                  <text class="pj-net-label" style="animation-name:pjNetT4;font-family:inherit" x="48" y="118" text-anchor="middle" font-size="8" font-weight="700" fill="#6B6F7B">Olvan</text>
-                  <text class="pj-net-label" style="animation-name:pjNetT5;font-family:inherit" x="108" y="136" text-anchor="middle" font-size="8" font-weight="700" fill="#6B6F7B">Puig-reig</text>
-                  <g class="pj-net-node pj-net-pin" style="animation-name:pjNetPin"><path d="M210 86c6.6 0 12 5.4 12 12 0 8.6-12 20-12 20s-12-11.4-12-20c0-6.6 5.4-12 12-12z" fill="#fff" stroke="#5B4CFB" stroke-width="2.2" stroke-linejoin="round"/><circle cx="210" cy="98" r="3.2" fill="#5B4CFB"/></g><text class="pj-net-label" style="animation-name:pjNetPinT;font-family:inherit" x="210" y="80" text-anchor="middle" font-size="9" font-weight="800" fill="#14151A">Barcelona</text>
-                </svg>
-              </div>
-              <div class="pj-launch-copy">
-                <h2>Estem posant en marxa Pujobaixo</h2>
-                <p>Una plataforma nova per compartir trajectes entre el Berguedà i Barcelona. Comencem reunint qui ja fa aquest camí: si tens places lliures, publica-les i fes créixer les opcions per pujar i baixar.</p>
-                <button data-scroll-target="pj-auth-card" data-scroll-center data-auth-signup style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 28px; border:none; border-radius:999px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.97);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">Publicar les meves places</button>
-              </div>
-            </div>
+            <p class="lp-save-sub">{{ calcRecSub }}</p>
           </div>
         </div>
-
-      </sc-if>
-
-      <div class="pj-band" style="background:#5B4CFB;">
-        <div class="pj-footer-cta">
-          <div class="pj-footer-cta-copy">
-            <div class="pj-footer-eyebrow">3 places compartides = fins a 30&nbsp;€ recuperats per anada i tornada</div>
-            <h2>El pròxim trajecte no l'has de pagar tot tu sol.</h2>
-            <p>Publica les places que et sobren i troba persones que ja necessiten fer el mateix camí.</p>
+        <details class="lp-save-note">
+          <summary><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><line x1="12" y1="8" x2="12" y2="8"/></svg>Com ho calculem</summary>
+          <p>Càlcul orientatiu: ≈105&nbsp;km per trajecte, gasolina 95 a 1,719&nbsp;€/l i 6,5&nbsp;l/100&nbsp;km, peatges en hora punta sense descomptes (Manresa, Les Fonts i Vallvidrera). El cost real pot variar segons l'origen, el vehicle i la ruta. Aportació de referència: 5&nbsp;€ per persona i trajecte.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+          <section id="pj-comfunciona" class="lp-section lp-band-alt">
+    <div class="lp-wrap">
+      <h2 class="lp-display lp-sec-title lp-reveal">Publicar un trajecte és molt fàcil.</h2>
+      <div class="lp-steps">
+        <article class="lp-step lp-reveal">
+          <div class="lp-step-illus">
+            <svg class="lp-iso" viewBox="14 0 212 180" role="img" aria-label="Il·lustració: un cotxe a la carretera i la targeta del trajecte publicada amb tres places"><polygon points="24.7,120.7 120.0,175.7 120.0,168.0 24.7,113.0" fill="#EEEBF4" stroke="#E5E2E9" stroke-width="0.8" stroke-linejoin="round"/><polygon points="215.3,120.7 120.0,175.7 120.0,168.0 215.3,113.0" fill="#E3DFEB" stroke="#E5E2E9" stroke-width="0.8" stroke-linejoin="round"/><polygon points="120.0,58.0 215.3,113.0 120.0,168.0 24.7,113.0" fill="#FFFFFF" stroke="#E5E2E9" stroke-width="0.8" stroke-linejoin="round"/><polygon points="88.6,76.2 183.8,131.2 151.4,149.8 56.2,94.8" fill="#F2F0F6"/><line x1="88.6" y1="76.2" x2="183.8" y2="131.2" stroke="#E5E2E9" stroke-width="0.9"/><line x1="56.2" y1="94.8" x2="151.4" y2="149.8" stroke="#E5E2E9" stroke-width="0.9"/><line class="lp-s1-lane" x1="72.4" y1="85.5" x2="167.6" y2="140.5" stroke="#FFFFFF" stroke-width="1.8" stroke-dasharray="6 6" stroke-linecap="round"/><line x1="143.8" y1="71.8" x2="48.6" y2="126.8" stroke="#F2F0F6" stroke-width="0.8"/><line x1="96.2" y1="71.8" x2="191.4" y2="126.8" stroke="#F2F0F6" stroke-width="0.8"/><line x1="167.6" y1="85.5" x2="72.4" y2="140.5" stroke="#F2F0F6" stroke-width="0.8"/><line x1="72.4" y1="85.5" x2="167.6" y2="140.5" stroke="#F2F0F6" stroke-width="0.8"/><line x1="191.4" y1="99.2" x2="96.2" y2="154.2" stroke="#F2F0F6" stroke-width="0.8"/><line x1="48.6" y1="99.2" x2="143.8" y2="154.2" stroke="#F2F0F6" stroke-width="0.8"/><g class="lp-tree"><ellipse cx="117.1" cy="71.8" rx="5.8" ry="3.3" fill="rgba(27,26,34,0.07)"/><line x1="117.1" y1="71.8" x2="117.1" y2="47.5" stroke="#8C7BB3" stroke-width="2" stroke-linecap="round"/><circle cx="112.2" cy="48.6" r="7.9" fill="#B5A3EE"/><circle cx="121.5" cy="47.5" r="8.6" fill="#CDBFF5"/><circle cx="116.6" cy="42.1" r="8.8" fill="#E4DCFB"/></g><g class="lp-tree"><ellipse cx="189.5" cy="112.5" rx="6.4" ry="3.7" fill="rgba(27,26,34,0.07)"/><line x1="189.5" y1="112.5" x2="189.5" y2="88.2" stroke="#8C7BB3" stroke-width="2" stroke-linecap="round"/><circle cx="184.1" cy="89.5" r="8.7" fill="#A3D9B6"/><circle cx="194.4" cy="88.2" r="9.5" fill="#BFE6CD"/><circle cx="188.9" cy="82.2" r="9.7" fill="#DDF3E5"/></g><ellipse cx="121.9" cy="116.1" rx="30" ry="10" fill="rgba(27,26,34,0.06)"/><g class="lp-s1-car"><polygon points="90.5,104.8 133.3,129.5 133.3,118.5 90.5,93.8" fill="#EEE9FD" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="154.3,117.4 133.3,129.5 133.3,118.5 154.3,106.4" fill="#D8CEF6" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="111.4,81.7 154.3,106.4 133.3,118.5 90.5,93.8" fill="#FFFFFF" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="101.9,98.1 124.8,111.4 124.8,102.0 101.9,88.8" fill="#6547AF" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="141.9,101.5 124.8,111.4 124.8,102.0 141.9,92.1" fill="#563895" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="119.0,78.9 141.9,92.1 124.8,102.0 101.9,88.8" fill="#FFFFFF" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><line x1="113.3" y1="104.8" x2="113.3" y2="95.4" stroke="#FFFFFF" stroke-width="1.6"/><polygon points="103.0,110.7 102.8,109.1 102.3,107.5 101.4,106.0 100.3,104.7 99.0,103.8 97.8,103.3 96.7,103.3 95.8,103.8 95.2,104.8 95.0,106.1 95.2,107.6 95.8,109.2 96.7,110.8 97.8,112.1 99.0,113.0 100.3,113.5 101.4,113.5 102.3,113.0 102.8,112.0" fill="#1B1A22"/><polygon points="100.8,109.4 100.6,108.2 99.9,107.1 99.0,106.3 98.1,106.1 97.5,106.4 97.2,107.3 97.5,108.5 98.1,109.7 99.0,110.5 99.9,110.7 100.6,110.3" fill="#8E8A99"/><polygon points="128.8,125.5 128.6,124.0 128.0,122.4 127.1,120.9 126.0,119.5 124.8,118.6 123.5,118.1 122.4,118.1 121.5,118.6 121.0,119.6 120.8,120.9 121.0,122.5 121.5,124.1 122.4,125.6 123.5,126.9 124.8,127.8 126.0,128.3 127.1,128.3 128.0,127.8 128.6,126.9" fill="#1B1A22"/><polygon points="126.6,124.3 126.3,123.1 125.7,121.9 124.8,121.2 123.9,120.9 123.2,121.3 123.0,122.2 123.2,123.4 123.9,124.5 124.8,125.3 125.7,125.6 126.3,125.2" fill="#8E8A99"/><polygon points="151.9,113.8 147.1,116.6 147.1,113.8 151.9,111.1" fill="#FFF1E2" stroke="#F2C594" stroke-width="0.6" stroke-linejoin="round"/></g><g class="lp-tree"><ellipse cx="53.3" cy="113.0" rx="5.5" ry="3.2" fill="rgba(27,26,34,0.07)"/><line x1="53.3" y1="113.0" x2="53.3" y2="88.8" stroke="#8C7BB3" stroke-width="2" stroke-linecap="round"/><circle cx="48.6" cy="89.8" r="7.5" fill="#A3D9B6"/><circle cx="57.5" cy="88.8" r="8.1" fill="#BFE6CD"/><circle cx="52.8" cy="83.6" r="8.3" fill="#DDF3E5"/></g><path class="lp-s1-link" d="M121.9 87.9 C 121.9 67.9, 150 70, 156 54" fill="none" stroke="#7A5AF8" stroke-width="1.4" stroke-dasharray="3 4" stroke-linecap="round"/><g class="lp-s1-card"><rect x="128" y="10" width="88" height="44" rx="10" fill="#FFFFFF" stroke="#E5E2E9"/><circle cx="139" cy="23" r="3" fill="none" stroke="#6547AF" stroke-width="1.6"/><line x1="143" y1="23" x2="165" y2="23" stroke="#6547AF" stroke-width="1.6" stroke-dasharray="2 3" stroke-linecap="round"/><circle cx="169" cy="23" r="3" fill="#6547AF"/><rect x="178" y="20.5" width="28" height="5" rx="2.5" fill="#EEE9FD"/><g class="lp-s1-seat lp-s1-seat1"><rect x="135" y="34" width="12" height="12" rx="4" fill="#FFFFFF" stroke="#CFC6EE" stroke-width="1.2" stroke-dasharray="2.5 2"/><rect class="lp-fill" x="135" y="34" width="12" height="12" rx="4" fill="#6547AF"/><circle class="lp-fill" cx="141" cy="38.6" r="1.9" fill="#FFFFFF"/><path class="lp-fill" d="M137.6 44.2 a3.4 3 0 0 1 6.8 0" fill="#FFFFFF"/></g><g class="lp-s1-seat lp-s1-seat2"><rect x="151" y="34" width="12" height="12" rx="4" fill="#FFFFFF" stroke="#CFC6EE" stroke-width="1.2" stroke-dasharray="2.5 2"/><rect class="lp-fill" x="151" y="34" width="12" height="12" rx="4" fill="#6547AF"/><circle class="lp-fill" cx="157" cy="38.6" r="1.9" fill="#FFFFFF"/><path class="lp-fill" d="M153.6 44.2 a3.4 3 0 0 1 6.8 0" fill="#FFFFFF"/></g><g class="lp-s1-seat lp-s1-seat3"><rect x="167" y="34" width="12" height="12" rx="4" fill="#FFFFFF" stroke="#CFC6EE" stroke-width="1.2" stroke-dasharray="2.5 2"/><rect class="lp-fill" x="167" y="34" width="12" height="12" rx="4" fill="#6547AF"/><circle class="lp-fill" cx="173" cy="38.6" r="1.9" fill="#FFFFFF"/><path class="lp-fill" d="M169.6 44.2 a3.4 3 0 0 1 6.8 0" fill="#FFFFFF"/></g></g><g class="lp-s1-plus"><circle cx="214" cy="12" r="9" fill="#6547AF"/><path d="M214 7.5v9M209.5 12h9" stroke="#fff" stroke-width="2" stroke-linecap="round"/></g></svg>
           </div>
-      <div id="pj-auth-card" style="width:100%; max-width:420px; margin:0 auto; flex-shrink:0; background:#fff; border-radius:28px; padding: 40px 32px; box-shadow:0 20px 60px -30px rgba(20,21,26,0.25);">
-        <sc-if value="{{ isLoginMode }}">
-          <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin: 0 0 4px; text-align:center;">Inicia sessió</h2>
+          <div class="lp-step-num">Pas 1</div>
+          <h3>Publica les teves places</h3>
+          <p>Indica la ruta, el dia, l'hora i quantes places lliures tens al cotxe.</p>
+        </article>
+        <article class="lp-step lp-reveal">
+          <div class="lp-step-illus">
+            <svg class="lp-iso" viewBox="14 0 212 180" role="img" aria-label="Il·lustració: una persona al sofà de casa i una altra a l'oficina parlant per WhatsApp"><polygon points="131.4,119.6 173.3,143.8 173.3,137.2 131.4,113.0" fill="#EEEBF4" stroke="#D8E4F8" stroke-width="0.8" stroke-linejoin="round"/><polygon points="215.3,119.6 173.3,143.8 173.3,137.2 215.3,113.0" fill="#E3DFEB" stroke="#D8E4F8" stroke-width="0.8" stroke-linejoin="round"/><polygon points="173.3,88.8 215.3,113.0 173.3,137.2 131.4,113.0" fill="#F2F7FF" stroke="#D8E4F8" stroke-width="0.8" stroke-linejoin="round"/><line x1="183.8" y1="94.8" x2="141.9" y2="119.1" stroke="#E3ECFA" stroke-width="0.7"/><line x1="194.3" y1="100.9" x2="152.4" y2="125.1" stroke="#E3ECFA" stroke-width="0.7"/><line x1="204.8" y1="107.0" x2="162.9" y2="131.2" stroke="#E3ECFA" stroke-width="0.7"/><g class="lp-tree"><ellipse cx="201.9" cy="113.0" rx="3.9" ry="2.3" fill="rgba(27,26,34,0.07)"/><line x1="201.9" y1="113.0" x2="201.9" y2="96.5" stroke="#8C7BB3" stroke-width="2" stroke-linecap="round"/><circle cx="198.5" cy="97.3" r="5.4" fill="#A3D9B6"/><circle cx="204.9" cy="96.5" r="5.9" fill="#BFE6CD"/><circle cx="201.6" cy="92.7" r="6.0" fill="#DDF3E5"/></g><polygon points="181.9,102.0 182.9,102.5 182.9,91.5 181.9,91.0" fill="#CFC6EE"/><polygon points="183.8,102.0 182.9,102.5 182.9,91.5 183.8,91.0" fill="#B9AEE0"/><polygon points="182.9,90.5 183.8,91.0 182.9,91.5 181.9,91.0" fill="#CFC6EE"/><polygon points="202.9,114.1 203.8,114.6 203.8,103.6 202.9,103.1" fill="#CFC6EE"/><polygon points="204.8,114.1 203.8,114.6 203.8,103.6 204.8,103.1" fill="#B9AEE0"/><polygon points="203.8,102.5 204.8,103.1 203.8,103.6 202.9,103.1" fill="#CFC6EE"/><polygon points="172.9,107.2 173.8,107.8 173.8,96.8 172.9,96.2" fill="#CFC6EE"/><polygon points="174.8,107.2 173.8,107.8 173.8,96.8 174.8,96.2" fill="#B9AEE0"/><polygon points="173.8,95.7 174.8,96.2 173.8,96.8 172.9,96.2" fill="#CFC6EE"/><polygon points="193.8,119.3 194.8,119.9 194.8,108.9 193.8,108.3" fill="#CFC6EE"/><polygon points="195.7,119.3 194.8,119.9 194.8,108.9 195.7,108.3" fill="#B9AEE0"/><polygon points="194.8,107.8 195.7,108.3 194.8,108.9 193.8,108.3" fill="#CFC6EE"/><polygon points="172.4,96.0 195.3,109.2 195.3,107.6 172.4,94.4" fill="#EEE9FD" stroke="#CFC6EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="205.7,103.1 195.3,109.2 195.3,107.6 205.7,101.6" fill="#D8CEF6" stroke="#CFC6EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="182.9,88.4 205.7,101.6 195.3,107.6 172.4,94.4" fill="#FFFFFF" stroke="#CFC6EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="189.4,97.3 190.5,97.9 190.5,94.6 189.4,94.0" fill="#B9AEE0"/><polygon points="191.6,97.3 190.5,97.9 190.5,94.6 191.6,94.0" fill="#A396D6"/><polygon points="190.5,93.3 191.6,94.0 190.5,94.6 189.4,94.0" fill="#B9AEE0"/><polygon points="185.7,90.6 196.2,96.6 196.2,88.4 185.7,82.3" fill="#6547AF"/><polygon points="197.2,96.1 196.2,96.6 196.2,88.4 197.2,87.8" fill="#563895"/><polygon points="186.7,81.8 197.2,87.8 196.2,88.4 185.7,82.3" fill="#563895"/><polygon points="175.3,95.0 180.0,97.7 180.0,96.8 175.3,94.1" fill="#E3DFEB"/><polygon points="183.3,95.8 180.0,97.7 180.0,96.8 183.3,94.9" fill="#D3CEDD"/><polygon points="178.6,92.2 183.3,94.9 180.0,96.8 175.3,94.1" fill="#FFFFFF"/><polygon points="157.3,96.2 165.4,100.8 165.4,90.4 157.3,85.7" fill="#6547AF"/><polygon points="167.2,99.9 165.4,100.8 165.4,90.4 167.2,89.4" fill="#563895"/><polygon points="159.1,84.7 167.2,89.4 165.4,90.4 157.3,85.7" fill="#6547AF"/><polygon points="157.3,107.1 158.3,107.6 158.3,102.1 157.3,101.6" fill="#8C7BB3"/><polygon points="159.2,107.1 158.3,107.6 158.3,102.1 159.2,101.6" fill="#7A6AA3"/><polygon points="158.3,101.0 159.2,101.6 158.3,102.1 157.3,101.6" fill="#8C7BB3"/><polygon points="149.1,101.7 158.1,107.0 158.1,105.6 149.1,100.4" fill="#6547AF"/><polygon points="166.2,102.3 158.1,107.0 158.1,105.6 166.2,101.0" fill="#563895"/><polygon points="157.2,95.7 166.2,101.0 158.1,105.6 149.1,100.4" fill="#8F7AD6"/><g class="lp-person lp-s2-b"><polygon points="149.2,103.2 151.1,104.3 151.1,102.5 149.2,101.5" fill="#55526A"/><polygon points="157.7,100.5 151.1,104.3 151.1,102.5 157.7,98.7" fill="#3F3D4C"/><polygon points="155.8,97.6 157.7,98.7 151.1,102.5 149.2,101.5" fill="#6B6880"/><polygon points="149.0,110.1 150.9,111.2 150.9,104.4 149.0,103.3" fill="#55526A"/><polygon points="152.2,110.5 150.9,111.2 150.9,104.4 152.2,103.7" fill="#3F3D4C"/><polygon points="150.3,102.6 152.2,103.7 150.9,104.4 149.0,103.3" fill="#55526A"/><polygon points="152.0,104.9 153.9,106.0 153.9,104.2 152.0,103.1" fill="#55526A"/><polygon points="160.6,102.1 153.9,106.0 153.9,104.2 160.6,100.4" fill="#3F3D4C"/><polygon points="158.7,99.2 160.6,100.4 153.9,104.2 152.0,103.1" fill="#6B6880"/><polygon points="151.8,111.8 153.7,112.9 153.7,106.1 151.8,105.0" fill="#55526A"/><polygon points="155.1,112.1 153.7,112.9 153.7,106.1 155.1,105.3" fill="#3F3D4C"/><polygon points="153.2,104.2 155.1,105.3 153.7,106.1 151.8,105.0" fill="#55526A"/><rect x="152.6" y="88.6" width="11.1" height="9.9" rx="5.0" fill="#F3B98A"/><ellipse cx="158.1" cy="90.1" rx="5.5" ry="2.5" fill="#FCE3CB"/><rect x="156.2" y="92.7" width="3.8" height="5.6" rx="1" fill="#6547AF"/><rect x="156.9" y="93.6" width="2.4" height="3.4" rx="0.5" fill="#B5A3EE"/><circle cx="158.1" cy="83.3" r="4.0" fill="#F1D6C2"/><path d="M154.1 82.8 a4.0 4.0 0 0 1 7.9 0 q-4.0 -1.6 -7.9 0z" fill="#1B1A22"/></g><polygon points="24.7,119.6 66.7,143.8 66.7,137.2 24.7,113.0" fill="#EEEBF4" stroke="#F3E2CF" stroke-width="0.8" stroke-linejoin="round"/><polygon points="108.6,119.6 66.7,143.8 66.7,137.2 108.6,113.0" fill="#E3DFEB" stroke="#F3E2CF" stroke-width="0.8" stroke-linejoin="round"/><polygon points="66.7,88.8 108.6,113.0 66.7,137.2 24.7,113.0" fill="#FFF8F0" stroke="#F3E2CF" stroke-width="0.8" stroke-linejoin="round"/><ellipse cx="62.8" cy="116.3" rx="27" ry="13" fill="#FBE7D2"/><ellipse cx="62.8" cy="116.3" rx="19" ry="9" fill="none" stroke="#F3D3B2" stroke-width="1"/><line x1="66.2" y1="94.0" x2="66.2" y2="66.5" stroke="#8C7BB3" stroke-width="1.4"/><path d="M61.2 69.5 L63.2 62.5 H69.2 L71.2 69.5Z" fill="#FFF1E2" stroke="#F2C594" stroke-width="0.8"/><polygon points="67.9,98.0 94.6,113.4 94.6,98.5 67.9,83.1" fill="#D2C6F6" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="98.6,111.1 94.6,113.4 94.6,98.5 98.6,96.2" fill="#BFAFEE" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="71.9,80.8 98.6,96.2 94.6,98.5 67.9,83.1" fill="#E4DCFB" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="53.8,102.8 56.7,104.5 56.7,95.1 53.8,93.5" fill="#D2C6F6" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="71.9,95.7 56.7,104.5 56.7,95.1 71.9,86.3" fill="#BFAFEE" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="69.0,84.7 71.9,86.3 56.7,95.1 53.8,93.5" fill="#E4DCFB" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="56.7,104.5 83.3,119.9 83.3,113.8 56.7,98.4" fill="#D2C6F6" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="94.6,113.4 83.3,119.9 83.3,113.8 94.6,107.3" fill="#BFAFEE" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="67.9,91.9 94.6,107.3 83.3,113.8 56.7,98.4" fill="#EEE9FD" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="65.2,94.6 73.8,99.5 73.8,93.5 65.2,88.5" fill="#F6DCC0"/><polygon points="77.1,97.6 73.8,99.5 73.8,93.5 77.1,91.6" fill="#EBC9A6"/><polygon points="68.6,86.6 77.1,91.6 73.8,93.5 65.2,88.5" fill="#FFF1E2"/><g class="lp-person lp-s2-a"><polygon points="68.2,105.1 70.1,106.2 70.1,104.4 68.2,103.3" fill="#55526A"/><polygon points="76.8,102.3 70.1,106.2 70.1,104.4 76.8,100.6" fill="#3F3D4C"/><polygon points="74.8,99.5 76.8,100.6 70.1,104.4 68.2,103.3" fill="#6B6880"/><polygon points="68.0,111.2 69.9,112.3 69.9,106.3 68.0,105.2" fill="#55526A"/><polygon points="71.2,111.6 69.9,112.3 69.9,106.3 71.2,105.5" fill="#3F3D4C"/><polygon points="69.3,104.4 71.2,105.5 69.9,106.3 68.0,105.2" fill="#55526A"/><polygon points="71.0,106.7 72.9,107.8 72.9,106.1 71.0,105.0" fill="#55526A"/><polygon points="79.6,104.0 72.9,107.8 72.9,106.1 79.6,102.2" fill="#3F3D4C"/><polygon points="77.7,101.1 79.6,102.2 72.9,106.1 71.0,105.0" fill="#6B6880"/><polygon points="70.8,112.9 72.7,114.0 72.7,107.9 70.8,106.8" fill="#55526A"/><polygon points="74.1,113.2 72.7,114.0 72.7,107.9 74.1,107.2" fill="#3F3D4C"/><polygon points="72.2,106.1 74.1,107.2 72.7,107.9 70.8,106.8" fill="#55526A"/><rect x="71.6" y="90.4" width="11.1" height="9.9" rx="5.0" fill="#9DBCF0"/><ellipse cx="77.1" cy="91.9" rx="5.5" ry="2.5" fill="#DCE8FD"/><rect x="75.2" y="94.6" width="3.8" height="5.6" rx="1" fill="#6547AF"/><rect x="75.9" y="95.5" width="2.4" height="3.4" rx="0.5" fill="#B5A3EE"/><circle cx="77.1" cy="85.2" r="4.0" fill="#F1D6C2"/><path d="M73.2 84.7 a4.0 4.0 0 0 1 7.9 0 q-4.0 -1.6 -7.9 0z" fill="#1B1A22"/></g><polygon points="83.3,119.9 86.2,121.5 86.2,112.2 83.3,110.5" fill="#D2C6F6" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="101.4,112.7 86.2,121.5 86.2,112.2 101.4,103.4" fill="#BFAFEE" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="98.6,101.7 101.4,103.4 86.2,112.2 83.3,110.5" fill="#E4DCFB" stroke="#C6B9EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="59.0,129.5 63.8,132.2 63.8,127.3 59.0,124.5" fill="#EEEBF4" stroke="#E5E2E9" stroke-width="0.6" stroke-linejoin="round"/><polygon points="68.6,129.5 63.8,132.2 63.8,127.3 68.6,124.5" fill="#E3DFEB" stroke="#E5E2E9" stroke-width="0.6" stroke-linejoin="round"/><polygon points="63.8,121.8 68.6,124.5 63.8,127.3 59.0,124.5" fill="#FFFFFF" stroke="#E5E2E9" stroke-width="0.6" stroke-linejoin="round"/><g class="lp-tree"><ellipse cx="63.8" cy="129.5" rx="3.3" ry="1.9" fill="rgba(27,26,34,0.07)"/><line x1="63.8" y1="129.5" x2="63.8" y2="115.2" stroke="#8C7BB3" stroke-width="2" stroke-linecap="round"/><circle cx="60.9" cy="115.8" r="4.6" fill="#A3D9B6"/><circle cx="66.3" cy="115.2" r="5.0" fill="#BFE6CD"/><circle cx="63.5" cy="112.0" r="5.1" fill="#DDF3E5"/></g><path class="lp-s2-route" d="M77.1 96.6 Q 117.6 48.7 158.1 94.7" fill="none" stroke="#7A5AF8" stroke-width="1.2" stroke-dasharray="2 4" stroke-linecap="round" opacity="0.55"/><g class="lp-s2-msg lp-s2-msg1"><circle r="5.5" fill="#25D366" opacity="0.18"/><circle r="3.2" fill="#25D366"/></g><g class="lp-s2-msg lp-s2-msg2"><circle r="5.5" fill="#6547AF" opacity="0.18"/><circle r="3.2" fill="#6547AF"/></g><g class="lp-s2-bub lp-s2-bubA"><path d="M30 24 h56 a10 10 0 0 1 10 10 v12 a10 10 0 0 1 -10 10 H78 l-5 8 l-2 -8 H30 a10 10 0 0 1 -10 -10 v-12 a10 10 0 0 1 10 -10z" fill="#FFFFFF" stroke="#E5E2E9"/><g class="lp-s2-dots lp-s2-dotsA"><circle cx="50" cy="40" r="2.2" fill="#B9B5C4" style="animation-delay:0.00s"/><circle cx="58" cy="40" r="2.2" fill="#B9B5C4" style="animation-delay:0.15s"/><circle cx="66" cy="40" r="2.2" fill="#B9B5C4" style="animation-delay:0.30s"/></g><g class="lp-s2-text lp-s2-textA"><rect x="30" y="33" width="48" height="5" rx="2.5" fill="#D9D6E0"/><rect x="30" y="42" width="32" height="5" rx="2.5" fill="#E9E7EE"/></g></g><g class="lp-s2-bub lp-s2-bubB"><path d="M160 24 h56 a10 10 0 0 1 10 10 v12 a10 10 0 0 1 -10 10 H161 l-5 8 l-2 -8 H160 a10 10 0 0 1 -10 -10 v-12 a10 10 0 0 1 10 -10z" fill="#25D366"/><g class="lp-s2-dots lp-s2-dotsB"><circle cx="180" cy="40" r="2.2" fill="#FFFFFF" opacity="0.85" style="animation-delay:0.00s"/><circle cx="188" cy="40" r="2.2" fill="#FFFFFF" opacity="0.85" style="animation-delay:0.15s"/><circle cx="196" cy="40" r="2.2" fill="#FFFFFF" opacity="0.85" style="animation-delay:0.30s"/></g><g class="lp-s2-text lp-s2-textB"><rect x="160" y="33" width="44" height="5" rx="2.5" fill="#FFFFFF" opacity="0.95"/><rect x="160" y="42" width="28" height="5" rx="2.5" fill="#FFFFFF" opacity="0.7"/><path class="lp-s2-ticks" d="M200 45 l2.2 2.2 l4 -4.4 M205 45 l2.2 2.2 l4 -4.4" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g></svg>
+          </div>
+          <div class="lp-step-num">Pas 2</div>
+          <h3>Parla per WhatsApp</h3>
+          <p>Contacta directament amb les persones interessades i concreteu els detalls.</p>
+        </article>
+        <article class="lp-step lp-reveal">
+          <div class="lp-step-illus">
+            <svg class="lp-iso" viewBox="14 0 212 180" role="img" aria-label="Il·lustració: tres persones aporten una moneda cadascuna a una pila comuna"><polygon points="24.7,120.7 120.0,175.7 120.0,168.0 24.7,113.0" fill="#EEEBF4" stroke="#E5E2E9" stroke-width="0.8" stroke-linejoin="round"/><polygon points="215.3,120.7 120.0,175.7 120.0,168.0 215.3,113.0" fill="#E3DFEB" stroke="#E5E2E9" stroke-width="0.8" stroke-linejoin="round"/><polygon points="120.0,58.0 215.3,113.0 120.0,168.0 24.7,113.0" fill="#FFFFFF" stroke="#E5E2E9" stroke-width="0.8" stroke-linejoin="round"/><line x1="143.8" y1="71.8" x2="48.6" y2="126.8" stroke="#F1EFF5" stroke-width="0.8"/><line x1="96.2" y1="71.8" x2="191.4" y2="126.8" stroke="#F1EFF5" stroke-width="0.8"/><line x1="167.6" y1="85.5" x2="72.4" y2="140.5" stroke="#F1EFF5" stroke-width="0.8"/><line x1="72.4" y1="85.5" x2="167.6" y2="140.5" stroke="#F1EFF5" stroke-width="0.8"/><line x1="191.4" y1="99.2" x2="96.2" y2="154.2" stroke="#F1EFF5" stroke-width="0.8"/><line x1="48.6" y1="99.2" x2="143.8" y2="154.2" stroke="#F1EFF5" stroke-width="0.8"/><g class="lp-tree"><ellipse cx="189.5" cy="112.5" rx="6.1" ry="3.5" fill="rgba(27,26,34,0.07)"/><line x1="189.5" y1="112.5" x2="189.5" y2="88.2" stroke="#8C7BB3" stroke-width="2" stroke-linecap="round"/><circle cx="184.3" cy="89.4" r="8.3" fill="#A3D9B6"/><circle cx="194.2" cy="88.2" r="9.0" fill="#BFE6CD"/><circle cx="189.0" cy="82.5" r="9.2" fill="#DDF3E5"/></g><g class="lp-tree"><ellipse cx="117.1" cy="72.8" rx="4.9" ry="2.8" fill="rgba(27,26,34,0.07)"/><line x1="117.1" y1="72.8" x2="117.1" y2="48.6" stroke="#8C7BB3" stroke-width="2" stroke-linecap="round"/><circle cx="113.0" cy="49.6" r="6.7" fill="#A3D9B6"/><circle cx="120.8" cy="48.6" r="7.2" fill="#BFE6CD"/><circle cx="116.7" cy="44.0" r="7.4" fill="#DDF3E5"/></g><polygon points="100.9,113.0 120.0,124.0 120.0,120.2 100.9,109.2" fill="#EEE9FD" stroke="#CFC6EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="139.1,113.0 120.0,124.0 120.0,120.2 139.1,109.2" fill="#DCD3F7" stroke="#CFC6EE" stroke-width="0.6" stroke-linejoin="round"/><polygon points="120.0,98.2 139.1,109.2 120.0,120.2 100.9,109.2" fill="#FFFFFF" stroke="#CFC6EE" stroke-width="0.6" stroke-linejoin="round"/><g class="lp-person lp-s3-pa"><ellipse cx="91.4" cy="95.4" rx="5.5" ry="3.2" fill="rgba(27,26,34,0.08)"/><rect x="87.9" y="87.2" width="2.6" height="8.2" rx="1.2" fill="#3B3946"/><rect x="92.3" y="87.2" width="2.6" height="8.2" rx="1.2" fill="#3B3946"/><rect x="85.9" y="77.2" width="11.1" height="10.4" rx="5.0" fill="#9DBCF0"/><ellipse cx="91.4" cy="78.8" rx="5.5" ry="2.5" fill="#DCE8FD"/><circle cx="91.4" cy="72.0" r="4.0" fill="#F1D6C2"/><path d="M87.5 71.5 a4.0 4.0 0 0 1 7.9 0 q-4.0 -1.6 -7.9 0z" fill="#1B1A22"/></g><g class="lp-person lp-s3-pb"><ellipse cx="148.6" cy="95.4" rx="5.5" ry="3.2" fill="rgba(27,26,34,0.08)"/><rect x="145.1" y="87.2" width="2.6" height="8.2" rx="1.2" fill="#3B3946"/><rect x="149.5" y="87.2" width="2.6" height="8.2" rx="1.2" fill="#3B3946"/><rect x="143.0" y="77.2" width="11.1" height="10.4" rx="5.0" fill="#F3B98A"/><ellipse cx="148.6" cy="78.8" rx="5.5" ry="2.5" fill="#FCE3CB"/><circle cx="148.6" cy="72.0" r="4.0" fill="#F1D6C2"/><path d="M144.6 71.5 a4.0 4.0 0 0 1 7.9 0 q-4.0 -1.6 -7.9 0z" fill="#1B1A22"/></g><g class="lp-s3-base"><path d="M110.5 106.0 v3.2 a9.5 5.2 0 0 0 19.0 0 v-3.2z" fill="#C9BBF4" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="120.0" cy="106.0" rx="9.5" ry="5.2" fill="#EEE9FD" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="120.0" cy="106.0" rx="5.2" ry="2.9" fill="none" stroke="#7A5AF8" stroke-width="0.9" opacity="0.7"/></g><g class="lp-s3-layer lp-s3-layer1"><path d="M110.5 101.5 v3.2 a9.5 5.2 0 0 0 19.0 0 v-3.2z" fill="#C9BBF4" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="120.0" cy="101.5" rx="9.5" ry="5.2" fill="#EEE9FD" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="120.0" cy="101.5" rx="5.2" ry="2.9" fill="none" stroke="#7A5AF8" stroke-width="0.9" opacity="0.7"/></g><g class="lp-s3-layer lp-s3-layer2"><path d="M110.5 97.2 v3.2 a9.5 5.2 0 0 0 19.0 0 v-3.2z" fill="#C9BBF4" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="120.0" cy="97.2" rx="9.5" ry="5.2" fill="#EEE9FD" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="120.0" cy="97.2" rx="5.2" ry="2.9" fill="none" stroke="#7A5AF8" stroke-width="0.9" opacity="0.7"/></g><g class="lp-s3-layer lp-s3-layer3"><path d="M110.5 92.8 v3.2 a9.5 5.2 0 0 0 19.0 0 v-3.2z" fill="#C9BBF4" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="120.0" cy="92.8" rx="9.5" ry="5.2" fill="#EEE9FD" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="120.0" cy="92.8" rx="5.2" ry="2.9" fill="none" stroke="#7A5AF8" stroke-width="0.9" opacity="0.7"/></g><g class="lp-person lp-s3-pc"><ellipse cx="149.5" cy="125.7" rx="5.5" ry="3.2" fill="rgba(27,26,34,0.08)"/><rect x="146.0" y="117.4" width="2.6" height="8.2" rx="1.2" fill="#3B3946"/><rect x="150.4" y="117.4" width="2.6" height="8.2" rx="1.2" fill="#3B3946"/><rect x="144.0" y="107.5" width="11.1" height="10.4" rx="5.0" fill="#B5A3EE"/><ellipse cx="149.5" cy="109.0" rx="5.5" ry="2.5" fill="#E4DCFB"/><circle cx="149.5" cy="102.2" r="4.0" fill="#F1D6C2"/><path d="M145.6 101.7 a4.0 4.0 0 0 1 7.9 0 q-4.0 -1.6 -7.9 0z" fill="#1B1A22"/></g><g class="lp-tree"><ellipse cx="54.3" cy="113.5" rx="5.5" ry="3.2" fill="rgba(27,26,34,0.07)"/><line x1="54.3" y1="113.5" x2="54.3" y2="89.3" stroke="#8C7BB3" stroke-width="2" stroke-linecap="round"/><circle cx="49.6" cy="90.4" r="7.5" fill="#B5A3EE"/><circle cx="58.4" cy="89.3" r="8.1" fill="#CDBFF5"/><circle cx="53.7" cy="84.2" r="8.3" fill="#E4DCFB"/></g><g class="lp-s3-fly lp-s3-fly1"><path d="M-9.5 0.0 v3.2 a9.5 5.2 0 0 0 19.0 0 v-3.2z" fill="#C9BBF4" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="0.0" cy="0.0" rx="9.5" ry="5.2" fill="#EEE9FD" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="0.0" cy="0.0" rx="5.2" ry="2.9" fill="none" stroke="#7A5AF8" stroke-width="0.9" opacity="0.7"/></g><g class="lp-s3-fly lp-s3-fly2"><path d="M-9.5 0.0 v3.2 a9.5 5.2 0 0 0 19.0 0 v-3.2z" fill="#C9BBF4" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="0.0" cy="0.0" rx="9.5" ry="5.2" fill="#EEE9FD" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="0.0" cy="0.0" rx="5.2" ry="2.9" fill="none" stroke="#7A5AF8" stroke-width="0.9" opacity="0.7"/></g><g class="lp-s3-fly lp-s3-fly3"><path d="M-9.5 0.0 v3.2 a9.5 5.2 0 0 0 19.0 0 v-3.2z" fill="#C9BBF4" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="0.0" cy="0.0" rx="9.5" ry="5.2" fill="#EEE9FD" stroke="#6547AF" stroke-width="0.9"/><ellipse cx="0.0" cy="0.0" rx="5.2" ry="2.9" fill="none" stroke="#7A5AF8" stroke-width="0.9" opacity="0.7"/></g><g class="lp-s3-check"><circle cx="120.0" cy="72.8" r="9" fill="#25D366"/><path d="M116.0 72.8 l2.8 2.8 l5.2 -5.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="lp-s3-spark" stroke="#7A5AF8" stroke-width="1.6" stroke-linecap="round"><path d="M136.0 64.8 l5 -4"/><path d="M138.0 75.8 l6 0"/><path d="M104.0 64.8 l-5 -4"/></g></svg>
+          </div>
+          <div class="lp-step-num">Pas 3</div>
+          <h3>Comparteix les despeses</h3>
+          <p>Recupera part del cost del trajecte de manera justa i sense comissions.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+          <section class="lp-section">
+    <div class="lp-wrap lp-trust">
+      <div class="lp-trust-visual lp-reveal" aria-hidden="true">
+        <div class="lp-trust-card">
+          <span class="lp-trust-badge"><i></i>Contacte directe</span>
+          <div class="lp-app-card-top">
+            <div class="lp-app-who"><span class="lp-avatar" style="background:#6547AF">J</span><div><div class="lp-app-name">Jordi P. ›</div><div class="lp-app-role">Ofereixo</div></div></div>
+            <span class="lp-app-ppl"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1"/><path d="M16 4a4 4 0 0 1 0 8"/></svg>3 places</span>
+          </div>
+          <div class="lp-app-route">Berga <svg width="0.9em" height="0.9em" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg> Barcelona</div>
+          <div class="lp-app-meta">
+            <span><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Cada dl, dt, dc</span>
+            <span><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="#5B4CFB" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>07:30</span>
+          </div>
+          <div class="lp-app-chips"><span>Viatge tranquil</span><span>Música al cotxe</span></div>
+          <div class="lp-app-foot">
+            <span class="lp-app-price">5,00€ <small>/ persona</small></span>
+            <span class="lp-app-wa"><svg width="1.1em" height="1.1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.4-4.1A8.5 8.5 0 1 1 8 19.4z"/></svg>WhatsApp</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 class="lp-display lp-sec-title lp-reveal">Tu decideixes amb qui comparteixes el trajecte.</h2>
+        <div class="lp-trust-list">
+          <div class="lp-trust-item lp-reveal">
+            <span class="lp-trust-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <div><h3>Veu la informació abans de contactar</h3><p>Ruta, horari, places disponibles i el cost proposat.</p></div>
+          </div>
+          <div class="lp-trust-item lp-reveal">
+            <span class="lp-trust-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.4-4.1A8.5 8.5 0 1 1 8 19.4z"/><path d="M9.2 8.6c.2-.5.6-.6.9-.6h.5l.9 2.1-.7.9a5 5 0 0 0 2.3 2.3l.9-.7 2.1.9v.5c0 .3-.1.7-.6.9-1.2.6-3 .1-4.6-1.5S8.6 9.8 9.2 8.6z"/></svg></span>
+            <div><h3>Parleu abans de sortir</h3><p>Aclariu detalls i assegureu-vos que encaixa.</p></div>
+          </div>
+          <div class="lp-trust-item lp-reveal">
+            <span class="lp-trust-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div><h3>Accepta només si t'interessa</h3><p>Tu tens el control en tot moment.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
         </sc-if>
-        <sc-if value="{{ !isLoginMode }}">
-          <h1 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin: 0 0 4px; text-align:center;">
-            <sc-if value="{{ isSignupMode }}">Crea el teu compte</sc-if>
-            <sc-if value="{{ isForgotMode }}">Recuperar contrasenya</sc-if>
-            <sc-if value="{{ isResetView }}">Nova contrasenya</sc-if>
-          </h1>
-        </sc-if>
-        <p style="font-size:14px; color:#6B6F7B; text-align:center; margin: 0 0 32px;">Berguedà ⇄ Barcelona</p>
+        <section class="{{ authShellClass }}" id="pj-acces">
+          <div class="lp-wrap lp-final-grid">
+            <sc-if value="{{ isLandingMode }}">
+              <div class="lp-final-copy lp-reveal">
+        <span class="lp-final-eyebrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1"/><path d="M16 4a4 4 0 0 1 0 8"/></svg>3 places compartides = fins a 30&nbsp;€ recuperats per anada i tornada</span>
+        <h2 class="lp-display">El pròxim trajecte no l'has de pagar tot tu sol.</h2>
+        <p>Publica les places que et sobren i troba persones que ja necessiten fer el mateix camí.</p>
+      </div>
+            </sc-if>
+
+      <div id="pj-auth-card" class="lp-auth lp-reveal">
+        <div class="lp-auth-head">
+          <sc-if value="{{ isLoginMode }}">
+            <h2 class="lp-auth-title">Inicia sessió</h2>
+          </sc-if>
+          <sc-if value="{{ !isLoginMode }}">
+            <h1 class="lp-auth-title">
+              <sc-if value="{{ isSignupMode }}">Crea el teu compte</sc-if>
+              <sc-if value="{{ isForgotMode }}">Recuperar contrasenya</sc-if>
+              <sc-if value="{{ isResetView }}">Nova contrasenya</sc-if>
+            </h1>
+          </sc-if>
+          <p class="lp-auth-sub">Berguedà ⇄ Barcelona</p>
+        </div>
 
         <sc-if value="{{ isAuthView }}">
-          <sc-if value="{{ authError }}"><div style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 16px;">{{ authError }}</div></sc-if>
-          <sc-if value="{{ authInfo }}"><div style="background:#EAF7EF; color:#1D874A; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 16px;">{{ authInfo }}</div></sc-if>
-          <sc-if value="{{ authSignupBlocked }}">
-            <div role="status" aria-live="polite" style="background:#F3F4F8; border:1.5px solid #ECEDF2; border-radius:14px; padding: 12px 16px; margin-bottom: 16px;">
-              <div style="font-size:14px; font-weight:800; color:#14151A; margin-bottom: 4px;">No hem pogut crear el compte</div>
-              <div style="font-size:13px; color:#6B6F7B; line-height:1.45; margin-bottom: 10px;">Aquest telèfon pot estar vinculat a un compte existent. Prova d'iniciar sessió o recupera la contrasenya. Si no és el teu cas, torna-ho a provar més tard.</div>
-              <div style="display:flex; gap: 8px; flex-wrap:wrap;">
-                <button type="button" onClick="{{ switchToLogin }}" style="min-height:44px; padding:0 16px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;" style-hover="background:#4A3DE8;" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">Iniciar sessió</button>
-                <button type="button" onClick="{{ switchToForgot }}" style="min-height:44px; padding:0 16px; border:1.5px solid #5B4CFB; border-radius:14px; background:#fff; color:#5B4CFB; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;" style-hover="background:#EEEBFF;" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">Recuperar contrasenya</button>
+          <div class="lp-auth-form">
+            <sc-if value="{{ authError }}"><div class="lp-auth-msg lp-auth-msg-error" role="alert">{{ authError }}</div></sc-if>
+            <sc-if value="{{ authInfo }}"><div class="lp-auth-msg lp-auth-msg-info" role="status">{{ authInfo }}</div></sc-if>
+            <sc-if value="{{ authSignupBlocked }}">
+              <div class="lp-auth-blocked" role="status" aria-live="polite">
+                <strong>No hem pogut crear el compte</strong>
+                <p>Aquest telèfon pot estar vinculat a un compte existent. Prova d'iniciar sessió o recupera la contrasenya. Si no és el teu cas, torna-ho a provar més tard.</p>
+                <div class="lp-auth-blocked-actions">
+                  <button type="button" class="lp-btn lp-btn-primary" onClick="{{ switchToLogin }}">Iniciar sessió</button>
+                  <button type="button" class="lp-btn lp-btn-outline" onClick="{{ switchToForgot }}">Recuperar contrasenya</button>
+                </div>
               </div>
-            </div>
-          </sc-if>
-          <sc-if value="{{ canResend }}">
-            <div style="text-align:center; margin: -8px 0 16px;">
-              <button onClick="{{ handleResendConfirmation }}" disabled="{{ resendBusy }}" style="border:none; background:none; color:#5B4CFB; font-weight:700; font-size:13px; cursor:pointer; padding: 0;">
-                <sc-if value="{{ resendBusy }}">Reenviant…</sc-if>
-                <sc-if value="{{ !resendBusy }}">No l'has rebut? Reenviar correu</sc-if>
-              </button>
-            </div>
-          </sc-if>
+            </sc-if>
+            <sc-if value="{{ canResend }}">
+              <div class="lp-auth-center">
+                <button type="button" class="lp-link-btn" onClick="{{ handleResendConfirmation }}" disabled="{{ resendBusy }}">
+                  <sc-if value="{{ resendBusy }}">Reenviant…</sc-if>
+                  <sc-if value="{{ !resendBusy }}">No l'has rebut? Reenviar correu</sc-if>
+                </button>
+              </div>
+            </sc-if>
 
-          <sc-if value="{{ isSignupMode }}">
-            <div style="display:flex; gap: 8px; margin-bottom: 16px;">
-              <input placeholder="Nom" aria-label="Nom" value="{{ authForm.firstName }}" onChange="{{ setAuthFirstName }}" style="flex:1; min-width:0; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
-              <input placeholder="Cognoms" aria-label="Cognoms" value="{{ authForm.lastName }}" onChange="{{ setAuthLastName }}" style="flex:1; min-width:0; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit;"/>
-            </div>
-            <input type="tel" inputmode="tel" autocomplete="tel" placeholder="Telèfon mòbil (WhatsApp)" aria-label="Telèfon mòbil (WhatsApp)" value="{{ authForm.phone }}" onChange="{{ setAuthPhone }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 16px;"/>
-          </sc-if>
+            <sc-if value="{{ isSignupMode }}">
+              <div class="lp-row2">
+                <input class="lp-field" placeholder="Nom" aria-label="Nom" autocomplete="given-name" value="{{ authForm.firstName }}" onChange="{{ setAuthFirstName }}"/>
+                <input class="lp-field" placeholder="Cognoms" aria-label="Cognoms" autocomplete="family-name" value="{{ authForm.lastName }}" onChange="{{ setAuthLastName }}"/>
+              </div>
+              <input class="lp-field" type="tel" inputmode="tel" autocomplete="tel" placeholder="Telèfon mòbil (WhatsApp)" aria-label="Telèfon mòbil (WhatsApp)" value="{{ authForm.phone }}" onChange="{{ setAuthPhone }}"/>
+            </sc-if>
 
-          <input type="email" placeholder="Correu electrònic" aria-label="Correu electrònic" value="{{ authForm.email }}" onChange="{{ setAuthEmail }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 16px;"/>
+            <input class="lp-field" type="email" autocomplete="email" placeholder="Correu electrònic" aria-label="Correu electrònic" value="{{ authForm.email }}" onChange="{{ setAuthEmail }}"/>
 
-          <sc-if value="{{ isNotForgotMode }}">
-            <input type="password" placeholder="Contrasenya" aria-label="Contrasenya" value="{{ authForm.password }}" onChange="{{ setAuthPassword }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 8px;"/>
-          </sc-if>
+            <sc-if value="{{ isNotForgotMode }}">
+              <input class="lp-field" type="password" placeholder="Contrasenya" aria-label="Contrasenya" value="{{ authForm.password }}" onChange="{{ setAuthPassword }}"/>
+            </sc-if>
 
-          <sc-if value="{{ isLoginMode }}">
-            <div style="text-align:right; margin-bottom: 16px;">
-              <button onClick="{{ switchToForgot }}" style="border:none; background:none; color:#5B4CFB; font-weight:700; font-size:13px; cursor:pointer; padding: 0;">Has oblidat la contrasenya?</button>
-            </div>
-          </sc-if>
-          <sc-if value="{{ isSignupOrForgot }}"><div style="height:16px;"></div></sc-if>
-
-          <button onClick="{{ handleAuthSubmit }}" disabled="{{ authBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; transition:background 150ms ease, transform 120ms ease;" style-hover="background:#4A3DE8;" style-active="background:#4338D6; transform:scale(0.99);" style-focus="outline:2px solid #B9B0FF; outline-offset:2px;">
-            <sc-if value="{{ authBusy }}">Un moment…</sc-if>
-            <sc-if value="{{ isLoginModeReady }}">Començar a estalviar</sc-if>
-            <sc-if value="{{ isSignupModeReady }}">Crear compte</sc-if>
-            <sc-if value="{{ isForgotModeReady }}">Enviar enllaç</sc-if>
-          </button>
-
-          <div style="text-align:center; margin-top: 24px; font-size:13.5px; color:#6B6F7B;">
             <sc-if value="{{ isLoginMode }}">
-              No tens compte? <button onClick="{{ switchToSignup }}" style="border:none;background:none;color:#5B4CFB;font-weight:700;cursor:pointer;padding: 0;font-size:13.5px;">Registra't</button>
+              <button type="button" class="lp-auth-forgot" onClick="{{ switchToForgot }}">Has oblidat la contrasenya?</button>
+            </sc-if>
+
+            <button type="button" class="lp-btn lp-btn-primary" onClick="{{ handleAuthSubmit }}" disabled="{{ authBusy }}">
+              <sc-if value="{{ authBusy }}">Un moment…</sc-if>
+              <sc-if value="{{ isLoginModeReady }}">Començar a estalviar</sc-if>
+              <sc-if value="{{ isSignupModeReady }}">Crear compte</sc-if>
+              <sc-if value="{{ isForgotModeReady }}">Enviar enllaç</sc-if>
+            </button>
+          </div>
+
+          <div class="lp-auth-switch">
+            <sc-if value="{{ isLoginMode }}">
+              No tens compte? <button type="button" onClick="{{ switchToSignup }}">Registra't</button>
             </sc-if>
             <sc-if value="{{ isSignupMode }}">
-              Ja tens compte? <button onClick="{{ switchToLogin }}" style="border:none;background:none;color:#5B4CFB;font-weight:700;cursor:pointer;padding: 0;font-size:13.5px;">Inicia sessió</button>
+              Ja tens compte? <button type="button" onClick="{{ switchToLogin }}">Inicia sessió</button>
             </sc-if>
             <sc-if value="{{ isForgotMode }}">
-              <button onClick="{{ switchToLogin }}" style="border:none;background:none;color:#5B4CFB;font-weight:700;cursor:pointer;padding: 0;font-size:13.5px;">Tornar a l'inici de sessió</button>
+              <button type="button" onClick="{{ switchToLogin }}">Tornar a l'inici de sessió</button>
             </sc-if>
           </div>
         </sc-if>
 
         <sc-if value="{{ isResetView }}">
-          <sc-if value="{{ resetError }}"><div style="background:#FDEBEA; color:#C22A24; font-size:13px; font-weight:600; padding: 8px 16px; border-radius:14px; margin-bottom: 16px;">{{ resetError }}</div></sc-if>
-          <sc-if value="{{ !resetReady }}">
-            <div style="text-align:center; color:#6B6F7B; font-size:14px; padding: 24px 0;">
-              <div class="pj-spin" style="width:32px;height:32px;border-radius:50%;border:3px solid #ECEDF2;border-top-color:#5B4CFB;margin: 0 auto 16px;"></div>
-              Comprovant l'enllaç…
-            </div>
-          </sc-if>
-          <sc-if value="{{ resetReady }}">
-            <input type="password" placeholder="Nova contrasenya" aria-label="Nova contrasenya" value="{{ resetForm.password }}" onChange="{{ setResetPassword }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 16px;"/>
-            <input type="password" placeholder="Confirma la contrasenya" aria-label="Confirma la contrasenya" value="{{ resetForm.confirmPassword }}" onChange="{{ setResetConfirm }}" style="width:100%; height:48px; border-radius:14px; border:1.5px solid #ECEDF2; padding: 0 16px; font-size:15px; font-family:inherit; margin-bottom: 24px;"/>
-            <button onClick="{{ handleResetSubmit }}" disabled="{{ resetBusy }}" style="width:100%; height:50px; border:none; border-radius:14px; background:#5B4CFB; color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit;">
-              <sc-if value="{{ resetBusy }}">Actualitzant…</sc-if>
-              <sc-if value="{{ !resetBusy }}">Actualitzar contrasenya</sc-if>
-            </button>
-          </sc-if>
+          <div class="lp-auth-form">
+            <sc-if value="{{ resetError }}"><div class="lp-auth-msg lp-auth-msg-error" role="alert">{{ resetError }}</div></sc-if>
+            <sc-if value="{{ !resetReady }}">
+              <div class="lp-auth-loading">
+                <div class="pj-spin"></div>
+                Comprovant l'enllaç…
+              </div>
+            </sc-if>
+            <sc-if value="{{ resetReady }}">
+              <input class="lp-field" type="password" autocomplete="new-password" placeholder="Nova contrasenya" aria-label="Nova contrasenya" value="{{ resetForm.password }}" onChange="{{ setResetPassword }}"/>
+              <input class="lp-field" type="password" autocomplete="new-password" placeholder="Confirma la contrasenya" aria-label="Confirma la contrasenya" value="{{ resetForm.confirmPassword }}" onChange="{{ setResetConfirm }}"/>
+              <button type="button" class="lp-btn lp-btn-primary" onClick="{{ handleResetSubmit }}" disabled="{{ resetBusy }}">
+                <sc-if value="{{ resetBusy }}">Actualitzant…</sc-if>
+                <sc-if value="{{ !resetBusy }}">Actualitzar contrasenya</sc-if>
+              </button>
+            </sc-if>
+          </div>
           <sc-if value="{{ resetError }}">
-            <div style="text-align:center; margin-top: 24px; font-size:13.5px; color:#6B6F7B;">
-              <button onClick="{{ switchToLogin }}" style="border:none;background:none;color:#5B4CFB;font-weight:700;cursor:pointer;padding: 0;font-size:13.5px;">Tornar a l'inici de sessió</button>
+            <div class="lp-auth-switch">
+              <button type="button" onClick="{{ switchToLogin }}">Tornar a l'inici de sessió</button>
             </div>
           </sc-if>
         </sc-if>
       </div>
-        </div>
+          </div>
+          <div class="lp-final-photo" role="img" aria-label="Muntanyes del Berguedà al capvespre"></div>
+        </section>
       </div>
 
       <sc-if value="{{ isLandingMode }}">
-        <footer class="pj-footer">
-          <div class="pj-footer-inner">
-            <div class="pj-footer-top">
-              <div class="pj-footer-brand-col">
-                <div class="pj-footer-brand" data-scroll-target="top">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14151A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/><circle cx="18" cy="5" r="2.5"/></svg>
-                  <span>Pujobaixo</span>
-                </div>
-                <p class="pj-footer-tagline">Comparteix les places que et sobren i recupera part del que et costa el trajecte.<br>Berguedà ⇄ Barcelona.</p>
+
+        <footer class="lp-foot">
+          <div class="lp-wrap">
+            <div class="lp-foot-top">
+              <div>
+                <div class="lp-logo" data-scroll-target="top"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/><circle cx="18" cy="5" r="2.5"/></svg>Pujobaixo</div>
+                <p class="lp-foot-tag">Comparteix les places que et sobren i recupera part del que et costa el trajecte.<br>Berguedà ⇄ Barcelona.</p>
               </div>
-              <div class="pj-footer-col">
-                <div class="pj-footer-col-title">Navegació</div>
-                <nav class="pj-footer-nav" aria-label="Navegació del peu de pàgina">
-                  <button data-scroll-target="top">Inici</button>
-                  <button data-scroll-target="pj-estalvi">Estalvi</button>
-                  <button data-scroll-target="pj-comfunciona">Com funciona</button>
-                </nav>
-              </div>
-              <div class="pj-footer-col">
-                <div class="pj-footer-col-title">Compte</div>
-                <nav class="pj-footer-nav" aria-label="Compte">
-                  <button onClick="{{ scrollToSignup }}">Crear compte</button>
-                  <button onClick="{{ scrollToLoginCard }}">Iniciar sessió</button>
-                </nav>
-              </div>
-              <div class="pj-footer-col">
-                <div class="pj-footer-col-title">Legal</div>
-                <nav class="pj-footer-nav" aria-label="Legal">
-                  <a href="#pj-legal-avis">Avís legal</a>
-                  <a href="#pj-legal-privacitat">Privacitat</a>
-                  <a href="#pj-legal-cookies">Cookies</a>
-                </nav>
-              </div>
+              <div class="lp-foot-col"><h4>Navegació</h4><nav aria-label="Navegació del peu de pàgina"><button data-scroll-target="top">Inici</button><button data-scroll-target="pj-estalvi">Estalvi</button><button data-scroll-target="pj-comfunciona">Com funciona</button></nav></div>
+              <div class="lp-foot-col"><h4>Compte</h4><nav aria-label="Compte"><button onClick="{{ scrollToSignup }}">Crear compte</button><button onClick="{{ scrollToLoginCard }}">Iniciar sessió</button></nav></div>
+              <div class="lp-foot-col"><h4>Legal</h4><nav aria-label="Legal"><a href="#pj-legal-avis">Avís legal</a><a href="#pj-legal-privacitat">Privacitat</a><a href="#pj-legal-cookies">Cookies</a></nav></div>
             </div>
-            <div class="pj-footer-divider"></div>
-            <div class="pj-footer-bottom">
-              <div class="pj-footer-meta">© 2026 Pujobaixo · Berguedà ⇄ Barcelona</div>
-            </div>
+            <div class="lp-foot-bottom">© 2026 Pujobaixo · Berguedà ⇄ Barcelona</div>
           </div>
         </footer>
 
@@ -1913,8 +1951,9 @@ class Component extends DCLogic {
     booting: true,
     view: 'auth',
     authMode: 'login',
-    calcSeats: '0',
-    calcDisplay: 48.5,
+    calcSeats: '1',
+    calcDisplay: 10,
+    navScrolled: false,
     user: null,
     authForm: { email: '', password: '', firstName: '', lastName: '', phone: '' },
     authError: '',
@@ -1984,6 +2023,14 @@ class Component extends DCLogic {
       this._scrollPositions[v] = window.scrollY;
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
+    // Vel difuminat de la barra de la landing. Aquí qui fa scroll és el body (no la finestra),
+    // així que s'escolta en captura; l'estat només canvia en creuar el llindar.
+    this._onNavScroll = () => {
+      const y = Math.max(window.scrollY || 0, document.body.scrollTop || 0);
+      const scrolled = y > 8;
+      if (scrolled !== this.state.navScrolled) this.setState({ navScrolled: scrolled });
+    };
+    document.addEventListener('scroll', this._onNavScroll, { capture: true, passive: true });
 
     // Keeps the trips list current without the user having to refresh:
     // silently re-fetches while that view is open and the tab is visible.
@@ -2047,8 +2094,8 @@ class Component extends DCLogic {
       if (this._calcAutoStopped) return;
       if (st.booting || st.view !== 'auth' || (st.authMode !== 'login' && st.authMode !== 'signup')) return;
       if (document.visibilityState !== 'visible') return;
-      const order = ['0', '1', '2', '3', '4'];
-      const next = order[(order.indexOf(st.calcSeats || '0') + 1) % order.length];
+      const order = ['1', '2', '3', '4'];
+      const next = order[(order.indexOf(st.calcSeats || '1') + 1) % order.length];
       this._setCalcSeats(next, true);
     }, 2400);
   }
@@ -2057,6 +2104,7 @@ class Component extends DCLogic {
     if (this._onDocClick) document.removeEventListener('click', this._onDocClick, true);
     if (this._calcAutoTimer) clearInterval(this._calcAutoTimer);
     if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._onNavScroll) document.removeEventListener('scroll', this._onNavScroll, { capture: true });
     clearInterval(this._tripsPollTimer);
   }
 
@@ -2376,10 +2424,9 @@ class Component extends DCLogic {
 
   _setCalcSeats(n, fromAuto) {
     if (!fromAuto) this._calcAutoStopped = true;
-    // Anada i tornada Berga–Barcelona, dia feiner (vegeu DECISIONS): 48,50 € sol, −10 € per plaça a 5 €/trajecte.
-    const costs = { '0': 48.5, '1': 38.5, '2': 28.5, '3': 18.5, '4': 8.5 };
-    const from = this.state.calcDisplay == null ? costs[this.state.calcSeats || '0'] : this.state.calcDisplay;
-    const target = costs[n];
+    // Places compartides → euros recuperats en una anada i tornada: 5 € per persona i trajecte × 2 (vegeu DECISIONS).
+    const from = this.state.calcDisplay == null ? 10 * Number(this.state.calcSeats || '1') : this.state.calcDisplay;
+    const target = 10 * Number(n);
     this.setState({ calcSeats: n });
     if (this._calcTimer) clearInterval(this._calcTimer);
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -2391,7 +2438,7 @@ class Component extends DCLogic {
     this._calcTimer = setInterval(() => {
       const t = Math.min(1, (Date.now() - start) / dur);
       const eased = 1 - Math.pow(1 - t, 3);
-      this.setState({ calcDisplay: Math.round((from + (target - from) * eased) * 2) / 2 });
+      this.setState({ calcDisplay: Math.round(from + (target - from) * eased) });
       if (t >= 1) clearInterval(this._calcTimer);
     }, 30);
   }
@@ -3443,58 +3490,32 @@ class Component extends DCLogic {
 
     const isAuthShellView = view === 'auth' || view === 'reset';
 
-    const calcSeats = s.calcSeats || '0';
-    const calcValue = s.calcDisplay == null ? 48.5 : s.calcDisplay;
-    const calcColors = { '0': '#C22A24', '1': '#DE7317', '2': '#C9A227', '3': '#1D874A', '4': '#0B6B3A' };
-    const calcRamp = [[48.5, [194, 42, 36]], [38.5, [222, 115, 23]], [28.5, [201, 162, 39]], [18.5, [29, 135, 74]], [8.5, [11, 107, 58]]];
-    const calcColorFor = (v) => {
-      const x = Math.max(8.5, Math.min(48.5, v));
-      for (let i = 0; i < calcRamp.length - 1; i++) {
-        const [v1, c1] = calcRamp[i], [v2, c2] = calcRamp[i + 1];
-        if (x <= v1 && x >= v2) {
-          const t = (v1 - x) / (v1 - v2);
-          const mix = c1.map((c, k) => Math.round(c + (c2[k] - c) * t));
-          return `rgb(${mix[0]}, ${mix[1]}, ${mix[2]})`;
-        }
-      }
-      return '#1D874A';
-    };
-    const calcSegBase = 'display:inline-flex; align-items:center; justify-content:center; gap:8px; width:190px; height:44px; border-radius:999px; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; white-space:nowrap; flex-shrink:0; transition:background 300ms ease, border-color 300ms ease, color 300ms ease;';
-    const calcTints = { '0': '#FAECEB', '1': '#FBEEE2', '2': '#F7F0DC', '3': '#E7F3EC', '4': '#DDEEE4' };
-    const calcSegStyle = (n) => calcSegBase + (calcSeats === n
-      ? ` border:1.5px solid ${calcColors[calcSeats]}; background:${calcTints[calcSeats]}; color:${calcColors[calcSeats]};`
-      : ' border:1.5px solid #ECEDF2; background:#fff; color:#14151A;');
+    const calcSeats = Number(s.calcSeats || '1');
+    const calcRecovered = s.calcDisplay == null ? 10 * calcSeats : s.calcDisplay;
+    // Tocar el seient que ja és l'últim ple el buida (mai per sota d'1 plaça).
+    const calcToggle = (k) => () => this._setCalcSeats(String(calcSeats === k && k > 1 ? k - 1 : k));
 
     return {
       isLoggedIn,
-      calcPriceLabel: String(Math.floor(calcValue)),
-      calcPriceCents: calcValue % 1 ? ',50' : ',00',
-      calcSavedShort: `+${(48.5 - calcValue) % 1 ? (48.5 - calcValue).toFixed(2).replace('.', ',') : 48.5 - calcValue} €`,
-      calcSavedFormula: `${calcSeats} ${calcSeats === '1' ? 'plaça' : 'places'} × 5 € × 2 trajectes`,
-      calcYearShort: calcSeats === '0' ? '0 €' : `≈ ${(Number(calcSeats) * 10 * 52).toLocaleString('ca')} €`,
-      calcYearFormula: `${Number(calcSeats) * 10} € × 52 setmanes`,
-      calcPriceColor: calcColorFor(calcValue),
-      calcTrackShift: `translateX(${-(Number(calcSeats) * 198)}px)`,
-      calcSeg0Style: calcSegStyle('0'),
-      calcSeg1Style: calcSegStyle('1'),
-      calcSeg2Style: calcSegStyle('2'),
-      calcSeg3Style: calcSegStyle('3'),
-      calcSeg4Style: calcSegStyle('4'),
-      calcSeg0Pressed: calcSeats === '0',
-      calcSeg1Pressed: calcSeats === '1',
-      calcSeg2Pressed: calcSeats === '2',
-      calcSeg3Pressed: calcSeats === '3',
-      calcSeg4Pressed: calcSeats === '4',
-      setCalcSeats0: () => this._setCalcSeats('0'),
-      setCalcSeats1: () => this._setCalcSeats('1'),
-      setCalcSeats2: () => this._setCalcSeats('2'),
-      setCalcSeats3: () => this._setCalcSeats('3'),
-      setCalcSeats4: () => this._setCalcSeats('4'),
+      calcRecovered: String(calcRecovered),
+      calcRecSub: `Amb ${calcSeats} ${calcSeats === 1 ? 'plaça compartida' : 'places compartides'}.`,
+      calcSeat1Pressed: calcSeats >= 1,
+      calcSeat2Pressed: calcSeats >= 2,
+      calcSeat3Pressed: calcSeats >= 3,
+      calcSeat4Pressed: calcSeats >= 4,
+      setCalcSeats1: calcToggle(1),
+      setCalcSeats2: calcToggle(2),
+      setCalcSeats3: calcToggle(3),
+      setCalcSeats4: calcToggle(4),
       isAuthShellView,
-      topnavBg: isAuthShellView ? 'rgba(243,244,248,0.85)' : '#FFFFFF',
+      topnavBg: isAuthShellView ? 'transparent' : '#FFFFFF',
       topnavBorder: isAuthShellView ? 'none' : '1px solid #ECEDF2',
+      topnavBlur: isAuthShellView ? 'none' : 'blur(8px)',
+      topnavLandingClass: isAuthShellView ? `lp-nav${s.navScrolled ? ' lp-scrolled' : ''}` : '',
+      appBg: isAuthShellView ? '#FCF8F5' : '#F3F4F8',
+      authShellClass: (view === 'auth' && (s.authMode === 'login' || s.authMode === 'signup')) ? 'lp-final' : 'lp-final lp-final-solo',
       mainStyle: isAuthShellView
-        ? 'max-width:1200px; margin: 0 auto; padding-bottom:0;'
+        ? 'max-width:none; margin:0; padding:0;'
         : 'max-width:920px; margin: 0 auto;',
       isAuthView: view === 'auth',
       isResetView: view === 'reset',

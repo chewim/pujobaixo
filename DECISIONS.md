@@ -50,6 +50,16 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 ## Components visuals
 
+- **11 nov. — Redisseny complet de la landing, amb sistema propi (`--lp-*`, classes `lp-*`): Source Serif 4 + Inter, morat `#6547AF`, fons crema i lavanda alternats.**
+  Objectiu: més propera i atractiva, mateixa estructura de missatge. Ordre: hero (amb el mòbil real i la foto del Berguedà) → estalvi → com funciona → confiança → tancament amb l'accés → peu. La resta de l'app no canvia de moment: s'accepta el salt visual en entrar. Es retiren la calculadora antiga de cinc trams, les targetes Recuperat/Estalvi anual, el banner amb foto, «Estem posant en marxa» i la xarxa, i les imatges `hero-viatge.jpg` i `seients-buits.jpg`. «Busco viatge» porta ara al registre (abans deixava la targeta en inici de sessió). Descartats, tots provats en el prototip:
+  - Fraunces → lletres estranyes; Source Serif 4 llegeix millor.
+  - Lila antic `#5B4CFB` al CTA → encaixa i evitaria el salt amb l'app, però va just de contrast sobre els fons lila (4,6:1) i és més digital que càlid. Es pot recuperar si l'app no canvia aviat.
+  - Lila més elèctric (`#7C5CFF`) als adorns → provat i revertit.
+  - Mòbil dibuixat en HTML → la vora quedava massa marcada; es fa servir la captura real retallada.
+  - Contenidor de 1200 px i mides de la primera versió → l'auditoria (BlaBlaCar, Wise, Revolut, Too Good To Go a 1440 px) ens deixava petits: ara 1320 px, titular fins a 76 px, text 17 px i botons de 56 px.
+  - Escena de WhatsApp amb les dues persones a la mateixa plaça → no s'entenia per què parlaven per WhatsApp; ara una és a casa i l'altra a l'oficina.
+  - «Preguntes» i selector CA/ES de la referència visual → no hi ha contingut ni versió en castellà.
+
 - **30 oct. — «Entrar» és un botó secundari (contorn lila) just després de «Publicar places» a la barra superior, visible també al mòbil.**
   Qui ja té compte havia de baixar fins a la targeta d'accés i canviar a «Inicia sessió»; «Entrar» hi porta directament en mode login (`data-auth-login`). Descartat: enllaç de text al costat de «Com funciona» (publicat i retirat el mateix dia) → semblava navegació, no una acció de compte. Al mòbil (< 420 px) «Publicar places» passa a «Publicar» perquè hi càpiguen tots dos botons.
 
