@@ -337,7 +337,8 @@
 
     /* Visual: muntanyes del Berguedà + mòbil real (imatge retallada) */
     .lp-hero-visual { position:relative; width:100%; aspect-ratio:1/1.05; }
-    .lp-hero-blob { position:absolute; top:6%; bottom:5%; left:-4%; right:calc(-1 * (max(0px, (100vw - 1320px) / 2) + 32px)); clip-path:url(#lp-blob); background:url('/assets/bergueda.webp') center 18%/cover; }
+    /* Foto del hero en onada diagonal: puja d'esquerra a dreta i surt per la dreta, com un camí que s'enfila. */
+    .lp-hero-blob { position:absolute; top:4%; bottom:10%; left:-8%; right:calc(-1 * (max(0px, (100vw - 1320px) / 2) + 32px) - 32%); clip-path:url(#lp-blob);  /* la forma surt de sobres per la dreta: es llegeix com un tall intencionat */ background:url('/assets/bergueda.webp') center 18%/cover; }
     /* Taca de color lila molt difuminada darrere del mòbil: s'intueix el color, no la forma. */
     .lp-hero-glass { position:absolute; left:0; top:0; width:52%; aspect-ratio:1/1; border-radius:50%; background:radial-gradient(circle at 50% 50%, rgba(120,95,247,0.34), rgba(120,95,247,0.12) 45%, rgba(120,95,247,0) 70%); filter:blur(36px); pointer-events:none; }
     .lp-phone-img { position:absolute; z-index:2; left:50%; top:50%; height:106%; width:auto; transform:translate(-48%,-50%); filter:drop-shadow(28px 36px 36px rgba(33,22,52,0.28)) drop-shadow(4px 8px 10px rgba(33,22,52,0.12)); animation:lp-phoneIn 900ms var(--lp-ease) 150ms both, lp-phoneFloat 7s ease-in-out 1.2s infinite; }
@@ -347,7 +348,7 @@
     @keyframes lp-chipIn { from { opacity:0; transform:translateY(12px); } }
     .lp-chip-msg { left:-6%; top:12%; max-width:62%; border-bottom-left-radius:4px; animation-delay:800ms; }
     .lp-chip-msg .lp-wa { width:32px; height:32px; border-radius:50%; background:var(--lp-whatsapp); display:grid; place-items:center; flex-shrink:0; }
-    .lp-chip-save { right:0; bottom:9%; animation-delay:1000ms; }
+    .lp-chip-save { right:0; bottom:12%; animation-delay:1000ms; }
     .lp-chip-save .lp-ic { width:40px; height:40px; border-radius:12px; background:rgba(120,95,247,0.07); border:1px solid rgba(120,95,247,0.32); box-shadow:0 0 0 3px rgba(120,95,247,0.05), 0 4px 14px -4px rgba(120,95,247,0.38); color:var(--lp-primary); display:grid; place-items:center; flex-shrink:0; }
     .lp-chip-save strong { display:block; font-family:var(--lp-font-display); font-size:22px; font-weight:700; color:var(--lp-primary); letter-spacing:-0.01em; line-height:1.1; }
     .lp-chip-save small { display:block; color:var(--lp-text-secondary); font-size:12.5px; font-weight:500; }
@@ -559,14 +560,14 @@
     }
     @media (max-width:959px) {
       .lp-hero-visual { margin:8px auto 0; max-width:480px; }
-      .lp-hero-blob { right:-20px; left:-20px; }
+      .lp-hero-blob { right:calc(-20px - 32%); left:-20px; }
       .lp-hero-chip { font-size:12.5px; padding:8px 12px; gap:8px; border-radius:14px; }
       .lp-chip-save strong { font-size:18px; }
       .lp-chip-save small { font-size:11.5px; }
       .lp-chip-save .lp-ic { width:32px; height:32px; border-radius:10px; }
       .lp-chip-msg .lp-wa { width:26px; height:26px; }
       .lp-chip-msg { left:0; top:4%; max-width:none; white-space:nowrap; }
-      .lp-chip-save { right:0; bottom:-1%; }
+      .lp-chip-save { right:0; bottom:2%; }
       .lp-chip-save small { font-size:11px; }
     }
     @media (max-width:719px) {
@@ -629,6 +630,7 @@
     :where(.lp, .lp *, .lp-foot, .lp-foot *, .lp-nav-links, .lp-nav-links *) { box-sizing:border-box; }
     .lp, .lp-foot { font-family:var(--lp-font-ui); font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased; }
     .lp { color:var(--lp-text-primary); }  /* el peu té el seu propi color (text clar sobre fosc) */
+    .lp { overflow-x:hidden; overflow-x:clip; }  /* la foto del hero surt per la dreta: es retalla aquí, sense scroll lateral (també a iOS) */
     .lp { background:var(--lp-bg-page); }
     :where(.lp, .lp-foot) :where(h1, h2, h3, h4, p) { margin:0; }  /* especificitat 0: no trepitja els marges de les classes */
     :where(.lp, .lp-foot, .lp-nav-links) :where(button) { font-family:inherit; }
@@ -781,7 +783,7 @@
         <sc-if value="{{ isLandingMode }}">
           <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <clipPath id="lp-blob" clipPathUnits="objectBoundingBox">
-    <path d="M0.08,0.42 C0.14,0.18 0.36,0.2 0.52,0.12 C0.68,0.04 0.86,-0.02 0.96,0.16 C1.04,0.3 0.98,0.5 1,0.66 C1.02,0.84 0.9,0.98 0.7,0.96 C0.52,0.94 0.42,0.86 0.26,0.9 C0.08,0.94 -0.04,0.8 0.02,0.62 C0.04,0.54 0.06,0.48 0.08,0.42 Z"/>
+    <path d="M0.02,0.80 C0.00,0.64 0.09,0.52 0.21,0.48 C0.35,0.43 0.41,0.21 0.55,0.13 C0.67,0.06 0.75,0.21 0.87,0.15 C0.93,0.12 0.97,0.05 1,0.03 L1,0.93 C0.82,0.94 0.58,0.96 0.38,0.97 C0.20,0.98 0.04,0.97 0.02,0.80 Z"/>
   </clipPath>
 </svg>
           <div class="lp-wrap">
