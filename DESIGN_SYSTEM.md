@@ -272,12 +272,12 @@ Pantalla de acceso sin sesión (`view: 'auth'` y `'reset'`). Tiene **su propio s
 
 | Token | Valor | Uso |
 |---|---|---|
-| `--lp-primary` / `-hover` | `#6547AF` / `#563895` | CTA sólido, títulos de acento, enlaces. Blanco encima: 6,8:1 |
-| `--lp-primary-accent` | `#7A5AF8` | Foco y detalles decorativos (no texto) |
-| `--lp-primary-light` | `#EEE9FD` | Fondos de iconos, etiquetas y la columna «Compartint places» (morado encima: 5,8:1) |
-| `--lp-bg-page` / `--lp-bg-alt` | `#FCF8F5` / `#F6F3FF` | Blanco cálido y lavanda, alternados por sección |
+| `--lp-primary` / `-hover` | `#5A45E3` / `#422DCD` | CTA sólido, títulos de acento, enlaces. Lila eléctrico con un leve giro al azul. Blanco encima: 6,2:1 |
+| `--lp-primary-accent` | `#785FF7` | Foco y detalles decorativos (no texto) |
+| `--lp-primary-light` | `#EEEBFE` | Halo del foco en campos |
+| `--lp-bg-page` / `--lp-bg-alt` | `#FFFEFC` / `#F4F3FF` | Blanco con un punto cálido y lavanda, alternados por sección |
 | `--lp-secondary-sand` / `-blue` | `#FFF1E2` / `#E6F0FF` | Fondos de las ilustraciones de los pasos 2 y 3 |
-| `--lp-text-primary` / `-secondary` | `#1B1A22` / `#62606E` | Texto (secundario sobre crema: 5,8:1) |
+| `--lp-text-primary` / `-secondary` | `#1B1A22` / `#62606E` | Texto (secundario sobre el fondo: 6,1:1) |
 | `--lp-border` | `#E5E2E9` | Bordes decorativos de tarjetas (no de campos) |
 | `--lp-radius-card` / `-control` / `-pill` | 20 / 14 / 999 px | Tarjetas / campos y asientos / botones |
 | `--lp-motion-fast` / `-normal` | 180 / 420 ms | Hover / apariciones |
@@ -289,14 +289,16 @@ Pantalla de acceso sin sesión (`view: 'auth'` y `'reset'`). Tiene **su propio s
 **Orden**: barra → hero → ahorro (`#pj-estalvi`) → cómo funciona (`#pj-comfunciona`, banda lavanda) → confianza → cierre con acceso (`#pj-acces`, `#pj-auth-card`) → pie.
 
 - **Barra** (`.pj-topnav` + `lp-nav`): transparente; al hacer scroll aparece un velo crema difuminado que se desvanece 32 px hacia abajo (`.lp-scrolled`, estado `navScrolled`), sin línea de corte. Enlaces «Com funciona» y «Avantatges» (≥960 px) y «Entrar» con borde → acceso en modo login. **Ojo:** en esta app el que hace scroll es el `body`, no la ventana; el velo escucha `scroll` en captura.
-- **Hero**: foto del Berguedà (`assets/bergueda.webp`) recortada con un `clipPath` orgánico (`#lp-blob`) que llega al borde derecho; encima, la captura real de la app recortada sin fondo (`assets/movil.webp`) y dos etiquetas flotantes con textos de la landing anterior. La cifra «fins a 30 €» cuenta de 0 a 30 solo con CSS (`@property --lp-n`).
-- **Ahorro**: tarjeta doble «≈ 48,50 €» → «fins a X € recuperats». Cuatro asientos (`aria-pressed`) que llenan 1–4 plazas; avanza sola cada 2,4 s y se para para siempre al tocar un asiento; la cifra cuenta con easing cúbico en 550 ms (`_setCalcSeats`, estado `calcSeats` '1'–'4' y `calcDisplay` en euros recuperados). Cálculo plegado en «Com ho calculem».
-- **Cómo funciona**: tres tarjetas con escenas isométricas animadas en SVG inline (`lp-s1-*`, `lp-s2-*`, `lp-s3-*`): coche que publica sus plazas; casa y oficina separadas con el mensaje viajando entre móviles; tres personas que juntan monedas. Colores solo del DS de la landing.
-- **Confianza**: tarjeta de viaje que imita la de la app (Plus Jakarta, ligeramente girada) + tres puntos con icono en cuadrado lavanda.
+- **Hero**: foto del Berguedà (`assets/bergueda.webp`) recortada con un `clipPath` orgánico (`#lp-blob`) que llega al borde derecho; encima, la captura real de la app recortada sin fondo (`assets/movil.webp`); detrás, una mancha lila muy difuminada (`.lp-hero-glass`, `#785FF7` con `blur(36px)`) que deja intuir el color sin dibujar ninguna forma y dos etiquetas flotantes con textos de la landing anterior. La cifra «fins a 30 €» cuenta de 0 a 30 solo con CSS (`@property --lp-n`).
+- **Ahorro**: tarjeta doble «≈ 48,50 €» → «fins a X € recuperats». La columna de la derecha no lleva fondo de color: la destaca un halo lila difuminado (`#785FF7` translúcido) que respira cada 3,2 s (`lp-glow`, quieto con `prefers-reduced-motion`). Cuatro asientos (`aria-pressed`) que llenan 1–4 plazas; avanza sola cada 2,4 s y se para para siempre al tocar un asiento; la cifra cuenta con easing cúbico en 550 ms (`_setCalcSeats`, estado `calcSeats` '1'–'4' y `calcDisplay` en euros recuperados). Cálculo plegado en «Com ho calculem».
+- **Cómo funciona**: franja lavanda (`--lp-bg-alt`) en diagonal a 45° para dar dinamismo, más alta que el resto de secciones (104 / 136 / 168 px de aire). Vive en un `::before` con máscara vertical, así entra y sale sin línea de corte; encima, dos manchas lila difuminadas (8–10 %). Así se nota el cambio de apartado sin ninguna vora. Tres tarjetas con escenas isométricas animadas en SVG inline (`lp-s1-*`, `lp-s2-*`, `lp-s3-*`): coche que publica sus plazas; casa y oficina separadas con el mensaje viajando entre móviles; tres personas que juntan monedas. Colores solo del DS de la landing.
+- **Confianza**: tarjeta de viaje que imita la de la app (Plus Jakarta, ligeramente girada) sobre una mancha lila difuminada (`blur(36px)`, sin forma visible) + tres puntos con icono.
 - **Cierre y acceso** (`.lp-final`): titular y etiqueta a la izquierda; tarjeta de acceso a la derecha sobre la foto. En recuperar contraseña y nueva contraseña (`.lp-final-solo`) solo se ve la tarjeta, centrada. **La lógica del acceso no cambia**: mismos `onClick`, `value`/`onChange` y modos que antes.
 - **Campos** (`.lp-field`): 50/56 px, radio 14, borde `#8E8A99` (3,4:1, WCAG 1.4.11) y texto de ejemplo `#6E6C7A` (5,1:1: es la única etiqueta visible); foco con borde morado y halo `--lp-primary-light`.
 - **Asientos vacíos**: borde punteado y figura `#7F72C8` (≥3:1).
-- **Pie** (`.lp-foot`): oscuro `#1B1A22`, columnas Navegació / Compte / Legal (los avisos legales siguen siendo los `.pj-legal-overlay` de siempre).
+- **Pie** (`.lp-foot`): `#1F1943`, el morado del CTA (mismo tono, 248°) muy oscuro y poco saturado para mantener la lógica de color sin que parezca eléctrico; texto blanco al 68 % (8,1:1), columnas Navegació / Compte / Legal (los avisos legales siguen siendo los `.pj-legal-overlay` de siempre).
+
+**Iconos y etiquetas con brillo** (ventajas del hero, confianza, etiqueta del hero, etiqueta del cierre y flecha de la calculadora): fondo lila muy ligero (`rgba(120,95,247,0.07)`), línea fina lila (`0.32`) y un brillo suave alrededor (`0 0 0 3px` al 5 % + sombra difusa lila). Sin fondos lila opacos: la propuesta gana luz.
 
 **Movimiento**: fade + 12 px en 420 ms. El hero aparece al cargar (`.lp-in`, retardos `.lp-d1–d3`); el resto, al entrar en pantalla con `animation-timeline: view()` (`.lp-reveal`, sin JS: el motor de plantillas puede repintar el DOM y perder clases puestas a mano). `prefers-reduced-motion` lo desactiva todo y deja las escenas en su estado final.
 

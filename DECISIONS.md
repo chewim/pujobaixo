@@ -50,6 +50,9 @@ Format: **Data — Decisió.** Descartat: alternativa(es) i motiu.
 
 ## Components visuals
 
+- **11 nov. — Landing: el morat passa a `#5A45E3` (lila elèctric amb un lleu gir cap al blau) i el fons crema `#FCF8F5` a un blanc gairebé neutre `#FFFEFC`.**
+  El crema es veia massa groguenc i el morat `#6547AF`, massa pla i allunyat del lila de l'app (`#5B4CFB`). Es busca el punt mig: més viu que el primer (saturació 74 % contra 42 %) però menys que el de l'app (96 %), amb el to una mica més blau (248° contra 257°). Manté el contrast AA amb marge: blanc sobre el botó 6,2:1, morat sobre els fons lila 5,3:1. Hover `#422DCD`, lila clar `#EEEBFE`, lavanda `#F4F3FF`, accent `#785FF7`. Descartats: `#604AD5` (punt mig exacte en RGB) → encara massa pla; `#463EE0` i similars (to 243°) → massa blau, semblava una altra marca.
+
 - **11 nov. — Redisseny complet de la landing, amb sistema propi (`--lp-*`, classes `lp-*`): Source Serif 4 + Inter, morat `#6547AF`, fons crema i lavanda alternats.**
   Objectiu: més propera i atractiva, mateixa estructura de missatge. Ordre: hero (amb el mòbil real i la foto del Berguedà) → estalvi → com funciona → confiança → tancament amb l'accés → peu. La resta de l'app no canvia de moment: s'accepta el salt visual en entrar. Es retiren la calculadora antiga de cinc trams, les targetes Recuperat/Estalvi anual, el banner amb foto, «Estem posant en marxa» i la xarxa, i les imatges `hero-viatge.jpg` i `seients-buits.jpg`. «Busco viatge» porta ara al registre (abans deixava la targeta en inici de sessió). Descartats, tots provats en el prototip:
   - Fraunces → lletres estranyes; Source Serif 4 llegeix millor.
