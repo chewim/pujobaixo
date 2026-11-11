@@ -317,8 +317,9 @@
     .lp-btn-primary:hover { background:var(--lp-primary-hover); }
     .lp-btn-primary svg { transition:transform var(--lp-motion-fast) ease; }
     .lp-btn-primary:hover svg { transform:translateX(3px); }
-    .lp-btn-outline { background:var(--lp-surface); color:var(--lp-text-primary); border-color:var(--lp-border); }
-    .lp-btn-outline:hover { border-color:var(--lp-primary); color:var(--lp-primary); }
+    /* Secundari: vora lila blavosa (3,4:1 sobre blanc, WCAG 1.4.11) i text morat, perquè es reconegui com a botó. */
+    .lp-btn-outline { background:var(--lp-surface); color:var(--lp-primary); border-color:#8B7FE6; }
+    .lp-btn-outline:hover { border-color:var(--lp-primary); background:rgba(120,95,247,0.07); }
     .lp-btn-sm { height:40px; padding:0 18px; font-size:14px; }
 
     /* ---------- Barra superior ---------- */
@@ -652,7 +653,20 @@
     /* Aparició: al hero, en carregar; a la resta, en entrar a la pantalla (scroll-driven, sense JS). */
     @keyframes lp-reveal { from { opacity:0; transform:translateY(12px); } }
     .lp-in { animation:lp-reveal var(--lp-motion-normal) var(--lp-ease) both; }
-    .lp-d1 { animation-delay:80ms; } .lp-d2 { animation-delay:160ms; } .lp-d3 { animation-delay:240ms; }
+    .lp-d1 { animation-delay:80ms; } .lp-d2 { animation-delay:420ms; } .lp-d3 { animation-delay:540ms; }
+
+    /* Titulars: el del hero entra línia a línia (cada línia puja des d'una màscara i s'enfoca), i els de
+       secció s'enfoquen i s'ajusten d'espaiat en entrar a la pantalla. Guien la lectura: primer el titular,
+       després el text i, al final, les accions. */
+    .lp-h1 .lp-line { display:block; overflow:hidden; padding-bottom:0.1em; margin-bottom:-0.1em; }
+    .lp-h1 .lp-line > span { display:inline-block; animation:lp-line-up 760ms var(--lp-ease) both; }
+    .lp-h1 .lp-line:nth-child(1) > span { animation-delay:120ms; }
+    .lp-h1 .lp-line:nth-child(2) > span { animation-delay:260ms; }
+    @keyframes lp-line-up { from { transform:translateY(105%); opacity:0; filter:blur(6px); } }
+    @keyframes lp-title-in { from { opacity:0; transform:translateY(18px); filter:blur(6px); letter-spacing:0.01em; } }
+    @supports (animation-timeline: view()) {
+      .lp-title { animation:lp-title-in linear both; animation-timeline:view(); animation-range:entry 5% entry 45%; }
+    }
     @supports (animation-timeline: view()) {
       .lp-reveal { animation:lp-reveal linear both; animation-timeline:view(); animation-range:entry 0% entry 35%; }
     }
@@ -694,7 +708,7 @@
       .lp-nav-links .lp-nav-link { font-size:16px; }
     }
     @media (prefers-reduced-motion:reduce) {
-      .lp-in, .lp-reveal, .lp-chip-num { animation:none !important; }
+      .lp-in, .lp-reveal, .lp-chip-num, .lp-title, .lp-h1 .lp-line > span { animation:none !important; }
       .lp-nav::before { transition:none; }
     }
 
@@ -790,7 +804,7 @@
     <header class="lp-hero">
       <div>
         <div class="lp-eyebrow lp-in">Berguedà ⇄ Barcelona</div>
-        <h1 class="lp-display lp-in lp-d1">Comparteix trajectes. <span class="lp-soft">Recupera part del cost.</span></h1>
+        <h1 class="lp-display lp-h1"><span class="lp-line"><span>Comparteix trajectes.</span></span> <span class="lp-line lp-soft"><span>Recupera part del cost.</span></span></h1>
         <p class="lp-hero-lead lp-in lp-d2">Connecta persones que baixen entre el Berguedà i Barcelona i aprofita les places lliures del teu cotxe d'una manera simple i directa.</p>
         <div class="lp-hero-actions lp-in lp-d3">
           <button class="lp-btn lp-btn-primary" data-scroll-target="pj-auth-card" data-scroll-center data-auth-signup>Publicar les meves places
@@ -823,7 +837,7 @@
           <section class="lp-section" id="pj-estalvi" style="padding-top:24px">
     <div class="lp-wrap lp-save">
       <div class="lp-reveal">
-        <h2 class="lp-display lp-sec-title">Compartir el trajecte t'ajuda a estalviar de debò.</h2>
+        <h2 class="lp-display lp-sec-title lp-title">Compartir el trajecte t'ajuda a estalviar de debò.</h2>
         <p class="lp-sec-lead">Redueix la despesa dels teus desplaçaments habituals entre el Berguedà i Barcelona, de manera senzilla i flexible.</p>
       </div>
       <div class="lp-reveal">
@@ -855,7 +869,7 @@
   </section>
           <section id="pj-comfunciona" class="lp-section lp-band-alt">
     <div class="lp-wrap">
-      <h2 class="lp-display lp-sec-title lp-reveal">Publicar un trajecte és molt fàcil.</h2>
+      <h2 class="lp-display lp-sec-title lp-title">Publicar un trajecte és molt fàcil.</h2>
       <div class="lp-steps">
         <article class="lp-step lp-reveal">
           <div class="lp-step-illus">
@@ -906,7 +920,7 @@
         </div>
       </div>
       <div>
-        <h2 class="lp-display lp-sec-title lp-reveal">Tu decideixes amb qui comparteixes el trajecte.</h2>
+        <h2 class="lp-display lp-sec-title lp-title">Tu decideixes amb qui comparteixes el trajecte.</h2>
         <div class="lp-trust-list">
           <div class="lp-trust-item lp-reveal">
             <span class="lp-trust-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>
@@ -930,7 +944,7 @@
             <sc-if value="{{ isLandingMode }}">
               <div class="lp-final-copy lp-reveal">
         <span class="lp-final-eyebrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1"/><path d="M16 4a4 4 0 0 1 0 8"/></svg>3 places compartides = fins a 30&nbsp;€ recuperats per anada i tornada</span>
-        <h2 class="lp-display">El pròxim trajecte no l'has de pagar tot tu sol.</h2>
+        <h2 class="lp-display lp-title">El pròxim trajecte no l'has de pagar tot tu sol.</h2>
         <p>Publica les places que et sobren i troba persones que ja necessiten fer el mateix camí.</p>
       </div>
             </sc-if>

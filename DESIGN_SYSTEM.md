@@ -300,7 +300,9 @@ Pantalla de acceso sin sesión (`view: 'auth'` y `'reset'`). Tiene **su propio s
 
 **Iconos y etiquetas con brillo** (ventajas del hero, confianza, etiqueta del hero, etiqueta del cierre y flecha de la calculadora): fondo lila muy ligero (`rgba(120,95,247,0.07)`), línea fina lila (`0.32`) y un brillo suave alrededor (`0 0 0 3px` al 5 % + sombra difusa lila). Sin fondos lila opacos: la propuesta gana luz.
 
-**Movimiento**: fade + 12 px en 420 ms. El hero aparece al cargar (`.lp-in`, retardos `.lp-d1–d3`); el resto, al entrar en pantalla con `animation-timeline: view()` (`.lp-reveal`, sin JS: el motor de plantillas puede repintar el DOM y perder clases puestas a mano). `prefers-reduced-motion` lo desactiva todo y deja las escenas en su estado final.
+**Botón secundario** (`.lp-btn-outline`: «Busco viatge», «Entrar»): fondo blanco, borde lila azulado `#8B7FE6` (3,4:1) y texto morado `--lp-primary`; al pasar el ratón, borde morado y fondo lila muy ligero. Con borde gris no se reconocía como botón.
+
+**Movimiento**: fade + 12 px en 420 ms. **Titulares**: el del hero entra línea a línea (cada línea sube desde una máscara y se enfoca, 760 ms, 120 / 260 ms de retardo), y después el texto (420 ms) y las acciones (540 ms), para guiar la lectura. Los títulos de sección (`.lp-title`) se enfocan, suben 18 px y ajustan el espaciado al entrar en pantalla (scroll-driven). El hero aparece al cargar (`.lp-in`, retardos `.lp-d1–d3`); el resto, al entrar en pantalla con `animation-timeline: view()` (`.lp-reveal`, sin JS: el motor de plantillas puede repintar el DOM y perder clases puestas a mano). `prefers-reduced-motion` lo desactiva todo y deja las escenas en su estado final.
 
 ### Modales / estados vacíos
 
