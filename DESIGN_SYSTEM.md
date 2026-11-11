@@ -296,7 +296,7 @@ Pantalla de acceso sin sesión (`view: 'auth'` y `'reset'`). Tiene **su propio s
 - **Cierre y acceso** (`.lp-final`): titular y etiqueta a la izquierda; tarjeta de acceso a la derecha sobre la foto. En recuperar contraseña y nueva contraseña (`.lp-final-solo`) solo se ve la tarjeta, centrada. **La lógica del acceso no cambia**: mismos `onClick`, `value`/`onChange` y modos que antes.
 - **Campos** (`.lp-field`): 50/56 px, radio 14, borde `#8E8A99` (3,4:1, WCAG 1.4.11) y texto de ejemplo `#6E6C7A` (5,1:1: es la única etiqueta visible); foco con borde morado y halo `--lp-primary-light`.
 - **Asientos vacíos**: borde punteado y figura `#7F72C8` (≥3:1).
-- **Pie** (`.lp-foot`): `#1F1943`, el morado del CTA (mismo tono, 248°) muy oscuro y poco saturado para mantener la lógica de color sin que parezca eléctrico; texto blanco al 68 % (8,1:1), columnas Navegació / Compte / Legal (los avisos legales siguen siendo los `.pj-legal-overlay` de siempre).
+- **Pie** (`.lp-foot`): `#241C5B`, el morado del CTA (`#5A45E3`) oscurecido al 40 %: mismo tono y carácter, sin parecer eléctrico; texto blanco al 68 % (7,6:1), columnas Navegació / Compte / Legal (los avisos legales siguen siendo los `.pj-legal-overlay` de siempre).
 
 **Iconos y etiquetas con brillo** (ventajas del hero, confianza, etiqueta del hero, etiqueta del cierre y flecha de la calculadora): fondo lila muy ligero (`rgba(120,95,247,0.07)`), línea fina lila (`0.32`) y un brillo suave alrededor (`0 0 0 3px` al 5 % + sombra difusa lila). Sin fondos lila opacos: la propuesta gana luz.
 
