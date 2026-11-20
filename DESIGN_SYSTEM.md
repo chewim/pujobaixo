@@ -264,6 +264,8 @@ Fija a la izquierda, ancho `248px`, fondo blanco, `border-right:1px solid #ECEDF
 
 Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padding:8px 16px`. Usado para la etiqueta de ruta en "Els meus reserves".
 
+**Chips de preferencias de viaje (`.pj-trip-int`, solo lectura)**: etiquetas neutras, no botones. Radio 999, `padding:4px 10px` (28px de alto, por debajo del objetivo táctil de 44 para no leerse como acción), 13px/600 en `#6B6F7B` (son metadatos), sin borde ni color de marca, `cursor:default`. El relleno contrasta con su contenedor: blanco sobre la caja gris de la tarjeta de viaje; `#F3F4F8` (`.pj-trip-int--on-white`) sobre la card blanca del perfil público. Gap 6px. Descartados: chip blanco 11.5px con borde (parecía botón secundario) y chip tonal `#EEEBFF`/`#5B4CFB` (competía con el CTA y se leía como estado seleccionado).
+
 ### Landing (redisseny 11 nov. 2026)
 
 Pantalla de acceso sin sesión (`view: 'auth'` y `'reset'`). Tiene **su propio sistema** (tokens `--lp-*`, clases `lp-*`) para no tocar la app: la app sigue con `#5B4CFB` y Plus Jakarta Sans (salto visual aceptado de momento, ver `DECISIONS.md`). El porqué de cada elección está en `DECISIONS.md`; aquí, cómo es hoy.
