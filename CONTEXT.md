@@ -65,7 +65,7 @@ Persones del Berguedà que es desplacen a Barcelona (o a l'inrevés) de manera h
 
 1. **Cap canvi sense la restricció identificada primer.** Vegeu `ROADMAP.md`.
 2. Canvis acotats: `str_replace`, mai reescriure el fitxer sencer.
-3. Validar sempre abans d'entregar: `node --check` sobre el JS inline, balanç de `<sc-if>`/`<sc-for>`, prova visual amb Puppeteer headless a 390px (mòbil primer).
+3. Validar sempre abans d'entregar: `node scripts/check.mjs` (sintaxi, 404.html, CSS i deute de disseny; corre sol al pre-commit amb `git config core.hooksPath .githooks`) i prova visual amb Puppeteer headless a 390px (mòbil primer). Colors, radis i mides de lletra surten dels tokens `--pj-*` de l':root (vegeu DESIGN_SYSTEM.md §0).
 4. SQL sempre abans que el frontend que en depèn, mai a l'inrevés.
 5. Cada decisió de disseny important es documenta amb el "per què", no només el "què" — perquè la propera sessió no la torni a proposar ni la reverteixi sense saber que ja es va provar.
 6. Prioritzar: la pregunta no és "és útil?", és "ataca la restricció d'avui?".

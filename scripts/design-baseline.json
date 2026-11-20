@@ -1,0 +1,39 @@
+{
+  "colorsFueraDePaleta": {
+    "#EDEEF3": 3,
+    "#F6F7FA": 1,
+    "#D9DBE3": 1,
+    "#E2DDFF": 1,
+    "#D7D0FF": 1,
+    "#8B7FE6": 1,
+    "#000000": 8,
+    "#7F72C8": 2,
+    "#8E8A99": 1,
+    "#6E6C7A": 2,
+    "#241C5B": 1,
+    "#4B4E58": 5
+  },
+  "fontSizesFueraDeEscala": {
+    "30px": 1,
+    "34px": 1,
+    "22px": 1
+  },
+  "radiosFueraDeEscala": {
+    "7px": 1
+  },
+  "espaciadoFueraDeRejilla": {
+    "12px": 31,
+    "14px": 8,
+    "20px": 13,
+    "28px": 5,
+    "6px": 6,
+    "3px": 2,
+    "5px": 2,
+    "10px": 8,
+    "18px": 4,
+    "7px": 1,
+    "36px": 2,
+    "140px": 1,
+    "44px": 1
+  }
+}

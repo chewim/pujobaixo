@@ -1,0 +1,8 @@
+#!/bin/sh
+# Activa'l un cop per clon: git config core.hooksPath .githooks
+if ! command -v node >/dev/null 2>&1; then
+  echo "pre-commit: node no està instal·lat; s'omet scripts/check.mjs" >&2
+  exit 0
+fi
+node scripts/check.mjs --fix || exit 1
+git add 404.html

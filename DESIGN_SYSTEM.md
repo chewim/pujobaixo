@@ -7,6 +7,29 @@ Extraída directamente del código (`index.html`). No es un sistema inventado de
 
 ---
 
+## 0. Tokens y verificación
+
+**Los tokens viven en código**, en el bloque `:root` al principio del `<style>` de `index.html`, y son la fuente de verdad. Este documento explica cuándo usar cada uno; si un valor de aquí no coincide con el `:root`, manda el `:root`.
+
+- **Color** (`--pj-primary`, `--pj-primary-hover`, `--pj-primary-active`, `--pj-primary-tint`, `--pj-focus`, `--pj-text`, `--pj-text-2`, `--pj-text-meta`, `--pj-text-placeholder`, `--pj-text-disabled`, `--pj-border`, `--pj-bg`, `--pj-white`, `--pj-error*`, `--pj-success*`, `--pj-whatsapp*`): la paleta de las tablas de abajo, con nombre.
+- **Radio** (`--pj-radius-xs` 10 · `-sm` 12 · `-control` 14 · `-tile` 16 · `-card` 24 · `-hero` 28 · `-pill` 999).
+- **Tipografía** (7 tamaños, solo app; la landing tiene su escala editorial propia): `--pj-fs-caption` 11 · `-meta` 13 · `-control` 14 · `-body` 15 · `-price` 17 · `-route` 19 · `-title` 24. Detalle de uso en §2. Excepción: las iniciales de avatar escalan con su círculo (22/30/34) y quedan fuera de la escala.
+- **Espaciado**: regla del 8 (§3), sin tokens; la comprueba el script.
+
+**Cómo usarlos:** en CSS y en `style="..."` del markup, `var(--pj-*)`. Los atributos SVG (`fill="..."`, `stroke="..."`) no aceptan `var()`: ahí va el hex literal del token o `currentColor`. Colores, radios y tamaños de la app ya están migrados (nov. 2026); quedan estilos generados desde JS, que se migran cuando se toca cada pantalla.
+
+**Verificación (`node scripts/check.mjs`)**, que corre sola en cada commit con el hook `.githooks/pre-commit` (activarlo una vez por clon: `git config core.hooksPath .githooks`):
+
+1. `404.html` idéntico a `index.html` (con `--fix`, lo copia; el hook lo hace solo).
+2. Comentarios `/* */` y llaves equilibrados en el CSS.
+3. `<sc-if>`/`<sc-for>` equilibrados.
+4. JS inline pasa `node --check`.
+5. **Deuda de diseño con trinquete** (las ilustraciones isométricas de la landing, `svg.lp-iso`, quedan fuera: son arte, no interfaz): colores fuera de la paleta de tokens, `font-size` fuera de la escala, radios fuera de escala y espaciado fuera de la regla del 8. La deuda actual está en `scripts/design-baseline.json` y **no puede crecer**: un valor nuevo fuera del sistema hace fallar el commit. Si es una decisión deliberada, se añade como token y se documenta aquí. Cuando la deuda baja, `node scripts/check.mjs --update-baseline` fija la mejora.
+
+**Si falla, se corrige el sistema, no la pantalla**: si una pantalla necesita un valor que no existe, primero se decide si debe existir (token + documentación) y después se usa.
+
+---
+
 ## 1. Fundamentos visuales
 
 ### Paleta principal
@@ -60,20 +83,19 @@ De más a menos peso visual, en cualquier pantalla:
 - **Pesos usados**: solo tres — `600` (semibold, texto secundario/tabs inactivos), `700` (bold, botones y labels), `800` (extra-bold, títulos, precios, nombres, CTAs principales). Nunca 400/500/900.
 - **`letter-spacing:-0.02em`** solo en títulos grandes (24px+) — le da el aire "tight" a los headings.
 
-### Escala tipográfica observada
+### Escala tipográfica (decidida 20 nov. 2026)
 
-| Tamaño | Peso | Uso |
-|---|---|---|
-| 26px / 800 | Título hero (pantalla de login) |
-| 24px / 800 | Título de pantalla (h1: "Propers viatges", "El meu perfil"...) |
-| 22px / 800 | Título de confirmación ("Compte verificat!") |
-| 19px / 800 | Ruta origen→destino en las cards (el dato más importante de una card) |
-| 17px / 800 | Precio en las cards |
-| 15px / 700 | Labels de formulario (Ruta, Tipus de publicació...) |
-| 15px / 600–700 | Texto de input, nombre de conductor |
-| 14–14.5px / 600–700 | Botones secundarios, tabs |
-| 13–13.5px / 600–700 | Metadatos, texto secundario |
-| 11–12.5px / 600 | Labels de icono en nav (bottom nav), contadores pequeños |
+Siete tamaños. Antes había doce (11, 12.5, 13, 13.5, 14, 14.5, 15, 17, 18, 19, 22, 24): los medios puntos no creaban jerarquía perceptible y en una misma tarjeta convivían 13 y 13.5 para el mismo tipo de dato.
+
+| Token | Tamaño | Uso | Absorbió |
+|---|---|---|---|
+| `--pj-fs-caption` | 11 | Labels de la bottom nav, días del calendario, contadores | 10.5 |
+| `--pj-fs-meta` | 13 | Metadatos (fecha, hora, plazas, rol), subtítulos, chips, notas, ayudas y errores | 12, 12.5, 13.5 |
+| `--pj-fs-control` | 14 | Botones, tabs, segmentados, sidebar | 14.5 |
+| `--pj-fs-body` | 15 | Labels de formulario, inputs, nombres, h2 de sección | — |
+| `--pj-fs-price` | 17 | Precio en tarjeta, títulos de bloque (reportar, bloquear, legal) | 18 |
+| `--pj-fs-route` | 19 | Ruta origen → destino, logo | — |
+| `--pj-fs-title` | 24 | h1 de pantalla, incluidas las confirmaciones | 22 |
 
 **Jerarquía título/subtítulo/body/caption/label/botón**, en la práctica del código:
 - **Título (h1)**: 24px/800, `margin:0 0 24px`.
@@ -264,7 +286,7 @@ Fija a la izquierda, ancho `248px`, fondo blanco, `border-right:1px solid #ECEDF
 
 Patrón pill: `border-radius:999px`, fondo `#EEEBFF`, texto `#5B4CFB`/800, `padding:8px 16px`. Usado para la etiqueta de ruta en "Els meus reserves".
 
-**Chips de preferencias de viaje (`.pj-trip-int`, solo lectura)**: etiquetas neutras, no botones. Radio 999, `padding:4px 10px` (28px de alto, por debajo del objetivo táctil de 44 para no leerse como acción), 13px/600 en `#6B6F7B` (son metadatos), sin borde ni color de marca, `cursor:default`. El relleno contrasta con su contenedor: blanco sobre la caja gris de la tarjeta de viaje; `#F3F4F8` (`.pj-trip-int--on-white`) sobre la card blanca del perfil público. Gap 6px. Descartados: chip blanco 11.5px con borde (parecía botón secundario) y chip tonal `#EEEBFF`/`#5B4CFB` (competía con el CTA y se leía como estado seleccionado).
+**Chips de preferencias de viaje (`.pj-trip-int`, solo lectura)**: etiquetas neutras, no botones. Radio `--pj-radius-pill`, `padding:4px 8px` (28px de alto, por debajo del objetivo táctil de 44 para no leerse como acción), 13px/600 en `#6B6F7B` (son metadatos), sin borde ni color de marca, `cursor:default`. El relleno contrasta con su contenedor: blanco sobre la caja gris de la tarjeta de viaje; `#F3F4F8` (`.pj-trip-int--on-white`) sobre la card blanca del perfil público. Gap 8px. Descartados: chip blanco 11.5px con borde (parecía botón secundario) y chip tonal `#EEEBFF`/`#5B4CFB` (competía con el CTA y se leía como estado seleccionado).
 
 ### Landing (redisseny 11 nov. 2026)
 
